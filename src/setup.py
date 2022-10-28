@@ -13,7 +13,7 @@ URL = "https://github.com/AndreiDrang/python3-captchaai.git"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
