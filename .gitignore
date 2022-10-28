@@ -1,0 +1,20 @@
+# Created by .ignore support plugin (hsz.mobi)
+python_rucaptcha.egg-info/
+\.idea/
+Web-Interface/
+/ico.png
+src/python_rucaptcha/__pycache__/
+build/
+
+\.vscode/
+
+src/examples/callback_examples/__pycache__/
+
+CaptchaTester/callback_examples/__pycache__/
+
+__pycache__/
+
+dist/
+
+env/
+/.coverage
