@@ -15,31 +15,24 @@ Or to [email](python-captcha@pm.me).
 pip install python3-captchaai
 ```
 
-
 ### Source
 ```bash
-git clone https://github.com/AndreiDrang/python-rucaptcha.git
-cd python-rucaptcha
+git clone https://github.com/AndreiDrang/python3-captchaai.git
+cd python3-captchaai
 python setup.py install
 ```
+
 ### Changelog
 
-v.4.0 - Переработка классов и методов. Добавление `TikTok` captcha. Добавление наследований и сериализаторов. `Callback-сервер` - deprecated.
-
-v.4.0 - Reworking of classes and methods. Adding `TikTok` captcha. Adding inheritances and serializers. `Callback-server` - deprecated.
-
-v.4.2 - Добавлена [Yandex Smart Captcha](https://rucaptcha.com/api-rucaptcha#yandex).
-
-v.4.2 - Added [Yandex Smart Captcha](https://rucaptcha.com/api-rucaptcha#yandex).
+v.0.0.1 - First release with basic methods and logic.
 
 ***
 
-## [All examples. Все примеры работы с бибилиотекой](src/examples)
+### [All examples of working with the library](src/examples)
 
 ***
-Для тестирования различных типов капчи предоставляется [специальный сайт](https://pythoncaptcha.xyz/), на котором собраны все имеющиеся типы капчи, с удобной системой тестирования ваших скриптов.
 
-To test various types of captcha, a [special site](https://pythoncaptcha.xyz/) is provided, which contains all available types of captcha, with a convenient system for testing your scripts.
+For testing different types of captchas, we provide [special site](https://pythoncaptcha.xyz/), which contains all available types of captchas, with a convenient system for testing your scripts.
 
 ***
 ### Errors description. Описания ошибок

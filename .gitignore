@@ -2,7 +2,7 @@
 python_rucaptcha.egg-info/
 \.idea/
 Web-Interface/
-/ico.png
+/files/ico.png
 src/python_rucaptcha/__pycache__/
 build/
 
