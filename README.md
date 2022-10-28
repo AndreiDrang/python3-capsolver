@@ -1,5 +1,7 @@
 # python3-captchaai
 
+[![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
+
 
 The library is intended for software developers and serves to facilitate work with the CaptchaAI service API.
 
