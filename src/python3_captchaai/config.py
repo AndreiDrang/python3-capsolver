@@ -3,3 +3,11 @@ from requests.adapters import Retry
 
 RETRIES = Retry(total=5, backoff_factor=0.5)
 ASYNC_RETRIES = AsyncRetrying(wait=wait_fixed(5), stop=stop_after_attempt(5), reraise=True)
+
+REQUEST_URL = "https://api.captchaai.io"
+
+
+# Connection retry generator
+def connect_generator():
+    for i in range(5):
+        yield i
