@@ -25,5 +25,5 @@ upload:
 	cd src/ && python setup.py upload
 
 tests:
-	coverage run --rcfile=.coveragerc -m pytest -s src -vv --disable-warnings
-	coverage report --precision=3 --sort=cover -m
+	cd src/ && coverage run --rcfile=.coveragerc -m pytest -s tests -vv --disable-warnings
+	cd src/ && coverage report --precision=3 --sort=cover -m
