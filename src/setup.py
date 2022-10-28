@@ -9,8 +9,8 @@ from pkg_resources import parse_requirements
 # Package meta-data.
 NAME = "python3-captchaai"
 DESCRIPTION = "Python 3.6+ CaptchaAI library with AIO module."
-URL = "https://github.com/AndreiDrang/python-rucaptcha"
-EMAIL = "drang.andray@gmail.com"
+URL = "https://github.com/AndreiDrang/python3-captchaai.git"
+EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = "0.0.1"
@@ -67,20 +67,19 @@ setup(
     name=NAME,
     version=VERSION,
     author=AUTHOR,
-    packages=["python_rucaptcha"],
+    packages=["python3_captchaai"],
     install_requires=REQUIRED,
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
     author_email=EMAIL,
-    package_dir={"python-rucaptcha": "python_rucaptcha"},
+    package_dir={"python3-captchaai": "python3_captchaai"},
     include_package_data=True,
-    py_modules=["python_rucaptcha"],
+    py_modules=["python3_captchaai"],
     url=URL,
-    license="AGPL-3.0",
+    license="MIT",
     keywords="""
                 captcha 
-				rucaptcha
 				2captcha
 				recaptcha
 				geetest
@@ -96,15 +95,15 @@ setup(
 				security
 				tiktok
 				python-library
-				python-rucaptcha
-				rucaptcha-client
+				captcha.ai
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
