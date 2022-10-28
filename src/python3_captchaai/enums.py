@@ -14,3 +14,68 @@ class MyEnum(Enum):
     @classmethod
     def list_names(cls) -> List[str]:
         return list(map(lambda c: c.name, cls))
+
+
+class SaveFormatsEnm(MyEnum):
+    TEMP = "temp"
+    CONST = "const"
+
+
+class GeetestEnm(MyEnum):
+    GEETEST = "geetest"
+    GEETEST_V4 = "geetest_v4"
+
+
+class ImageCaptchaEnm(MyEnum):
+    BASE64 = "base64"
+
+
+class CapyPuzzleEnm(MyEnum):
+    CAPY = "capy"
+
+
+class FunCaptchaEnm(MyEnum):
+    FUNCAPTCHA = "funcaptcha"
+
+
+class ReCaptchaEnm(MyEnum):
+    USER_RECAPTCHA = "userrecaptcha"
+
+
+class LeminCroppedCaptchaEnm(MyEnum):
+    LEMIN = "lemin"
+
+
+class HCaptchaEnm(MyEnum):
+    HCAPTCHA = "hcaptcha"
+
+
+class KeyCaptchaEnm(MyEnum):
+    KEYCAPTCHA = "keycaptcha"
+
+
+class RotateCaptchaEnm(MyEnum):
+    ROTATECAPTCHA = "rotatecaptcha"
+
+
+class TikTokCaptchaEnm(MyEnum):
+    TIKTOK = "tiktok"
+
+
+class CaptchaControlEnm(MyEnum):
+    # https://rucaptcha.com/api-rucaptcha#manage_pingback
+    ADD_PINGBACK = "add_pingback"
+    GET_PINGBACK = "get_pingback"
+    DEL_PINGBACK = "del_pingback"
+
+    # https://rucaptcha.com/api-rucaptcha#additional
+    GET_BALANCE = "getBalance"
+    GET2 = "get2"
+
+    # https://rucaptcha.com/api-rucaptcha#complain
+    REPORTGOOD = "reportgood"
+    REPORTBAD = "reportbad"
+
+
+class YandexSmartCaptchaEnm(MyEnum):
+    YANDEX = "yandex"
