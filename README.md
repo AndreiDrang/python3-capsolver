@@ -35,9 +35,11 @@ v.0.0.1 - First release with basic methods and logic.
 For testing different types of captchas, we provide [special site](https://pythoncaptcha.xyz/), which contains all available types of captchas, with a convenient system for testing your scripts.
 
 ***
-### Errors description. Описания ошибок
+### Errors description
 
 1. https://rucaptcha.com/api-rucaptcha#in_errors
-1. https://rucaptcha.docs.apiary.io/#reference/2
+2. https://rucaptcha.docs.apiary.io/#reference/2
 
-![img.png](files/img.png)
+### Get API Key to work with the library
+1. On the page - https://dashboard.captchaai.io/overview/user-center
+2. Find it: ![img.png](files/img.png)
