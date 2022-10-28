@@ -1,19 +1,14 @@
 import time
 import asyncio
+import logging
+from urllib import parse
 
 import aiohttp
 import requests
 from requests.adapters import HTTPAdapter
 
-from .config import RETRIES, REQUEST_URL, ASYNC_RETRIES, connect_generator
-from .serializer import (
-    ResponseSer,
-    GetRequestSer,
-    PostRequestSer,
-    CaptchaOptionsSer,
-    ServiceGetResponseSer,
-    ServicePostResponseSer,
-)
+from python3_captchaai.core.config import RETRIES, REQUEST_URL, ASYNC_RETRIES, VALID_STATUS_CODES
+from python3_captchaai.core.serializer import ResponseSer, PostRequestSer, CaptchaOptionsSer
 
 
 class BaseCaptcha:
@@ -35,13 +30,10 @@ class BaseCaptcha:
         """
         # assign args to validator
         self.__params = CaptchaOptionsSer(**locals())
+        self.__request_url = request_url
 
         # prepare POST payload
-        self.__post_payload = PostRequestSer(key=self.__params.api_key).dict(by_alias=True)
-        # prepare GET payload
-        self.__get_payload = GetRequestSer(key=self.__params.api_key).dict(
-            by_alias=True, exclude_none=True
-        )
+        self.__post_payload = PostRequestSer(clientKey=self.__params.api_key).dict(by_alias=True)
         # prepare result payload
         self.__result = ResponseSer()
 
@@ -61,7 +53,7 @@ class BaseCaptcha:
         :param kwargs: additional params for Requests library
         """
         try:
-            response = ServicePostResponseSer(
+            response = ResponseSer(
                 **self.__session.post(self.__params.url_request, data=self.__post_payload, **kwargs).json()
             )
             # check response status
@@ -137,21 +129,21 @@ class BaseCaptcha:
         return await self._get_async_result(
             get_payload=self.__get_payload,
             sleep_time=self.__params.sleep_time,
-            url_response=self.__params.url_response,
+            url_response=self.__request_url,
             result=self.__result,
         )
 
-    async def __aio_make_post_request(self) -> ServicePostResponseSer:
+    async def __aio_make_post_request(self) -> ResponseSer:
         async with aiohttp.ClientSession() as session:
             async for attempt in ASYNC_RETRIES:
                 with attempt:
                     async with session.post(
-                        self.__params.url_request, data=self.__post_payload, raise_for_status=True
+                        self.__request_url, data=self.__post_payload, raise_for_status=True
                     ) as resp:
                         response_json = await resp.json()
-                        return ServicePostResponseSer(**response_json)
+                        return ResponseSer(**response_json)
 
-    def _result_processing(self, captcha_response: ServiceGetResponseSer, result: ResponseSer) -> dict:
+    def _result_processing(self, captcha_response: ResponseSer, result: ResponseSer) -> dict:
         """
         Function processing service response status values
         """
@@ -178,61 +170,6 @@ class BaseCaptcha:
 
         return result.dict()
 
-    def _get_sync_result(self, get_payload: dict, sleep_time: int, url_response: str, result: ResponseSer) -> dict:
-        """
-        Function periodically send the SYNC request to service and wait for captcha solving result
-        """
-        # generator for repeated attempts to connect to the server
-        connect_gen = connect_generator()
-        while True:
-            try:
-                # send a request for the result of solving the captcha
-                captcha_response = ServiceGetResponseSer(**requests.get(url_response, params=get_payload).json())
-                # if the captcha has not been resolved yet, wait
-                if captcha_response.request == "CAPCHA_NOT_READY":
-                    time.sleep(sleep_time)
-                else:
-                    return self._result_processing(captcha_response, result)
-
-            except Exception as error:
-                if next(connect_gen) < 4:
-                    time.sleep(2)
-                else:
-                    result.error = True
-                    result.errorBody = error
-                    return result.dict()
-
-    async def _get_async_result(
-        self, get_payload: dict, sleep_time: int, url_response: str, result: ResponseSer
-    ) -> dict:
-        """
-        Function periodically send the ASYNC request to service and wait for captcha solving result
-        """
-        # generator for repeated attempts to connect to the server
-        connect_gen = connect_generator()
-        async with aiohttp.ClientSession() as session:
-            while True:
-                try:
-                    # send a request for the result of solving the captcha
-                    async with session.get(url_response, params=get_payload, raise_for_status=True) as resp:
-                        captcha_response = await resp.json()
-                        captcha_response = ServiceGetResponseSer(**captcha_response)
-
-                        # if the captcha has not been resolved yet, wait
-                        if captcha_response.request == "CAPCHA_NOT_READY":
-                            await asyncio.sleep(sleep_time)
-
-                        else:
-                            return self._result_processing(captcha_response, result)
-
-                except Exception as error:
-                    if next(connect_gen) < 4:
-                        await asyncio.sleep(2)
-                    else:
-                        result.error = True
-                        result.errorBody = error
-                        return result.dict()
-
     def __enter__(self):
         return self
 
@@ -248,3 +185,39 @@ class BaseCaptcha:
         if exc_type:
             return False
         return True
+
+    def _get_sync_result(self, url_postfix: str) -> ResponseSer:
+        """
+        Function send SYNC request to service and wait for result
+        """
+        try:
+            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload)
+            if resp.status_code in VALID_STATUS_CODES:
+                return ResponseSer(**resp.json())
+            elif resp.status_code == 401:
+                raise ValueError("Authentication failed, indicating that the API key is not correct")
+            else:
+                raise ValueError(resp.raise_for_status())
+        except Exception as error:
+            logging.exception(error)
+            raise
+
+    async def _get_async_result(self, url_postfix: str) -> ResponseSer:
+        """
+        Function send the ASYNC request to service and wait for result
+        """
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.post(
+                    parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload
+                ) as resp:
+                    if resp.status in VALID_STATUS_CODES:
+                        resp_json = await resp.json()
+                        return ResponseSer(**resp_json)
+                    elif resp.status == 401:
+                        raise ValueError("Authentication failed, indicating that the API key is not correct")
+                    else:
+                        raise ValueError(resp.reason)
+            except Exception as error:
+                logging.exception(error)
+                raise

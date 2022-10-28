@@ -1,4 +1,5 @@
 from enum import Enum
+from types import DynamicClassAttribute
 from typing import List
 
 
@@ -14,6 +15,16 @@ class MyEnum(Enum):
     @classmethod
     def list_names(cls) -> List[str]:
         return list(map(lambda c: c.name, cls))
+
+    @DynamicClassAttribute
+    def name(self) -> str:
+        """The name of the Enum member."""
+        return self._name_
+
+    @DynamicClassAttribute
+    def value(self) -> str:
+        """The name of the Enum member."""
+        return self._value_
 
 
 class SaveFormatsEnm(MyEnum):
@@ -63,18 +74,8 @@ class TikTokCaptchaEnm(MyEnum):
 
 
 class CaptchaControlEnm(MyEnum):
-    # https://rucaptcha.com/api-rucaptcha#manage_pingback
-    ADD_PINGBACK = "add_pingback"
-    GET_PINGBACK = "get_pingback"
-    DEL_PINGBACK = "del_pingback"
-
-    # https://rucaptcha.com/api-rucaptcha#additional
+    # https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
     GET_BALANCE = "getBalance"
-    GET2 = "get2"
-
-    # https://rucaptcha.com/api-rucaptcha#complain
-    REPORTGOOD = "reportgood"
-    REPORTBAD = "reportbad"
 
 
 class YandexSmartCaptchaEnm(MyEnum):

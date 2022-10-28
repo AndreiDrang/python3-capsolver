@@ -12,8 +12,8 @@ def delay():
 
 
 @pytest.mark.usefixtures("delay")
-class CoreTest:
-    RUCAPTCHA_KEY = os.getenv("API_KEY", "ad9053f3182ca81755768608fa758570")
+class BaseTest:
+    API_KEY = os.getenv("API_KEY", "ad9053f3182ca81755768608fa758570")
 
     @staticmethod
     def get_random_string(length: int) -> str:

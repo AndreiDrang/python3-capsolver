@@ -1,13 +1,13 @@
-from .base import BaseCaptcha
-from .enums import CaptchaControlEnm
-from .serializer import ResponseSer
+from python3_captchaai.core.base import BaseCaptcha
+from python3_captchaai.core.enums import CaptchaControlEnm
+from python3_captchaai.core.serializer import ResponseSer
 
 
-class BaseCaptchaControl(BaseCaptcha):
+class BaseControl(BaseCaptcha):
     pass
 
 
-class CaptchaControl(BaseCaptchaControl):
+class Control(BaseControl):
     """
     The class is used to work with CaptchaAI control methods.
 
@@ -20,7 +20,7 @@ class CaptchaControl(BaseCaptchaControl):
         Synchronous method to view the balance
 
         Examples:
-            >>> CaptchaControl(api_key="CAI-12345").get_balance()
+            >>> Control(api_key="CAI-12345").get_balance()
             ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
 
         Returns:
@@ -38,7 +38,7 @@ class CaptchaControl(BaseCaptchaControl):
         Asynchronous method to view the balance
 
         Examples:
-            >>> await CaptchaControl(api_key="CAI-12345").aio_get_balance()
+            >>> await Control(api_key="CAI-12345").aio_get_balance()
             ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
 
         Returns:
