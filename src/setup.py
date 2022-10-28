@@ -7,13 +7,13 @@ from setuptools import Command, setup
 from pkg_resources import parse_requirements
 
 # Package meta-data.
-NAME = "python-rucaptcha"
-DESCRIPTION = "Python 3.6+ RuCaptcha library with AIO module."
+NAME = "python3-captchaai"
+DESCRIPTION = "Python 3.6+ CaptchaAI library with AIO module."
 URL = "https://github.com/AndreiDrang/python-rucaptcha"
 EMAIL = "drang.andray@gmail.com"
-AUTHOR = "AndreiDrang, redV0ID"
+AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "4.2"
+VERSION = "0.0.1"
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
