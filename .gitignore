@@ -18,3 +18,4 @@ dist/
 
 env/
 /.coverage
+/src/python3_captchaai.egg-info/

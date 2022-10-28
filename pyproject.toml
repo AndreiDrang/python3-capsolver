@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 120
-target-version = ['py36']
+target-version = ['py310']
 exclude = '''
 /(
     \.git
@@ -17,7 +17,7 @@ exclude = '''
 
 [tool.isort]
 profile = "black"
-skip_glob = 'examples/**'
+skip_glob = 'src/examples/**'
 line_length = 120
 length_sort = true
 

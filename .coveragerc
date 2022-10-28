@@ -4,7 +4,7 @@ omit =
         */src/tests/*
 
 include =
-        */src/python_rucaptcha/*
+        */src/python3_captchaai/*
 
 
 [report]
@@ -13,4 +13,4 @@ omit =
         */src/tests/*
 
 include =
-        */src/python_rucaptcha/*
+        */src/python3_captchaai/*
