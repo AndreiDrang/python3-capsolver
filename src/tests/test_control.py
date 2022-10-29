@@ -2,7 +2,7 @@ import pytest
 
 from tests.conftest import BaseTest
 from python3_captchaai.control import Control
-from python3_captchaai.core.serializer import ResponseSer
+from python3_captchaai.core.serializer import ControlResponseSer
 
 
 class TestControl(BaseTest):
@@ -18,11 +18,11 @@ class TestControl(BaseTest):
 
     def test_get_balance(self):
         resp = Control(api_key=self.API_KEY).get_balance()
-        assert isinstance(resp, ResponseSer)
+        assert isinstance(resp, ControlResponseSer)
 
     async def test_aio_get_balance(self):
         resp = await Control(api_key=self.API_KEY).aio_get_balance()
-        assert isinstance(resp, ResponseSer)
+        assert isinstance(resp, ControlResponseSer)
 
     """
     Failed tests

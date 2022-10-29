@@ -1,6 +1,6 @@
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enums import CaptchaControlEnm
-from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
+from python3_captchaai.core.serializer import ControlResponseSer
 
 
 class BaseControl(BaseCaptcha):
@@ -29,9 +29,8 @@ class Control(BaseControl):
         Notes:
             https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
         """
-        self._prepare_create_task_payload(serializer=PostRequestSer)
         return ControlResponseSer(
-            **self._create_sync_task(
+            **self._get_sync_result(
                 url_postfix=CaptchaControlEnm.GET_BALANCE.value,
             )
         )
@@ -50,9 +49,8 @@ class Control(BaseControl):
         Notes:
             https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
         """
-        self._prepare_create_task_payload(serializer=PostRequestSer)
         return ControlResponseSer(
-            **await self._create_async_task(
+            **await self._get_async_result(
                 url_postfix=CaptchaControlEnm.GET_BALANCE.value,
             )
         )
