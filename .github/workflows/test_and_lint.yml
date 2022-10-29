@@ -1,4 +1,4 @@
-name: Library lint and test
+name: Lint and tests
 
 on:
   push:
