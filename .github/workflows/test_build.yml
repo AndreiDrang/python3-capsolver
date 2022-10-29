@@ -23,4 +23,5 @@ jobs:
 
     - name: Local install checking
       run: |
+        pip install build
         cd src/ && python -m build
