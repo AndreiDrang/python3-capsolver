@@ -1,5 +1,5 @@
 install:
-	cd src/ && pip install setup.py
+	cd src/ && pip install -e .
 
 refactor:
 	autoflake --in-place \
