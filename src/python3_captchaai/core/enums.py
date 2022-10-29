@@ -27,12 +27,20 @@ class MyEnum(Enum):
         return self._value_
 
 
-class CaptchaControlEnm(MyEnum):
-    # https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
+class EndpointPostfixEnm(str, MyEnum):
+    """
+    Enum stored URL postfixes for API endpoints
+
+    Notes:
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042/API+Methods
+    """
+
     GET_BALANCE = "getBalance"
+    CREATE_TASK = "createTask"
+    GET_TASK_RESULT = "getTaskResult"
 
 
-class CaptchaTypeEnm(MyEnum):
+class CaptchaTypeEnm(str, MyEnum):
     ImageToTextTask = "ImageToTextTask"
     # Recaptcha
     ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
@@ -56,3 +64,17 @@ class CaptchaTypeEnm(MyEnum):
     DatadomeSliderTask = "DatadomeSliderTask"
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
+
+
+class ResponseStatusEnm(str, MyEnum):
+    """
+    Enum store results `status` field variants
+
+    Notes:
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124/getTaskResult+request+task+result
+    """
+
+    Idle = "idle"  # Task created
+    Processing = "processing"  # Task is not ready yet
+    Ready = "ready"  # Task completed, solution object can be found in solution property
+    Failed = "failed"  # Task failed, check the errorDescription to know why failed.

@@ -1,13 +1,21 @@
+import time
 import logging
-from typing import Any, Dict, Type
+from typing import Any, Dict, Type, Union
 from urllib import parse
 
 import aiohttp
 import requests
+from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
+from src.python3_captchaai.core.enums import ResponseStatusEnm, EndpointPostfixEnm
 from src.python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES
-from src.python3_captchaai.core.serializer import PostRequestSer, CaptchaOptionsSer
+from src.python3_captchaai.core.serializer import (
+    CaptchaOptionsSer,
+    CaptchaResponseSer,
+    CreateTaskResponseSer,
+    RequestGetTaskResultSer,
+)
 
 
 class BaseCaptcha:
@@ -36,9 +44,7 @@ class BaseCaptcha:
         self.__session.mount("http://", HTTPAdapter(max_retries=RETRIES))
         self.__session.mount("https://", HTTPAdapter(max_retries=RETRIES))
 
-    def _prepare_create_task_payload(
-        self, serializer: Type[PostRequestSer], create_params: Dict[str, Any] = None
-    ) -> None:
+    def _prepare_create_task_payload(self, serializer: Type[BaseModel], create_params: Dict[str, Any] = None) -> None:
         """
         Method prepare `createTask` payload
 
@@ -70,7 +76,16 @@ class BaseCaptcha:
             return False
         return True
 
-    def _create_sync_task(self, url_postfix: str) -> dict:
+    def _processing_captcha(
+        self, serializer: Type[BaseModel], **create_params
+    ) -> Union[CaptchaResponseSer, CreateTaskResponseSer]:
+        self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
+        self.created_task_data = CreateTaskResponseSer(**self._create_task())
+        if not self.created_task_data.errorId:
+            return self._get_result()
+        return self.created_task_data
+
+    def _create_task(self, url_postfix: str = EndpointPostfixEnm.CREATE_TASK.value) -> dict:
         """
         Function send SYNC request to service and wait for result
         """
@@ -86,14 +101,21 @@ class BaseCaptcha:
             logging.exception(error)
             raise
 
-    def _get_sync_result(self, url_postfix: str) -> dict:
+    def _get_result(self, url_postfix: str = EndpointPostfixEnm.GET_TASK_RESULT.value) -> CaptchaResponseSer:
         """
         Function send SYNC request to service and wait for result
         """
+        get_result_payload = RequestGetTaskResultSer(clientKey=self.__params.api_key, **self.created_task_data.dict())
         try:
-            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload)
+            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload)
             if resp.status_code in VALID_STATUS_CODES:
-                return resp.json()
+                result_data = CaptchaResponseSer(**resp.json())
+                # if captcha just created or in processing now - wait
+                if result_data.status in (ResponseStatusEnm.Idle, ResponseStatusEnm.Processing):
+                    time.sleep(self.__params.sleep_time)
+                # if captcha ready\failed or have unknown status - return exist data
+                else:
+                    return result_data
             elif resp.status_code == 401:
                 raise ValueError("Authentication failed, indicating that the API key is not correct")
             else:
@@ -102,7 +124,7 @@ class BaseCaptcha:
             logging.exception(error)
             raise
 
-    async def _create_async_task(self, url_postfix: str) -> dict:
+    async def _aio_create_task(self, url_postfix: str) -> dict:
         """
         Function send the ASYNC request to service and wait for result
         """
@@ -121,7 +143,7 @@ class BaseCaptcha:
                 logging.exception(error)
                 raise
 
-    async def _get_async_result(self, url_postfix: str) -> dict:
+    async def _aio_get_result(self, url_postfix: str) -> dict:
         """
         Function send the ASYNC request to service and wait for result
         """

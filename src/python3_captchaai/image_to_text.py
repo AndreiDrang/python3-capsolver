@@ -1,27 +1,27 @@
-from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enums import CaptchaControlEnm
-from python3_captchaai.core.serializer import ControlResponseSer
+from src.python3_captchaai.core.base import BaseCaptcha
+from src.python3_captchaai.core.enums import CaptchaTypeEnm
+from src.python3_captchaai.core.serializer import ImageToTextTask, CaptchaResponseSer
 
 
 class BaseControl(BaseCaptcha):
     pass
 
 
-class Control(BaseControl):
+class ImageToText(BaseControl):
     """
     The class is used to work with CaptchaAI control methods.
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042/API+Methods
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427/ImageToTextTask+beta+solve+image+captcha
     """
 
-    def get_balance(self) -> ControlResponseSer:
+    def captcha_handler(self, body, **additional_params) -> CaptchaResponseSer:
         """
-        Synchronous method to view the balance
+        Synchronous method for captcha solving
 
         Examples:
-            >>> Control(api_key="CAI-12345").get_balance()
-            ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
+            >>> ImageToText(api_key="CAI-12345").captcha_handler()
+            CaptchaResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
 
         Returns:
             ResponseSer model with full server response
@@ -29,28 +29,6 @@ class Control(BaseControl):
         Notes:
             https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
         """
-        return ControlResponseSer(
-            **self._get_sync_result(
-                url_postfix=CaptchaControlEnm.GET_BALANCE.value,
-            )
-        )
-
-    async def aio_get_balance(self) -> ControlResponseSer:
-        """
-        Asynchronous method to view the balance
-
-        Examples:
-            >>> await Control(api_key="CAI-12345").aio_get_balance()
-            ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
-
-        Returns:
-            ResponseSer model with full server response
-
-        Notes:
-            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
-        """
-        return ControlResponseSer(
-            **await self._get_async_result(
-                url_postfix=CaptchaControlEnm.GET_BALANCE.value,
-            )
+        return self._processing_captcha(
+            serializer=ImageToTextTask, type=CaptchaTypeEnm.ImageToTextTask, body=body, **additional_params
         )

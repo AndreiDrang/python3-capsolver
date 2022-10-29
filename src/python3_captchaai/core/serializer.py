@@ -1,8 +1,8 @@
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import Field, BaseModel, conint, constr
 
-from python3_captchaai.core.enums import CaptchaTypeEnm
+from src.python3_captchaai.core.enums import CaptchaTypeEnm, ResponseStatusEnm
 
 """
 HTTP API Request ser
@@ -30,7 +30,7 @@ Captcha types serializers
 """
 
 
-class ImageToTextTaskTask(TaskSer):
+class ImageToTextTask(TaskSer):
     body: str = Field(..., description="Base64 encoded content of the image (no line breaks)")
 
 
@@ -48,6 +48,11 @@ class ResponseSer(BaseModel):
 
 class CreateTaskResponseSer(ResponseSer):
     taskId: Optional[str] = Field(None, description="Task ID for future use in getTaskResult method.")
+
+
+class CaptchaResponseSer(CreateTaskResponseSer):
+    status: ResponseStatusEnm = Field(..., description="Task current status")
+    solution: Dict[str, Any] = Field(None, description="Task result data. Different for each type of task.")
 
 
 class ControlResponseSer(ResponseSer):

@@ -1,5 +1,5 @@
 from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enums import CaptchaControlEnm
+from python3_captchaai.core.enums import EndpointPostfixEnm
 from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
 
 
@@ -31,8 +31,8 @@ class Control(BaseControl):
         """
         self._prepare_create_task_payload(serializer=PostRequestSer)
         return ControlResponseSer(
-            **self._create_sync_task(
-                url_postfix=CaptchaControlEnm.GET_BALANCE.value,
+            **self._create_task(
+                url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
             )
         )
 
@@ -52,7 +52,7 @@ class Control(BaseControl):
         """
         self._prepare_create_task_payload(serializer=PostRequestSer)
         return ControlResponseSer(
-            **await self._create_async_task(
-                url_postfix=CaptchaControlEnm.GET_BALANCE.value,
+            **await self._aio_create_task(
+                url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
             )
         )
