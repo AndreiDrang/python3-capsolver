@@ -1,4 +1,4 @@
-name: Library lint and test
+name: Library installation check
 
 on:
   push:
@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      API_KEY: ${{ secrets.API_KEY }}
     strategy:
       fail-fast: false
       matrix:
@@ -23,16 +21,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
+    - name: Local install checking
       run: |
-        pip install --upgrade pip
-        pip install -r requirements.style.txt
-        pip install -r requirements.test.txt
-        pip install -r src/requirements.txt
-        
-    - name: Lint
+        make install
+
+    - name: PYPI install checking
       run: |
-        make lint
-    - name: Test
-      run: |
-        make tests
+        pip install python3-captchaai
