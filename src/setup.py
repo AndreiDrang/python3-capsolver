@@ -1,7 +1,7 @@
 import io
 import os
 import sys
-from shutil import rmtree
+import logging
 
 from setuptools import Command, setup
 from pkg_resources import parse_requirements
@@ -13,7 +13,7 @@ URL = "https://github.com/AndreiDrang/python3-captchaai.git"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
@@ -35,31 +35,14 @@ class UploadCommand(Command):
     description = "Build and publish the package."
     user_options = []
 
-    @staticmethod
-    def status(s):
-        """Prints things in bold."""
-        print("\033[1m{0}\033[0m".format(s))
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
     def run(self):
-        try:
-            self.status("Removing previous builds…")
-            rmtree(os.path.join(here, "dist"))
-        except OSError:
-            pass
+        logging.info("Building Source and Wheel distribution…")
+        os.system("python -m build")
 
-        self.status("Building Source and Wheel distribution…")
-        os.system("{0} setup.py sdist bdist_wheel".format(sys.executable))
-
-        self.status("Uploading the package to PyPI via Twine…")
+        logging.info("Uploading the package to PyPI via Twine…")
         os.system("twine upload dist/*")
 
-        print("🤖 Uploaded ...")
+        logging.info("🤖 Uploaded ...")
         sys.exit()
 
 
