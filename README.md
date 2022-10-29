@@ -4,6 +4,11 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3431fd3fe71baf7eb9da/maintainability)](https://codeclimate.com/github/AndreiDrang/python3-captchaai/maintainability)
 
+[![Build check](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_build.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_build.yml)
+[![Installation check](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/install.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/install.yml)
+[![Lint and test](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml)
+
+
 The library is intended for software developers and serves to facilitate work with the CaptchaAI service API.
 
 ***
