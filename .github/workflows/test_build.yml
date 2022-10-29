@@ -23,5 +23,5 @@ jobs:
 
     - name: Local install checking
       run: |
-        pip install twine build
-        cd src/ && python -m build
+        pip install twine
+        cd src/ && python setup.py sdist bdist_wheel
