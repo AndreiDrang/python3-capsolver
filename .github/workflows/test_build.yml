@@ -23,5 +23,5 @@ jobs:
 
     - name: Local install checking
       run: |
-        pip install build
+        pip install twine
         cd src/ && python -m build
