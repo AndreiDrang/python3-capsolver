@@ -69,7 +69,6 @@ setup(
     license="MIT",
     keywords="""
                 captcha 
-				2captcha
 				recaptcha
 				geetest
 				hcaptcha
@@ -79,9 +78,6 @@ setup(
 				funcaptcha
 				keycaptcha
 				python3
-				recaptcha
-				captcha
-				security
 				tiktok
 				python-library
 				captcha.ai
