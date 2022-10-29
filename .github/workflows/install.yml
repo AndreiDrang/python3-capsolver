@@ -1,4 +1,4 @@
-name: Library installation check
+name: Installation check
 
 on:
   push:
