@@ -1,4 +1,4 @@
-name: Library build check
+name: Build check
 
 on:
   push:
