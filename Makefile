@@ -1,8 +1,5 @@
 install:
-	python setup.py install
-
-remove:
-	pip uninstall python_rucaptcha -y
+	cd src/ && python setup.py install
 
 refactor:
 	autoflake --in-place \
