@@ -35,9 +35,15 @@ class UploadCommand(Command):
     description = "Build and publish the package."
     user_options = []
 
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
     def run(self):
         logging.info("Building Source and Wheel distribution…")
-        os.system("python -m build")
+        os.system("python setup.py sdist bdist_wheel")
 
         logging.info("Uploading the package to PyPI via Twine…")
         os.system("twine upload dist/*")
@@ -85,9 +91,9 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        "Development Status :: 1 - Planning",
         "License :: OSI Approved :: MIT License",
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+        "Development Status :: 1 - Planning",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
