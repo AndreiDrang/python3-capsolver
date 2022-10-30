@@ -8,7 +8,7 @@ import pytest
 
 @pytest.fixture(scope="function")
 def delay():
-    time.sleep(0.1)
+    time.sleep(1)
 
 
 @pytest.mark.usefixtures("delay")
