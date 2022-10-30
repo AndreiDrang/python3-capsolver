@@ -9,9 +9,9 @@ refactor:
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				--ignore-init-module-imports \
-				python3_captchaai/ && \
-	black python3_captchaai/ && \
-	isort python3_captchaai/
+				python3_captchaai/ tests/ && \
+	black python3_captchaai/ tests/ && \
+	isort python3_captchaai/ tests/
 
 lint:
 	cd src/ && \
