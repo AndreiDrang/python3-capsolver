@@ -2,7 +2,10 @@ import os
 import base64
 import logging
 
-from tests.conftest import BaseTest
+import pytest
+
+from src.tests.conftest import BaseTest
+from python3_captchaai.core.enums import ResponseStatusEnm
 from python3_captchaai.image_to_text import ImageToText
 from python3_captchaai.core.serializer import CaptchaResponseSer
 
@@ -25,13 +28,29 @@ class TestControl(BaseTest):
         assert "aio_captcha_handler" in ImageToText.__dict__.keys()
 
     def test_solve_image(self):
-        resp: CaptchaResponseSer = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)
+        resp = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
+        assert resp.state == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
 
     async def test_aio_solve_image(self):
-        resp: CaptchaResponseSer = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
+        resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
+        assert resp.state == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
 
     """
     Failed tests
     """
+
+    def test_get_balance_api_key_err(self):
+        with pytest.raises(Exception):
+            ImageToText(api_key=self.get_random_string(36)).captcha_handler(body=self.image_body)
+
+    async def test_aio_get_balance_api_key_err(self):
+        with pytest.raises(Exception):
+            await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(body=self.image_body)

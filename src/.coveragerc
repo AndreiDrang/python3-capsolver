@@ -1,7 +1,7 @@
 [run]
 omit =
         *__init__*
-        */src/tests/*
+        */tests/*
 
 include =
         */src/python3_captchaai/*
@@ -10,7 +10,7 @@ include =
 [report]
 omit =
         *__init__*
-        */src/tests/*
+        */tests/*
 
 include =
         */src/python3_captchaai/*

@@ -2,20 +2,22 @@ install:
 	cd src/ && pip install -e .
 
 refactor:
+	cd src/ && \
 	autoflake --in-place \
 				--recursive \
 				--remove-unused-variables \
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				--ignore-init-module-imports \
-				src/
-	black src/
-	isort src/
+				python3_captchaai/ && \
+	black python3_captchaai/ && \
+	isort python3_captchaai/
 
 lint:
-	autoflake --in-place --recursive src/ --check
-	black src/ --check
-	isort src/ --check-only
+	cd src/ && \
+	autoflake --in-place --recursive python3_captchaai/ --check && \
+	black python3_captchaai/ --check && \
+	isort python3_captchaai/ --check-only
 
 upload:
 	pip install twine
