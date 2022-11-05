@@ -19,8 +19,12 @@ class BaseTest:
     def get_random_string(length: int) -> str:
         """
         Method generate random string with set length
-        : param length: Len of generated string
-        : return: Random letter string
+
+        Args:
+            length: Len of generated string
+
+        Returns:
+            Random letter string
         """
         # choose from all lowercase letter
         letters = string.ascii_lowercase
