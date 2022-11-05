@@ -9,9 +9,8 @@ from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
 from python3_captchaai.core.enums import ResponseStatusEnm, EndpointPostfixEnm
-from python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES
+from python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES, attempts_generator
 from python3_captchaai.core.serializer import CaptchaOptionsSer, CaptchaResponseSer, RequestGetTaskResultSer
-from python3_captchaai.core.config import attempts_generator
 
 
 class BaseCaptcha:
@@ -108,9 +107,11 @@ class BaseCaptcha:
         )
         attempts = attempts_generator()
         for attempt in attempts:
-            logging.debug(f'Get result attempt #{attempt}')
+            logging.debug(f"Get result attempt #{attempt}")
             try:
-                resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict())
+                resp = self.__session.post(
+                    parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
+                )
                 if resp.status_code in VALID_STATUS_CODES:
                     result_data = CaptchaResponseSer(**resp.json())
                     if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
