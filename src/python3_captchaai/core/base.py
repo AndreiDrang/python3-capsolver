@@ -89,7 +89,7 @@ class BaseCaptcha:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
         self.created_task_data = CaptchaResponseSer(**self._create_task())
 
-        # if task created and already ready - return result
+        # if task created and ready - return result
         if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
         # if captcha is not ready but task success created - waiting captcha result
