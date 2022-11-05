@@ -1,10 +1,29 @@
 from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enums import EndpointPostfixEnm
+from python3_captchaai.core.enums import CaptchaTypeEnm, EndpointPostfixEnm
+from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
 
 
 class BaseControl(BaseCaptcha):
+    """
+    Args:
+        api_key: CaptchaAI API key
+        sleep_time: The waiting time between requests to get the result of the Captcha
+        request_url: API address for sending requests
+    """
+
     serializer = PostRequestSer
+
+    def __init__(
+        self,
+        api_key: str,
+        sleep_time: int = 10,
+        request_url: str = REQUEST_URL,
+    ):
+
+        super().__init__(
+            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=CaptchaTypeEnm.Control
+        )
 
 
 class Control(BaseControl):
