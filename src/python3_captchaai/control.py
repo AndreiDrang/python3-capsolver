@@ -4,7 +4,7 @@ from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
 
 
 class BaseControl(BaseCaptcha):
-    pass
+    serializer = PostRequestSer
 
 
 class Control(BaseControl):
@@ -29,7 +29,7 @@ class Control(BaseControl):
         Notes:
             https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
         """
-        self._prepare_create_task_payload(serializer=PostRequestSer)
+        self._prepare_create_task_payload(serializer=self.serializer)
         return ControlResponseSer(
             **self._create_task(
                 url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
@@ -50,7 +50,7 @@ class Control(BaseControl):
         Notes:
             https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
         """
-        self._prepare_create_task_payload(serializer=PostRequestSer)
+        self._prepare_create_task_payload(serializer=self.serializer)
         return ControlResponseSer(
             **await self._aio_create_task(
                 url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
