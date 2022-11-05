@@ -14,7 +14,7 @@ Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
 
 Tested on UNIX based OS.
 
-The library is intended for software developers and serves to facilitate work with the [CaptchaAI](https://www.captchaai.io/) service API.
+The library is intended for software developers and is used to work with the [CaptchaAI](https://www.captchaai.io/) service API.
 
 ***
 
