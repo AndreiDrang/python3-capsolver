@@ -1,7 +1,7 @@
 import time
 import asyncio
 import logging
-from typing import Any, Dict, Type
+from typing import Any, Dict, Type, Union
 from urllib import parse
 
 import aiohttp
@@ -9,26 +9,33 @@ import requests
 from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
-from python3_captchaai.core.enums import ResponseStatusEnm, EndpointPostfixEnm
+from python3_captchaai.core.enums import CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
 from python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES, attempts_generator
 from python3_captchaai.core.serializer import CaptchaOptionsSer, CaptchaResponseSer, RequestGetTaskResultSer
 
 
 class BaseCaptcha:
+    """
+    Basic Captcha solving class
+
+    Args:
+        api_key: CaptchaAI API key
+        captcha_type: Captcha type name, like `ReCaptchaV2Task` and etc.
+        sleep_time: The waiting time between requests to get the result of the Captcha
+        request_url: API address for sending requests
+    """
     def __init__(
         self,
         api_key: str,
+        captcha_type: Union[CaptchaTypeEnm, str],
         sleep_time: int = 10,
         request_url: str = REQUEST_URL,
     ):
-        """
-        Basic Captcha solving class
+        if captcha_type in CaptchaTypeEnm.list_values():
+            self.captcha_type = captcha_type
+        else:
+            raise ValueError(f"Invalid `captcha_type` parameter set, available - {CaptchaTypeEnm.list_values()}")
 
-        Args:
-            api_key: CaptchaAI API key
-            sleep_time: The waiting time between requests to get the result of the Captcha
-            request_url: API address for sending requests
-        """
         # assign args to validator
         self.__params = CaptchaOptionsSer(**locals())
         self.__request_url = request_url
