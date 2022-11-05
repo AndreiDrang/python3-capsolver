@@ -22,3 +22,4 @@ env/
 /src/.coverage
 /src/coverage/lcov.info
 /src/htmlcov/
+/src/coverage/
