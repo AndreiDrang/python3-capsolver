@@ -10,11 +10,19 @@
 [![Lint and test](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml)
 
 
-The library is intended for software developers and serves to facilitate work with the CaptchaAI service API.
+Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
+
+Tested on UNIX based OS.
+
+The library is intended for software developers and serves to facilitate work with the [CaptchaAI](https://www.captchaai.io/) service API.
 
 ***
-If you have any questions, please write to [Telegram](https://t.me/pythoncaptcha) chat. 
-Or to [email](python-captcha@pm.me).
+
+If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
+
+Or email python-captcha@pm.me
+
+***
 
 ## How to install?
 
