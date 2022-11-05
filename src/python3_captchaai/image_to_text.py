@@ -1,10 +1,27 @@
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enums import CaptchaTypeEnm
+from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateTaskSer
 
 
 class BaseImageToText(BaseCaptcha):
-    captcha_type = CaptchaTypeEnm.ImageToTextTask
+    """
+    Args:
+        api_key: CaptchaAI API key
+        sleep_time: The waiting time between requests to get the result of the Captcha
+        request_url: API address for sending requests
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+        sleep_time: int = 10,
+        request_url: str = REQUEST_URL,
+    ):
+
+        super().__init__(
+            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=CaptchaTypeEnm.ImageToTextTask
+        )
 
 
 class ImageToText(BaseImageToText):
@@ -14,6 +31,8 @@ class ImageToText(BaseImageToText):
     Notes:
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427/ImageToTextTask+beta+solve+image+captcha
     """
+
+    __doc__ += BaseImageToText.__doc__
 
     def captcha_handler(self, body: str, **additional_params) -> CaptchaResponseSer:
         """
