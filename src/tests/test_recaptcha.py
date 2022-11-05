@@ -47,12 +47,12 @@ class TestReCaptcha(BaseTest):
 
     def test_captcha_handler_api_key_err(self):
         with pytest.raises(Exception):
-            ReCaptcha(api_key=self.get_random_string(36)).captcha_handler(
-                websiteURL=self.pageurl, websiteKey=self.googlekey
-            )
+            ReCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
+            ).captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
 
     async def test_aio_captcha_handler_api_key_err(self):
         with pytest.raises(Exception):
-            await ReCaptcha(api_key=self.get_random_string(36)).aio_captcha_handler(
-                websiteURL=self.pageurl, websiteKey=self.googlekey
-            )
+            await ReCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
+            ).aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
