@@ -31,10 +31,12 @@ class ReCaptcha(BaseReCaptcha):
                                 - more info in service docs
 
         Examples:
-            >>> ReCaptcha(api_key="CAI-1324...").captcha_handler(\
-                                                    websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                                                    websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                                                )
+            >>> ReCaptcha(api_key="CAI-1324...", \
+                            captcha_type="ReCaptchaV2TaskProxyLess" \
+                            ).captcha_handler( \
+                                websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
+                                websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
+                                )
 
             CaptchaResponseSer(errorId=False
                                 ErrorCode=None
@@ -71,10 +73,12 @@ class ReCaptcha(BaseReCaptcha):
                                 - more info in service docs
 
         Examples:
-            >>> await ReCaptcha(api_key="CAI-1324...").aio_captcha_handler(\
-                                                    websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                                                    websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                                                )
+            >>> await ReCaptcha(api_key="CAI-1324...", \
+                            captcha_type="ReCaptchaV2TaskProxyLess" \
+                            ).aio_captcha_handler( \
+                                websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
+                                websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
+                                )
 
             CaptchaResponseSer(errorId=False
                                 ErrorCode=None
