@@ -39,9 +39,12 @@ class ResponseSer(BaseModel):
 
 class CaptchaResponseSer(ResponseSer):
     taskId: Optional[str] = Field(None, description="Task ID for future use in getTaskResult method.")
-    # TODO check docs, cause in docs this field have wrong name - `status`
-    state: ResponseStatusEnm = Field(..., description="Task current status")
+    # TODO check docs, this field some times is `status` and some times its `state`
+    status: ResponseStatusEnm = Field(ResponseStatusEnm.Processing, description="Task current status", alias="state")
     solution: Dict[str, Any] = Field(None, description="Task result data. Different for each type of task.")
+
+    class Config:
+        allow_population_by_field_name = True
 
 
 class ControlResponseSer(ResponseSer):
