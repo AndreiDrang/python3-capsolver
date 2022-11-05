@@ -50,6 +50,8 @@ class BaseReCaptcha(BaseCaptcha):
     Notes:
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446/ReCaptchaV2TaskProxyLess+solving+Google+recaptcha
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426184/ReCaptchaV2Task+solving+Google+recaptcha
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393981/ReCaptchaV2EnterpriseTask+solving+Google+reCAPTCHA+Enterprise
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426203/ReCaptchaV2EnterpriseTaskProxyless+solving+Google+reCAPTCHA+Enterprise
     """
 
     def __init__(
@@ -67,10 +69,14 @@ class BaseReCaptcha(BaseCaptcha):
 
         super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=captcha_type)
 
-        # validate sent params
-        if self.captcha_type == CaptchaTypeEnm.ReCaptchaV2TaskProxyLess:
+        # validation of the received parameters for ProxyLess captcha
+        if self.captcha_type in (
+            CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+            CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless,
+        ):
             ReCaptchaV2ProxyLessOptionsSer(**locals())
-        elif self.captcha_type == CaptchaTypeEnm.ReCaptchaV2Task:
+        # validation of the received parameters for captcha with Proxy params
+        elif self.captcha_type in (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask):
             ReCaptchaV2OptionsSer(**locals())
         else:
             raise ValueError(
