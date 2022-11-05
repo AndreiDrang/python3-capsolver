@@ -8,12 +8,12 @@ from pkg_resources import parse_requirements
 
 # Package meta-data.
 NAME = "python3-captchaai"
-DESCRIPTION = "Python 3.6+ CaptchaAI library with AIO module."
+DESCRIPTION = "Python 3.7+ CaptchaAI library with AIO module."
 URL = "https://github.com/AndreiDrang/python3-captchaai.git"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
-REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "0.0.3"
+REQUIRES_PYTHON = ">=3.7.0"
+VERSION = "0.0.4"
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
@@ -93,7 +93,6 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
