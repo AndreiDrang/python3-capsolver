@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
 from python3_captchaai.core.enums import CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
-from python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES, attempts_generator
+from python3_captchaai.core.config import RETRIES, VALID_STATUS_CODES, attempts_generator
 from python3_captchaai.core.serializer import CaptchaOptionsSer, CaptchaResponseSer, RequestGetTaskResultSer
 
 
@@ -29,8 +29,8 @@ class BaseCaptcha:
         self,
         api_key: str,
         captcha_type: Union[CaptchaTypeEnm, str],
-        sleep_time: int = 10,
-        request_url: str = REQUEST_URL,
+        sleep_time: int,
+        request_url: str,
     ):
         # validate captcha_type parameter
         if captcha_type in CaptchaTypeEnm.list_values():
