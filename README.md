@@ -1,4 +1,4 @@
-# Python3-captchaai
+# python3-captchaai
 ![](files/CaptchaAISm.png)
 
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
