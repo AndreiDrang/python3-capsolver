@@ -32,8 +32,28 @@ class TestImageToText(BaseTest):
         assert resp.errorDescription is None
         assert resp.solution is not None
 
+    def test_solve_image_context(self):
+        with ImageToText(api_key=self.API_KEY) as instance:
+            resp = instance.captcha_handler(body=self.image_body)
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None
+
     async def test_aio_solve_image(self):
         resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None
+
+    async def test_aio_solve_image_context(self):
+        with ImageToText(api_key=self.API_KEY) as instance:
+            resp = await instance.aio_captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
