@@ -57,3 +57,43 @@ class ReCaptcha(BaseReCaptcha):
             websiteKey=websiteKey,
             **additional_params,
         )
+
+    async def aio_captcha_handler(self, websiteURL: str, websiteKey: str, **additional_params) -> CaptchaResponseSer:
+        """
+        Synchronous method for captcha solving
+
+        Args:
+            websiteURL: Address of a webpage with Google ReCaptcha
+            websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
+            additional_params: Some additional parameters that will be used in creating the task
+                                and will be passed to the payload under `task` key.
+                                Like `recaptchaDataSValue`, `isInvisible`, `userAgent`, `cookies`
+                                - more info in service docs
+
+        Examples:
+            >>> await ReCaptcha(api_key="CAI-1324...").aio_captcha_handler(\
+                                                    websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
+                                                    websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
+                                                )
+
+            CaptchaResponseSer(errorId=False
+                                ErrorCode=None
+                                errorDescription=None
+                                taskId=None
+                                status=<ResponseStatusEnm.Ready: 'ready'>
+                                solution={'gRecaptchaResponse': '44795sds'}
+                            )
+
+        Returns:
+            CaptchaResponseSer model with full server response
+
+        Notes:
+            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446/ReCaptchaV2TaskProxyLess+solving+Google+recaptcha
+        """
+        return await self._aio_processing_captcha(
+            serializer=RequestCreateTaskSer,
+            type=self.captcha_type,
+            websiteURL=websiteURL,
+            websiteKey=websiteKey,
+            **additional_params,
+        )
