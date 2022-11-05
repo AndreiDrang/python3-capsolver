@@ -11,6 +11,7 @@ from requests.adapters import HTTPAdapter
 from python3_captchaai.core.enums import ResponseStatusEnm, EndpointPostfixEnm
 from python3_captchaai.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES
 from python3_captchaai.core.serializer import CaptchaOptionsSer, CaptchaResponseSer, RequestGetTaskResultSer
+from python3_captchaai.core.config import attempts_generator
 
 
 class BaseCaptcha:
@@ -102,28 +103,29 @@ class BaseCaptcha:
         """
         Function send SYNC request to service and wait for result
         """
-        time.sleep(self.__params.sleep_time)
-
         get_result_payload = RequestGetTaskResultSer(
             clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
         )
-        try:
-            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict())
-            if resp.status_code in VALID_STATUS_CODES:
-                result_data = CaptchaResponseSer(**resp.json())
-                # if captcha just created or in processing now - wait
-                if result_data.status in (ResponseStatusEnm.Idle, ResponseStatusEnm.Processing):
-                    # TODO add REQUEST RETRY LOGIC
-                    pass
-                # if captcha ready\failed or have unknown status - return exist data
-                return result_data
-            elif resp.status_code == 401:
-                raise ValueError("Authentication failed, indicating that the API key is not correct")
-            else:
-                raise ValueError(resp.raise_for_status())
-        except Exception as error:
-            logging.exception(error)
-            raise
+        attempts = attempts_generator()
+        for attempt in attempts:
+            logging.debug(f'Get result attempt #{attempt}')
+            try:
+                resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict())
+                if resp.status_code in VALID_STATUS_CODES:
+                    result_data = CaptchaResponseSer(**resp.json())
+                    if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
+                        # if captcha ready\failed or have unknown status - return exist data
+                        return result_data
+                elif resp.status_code == 401:
+                    raise ValueError("Authentication failed, indicating that the API key is not correct")
+                else:
+                    raise ValueError(resp.raise_for_status())
+            except Exception as error:
+                logging.exception(error)
+                raise
+
+            # if captcha just created or in processing now - wait
+            time.sleep(self.__params.sleep_time)
 
     async def _aio_processing_captcha(self, serializer: Type[BaseModel], **create_params) -> CaptchaResponseSer:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
@@ -160,17 +162,19 @@ class BaseCaptcha:
         """
         Function send the ASYNC request to service and wait for result
         """
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.post(
-                    parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload
-                ) as resp:
-                    if resp.status in VALID_STATUS_CODES:
-                        return await resp.json()
-                    elif resp.status == 401:
-                        raise ValueError("Authentication failed, indicating that the API key is not correct")
-                    else:
-                        raise ValueError(resp.reason)
-            except Exception as error:
-                logging.exception(error)
-                raise
+        attempts = attempts_generator()
+        for attempt in attempts:
+            async with aiohttp.ClientSession() as session:
+                try:
+                    async with session.post(
+                        parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload
+                    ) as resp:
+                        if resp.status in VALID_STATUS_CODES:
+                            return await resp.json()
+                        elif resp.status == 401:
+                            raise ValueError("Authentication failed, indicating that the API key is not correct")
+                        else:
+                            raise ValueError(resp.reason)
+                except Exception as error:
+                    logging.exception(error)
+                    raise
