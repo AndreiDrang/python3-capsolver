@@ -1,6 +1,7 @@
 import io
 import os
 import sys
+import shutil
 import logging
 
 from setuptools import Command, setup
@@ -42,13 +43,17 @@ class UploadCommand(Command):
         pass
 
     def run(self):
-        logging.info("Building Source and Wheel distribution…")
-        os.system("python setup.py sdist bdist_wheel")
+        logging.info("Building Source and Wheel distribution . . .")
+        os.system("python setup.py bdist_wheel")
 
-        logging.info("Uploading the package to PyPI via Twine…")
-        os.system("twine upload dist/*")
+        logging.info("Uploading the package to PyPI via Twin . . .")
+        os.system("twine upload dist/* --verbose")
 
-        logging.info("🤖 Uploaded ...")
+        logging.info("🤖 Uploaded . . .")
+
+        logging.info("Clean builds . . .")
+        shutil.rmtree("dist/")
+
         sys.exit()
 
 
