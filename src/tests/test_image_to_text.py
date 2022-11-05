@@ -30,6 +30,7 @@ class TestImageToText(BaseTest):
         assert resp.errorId is False
         assert resp.ErrorCode is None
         assert resp.errorDescription is None
+        assert resp.solution is not None
 
     async def test_aio_solve_image(self):
         resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
@@ -38,6 +39,7 @@ class TestImageToText(BaseTest):
         assert resp.errorId is False
         assert resp.ErrorCode is None
         assert resp.errorDescription is None
+        assert resp.solution is not None
 
     """
     Failed tests
