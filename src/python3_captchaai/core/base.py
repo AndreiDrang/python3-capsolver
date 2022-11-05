@@ -19,7 +19,6 @@ class BaseCaptcha:
         api_key: str,
         sleep_time: int = 10,
         request_url: str = REQUEST_URL,
-        **kwargs,
     ):
         """
         Basic Captcha solving class
@@ -28,7 +27,6 @@ class BaseCaptcha:
             api_key: CaptchaAI API key
             sleep_time: The waiting time between requests to get the result of the Captcha
             request_url: API address for sending requests
-            **kwargs:
         """
         # assign args to validator
         self.__params = CaptchaOptionsSer(**locals())
@@ -76,9 +74,9 @@ class BaseCaptcha:
     def _processing_captcha(self, serializer: Type[BaseModel], **create_params) -> CaptchaResponseSer:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
         self.created_task_data = CaptchaResponseSer(**self._create_task())
-
+        logging.warning(f"{self.created_task_data=}")
         # if task created and already ready - return result
-        if self.created_task_data.state == ResponseStatusEnm.Ready.value:
+        if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
         # if captcha is not ready but task success created - waiting captcha result
         elif not self.created_task_data.errorId:
@@ -107,18 +105,20 @@ class BaseCaptcha:
         """
         time.sleep(self.__params.sleep_time)
 
-        get_result_payload = RequestGetTaskResultSer(clientKey=self.__params.api_key, **self.created_task_data.dict())
-
+        get_result_payload = RequestGetTaskResultSer(
+            clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
+        )
         try:
-            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload)
+            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict())
             if resp.status_code in VALID_STATUS_CODES:
                 result_data = CaptchaResponseSer(**resp.json())
                 # if captcha just created or in processing now - wait
-                if result_data.state in (ResponseStatusEnm.Idle, ResponseStatusEnm.Processing):
-                    time.sleep(self.__params.sleep_time)
+                if result_data.status in (ResponseStatusEnm.Idle, ResponseStatusEnm.Processing):
+                    # TODO add REQUEST RETRY LOGIC
+                    pass
+                logging.warning(f"{result_data=}")
                 # if captcha ready\failed or have unknown status - return exist data
-                else:
-                    return result_data
+                return result_data
             elif resp.status_code == 401:
                 raise ValueError("Authentication failed, indicating that the API key is not correct")
             else:
@@ -132,7 +132,7 @@ class BaseCaptcha:
         self.created_task_data = CaptchaResponseSer(**await self._aio_create_task())
 
         # if task created and already ready - return result
-        if self.created_task_data.state == ResponseStatusEnm.Ready.value:
+        if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
         # if captcha is not ready but task success created - waiting captcha result
         elif not self.created_task_data.errorId:
