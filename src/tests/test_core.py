@@ -19,23 +19,139 @@ class TestCore(BaseTest):
     def test_async_reties(self):
         assert isinstance(ASYNC_RETRIES, AsyncRetrying)
 
-    async def test_no_key_err(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL, sleep_time=5)
+    def test_create_base(self):
+        BaseCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=CaptchaTypeEnm.Control,
+            request_url=REQUEST_URL,
+            sleep_time=self.sleep_time,
+        )
 
-    async def test_no_captcha_type(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=5)
+    def test_aio_create_base(self):
+        BaseCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=CaptchaTypeEnm.Control,
+            request_url=REQUEST_URL,
+            sleep_time=self.sleep_time,
+        )
 
-    async def test_no_request_url(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, sleep_time=5)
+    def test_create_base_context(self):
+        with BaseCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=CaptchaTypeEnm.Control,
+            request_url=REQUEST_URL,
+            sleep_time=self.sleep_time,
+        ) as instance:
+            pass
 
-    async def test_no_sleep_time(self):
+    async def test_aio_create_base_context(self):
+        async with BaseCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=CaptchaTypeEnm.Control,
+            request_url=REQUEST_URL,
+            sleep_time=self.sleep_time,
+        ) as instance:
+            pass
+
+    """
+    Failed
+    """
+
+    def test_no_key_err(self):
+        with pytest.raises(TypeError):
+            BaseCaptcha(captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL, sleep_time=self.sleep_time)
+
+    def test_no_captcha_type(self):
+        with pytest.raises(TypeError):
+            BaseCaptcha(api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time)
+
+    def test_no_request_url(self):
+        with pytest.raises(TypeError):
+            BaseCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, sleep_time=self.sleep_time
+            )
+
+    def test_no_sleep_time(self):
         with pytest.raises(TypeError):
             BaseCaptcha(
                 api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL
             )
+
+    def test_no_key_err_context(self):
+        with pytest.raises(TypeError):
+            with BaseCaptcha(
+                captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    def test_no_captcha_type_context(self):
+        with pytest.raises(TypeError):
+            with BaseCaptcha(
+                api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    def test_no_request_url_context(self):
+        with pytest.raises(TypeError):
+            with BaseCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    def test_no_sleep_time_context(self):
+        with pytest.raises(TypeError):
+            with BaseCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL
+            ) as instance:
+                pass
+
+    async def test_aio_no_key_err_context(self):
+        with pytest.raises(TypeError):
+            async with BaseCaptcha(
+                captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    async def test_aio_no_captcha_type_context(self):
+        with pytest.raises(TypeError):
+            async with BaseCaptcha(
+                api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    async def test_aio_no_request_url_context(self):
+        with pytest.raises(TypeError):
+            async with BaseCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, sleep_time=self.sleep_time
+            ) as instance:
+                pass
+
+    async def test_aio_no_sleep_time_context(self):
+        with pytest.raises(TypeError):
+            async with BaseCaptcha(
+                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.Control, request_url=REQUEST_URL
+            ) as instance:
+                pass
+
+    def test_create_base_err_context(self):
+        with pytest.raises(Exception):
+            with BaseCaptcha(
+                api_key=self.get_random_string(36),
+                captcha_type=CaptchaTypeEnm.Control,
+                request_url=REQUEST_URL,
+                sleep_time=self.sleep_time,
+            ) as instance:
+                raise Exception()
+
+    async def test_aio_create_base_err_context(self):
+        with pytest.raises(Exception):
+            async with BaseCaptcha(
+                api_key=self.get_random_string(36),
+                captcha_type=CaptchaTypeEnm.Control,
+                request_url=REQUEST_URL,
+                sleep_time=self.sleep_time,
+            ) as instance:
+                raise Exception()
 
     @pytest.mark.parametrize("api_len", [35, 37])
     def test_wrong_key_err(self, api_len: int):
@@ -44,7 +160,7 @@ class TestCore(BaseTest):
                 api_key=self.get_random_string(api_len),
                 captcha_type=CaptchaTypeEnm.Control,
                 request_url=REQUEST_URL,
-                sleep_time=5,
+                sleep_time=self.sleep_time,
             )
 
     @pytest.mark.parametrize("sleep_time", range(-2, 5))
@@ -63,5 +179,5 @@ class TestCore(BaseTest):
                 api_key=self.get_random_string(36),
                 captcha_type=self.get_random_string(10),
                 request_url=REQUEST_URL,
-                sleep_time=5,
+                sleep_time=self.sleep_time,
             )
