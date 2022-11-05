@@ -30,10 +30,9 @@ jobs:
         pip install -r src/requirements.txt
 
     - name: Test
-      run: |
-        make tests
+      run: make tests
 
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@1.1.3
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
