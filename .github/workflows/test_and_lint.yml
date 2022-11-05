@@ -1,4 +1,4 @@
-name: Lint and tests
+name: Tests
 
 on:
   push:
@@ -26,13 +26,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install -r requirements.style.txt
         pip install -r requirements.test.txt
         pip install -r src/requirements.txt
-        
-    - name: Lint
-      run: |
-        make lint
 
     - name: Test
       run: |
