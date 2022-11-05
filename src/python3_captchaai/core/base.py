@@ -117,6 +117,9 @@ class BaseCaptcha:
         """
         Function send SYNC request to service and wait for result
         """
+        # initial waiting
+        time.sleep(self.__params.sleep_time)
+
         get_result_payload = RequestGetTaskResultSer(
             clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
         )
@@ -179,6 +182,9 @@ class BaseCaptcha:
         """
         Function send the ASYNC request to service and wait for result
         """
+        # initial waiting
+        await asyncio.sleep(self.__params.sleep_time)
+
         get_result_payload = RequestGetTaskResultSer(
             clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
         )
