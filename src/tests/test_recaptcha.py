@@ -30,19 +30,19 @@ class TestReCaptchaV2ProxyLess(BaseTest):
     googlekey = GOOGLE_KEY
     pageurl = PAGE_URL
 
-    captcha_type = CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
+    captcha_types = (CaptchaTypeEnm.ReCaptchaV2TaskProxyLess, CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless)
     """
     Success tests
     """
 
-    def test_params(self):
-        ReCaptcha(
-            api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl, websiteKey=self.googlekey
-        )
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_params(self, captcha_type: str):
+        ReCaptcha(api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=self.pageurl, websiteKey=self.googlekey)
 
-    def test_params_context(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_params_context(self, captcha_type: str):
         with ReCaptcha(
-            api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl, websiteKey=self.googlekey
+            api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=self.pageurl, websiteKey=self.googlekey
         ) as instance:
             pass
 
@@ -109,28 +109,32 @@ class TestReCaptchaV2ProxyLess(BaseTest):
     Failed tests
     """
 
-    def test_no_website_key(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_no_website_key(self, captcha_type: str):
         with pytest.raises(TypeError):
-            ReCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl)
+            ReCaptcha(api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=self.pageurl)
 
-    def test_no_website_url(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_no_website_url(self, captcha_type: str):
         with pytest.raises(TypeError):
-            ReCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.googlekey)
+            ReCaptcha(api_key=self.API_KEY, captcha_type=captcha_type, websiteKey=self.googlekey)
 
-    def test_api_key_err(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_api_key_err(self, captcha_type: str):
         with pytest.raises(Exception):
             ReCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
+                captcha_type=captcha_type,
                 websiteURL=self.pageurl,
                 websiteKey=self.googlekey,
             ).captcha_handler()
 
-    async def test_aio_api_key_err(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    async def test_aio_api_key_err(self, captcha_type: str):
         with pytest.raises(Exception):
             await ReCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
+                captcha_type=captcha_type,
                 websiteURL=self.pageurl,
                 websiteKey=self.googlekey,
             ).aio_captcha_handler()
@@ -141,17 +145,18 @@ class TestReCaptchaV2(BaseTest):
     pageurl = PAGE_URL
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
+    captcha_types = (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask)
 
-    captcha_type = CaptchaTypeEnm.ReCaptchaV2Task
     """
     Success tests
     """
 
+    @pytest.mark.parametrize("captcha_type", captcha_types)
     @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_params(self, proxy_type: str):
+    def test_params(self, proxy_type: str, captcha_type: str):
         ReCaptcha(
             api_key=self.API_KEY,
-            captcha_type=self.captcha_type,
+            captcha_type=captcha_type,
             websiteURL=self.pageurl,
             websiteKey=self.googlekey,
             proxyAddress=self.proxyAddress,
@@ -159,11 +164,12 @@ class TestReCaptchaV2(BaseTest):
             proxyPort=self.proxyPort,
         )
 
+    @pytest.mark.parametrize("captcha_type", captcha_types)
     @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_params_context(self, proxy_type: str):
+    def test_params_context(self, proxy_type: str, captcha_type: str):
         with ReCaptcha(
             api_key=self.API_KEY,
-            captcha_type=self.captcha_type,
+            captcha_type=captcha_type,
             websiteURL=self.pageurl,
             websiteKey=self.googlekey,
             proxyAddress=self.proxyAddress,
@@ -176,43 +182,48 @@ class TestReCaptchaV2(BaseTest):
     Failed tests
     """
 
-    def test_no_website_key(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_no_website_key(self, captcha_type: str):
         with pytest.raises(TypeError):
-            ReCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl)
+            ReCaptcha(api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=self.pageurl)
 
-    def test_no_website_url(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_no_website_url(self, captcha_type: str):
         with pytest.raises(TypeError):
-            ReCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.googlekey)
+            ReCaptcha(api_key=self.API_KEY, captcha_type=captcha_type, websiteKey=self.googlekey)
 
-    def test_no_proxy_type(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_no_proxy_type(self, captcha_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
                 api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
+                captcha_type=captcha_type,
                 websiteURL=self.pageurl,
                 websiteKey=self.googlekey,
                 proxyAddress=self.proxyAddress,
                 proxyPort=self.proxyPort,
             )
 
+    @pytest.mark.parametrize("captcha_type", captcha_types)
     @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_no_proxy_address(self, proxy_type: str):
+    def test_no_proxy_address(self, proxy_type: str, captcha_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
                 api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
+                captcha_type=captcha_type,
                 websiteURL=self.pageurl,
                 websiteKey=self.googlekey,
                 proxyType=proxy_type,
                 proxyPort=self.proxyPort,
             )
 
+    @pytest.mark.parametrize("captcha_type", captcha_types)
     @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_no_proxy_port(self, proxy_type):
+    def test_no_proxy_port(self, proxy_type, captcha_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
                 api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
+                captcha_type=captcha_type,
                 websiteURL=self.pageurl,
                 websiteKey=self.googlekey,
                 proxyAddress=self.proxyAddress,
