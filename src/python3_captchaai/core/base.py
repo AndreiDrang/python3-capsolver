@@ -1,4 +1,5 @@
 import time
+import asyncio
 import logging
 from typing import Any, Dict, Type
 from urllib import parse
@@ -50,10 +51,10 @@ class BaseCaptcha:
             >>> self._prepare_create_task_payload(serializer=PostRequestSer, create_params={})
 
         """
-        self.create_task_payload = serializer(clientKey=self.__params.api_key)
-        self.create_task_payload: Dict = self.create_task_payload.dict()
+        self.task_payload = serializer(clientKey=self.__params.api_key)
+        self.task_payload: Dict = self.task_payload.dict()
         # added task params to payload
-        self.create_task_payload["task"] = {**create_params} if create_params else {}
+        self.task_payload["task"] = {**create_params} if create_params else {}
 
     def __enter__(self):
         return self
@@ -71,9 +72,14 @@ class BaseCaptcha:
             return False
         return True
 
+    """
+    Sync part
+    """
+
     def _processing_captcha(self, serializer: Type[BaseModel], **create_params) -> CaptchaResponseSer:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
         self.created_task_data = CaptchaResponseSer(**self._create_task())
+
         # if task created and already ready - return result
         if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
@@ -87,7 +93,7 @@ class BaseCaptcha:
         Function send SYNC request to service and wait for result
         """
         try:
-            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.create_task_payload)
+            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.task_payload)
             if resp.status_code in VALID_STATUS_CODES:
                 return resp.json()
             elif resp.status_code == 401:
@@ -107,7 +113,6 @@ class BaseCaptcha:
         )
         attempts = attempts_generator()
         for attempt in attempts:
-            logging.debug(f"Get result attempt #{attempt}")
             try:
                 resp = self.__session.post(
                     parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
@@ -128,6 +133,10 @@ class BaseCaptcha:
             # if captcha just created or in processing now - wait
             time.sleep(self.__params.sleep_time)
 
+    """
+    Async part
+    """
+
     async def _aio_processing_captcha(self, serializer: Type[BaseModel], **create_params) -> CaptchaResponseSer:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
         self.created_task_data = CaptchaResponseSer(**await self._aio_create_task())
@@ -146,9 +155,7 @@ class BaseCaptcha:
         """
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(
-                    parse.urljoin(self.__request_url, url_postfix), json=self.create_task_payload
-                ) as resp:
+                async with session.post(parse.urljoin(self.__request_url, url_postfix), json=self.task_payload) as resp:
                     if resp.status in VALID_STATUS_CODES:
                         return await resp.json()
                     elif resp.status == 401:
@@ -159,19 +166,25 @@ class BaseCaptcha:
                 logging.exception(error)
                 raise
 
-    async def _aio_get_result(self, url_postfix: str = EndpointPostfixEnm.GET_TASK_RESULT.value) -> dict:
+    async def _aio_get_result(self, url_postfix: str = EndpointPostfixEnm.GET_TASK_RESULT.value) -> CaptchaResponseSer:
         """
         Function send the ASYNC request to service and wait for result
         """
+        get_result_payload = RequestGetTaskResultSer(
+            clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
+        )
         attempts = attempts_generator()
         async with aiohttp.ClientSession() as session:
             for attempt in attempts:
                 try:
                     async with session.post(
-                        parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload
+                        parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
                     ) as resp:
                         if resp.status in VALID_STATUS_CODES:
-                            return await resp.json()
+                            result_data = CaptchaResponseSer(**await resp.json())
+                            if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
+                                # if captcha ready\failed or have unknown status - return exist data
+                                return result_data
                         elif resp.status == 401:
                             raise ValueError("Authentication failed, indicating that the API key is not correct")
                         else:
@@ -179,3 +192,6 @@ class BaseCaptcha:
                 except Exception as error:
                     logging.exception(error)
                     raise
+
+                # if captcha just created or in processing now - wait
+                await asyncio.sleep(self.__params.sleep_time)
