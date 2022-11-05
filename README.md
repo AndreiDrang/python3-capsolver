@@ -9,7 +9,8 @@
 
 [![Build check](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_build.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_build.yml)
 [![Installation check](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/install.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/install.yml)
-[![Lint and test](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test_and_lint.yml)
+[![Test](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/test.yml)
+[![Lint](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml)
 
 
 Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
