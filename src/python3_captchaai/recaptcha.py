@@ -58,10 +58,10 @@ class BaseReCaptcha(BaseCaptcha):
         captcha_type: Union[CaptchaTypeEnm, str],
         websiteURL: str,
         websiteKey: str,
-        proxyType: ProxyType = None,
+        proxyType: Union[ProxyType, str] = None,
         proxyAddress: str = None,
         proxyPort: int = None,
-        sleep_time: int = 10,
+        sleep_time: int = 5,
         request_url: str = REQUEST_URL,
     ):
 
@@ -75,7 +75,7 @@ class BaseReCaptcha(BaseCaptcha):
         else:
             raise ValueError(
                 f"Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,"
-                f"available - {CaptchaTypeEnm.list_values()}"
+                f"available - {CaptchaTypeEnm.ReCaptchaV2TaskProxyLess.value, CaptchaTypeEnm.ReCaptchaV2Task.value}"
             )
 
         self.task_params = dict(
