@@ -53,6 +53,21 @@ class TestCore(BaseTest):
         ) as instance:
             pass
 
+    def test_enum_list(self):
+        assert isinstance(CaptchaTypeEnm.list(), list)
+
+    def test_enum_list_values(self):
+        assert isinstance(CaptchaTypeEnm.list_values(), list)
+
+    def test_enum_list_names(self):
+        assert isinstance(CaptchaTypeEnm.list_names(), list)
+
+    def test_enum_name(self):
+        assert isinstance(CaptchaTypeEnm.Control.name, str)
+
+    def test_enum_value(self):
+        assert isinstance(CaptchaTypeEnm.Control.value, str)
+
     """
     Failed
     """
