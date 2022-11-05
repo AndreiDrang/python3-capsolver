@@ -74,7 +74,6 @@ class BaseCaptcha:
     def _processing_captcha(self, serializer: Type[BaseModel], **create_params) -> CaptchaResponseSer:
         self._prepare_create_task_payload(serializer=serializer, create_params=create_params)
         self.created_task_data = CaptchaResponseSer(**self._create_task())
-        logging.warning(f"{self.created_task_data=}")
         # if task created and already ready - return result
         if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
@@ -116,7 +115,6 @@ class BaseCaptcha:
                 if result_data.status in (ResponseStatusEnm.Idle, ResponseStatusEnm.Processing):
                     # TODO add REQUEST RETRY LOGIC
                     pass
-                logging.warning(f"{result_data=}")
                 # if captcha ready\failed or have unknown status - return exist data
                 return result_data
             elif resp.status_code == 401:
