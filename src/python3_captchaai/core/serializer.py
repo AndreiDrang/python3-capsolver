@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field, BaseModel, conint, constr
 
-from python3_captchaai.core.enums import CaptchaTypeEnm, ResponseStatusEnm
+from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm, ResponseStatusEnm
 
 """
 HTTP API Request ser
@@ -60,3 +60,23 @@ Other ser
 class CaptchaOptionsSer(BaseModel):
     api_key: constr(min_length=36, max_length=36)
     sleep_time: conint(ge=5) = 5
+
+
+class ReCaptchaV2ProxyLessOptionsSer(BaseModel):
+    websiteURL: str = Field(..., description="Address of a webpage with Google ReCaptcha")
+    websiteKey: str = Field(
+        ..., description="Recaptcha website key. <div class='g-recaptcha' data-sitekey='THAT_ONE'></div>"
+    )
+
+
+class ReCaptchaV2OptionsSer(ReCaptchaV2ProxyLessOptionsSer):
+    proxyType: ProxyType = Field(..., description="Type of the proxy")
+    proxyAddress: str = Field(
+        ...,
+        description="Proxy IP address IPv4/IPv6."
+        "Not allowed to use:"
+        "host names instead of IPs,"
+        "transparent proxies (where client IP is visible),"
+        "proxies from local networks (192.., 10.., 127...)",
+    )
+    proxyPort: int = Field(..., description="Proxy port.")
