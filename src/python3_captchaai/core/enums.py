@@ -78,3 +78,17 @@ class ResponseStatusEnm(str, MyEnum):
     Processing = "processing"  # Task is not ready yet
     Ready = "ready"  # Task completed, solution object can be found in solution property
     Failed = "failed"  # Task failed, check the errorDescription to know why failed.
+
+
+class ProxyType(str, MyEnum):
+    """
+    Enum store results `status` field variants
+
+    Notes:
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124/getTaskResult+request+task+result
+    """
+
+    http = "http"  # usual http / https
+    https = "https"  # try this only if "http" doesn't work (required by some custom proxy servers)
+    socks4 = "socks4"
+    socks5 = "socks5"
