@@ -7,7 +7,9 @@ from python3_captchaai.core.serializer import (
     CaptchaResponseSer,
     RequestCreateTaskSer,
     ReCaptchaV2OptionsSer,
+    ReCaptchaV3OptionsSer,
     ReCaptchaV2ProxyLessOptionsSer,
+    ReCaptchaV3ProxyLessOptionsSer,
 )
 
 
@@ -20,6 +22,8 @@ class BaseReCaptcha(BaseCaptcha):
         captcha_type: Captcha type name, like `ReCaptchaV2Task` and etc.
         websiteURL: Address of a webpage with Google ReCaptcha
         websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
+        pageAction: Widget action value. Website owner defines what user is doing on the page through this parameter.
+                    Default value: `verify`. Example: grecaptcha.execute('site_key', {action:'login_test'}).
         proxyType: Type of the proxy
         proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
                         host names instead of IPs,
@@ -60,6 +64,7 @@ class BaseReCaptcha(BaseCaptcha):
         captcha_type: Union[CaptchaTypeEnm, str],
         websiteURL: str,
         websiteKey: str,
+        pageAction: str = None,
         proxyType: Union[ProxyType, str] = None,
         proxyAddress: str = None,
         proxyPort: int = None,
@@ -69,28 +74,26 @@ class BaseReCaptcha(BaseCaptcha):
 
         super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=captcha_type)
 
-        # validation of the received parameters for ProxyLess captcha
+        # validation of the received parameters for ProxyLess ReCaptcha V2
         if self.captcha_type in (
             CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
             CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless,
         ):
-            ReCaptchaV2ProxyLessOptionsSer(**locals())
-        # validation of the received parameters for captcha with Proxy params
+            self.task_params = ReCaptchaV2ProxyLessOptionsSer(**locals()).dict()
+        # validation of the received parameters for ReCaptcha V2 with Proxy params
         elif self.captcha_type in (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask):
-            ReCaptchaV2OptionsSer(**locals())
+            self.task_params = ReCaptchaV2OptionsSer(**locals()).dict()
+        # validation of the received parameters for ReCaptcha V3 with ProxyLess params
+        elif self.captcha_type == CaptchaTypeEnm.ReCaptchaV3TaskProxyless:
+            self.task_params = ReCaptchaV3ProxyLessOptionsSer(**locals()).dict()
+        # validation of the received parameters for ReCaptcha V3 with Proxy params
+        elif self.captcha_type == CaptchaTypeEnm.ReCaptchaV3Task:
+            self.task_params = ReCaptchaV3OptionsSer(**locals()).dict()
         else:
             raise ValueError(
                 f"Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,"
                 f"available - {CaptchaTypeEnm.ReCaptchaV2TaskProxyLess.value, CaptchaTypeEnm.ReCaptchaV2Task.value}"
             )
-
-        self.task_params = dict(
-            websiteURL=websiteURL,
-            websiteKey=websiteKey,
-            proxyType=proxyType,
-            proxyAddress=proxyAddress,
-            proxyPort=proxyPort,
-        )
 
 
 class ReCaptcha(BaseReCaptcha):
