@@ -20,9 +20,12 @@ class TestReCaptcha(BaseTest):
         assert "aio_captcha_handler" in ReCaptcha.__dict__.keys()
 
     def test_solve_v2_task_proxy_less(self):
-        resp = ReCaptcha(api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess).captcha_handler(
-            websiteURL=self.pageurl, websiteKey=self.googlekey
-        )
+        resp = ReCaptcha(
+            api_key=self.API_KEY,
+            captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+            websiteURL=self.pageurl,
+            websiteKey=self.googlekey,
+        ).captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
@@ -31,8 +34,13 @@ class TestReCaptcha(BaseTest):
         assert resp.solution is not None
 
     def test_solve_v2_task_proxy_less_context(self):
-        with ReCaptcha(api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess) as instance:
-            resp = instance.captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+        with ReCaptcha(
+            api_key=self.API_KEY,
+            captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+            websiteURL=self.pageurl,
+            websiteKey=self.googlekey,
+        ) as instance:
+            resp = instance.captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
@@ -42,8 +50,11 @@ class TestReCaptcha(BaseTest):
 
     async def test_aio_solve_v2_task_proxy_less(self):
         resp = await ReCaptcha(
-            api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
-        ).aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+            api_key=self.API_KEY,
+            captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+            websiteURL=self.pageurl,
+            websiteKey=self.googlekey,
+        ).aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
@@ -52,8 +63,13 @@ class TestReCaptcha(BaseTest):
         assert resp.solution is not None
 
     async def test_aio_solve_v2_task_proxy_less_context(self):
-        with ReCaptcha(api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess) as instance:
-            resp = await instance.aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+        with ReCaptcha(
+            api_key=self.API_KEY,
+            captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+            websiteURL=self.pageurl,
+            websiteKey=self.googlekey,
+        ) as instance:
+            resp = await instance.aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
@@ -68,11 +84,17 @@ class TestReCaptcha(BaseTest):
     def test_captcha_handler_api_key_err(self):
         with pytest.raises(Exception):
             ReCaptcha(
-                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
-            ).captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+                api_key=self.get_random_string(36),
+                captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+                websiteURL=self.pageurl,
+                websiteKey=self.googlekey,
+            ).captcha_handler()
 
     async def test_aio_captcha_handler_api_key_err(self):
         with pytest.raises(Exception):
             await ReCaptcha(
-                api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
-            ).aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+                api_key=self.get_random_string(36),
+                captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
+                websiteURL=self.pageurl,
+                websiteKey=self.googlekey,
+            ).aio_captcha_handler()
