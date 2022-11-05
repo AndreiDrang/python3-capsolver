@@ -1,4 +1,4 @@
-name: Installation check
+name: Installation
 
 on:
   push:
