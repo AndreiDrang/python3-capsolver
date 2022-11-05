@@ -59,7 +59,7 @@ Other ser
 
 class CaptchaOptionsSer(BaseModel):
     api_key: constr(min_length=36, max_length=36)
-    sleep_time: conint(ge=5) = 5
+    sleep_time: conint(ge=5)
 
 
 class ReCaptchaV2ProxyLessOptionsSer(BaseModel):
@@ -80,3 +80,15 @@ class ReCaptchaV2OptionsSer(ReCaptchaV2ProxyLessOptionsSer):
         "proxies from local networks (192.., 10.., 127...)",
     )
     proxyPort: int = Field(..., description="Proxy port.")
+
+
+class ReCaptchaV3ProxyLessOptionsSer(ReCaptchaV2ProxyLessOptionsSer):
+    pageAction: str = Field(
+        "verify",
+        description="Widget action value."
+        "Website owner defines what user is doing on the page through this parameter",
+    )
+
+
+class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer, ReCaptchaV2OptionsSer):
+    pass
