@@ -24,6 +24,7 @@ class BaseCaptcha:
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
     """
+
     def __init__(
         self,
         api_key: str,
