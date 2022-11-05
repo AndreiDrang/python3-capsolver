@@ -41,6 +41,7 @@ class EndpointPostfixEnm(str, MyEnum):
 
 
 class CaptchaTypeEnm(str, MyEnum):
+    Control = "Control"
     ImageToTextTask = "ImageToTextTask"
     # Recaptcha
     ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
