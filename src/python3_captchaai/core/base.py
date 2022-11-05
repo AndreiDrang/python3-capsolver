@@ -164,8 +164,8 @@ class BaseCaptcha:
         Function send the ASYNC request to service and wait for result
         """
         attempts = attempts_generator()
-        for attempt in attempts:
-            async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession() as session:
+            for attempt in attempts:
                 try:
                     async with session.post(
                         parse.urljoin(self.__request_url, url_postfix), json=self.__post_payload
