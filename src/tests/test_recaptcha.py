@@ -30,10 +30,30 @@ class TestReCaptcha(BaseTest):
         assert resp.errorDescription is None
         assert resp.solution is not None
 
+    def test_solve_v2_task_proxy_less_context(self):
+        with ReCaptcha(api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess) as instance:
+            resp = instance.captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None
+
     async def test_aio_solve_v2_task_proxy_less(self):
         resp = await ReCaptcha(
             api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
         ).aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Ready
+        assert resp.errorId is False
+        assert resp.ErrorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None
+
+    async def test_aio_solve_v2_task_proxy_less_context(self):
+        with ReCaptcha(api_key=self.API_KEY, captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess) as instance:
+            resp = await instance.aio_captcha_handler(websiteURL=self.pageurl, websiteKey=self.googlekey)
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
