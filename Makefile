@@ -26,5 +26,6 @@ upload:
 tests:
 	cd src/ && \
 	coverage run --rcfile=.coveragerc -m pytest -s tests -vv --disable-warnings && \
-	coverage report --precision=3 --sort=cover -m && \
+	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
+	coverage html --precision=3 --skip-empty && \
 	coverage lcov -o coverage/lcov.info
