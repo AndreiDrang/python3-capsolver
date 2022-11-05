@@ -32,6 +32,7 @@ class BaseCaptcha:
         sleep_time: int = 10,
         request_url: str = REQUEST_URL,
     ):
+        # validate captcha_type parameter
         if captcha_type in CaptchaTypeEnm.list_values():
             self.captcha_type = captcha_type
         else:
