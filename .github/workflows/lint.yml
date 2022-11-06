@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     env:
       API_KEY: ${{ secrets.API_KEY }}
@@ -29,5 +29,4 @@ jobs:
         pip install -r requirements.style.txt
         
     - name: Lint
-      run: |
-        make lint
+      run: make lint
