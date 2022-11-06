@@ -144,6 +144,13 @@ class BaseCaptcha:
 
             # if captcha just created or in processing now - wait
             time.sleep(self.__params.sleep_time)
+        # default response if server is silent
+        return CaptchaResponseSer(
+            errorId=True,
+            errorDescription="Captcha not recognized",
+            taskId=self.created_task_data.taskId,
+            status=ResponseStatusEnm.Failed,
+        )
 
     """
     Async part
@@ -210,3 +217,11 @@ class BaseCaptcha:
 
                 # if captcha just created or in processing now - wait
                 await asyncio.sleep(self.__params.sleep_time)
+
+            # default response if server is silent
+            return CaptchaResponseSer(
+                errorId=True,
+                errorDescription="Captcha not recognized",
+                taskId=self.created_task_data.taskId,
+                status=ResponseStatusEnm.Failed,
+            )
