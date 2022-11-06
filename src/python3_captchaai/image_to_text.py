@@ -20,7 +20,7 @@ class BaseImageToText(BaseCaptcha):
             >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
 
             CaptchaResponseSer(errorId=False
-                                ErrorCode=None
+                                errorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>
@@ -65,7 +65,7 @@ class ImageToText(BaseImageToText):
             >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
 
             CaptchaResponseSer(errorId=False
-                                ErrorCode=None
+                                errorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>
@@ -98,7 +98,7 @@ class ImageToText(BaseImageToText):
             >>> await ImageToText(api_key="CAI-12345....").aio_captcha_handler(body=body)
 
             CaptchaResponseSer(errorId=False
-                                ErrorCode=None
+                                errorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>

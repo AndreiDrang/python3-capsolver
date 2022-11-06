@@ -147,6 +147,7 @@ class BaseCaptcha:
         # default response if server is silent
         return CaptchaResponseSer(
             errorId=True,
+            errorCode="ERROR_CAPTCHA_UNSOLVABLE",
             errorDescription="Captcha not recognized",
             taskId=self.created_task_data.taskId,
             status=ResponseStatusEnm.Failed,
@@ -221,6 +222,7 @@ class BaseCaptcha:
             # default response if server is silent
             return CaptchaResponseSer(
                 errorId=True,
+                errorCode="ERROR_CAPTCHA_UNSOLVABLE",
                 errorDescription="Captcha not recognized",
                 taskId=self.created_task_data.taskId,
                 status=ResponseStatusEnm.Failed,

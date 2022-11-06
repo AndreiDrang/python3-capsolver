@@ -41,7 +41,7 @@ class BaseReCaptcha(BaseCaptcha):
                         ).captcha_handler()
 
         CaptchaResponseSer(errorId=False
-                            ErrorCode=None
+                            errorCode=None
                             errorDescription=None
                             taskId=None
                             status=<ResponseStatusEnm.Ready: 'ready'>
@@ -125,7 +125,7 @@ class ReCaptcha(BaseReCaptcha):
                             ).captcha_handler()
 
             CaptchaResponseSer(errorId=False
-                                ErrorCode=None
+                                errorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>
@@ -162,7 +162,7 @@ class ReCaptcha(BaseReCaptcha):
                             ).aio_captcha_handler()
 
             CaptchaResponseSer(errorId=False
-                                ErrorCode=None
+                                errorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>

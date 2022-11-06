@@ -40,7 +40,7 @@ class Control(BaseControl):
 
         Examples:
             >>> Control(api_key="CAI-12345").get_balance()
-            ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
+            ResponseSer(balance=1.0 errorId=False errorCode=None errorDescription=None)
 
         Returns:
             ResponseSer model with full server response
@@ -61,7 +61,7 @@ class Control(BaseControl):
 
         Examples:
             >>> await Control(api_key="CAI-12345").aio_get_balance()
-            ResponseSer(balance=1.0 errorId=False ErrorCode=None errorDescription=None)
+            ResponseSer(balance=1.0 errorId=False errorCode=None errorDescription=None)
 
         Returns:
             ResponseSer model with full server response

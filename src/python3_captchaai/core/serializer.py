@@ -33,7 +33,7 @@ HTTP API Response ser
 class ResponseSer(BaseModel):
     errorId: bool = Field(False, description="Error message: `False` - no error, `True` - with error")
     # error info
-    ErrorCode: Optional[str] = Field(None, description="Error code")
+    errorCode: Optional[str] = Field(None, description="Error code")
     errorDescription: Optional[str] = Field(None, description="Error description")
 
 
