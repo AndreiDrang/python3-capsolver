@@ -124,7 +124,7 @@ class BaseCaptcha:
             clientKey=self.__params.api_key, taskId=self.created_task_data.taskId
         )
         attempts = attempts_generator()
-        for attempt in attempts:
+        for _ in attempts:
             try:
                 resp = self.__session.post(
                     parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
@@ -190,7 +190,7 @@ class BaseCaptcha:
         )
         attempts = attempts_generator()
         async with aiohttp.ClientSession() as session:
-            for attempt in attempts:
+            for _ in attempts:
                 try:
                     async with session.post(
                         parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
