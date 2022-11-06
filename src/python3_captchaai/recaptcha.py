@@ -1,14 +1,14 @@
-from typing import Union
+from typing import Union, Optional
 
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import (
     CaptchaResponseSer,
+    ProxyDataOptionsSer,
     RequestCreateTaskSer,
-    ReCaptchaV2OptionsSer,
     ReCaptchaV3OptionsSer,
-    ReCaptchaV2ProxyLessOptionsSer,
+    WebsiteDataOptionsSer,
     ReCaptchaV3ProxyLessOptionsSer,
 )
 
@@ -64,12 +64,12 @@ class BaseReCaptcha(BaseCaptcha):
         captcha_type: Union[CaptchaTypeEnm, str],
         websiteURL: str,
         websiteKey: str,
-        pageAction: str = None,
-        proxyType: Union[ProxyType, str] = None,
-        proxyAddress: str = None,
-        proxyPort: int = None,
-        sleep_time: int = 5,
-        request_url: str = REQUEST_URL,
+        pageAction: Optional[str] = None,
+        proxyType: Optional[Union[ProxyType, str]] = None,
+        proxyAddress: Optional[str] = None,
+        proxyPort: Optional[int] = None,
+        sleep_time: Optional[int] = 5,
+        request_url: Optional[str] = REQUEST_URL,
     ):
 
         super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=captcha_type)
@@ -79,10 +79,10 @@ class BaseReCaptcha(BaseCaptcha):
             CaptchaTypeEnm.ReCaptchaV2TaskProxyLess,
             CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless,
         ):
-            self.task_params = ReCaptchaV2ProxyLessOptionsSer(**locals()).dict()
+            self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         # validation of the received parameters for ReCaptcha V2 with Proxy params
         elif self.captcha_type in (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask):
-            self.task_params = ReCaptchaV2OptionsSer(**locals()).dict()
+            self.task_params = ProxyDataOptionsSer(**locals()).dict()
         # validation of the received parameters for ReCaptcha V3 with ProxyLess params
         elif self.captcha_type == CaptchaTypeEnm.ReCaptchaV3TaskProxyless:
             self.task_params = ReCaptchaV3ProxyLessOptionsSer(**locals()).dict()
@@ -91,8 +91,13 @@ class BaseReCaptcha(BaseCaptcha):
             self.task_params = ReCaptchaV3OptionsSer(**locals()).dict()
         else:
             raise ValueError(
-                f"Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,"
-                f"available - {CaptchaTypeEnm.ReCaptchaV2TaskProxyLess.value, CaptchaTypeEnm.ReCaptchaV2Task.value}"
+                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
+                available - {CaptchaTypeEnm.ReCaptchaV2TaskProxyLess.value, 
+                             CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless.value,
+                             CaptchaTypeEnm.ReCaptchaV2Task.value,
+                             CaptchaTypeEnm.ReCaptchaV2EnterpriseTask.value,
+                             CaptchaTypeEnm.ReCaptchaV3TaskProxyless.value,
+                             CaptchaTypeEnm.ReCaptchaV3Task.value}"""
             )
 
 
