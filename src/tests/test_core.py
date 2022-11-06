@@ -204,6 +204,7 @@ class TestEnum(BaseTest):
 
 class TestConfig(BaseTest):
     def test_attempts_generator(self):
+        attempt = None
         attempts = attempts_generator(amount=5)
         for attempt in attempts:
             assert isinstance(attempt, int)
