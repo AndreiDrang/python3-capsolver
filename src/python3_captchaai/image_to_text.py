@@ -6,10 +6,32 @@ from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateT
 
 class BaseImageToText(BaseCaptcha):
     """
+    The class is used to work with CaptchaAI Image captcha solving methods.
+
     Args:
         api_key: CaptchaAI API key
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
+
+    Examples:
+            >>> with open('some_image.jpeg', 'rb') as img_file: \
+                    img_data = img_file.read()
+            >>> body = base64.b64encode(img_data).decode("utf-8")
+            >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
+
+            CaptchaResponseSer(errorId=False
+                                ErrorCode=None
+                                errorDescription=None
+                                taskId=None
+                                status=<ResponseStatusEnm.Ready: 'ready'>
+                                solution={'text': 'captcha solution text'}
+                            )
+
+    Returns:
+        CaptchaResponseSer model with full server response
+
+    Notes:
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427/ImageToTextTask+beta+solve+image+captcha
     """
 
     def __init__(
@@ -25,14 +47,7 @@ class BaseImageToText(BaseCaptcha):
 
 
 class ImageToText(BaseImageToText):
-    """
-    The class is used to work with CaptchaAI control methods.
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427/ImageToTextTask+beta+solve+image+captcha
-    """
-
-    __doc__ += BaseImageToText.__doc__
+    __doc__ = BaseImageToText.__doc__
 
     def captcha_handler(self, body: str, **additional_params) -> CaptchaResponseSer:
         """
@@ -61,7 +76,7 @@ class ImageToText(BaseImageToText):
             CaptchaResponseSer model with full server response
 
         Notes:
-            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
+            Check class docstirng for more info
         """
         return self._processing_captcha(
             serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params
@@ -94,7 +109,7 @@ class ImageToText(BaseImageToText):
             CaptchaResponseSer model with full server response
 
         Notes:
-            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
+            Check class docstirng for more info
         """
         return await self._aio_processing_captcha(
             serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params
