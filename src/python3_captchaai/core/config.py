@@ -11,7 +11,7 @@ VALID_STATUS_CODES = (200, 400)
 
 
 # Connection retry generator
-def attempts_generator(amount: int = 10) -> Generator:
+def attempts_generator(amount: int = 16) -> Generator:
     """
     Function generates a generator of length equal to `amount`
 
