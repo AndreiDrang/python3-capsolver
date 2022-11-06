@@ -5,7 +5,7 @@ from urllib3.util.retry import Retry
 from src.tests.conftest import BaseTest
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enums import CaptchaTypeEnm
-from python3_captchaai.core.config import RETRIES, REQUEST_URL, ASYNC_RETRIES
+from python3_captchaai.core.config import RETRIES, REQUEST_URL, ASYNC_RETRIES, attempts_generator
 
 
 class TestCore(BaseTest):
@@ -52,21 +52,6 @@ class TestCore(BaseTest):
             sleep_time=self.sleep_time,
         ) as instance:
             pass
-
-    def test_enum_list(self):
-        assert isinstance(CaptchaTypeEnm.list(), list)
-
-    def test_enum_list_values(self):
-        assert isinstance(CaptchaTypeEnm.list_values(), list)
-
-    def test_enum_list_names(self):
-        assert isinstance(CaptchaTypeEnm.list_names(), list)
-
-    def test_enum_name(self):
-        assert isinstance(CaptchaTypeEnm.Control.name, str)
-
-    def test_enum_value(self):
-        assert isinstance(CaptchaTypeEnm.Control.value, str)
 
     """
     Failed
@@ -196,3 +181,30 @@ class TestCore(BaseTest):
                 request_url=REQUEST_URL,
                 sleep_time=self.sleep_time,
             )
+
+
+class TestEnum(BaseTest):
+    def test_enum_list(self):
+        assert isinstance(CaptchaTypeEnm.list(), list)
+
+    def test_enum_list_values(self):
+        assert isinstance(CaptchaTypeEnm.list_values(), list)
+
+    def test_enum_list_names(self):
+        assert isinstance(CaptchaTypeEnm.list_names(), list)
+
+    def test_enum_name(self):
+        assert isinstance(CaptchaTypeEnm.Control.name, str)
+        assert CaptchaTypeEnm.Control.name == "Control"
+
+    def test_enum_value(self):
+        assert isinstance(CaptchaTypeEnm.Control.value, str)
+        assert CaptchaTypeEnm.Control.value == "Control"
+
+
+class TestConfig(BaseTest):
+    def test_attempts_generator(self):
+        attempts = attempts_generator(amount=5)
+        for attempt in attempts:
+            assert isinstance(attempt, int)
+        assert attempt == 4
