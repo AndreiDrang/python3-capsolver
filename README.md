@@ -44,6 +44,8 @@ python setup.py install
 
 ### Changelog
 
+v.0.0.5 - Added HCaptcha, Image to Text captcha and ReCaptcha.
+
 v.0.0.1 - First release with basic methods and logic.
 
 ***
