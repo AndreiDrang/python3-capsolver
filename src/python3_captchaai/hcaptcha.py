@@ -18,13 +18,13 @@ class BaseHCaptcha(BaseCaptcha):
 
     Args:
         api_key: CaptchaAI API key
-        captcha_type: Captcha type name, like `ReCaptchaV2Task` and etc.
+        captcha_type: Captcha type name, like `HCaptchaTaskProxyless` and etc.
         websiteURL: Address of a webpage with hCaptcha
         websiteKey: hCaptcha website key
-        proxyType: Type of the proxy
         queries: Base64-encoded images, do not include "data:image/***;base64,".
                     Format to send: [“base64”,”base64”,”base64”,…..]
         question: Question ID. Support English and Chinese, other languages please convert yourself
+        proxyType: Type of the proxy
         proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
                         host names instead of IPs,
                         transparent proxies (where client IP is visible),
@@ -34,10 +34,10 @@ class BaseHCaptcha(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> ReCaptcha(api_key="CAI-1324...", \
-                        captcha_type="ReCaptchaV2TaskProxyLess", \
-                        websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                        websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
+        >>> HCaptcha(api_key="CAI-1324...", \
+                        captcha_type="HCaptchaTaskProxyless", \
+                        websiteURL="https://rucaptcha.com/demo/hcaptcha", \
+                        websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
                         ).captcha_handler()
 
         CaptchaResponseSer(errorId=False
@@ -108,18 +108,19 @@ class HCaptcha(BaseHCaptcha):
                                 Like `coordinate`, `enterprisePayload` and etc. - more info in service docs
 
         Examples:
-            >>> ReCaptcha(api_key="CAI-1324...", \
-                            captcha_type="ReCaptchaV2TaskProxyLess", \
-                            websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                            websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                            ).captcha_handler()
+            >>> HCaptcha( \
+                    api_key="CAI-BA9650D2B9C2786B21120D512702E010", \
+                    captcha_type='HCaptchaTaskProxyless', \
+                    websiteURL="https://rucaptcha.com/demo/hcaptcha", \
+                    websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
+                ).captcha_handler()
 
             CaptchaResponseSer(errorId=False
                                 ErrorCode=None
                                 errorDescription=None
                                 taskId=None
                                 status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'gRecaptchaResponse': '44795sds'}
+                                solution={'gRecaptchaResponse': '44795sds....'}
                             )
 
         Returns:
@@ -144,11 +145,12 @@ class HCaptcha(BaseHCaptcha):
                                 Like `coordinate`, `enterprisePayload` and etc. - more info in service docs
 
         Examples:
-            >>> await ReCaptcha(api_key="CAI-1324...", \
-                            captcha_type="ReCaptchaV2TaskProxyLess", \
-                            websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                            websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                            ).aio_captcha_handler()
+            >>> await HCaptcha( \
+                            api_key="CAI-BA9650D2B9C2786B21120D512702E010", \
+                            captcha_type='HCaptchaTaskProxyless', \
+                            websiteURL="https://rucaptcha.com/demo/hcaptcha", \
+                            websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
+                        ).aio_captcha_handler()
 
             CaptchaResponseSer(errorId=False
                                 ErrorCode=None
