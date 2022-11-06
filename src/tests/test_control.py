@@ -20,14 +20,14 @@ class TestControl(BaseTest):
         resp = Control(api_key=self.API_KEY).get_balance()
         assert isinstance(resp, ControlResponseSer)
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
 
     async def test_aio_get_balance(self):
         resp = await Control(api_key=self.API_KEY).aio_get_balance()
         assert isinstance(resp, ControlResponseSer)
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
 
     """

@@ -1,5 +1,3 @@
-import logging
-
 import pytest
 from pydantic import ValidationError
 
@@ -64,11 +62,10 @@ class TestHCaptchaProxyless(BaseTest):
             websiteURL=self.pageurl,
             websiteKey=self.hcaptcha_key,
         ).captcha_handler()
-        logging.warning(f'{resp=}')
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -80,11 +77,10 @@ class TestHCaptchaProxyless(BaseTest):
             websiteKey=self.hcaptcha_key,
         ) as instance:
             resp = instance.captcha_handler()
-        logging.warning(f'{resp=}')
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -95,11 +91,10 @@ class TestHCaptchaProxyless(BaseTest):
             websiteURL=self.pageurl,
             websiteKey=self.hcaptcha_key,
         ).aio_captcha_handler()
-        logging.warning(f'{resp=}')
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -111,11 +106,10 @@ class TestHCaptchaProxyless(BaseTest):
             websiteKey=self.hcaptcha_key,
         ) as instance:
             resp = await instance.aio_captcha_handler()
-            logging.warning(f'{resp=}')
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 

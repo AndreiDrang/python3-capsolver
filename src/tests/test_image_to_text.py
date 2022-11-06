@@ -28,7 +28,7 @@ class TestImageToText(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -38,7 +38,7 @@ class TestImageToText(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -47,7 +47,7 @@ class TestImageToText(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
@@ -57,7 +57,7 @@ class TestImageToText(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Ready
         assert resp.errorId is False
-        assert resp.ErrorCode is None
+        assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
 
