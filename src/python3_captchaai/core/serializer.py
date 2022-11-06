@@ -62,14 +62,19 @@ class CaptchaOptionsSer(BaseModel):
     sleep_time: conint(ge=5)
 
 
-class ReCaptchaV2ProxyLessOptionsSer(BaseModel):
+"""
+ReCaptcha ser
+"""
+
+
+class WebsiteDataOptionsSer(BaseModel):
     websiteURL: str = Field(..., description="Address of a webpage with Google ReCaptcha")
     websiteKey: str = Field(
         ..., description="Recaptcha website key. <div class='g-recaptcha' data-sitekey='THAT_ONE'></div>"
     )
 
 
-class ReCaptchaV2OptionsSer(ReCaptchaV2ProxyLessOptionsSer):
+class ProxyDataOptionsSer(WebsiteDataOptionsSer):
     proxyType: ProxyType = Field(..., description="Type of the proxy")
     proxyAddress: str = Field(
         ...,
@@ -82,7 +87,7 @@ class ReCaptchaV2OptionsSer(ReCaptchaV2ProxyLessOptionsSer):
     proxyPort: int = Field(..., description="Proxy port.")
 
 
-class ReCaptchaV3ProxyLessOptionsSer(ReCaptchaV2ProxyLessOptionsSer):
+class ReCaptchaV3ProxyLessOptionsSer(WebsiteDataOptionsSer):
     pageAction: str = Field(
         "verify",
         description="Widget action value."
@@ -90,5 +95,12 @@ class ReCaptchaV3ProxyLessOptionsSer(ReCaptchaV2ProxyLessOptionsSer):
     )
 
 
-class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer, ReCaptchaV2OptionsSer):
+class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer, ProxyDataOptionsSer):
     pass
+
+
+class HCaptchaOptionsSer(BaseModel):
+    queries: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
+    question: str = Field(
+        ..., description="Question ID. Support English and Chinese, other languages please convert yourself"
+    )
