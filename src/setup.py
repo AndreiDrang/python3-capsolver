@@ -6,6 +6,7 @@ import logging
 
 from setuptools import Command, setup
 from pkg_resources import parse_requirements
+from python3_captchaai.core.config import VERSION
 
 # Package meta-data.
 NAME = "python3-captchaai"
@@ -14,7 +15,7 @@ URL = "https://github.com/AndreiDrang/python3-captchaai.git"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.0.6"
+VERSION = VERSION
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
