@@ -1,3 +1,2 @@
 pallets_sphinx_themes==2.*
 myst-parser==0.18.*
-python3-captchaai
