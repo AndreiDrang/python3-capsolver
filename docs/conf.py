@@ -27,9 +27,8 @@ from python3_captchaai.__version__ import __version__
 # -- Project information -----------------------------------------------------
 
 project = "python3-captchaai"
-copyright = "2022, AndreiDrang"
+copyright = f"2022, AndreiDrang, Release - {__version__}"
 author = "AndreiDrang"
-release = __version__
 
 # -- General configuration ---------------------------------------------------
 extensions = (
@@ -49,7 +48,7 @@ html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
 html_favicon = "_static/CaptchaAIESm.png"
 html_logo = "_static/CaptchaAISm.png"
-html_title = f"python3-captchaai ({release})"
+html_title = f"python3-captchaai ({__version__})"
 html_show_sourcelink = False
 
 html_context = {
@@ -68,7 +67,7 @@ html_sidebars = {
 }
 
 # Typehints config
-autodoc_typehints = "description"
+autodoc_typehints = "both"
 autodoc_typehints_description_target = "documented"
 autodoc_typehints_format = "short"
 
