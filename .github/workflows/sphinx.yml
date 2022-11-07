@@ -29,3 +29,12 @@ jobs:
           cd docs/ && \
           pip install -r requirements.txt && \
           make html -e
+
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/
+          force_orphan: true
