@@ -19,11 +19,11 @@ class BaseReCaptcha(BaseCaptcha):
 
     Args:
         api_key: CaptchaAI API key
-        captcha_type: Captcha type name, like `ReCaptchaV2Task` and etc.
+        captcha_type: Captcha type name, like ``ReCaptchaV2Task`` and etc.
         websiteURL: Address of a webpage with Google ReCaptcha
         websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
         pageAction: Widget action value. Website owner defines what user is doing on the page through this parameter.
-                    Default value: `verify`. Example: grecaptcha.execute('site_key', {action:'login_test'}).
+                    Default value: ``verify``. Example: grecaptcha.execute('site_key', {action:'login_test'}).
         proxyType: Type of the proxy
         proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
                         host names instead of IPs,
@@ -34,28 +34,27 @@ class BaseReCaptcha(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> ReCaptcha(api_key="CAI-1324...", \
-                        captcha_type="ReCaptchaV2TaskProxyLess", \
-                        websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                        websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                        ).captcha_handler()
-
+        >>> ReCaptcha(api_key="CAI-1324...",
+        ...           captcha_type="ReCaptchaV2TaskProxyLess",
+        ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
+        ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
+        ...          ).captcha_handler()
         CaptchaResponseSer(errorId=False
-                            errorCode=None
-                            errorDescription=None
-                            taskId=None
-                            status=<ResponseStatusEnm.Ready: 'ready'>
-                            solution={'gRecaptchaResponse': '44795sds'}
-                        )
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
 
     Returns:
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446/ReCaptchaV2TaskProxyLess+solving+Google+recaptcha
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426184/ReCaptchaV2Task+solving+Google+recaptcha
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393981/ReCaptchaV2EnterpriseTask+solving+Google+reCAPTCHA+Enterprise
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426203/ReCaptchaV2EnterpriseTaskProxyless+solving+Google+reCAPTCHA+Enterprise
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426184
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393981
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426203
     """
 
     def __init__(
@@ -113,24 +112,23 @@ class ReCaptcha(BaseReCaptcha):
 
         Args:
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key.
-                                Like `recaptchaDataSValue`, `isInvisible`, `userAgent`, `cookies`,
-                                `proxyLogin`, `proxyPassword` - more info in service docs
+                                and will be passed to the payload under ``task`` key.
+                                Like ``recaptchaDataSValue``, ``isInvisible``, ``userAgent``, ``cookies``,
+                                ``proxyLogin``, ``proxyPassword`` - more info in service docs
 
         Examples:
-            >>> ReCaptcha(api_key="CAI-1324...", \
-                            captcha_type="ReCaptchaV2TaskProxyLess", \
-                            websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                            websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                            ).captcha_handler()
-
+            >>> ReCaptcha(api_key="CAI-1324...",
+            ...           captcha_type="ReCaptchaV2TaskProxyLess",
+            ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
+            ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
+            ...          ).captcha_handler()
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'gRecaptchaResponse': '44795sds'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -150,24 +148,23 @@ class ReCaptcha(BaseReCaptcha):
 
         Args:
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key.
-                                Like `recaptchaDataSValue`, `isInvisible`, `userAgent`, `cookies`,
-                                `proxyLogin`, `proxyPassword` - more info in service docs
+                                and will be passed to the payload under ``task`` key.
+                                Like ``recaptchaDataSValue``, ``isInvisible``, ``userAgent``, ``cookies``,
+                                ``proxyLogin``, ``proxyPassword`` - more info in service docs
 
         Examples:
-            >>> await ReCaptcha(api_key="CAI-1324...", \
-                            captcha_type="ReCaptchaV2TaskProxyLess", \
-                            websiteURL="https://rucaptcha.com/demo/recaptcha-v2", \
-                            websiteKey="6LeIxboZAAAAAFQy7d8GPzgRZu2bV0GwKS8ue_cH" \
-                            ).aio_captcha_handler()
-
+            >>> await ReCaptcha(api_key="CAI-1324...",
+            ...                 captcha_type="ReCaptchaV2TaskProxyLess",
+            ...                 websiteURL="https://www.google.com/recaptcha/api2/demo",
+            ...                 websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
+            ...                ).aio_captcha_handler()
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'gRecaptchaResponse': '44795sds'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full service response

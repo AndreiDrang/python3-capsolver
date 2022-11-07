@@ -18,10 +18,10 @@ class BaseHCaptcha(BaseCaptcha):
 
     Args:
         api_key: CaptchaAI API key
-        captcha_type: Captcha type name, like `HCaptchaTaskProxyless` and etc.
+        captcha_type: Captcha type name, like ``HCaptchaTaskProxyless`` and etc.
         websiteURL: Address of a webpage with hCaptcha
         websiteKey: hCaptcha website key
-        queries: Base64-encoded images, do not include "data:image/***;base64,".
+        queries: Base64-encoded images, do not include "data : image / *** ; base64,".
                     Format to send: [“base64”,”base64”,”base64”,…..]
         question: Question ID. Support English and Chinese, other languages please convert yourself
         proxyType: Type of the proxy
@@ -34,27 +34,26 @@ class BaseHCaptcha(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> HCaptcha(api_key="CAI-1324...", \
-                        captcha_type="HCaptchaTaskProxyless", \
-                        websiteURL="https://rucaptcha.com/demo/hcaptcha", \
-                        websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
-                        ).captcha_handler()
-
+        >>> HCaptcha(api_key="CAI-1324...",
+        ...          captcha_type="HCaptchaTaskProxyless",
+        ...          websiteURL="https://accounts.hcaptcha.com/demo",
+        ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
+        ...         ).captcha_handler()
         CaptchaResponseSer(errorId=False
-                            errorCode=None
-                            errorDescription=None
-                            taskId=None
-                            status=<ResponseStatusEnm.Ready: 'ready'>
-                            solution={'gRecaptchaResponse': '44795sds'}
-                        )
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
 
     Returns:
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426247/HCaptchaTask+solving+hCaptcha+puzzle+solving
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/394005/HCaptchaTaskProxyless+solving+hCaptcha+puzzle+solving
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426261/HCaptchaClassification+recognize+the+images+that+you+need+to+click
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426247
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/394005
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426261
     """
 
     def __init__(
@@ -104,24 +103,22 @@ class HCaptcha(BaseHCaptcha):
 
         Args:
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key.
-                                Like `coordinate`, `enterprisePayload` and etc. - more info in service docs
+                                and will be passed to the payload under ``task`` key.
+                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
 
         Examples:
-            >>> HCaptcha( \
-                    api_key="CAI-BA9650D2B9C2786B21120D512702E010", \
-                    captcha_type='HCaptchaTaskProxyless', \
-                    websiteURL="https://rucaptcha.com/demo/hcaptcha", \
-                    websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
-                ).captcha_handler()
-
+            >>> HCaptcha(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
+            ...          captcha_type='HCaptchaTaskProxyless',
+            ...          websiteURL="https://accounts.hcaptcha.com/demo",
+            ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
+            ...         ).captcha_handler()
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'gRecaptchaResponse': '44795sds....'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -141,24 +138,22 @@ class HCaptcha(BaseHCaptcha):
 
         Args:
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key.
-                                Like `coordinate`, `enterprisePayload` and etc. - more info in service docs
+                                and will be passed to the payload under ``task`` key.
+                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
 
         Examples:
-            >>> await HCaptcha( \
-                            api_key="CAI-BA9650D2B9C2786B21120D512702E010", \
-                            captcha_type='HCaptchaTaskProxyless', \
-                            websiteURL="https://rucaptcha.com/demo/hcaptcha", \
-                            websiteKey="3ceb8624-1970-4e6b-91d5-70317b70b651", \
-                        ).aio_captcha_handler()
-
+            >>> await HCaptcha(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
+            ...                captcha_type='HCaptchaTaskProxyless',
+            ...                websiteURL="https://accounts.hcaptcha.com/demo",
+            ...                websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
+            ...               ).aio_captcha_handler()
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'gRecaptchaResponse': '44795sds'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full service response

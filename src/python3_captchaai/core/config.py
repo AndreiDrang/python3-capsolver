@@ -18,8 +18,17 @@ def attempts_generator(amount: int = 16) -> Generator:
     Args:
         amount: number of attempts generated
 
+    Yields:
+        int: The next number in the range of 1 to ``amount`` - 1.
+
+    Examples:
+        Examples should be written in doctest format, and should illustrate how
+        to use the function.
+
+        >>> print([i for i in attempts_generator(5)])
+        [1, 2, 3, 4]
+
     Returns:
         Attempt number
     """
-    for i in range(1, amount):
-        yield i
+    yield from range(1, amount)

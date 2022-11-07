@@ -14,24 +14,61 @@ class BaseImageToText(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-            >>> with open('some_image.jpeg', 'rb') as img_file: \
-                    img_data = img_file.read()
-            >>> body = base64.b64encode(img_data).decode("utf-8")
-            >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
 
-            CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'text': 'captcha solution text'}
-                            )
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> with ImageToText(api_key="CAI-12345....") as image_to_text_inst:
+        ...    image_to_text_inst.captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
+
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> await ImageToText(api_key="CAI-12345....").aio_captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
+
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> with ImageToText(api_key="CAI-12345....") as image_to_text_inst:
+        ...    await image_to_text_inst.aio_captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False
+                           errorCode=None
+                           errorDescription=None
+                           taskId=None
+                           status=<ResponseStatusEnm.Ready: 'ready'>
+                           solution={'gRecaptchaResponse': '44795sds'}
+                          )
 
     Returns:
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427/ImageToTextTask+beta+solve+image+captcha
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427
     """
 
     def __init__(
@@ -56,21 +93,20 @@ class ImageToText(BaseImageToText):
         Args:
             body: Base64 encoded content of the image
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key
+                                and will be passed to the payload under ``task`` key
 
         Examples:
-            >>> with open('some_image.jpeg', 'rb') as img_file: \
-                    img_data = img_file.read()
+            >>> with open('some_image.jpeg', 'rb') as img_file:
+            ...    img_data = img_file.read()
             >>> body = base64.b64encode(img_data).decode("utf-8")
             >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
-
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'text': 'captcha solution text'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full server response
@@ -89,21 +125,20 @@ class ImageToText(BaseImageToText):
         Args:
             body: Base64 encoded content of the image
             additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under `task` key
+                                and will be passed to the payload under ``task`` key
 
         Examples:
-            >>> with open('some_image.jpeg', 'rb') as img_file: \
-                    img_data = img_file.read()
+            >>> with open('some_image.jpeg', 'rb') as img_file:
+            ...    img_data = img_file.read()
             >>> body = base64.b64encode(img_data).decode("utf-8")
             >>> await ImageToText(api_key="CAI-12345....").aio_captcha_handler(body=body)
-
             CaptchaResponseSer(errorId=False
-                                errorCode=None
-                                errorDescription=None
-                                taskId=None
-                                status=<ResponseStatusEnm.Ready: 'ready'>
-                                solution={'text': 'captcha solution text'}
-                            )
+                               errorCode=None
+                               errorDescription=None
+                               taskId=None
+                               status=<ResponseStatusEnm.Ready: 'ready'>
+                               solution={'gRecaptchaResponse': '44795sds'}
+                              )
 
         Returns:
             CaptchaResponseSer model with full server response
