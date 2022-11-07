@@ -44,7 +44,7 @@ class BaseReCaptcha(BaseCaptcha):
                            errorDescription=None
                            taskId=None
                            status=<ResponseStatusEnm.Ready: 'ready'>
-                           solution={'gRecaptchaResponse': '44795sds'}
+                           solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
     Returns:
@@ -127,7 +127,7 @@ class ReCaptcha(BaseReCaptcha):
                                errorDescription=None
                                taskId=None
                                status=<ResponseStatusEnm.Ready: 'ready'>
-                               solution={'gRecaptchaResponse': '44795sds'}
+                               solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
         Returns:
@@ -163,7 +163,7 @@ class ReCaptcha(BaseReCaptcha):
                                errorDescription=None
                                taskId=None
                                status=<ResponseStatusEnm.Ready: 'ready'>
-                               solution={'gRecaptchaResponse': '44795sds'}
+                               solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
         Returns:
