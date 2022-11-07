@@ -2,9 +2,9 @@ name: Sphinx build
 
 on:
   push:
-    branches: [ "main", "gh-pages" ]
+    branches: [ "release", "gh-pages" ]
   pull_request:
-    branches: [ "main", "gh-pages" ]
+    branches: [ "release", "gh-pages" ]
 
 jobs:
   docs:
