@@ -1,19 +1,22 @@
 import io
 import os
 import sys
-from shutil import rmtree
+import shutil
+import logging
 
 from setuptools import Command, setup
 from pkg_resources import parse_requirements
 
+from python3_captchaai.__version__ import __version__
+
 # Package meta-data.
 NAME = "python3-captchaai"
-DESCRIPTION = "Python 3.6+ CaptchaAI library with AIO module."
-URL = "https://github.com/AndreiDrang/python3-captchaai.git"
+DESCRIPTION = "Python 3.7+ CaptchaAI library with AIO module."
+URL = "https://andreidrang.github.io/python3-captchaai/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
-REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "0.0.2"
+REQUIRES_PYTHON = ">=3.7.0"
+VERSION = __version__
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
 
@@ -35,11 +38,6 @@ class UploadCommand(Command):
     description = "Build and publish the package."
     user_options = []
 
-    @staticmethod
-    def status(s):
-        """Prints things in bold."""
-        print("\033[1m{0}\033[0m".format(s))
-
     def initialize_options(self):
         pass
 
@@ -47,19 +45,17 @@ class UploadCommand(Command):
         pass
 
     def run(self):
-        try:
-            self.status("Removing previous builds…")
-            rmtree(os.path.join(here, "dist"))
-        except OSError:
-            pass
+        logging.info("Building Source and Wheel distribution . . .")
+        os.system("python setup.py bdist_wheel")
 
-        self.status("Building Source and Wheel distribution…")
-        os.system("{0} setup.py sdist bdist_wheel".format(sys.executable))
+        logging.info("Uploading the package to PyPI via Twin . . .")
+        os.system("twine upload dist/* --verbose")
 
-        self.status("Uploading the package to PyPI via Twine…")
-        os.system("twine upload dist/*")
+        logging.info("🤖 Uploaded . . .")
 
-        print("🤖 Uploaded ...")
+        logging.info("Clean builds . . .")
+        shutil.rmtree("dist/")
+
         sys.exit()
 
 
@@ -73,6 +69,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author_email=EMAIL,
+    project_urls={
+        "Documentation": URL,
+        "Source": "https://github.com/AndreiDrang/python3-captchaai",
+    },
     package_dir={"python3-captchaai": "python3_captchaai"},
     include_package_data=True,
     py_modules=["python3_captchaai"],
@@ -80,7 +80,6 @@ setup(
     license="MIT",
     keywords="""
                 captcha 
-				2captcha
 				recaptcha
 				geetest
 				hcaptcha
@@ -90,9 +89,6 @@ setup(
 				funcaptcha
 				keycaptcha
 				python3
-				recaptcha
-				captcha
-				security
 				tiktok
 				python-library
 				captcha.ai
@@ -102,13 +98,12 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        "Development Status :: 1 - Planning",
         "License :: OSI Approved :: MIT License",
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+        "Development Status :: 1 - Planning",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",

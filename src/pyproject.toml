@@ -17,7 +17,6 @@ exclude = '''
 
 [tool.isort]
 profile = "black"
-skip_glob = 'src/examples/**'
 line_length = 120
 length_sort = true
 
@@ -25,5 +24,5 @@ length_sort = true
 minversion = "7.0"
 asyncio_mode = "auto"
 testpaths = [
-    "src/tests",
+    "tests",
 ]

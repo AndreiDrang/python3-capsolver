@@ -1,24 +1,26 @@
 install:
-	python setup.py install
-
-remove:
-	pip uninstall python_rucaptcha -y
+	cd src/ && pip install -e .
 
 refactor:
+	black docs/
+	isort docs/
+
+	cd src/ && \
 	autoflake --in-place \
 				--recursive \
 				--remove-unused-variables \
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				--ignore-init-module-imports \
-				src/
-	black src/
-	isort src/
+				python3_captchaai/ tests/ && \
+	black python3_captchaai/ tests/ && \
+	isort python3_captchaai/ tests/
 
 lint:
-	autoflake --in-place --recursive src/ --check
-	black src/ --check
-	isort src/ --check-only
+	cd src/ && \
+	autoflake --in-place --recursive python3_captchaai/ --check && \
+	black python3_captchaai/ --check && \
+	isort python3_captchaai/ --check-only
 
 upload:
 	pip install twine
@@ -27,4 +29,6 @@ upload:
 tests:
 	cd src/ && \
 	coverage run --rcfile=.coveragerc -m pytest -s tests -vv --disable-warnings && \
-	coverage report --precision=3 --sort=cover -m
+	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
+	coverage html --precision=3 --skip-empty && \
+	coverage lcov -o coverage/lcov.info

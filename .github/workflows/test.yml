@@ -1,0 +1,65 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/test.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.test.txt'
+  pull_request:
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/test.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.test.txt'
+  schedule:
+    - cron: "5 0 * * 1"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.test.txt
+          pip install -r src/requirements.txt
+
+      - name: Test
+        run: make tests
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./src/coverage/lcov.info
+          flag-name: Pytests
+          parallel: true
+
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        parallel-finished: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./src/coverage/lcov.info
+        flag-name: Pytests

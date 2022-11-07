@@ -1,5 +1,8 @@
-# python3-captchaai
-![](files/CaptchaAISm.png)
+# Introduction
+
+## Welcome to python3-captchaai
+
+![](../../_static/CaptchaAISm.png)
 
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)
@@ -19,19 +22,25 @@ Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [CaptchaAI](https://www.captchaai.io/) service API.
 
-***
+## How to install?
 
-If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
+We recommend using the latest version of Python. `python3-captchaai` supports Python
+3.7+.
 
-Or email python-captcha@pm.me
+### pip
 
-***
+```bash
+pip install python3-captchaai
+```
 
-### Additional info
-1. [Library usage examples](https://andreidrang.github.io/python3-captchaai/)
-2. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
+### Source
+```bash
+git clone https://github.com/AndreiDrang/python3-captchaai.git
+cd python3-captchaai
+python setup.py install
+```
 
+## How to test?
 
-### Get API Key to work with the library
-1. On the page - https://dashboard.captchaai.io/overview/user-center
-2. Find it: ![img.png](files/img.png)
+1. You need set ``API_KEY`` in your environment(get this value from you account).
+2. Run command ``make tests``, from root directory.
