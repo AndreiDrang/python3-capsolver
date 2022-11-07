@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install library requirements
+        run: pip install -r src/requirements.txt
+
       - name: Build docs
         run: | 
           cd docs/ && \
