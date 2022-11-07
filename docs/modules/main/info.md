@@ -39,3 +39,8 @@ git clone https://github.com/AndreiDrang/python3-captchaai.git
 cd python3-captchaai
 python setup.py install
 ```
+
+## How to test?
+
+1. You need set ``API_KEY`` in your environment(get this value from you account).
+2. Run command ``make tests``, from root directory.
