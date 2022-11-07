@@ -2,13 +2,17 @@ name: Installation
 
 on:
   push:
-    branches: [ "main" , "release"]
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/install.yml'
+      - 'src/**'
+      - 'Makefile'
   pull_request:
     branches: [ "main", "release"]
-  paths:
-    - '.github/workflows/install.yml'
-    - 'src/**'
-    - 'Makefile'
+    paths:
+      - '.github/workflows/install.yml'
+      - 'src/**'
+      - 'Makefile'
 
 jobs:
   install:

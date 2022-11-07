@@ -2,14 +2,19 @@ name: Tests
 
 on:
   push:
-    branches: [ "main" , "release"]
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/test.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.test.txt'
   pull_request:
     branches: [ "main", "release"]
-  paths:
-    - '.github/workflows/test.yml'
-    - 'src/**'
-    - 'Makefile'
-    - 'requirements.test.txt'
+    paths:
+      - '.github/workflows/test.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.test.txt'
 
 jobs:
   test:

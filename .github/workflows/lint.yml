@@ -2,14 +2,19 @@ name: Lint
 
 on:
   push:
-    branches: [ "main" , "release"]
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/lint.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.style.txt'
   pull_request:
     branches: [ "main", "release"]
-  paths:
-    - '.github/workflows/lint.yml'
-    - 'src/**'
-    - 'Makefile'
-    - 'requirements.style.txt'
+    paths:
+      - '.github/workflows/lint.yml'
+      - 'src/**'
+      - 'Makefile'
+      - 'requirements.style.txt'
 
 jobs:
   lint:

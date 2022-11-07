@@ -3,11 +3,11 @@ name: Sphinx build
 on:
   push:
     branches: [ "release" ]
-  paths:
-    - '.github/workflows/sphinx.yml'
-    - 'src/**'
-    - 'docs/**'
-    - 'files/**'
+    paths:
+      - '.github/workflows/sphinx.yml'
+      - 'src/**'
+      - 'docs/**'
+      - 'files/**'
 
 jobs:
   docs:

@@ -2,13 +2,17 @@ name: Test Build
 
 on:
   push:
-    branches: [ "main" , "release"]
+    branches: [ "main", "release"]
+    paths:
+      - '.github/workflows/test_build.yml'
+      - 'src/**'
+      - 'Makefile'
   pull_request:
     branches: [ "main", "release"]
-  paths:
-    - '.github/workflows/test_build.yml'
-    - 'src/**'
-    - 'Makefile'
+    paths:
+      - '.github/workflows/test_build.yml'
+      - 'src/**'
+      - 'Makefile'
 
 jobs:
   test_build:
