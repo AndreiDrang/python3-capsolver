@@ -39,7 +39,10 @@ release = "0.0.6"
 extensions = [
     "sphinx.ext.napoleon",
     "myst_parser",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
 ]
+intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
 myst_enable_extensions = ["deflist"]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -52,10 +55,12 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # -- Options for HTML output -------------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = "sphinxdoc"
+# Theme config
+html_theme = "scrolls"
+html_favicon = "_static/CaptchaAISm.png"
+html_logo = "_static/CaptchaAISm.png"
+html_title = f"python3-captchaai Documentation ({release})"
+html_show_sourcelink = False
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

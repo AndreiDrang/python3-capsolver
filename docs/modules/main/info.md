@@ -1,5 +1,8 @@
-# Welcome to python3-captchaai
-![](../../../files/CaptchaAISm.png)
+# Introduction
+
+## Welcome to python3-captchaai
+
+![](../../_static/CaptchaAISm.png)
 
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)
@@ -18,3 +21,21 @@ Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
 Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [CaptchaAI](https://www.captchaai.io/) service API.
+
+## How to install?
+
+We recommend using the latest version of Python. `python3-captchaai` supports Python
+3.7+.
+
+### pip
+
+```bash
+pip install python3-captchaai
+```
+
+### Source
+```bash
+git clone https://github.com/AndreiDrang/python3-captchaai.git
+cd python3-captchaai
+python setup.py install
+```
