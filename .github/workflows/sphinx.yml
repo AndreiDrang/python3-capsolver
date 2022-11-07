@@ -10,8 +10,9 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: ammaraskar/sphinx-action@master
-      with:
-        pre-build-command: "pip install -r requirements.txt"
-        docs-folder: "docs/"
+      - uses: actions/checkout@v3
+      - name: directly build sphinx
+        run: | 
+          cd docs/ && \
+          pip install -r requirements.txt && \
+          make html -e
