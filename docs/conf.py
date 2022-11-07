@@ -87,4 +87,4 @@ napoleon_attr_annotations = True
 
 autodoc_preserve_defaults = False
 autodoc_member_order = "bysource"
-autodoc_class_signature = "separated"
+autodoc_class_signature = "mixed"
