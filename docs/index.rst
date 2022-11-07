@@ -7,6 +7,7 @@ python3-captchaai
 
 .. toctree::
    :maxdepth: 1
+   :caption: Start here:
 
    modules/main/info.md
    modules/contacts/info.md
