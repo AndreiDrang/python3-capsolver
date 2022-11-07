@@ -23,7 +23,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None
                            taskId=None
                            status=<ResponseStatusEnm.Ready: 'ready'>
-                           solution={'gRecaptchaResponse': '44795sds'}
+                           solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -36,7 +36,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None
                            taskId=None
                            status=<ResponseStatusEnm.Ready: 'ready'>
-                           solution={'gRecaptchaResponse': '44795sds'}
+                           solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -48,7 +48,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None
                            taskId=None
                            status=<ResponseStatusEnm.Ready: 'ready'>
-                           solution={'gRecaptchaResponse': '44795sds'}
+                           solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -61,7 +61,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None
                            taskId=None
                            status=<ResponseStatusEnm.Ready: 'ready'>
-                           solution={'gRecaptchaResponse': '44795sds'}
+                           solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
     Returns:
@@ -105,7 +105,7 @@ class ImageToText(BaseImageToText):
                                errorDescription=None
                                taskId=None
                                status=<ResponseStatusEnm.Ready: 'ready'>
-                               solution={'gRecaptchaResponse': '44795sds'}
+                               solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
         Returns:
@@ -137,7 +137,7 @@ class ImageToText(BaseImageToText):
                                errorDescription=None
                                taskId=None
                                status=<ResponseStatusEnm.Ready: 'ready'>
-                               solution={'gRecaptchaResponse': '44795sds'}
+                               solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
         Returns:
