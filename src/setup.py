@@ -11,7 +11,7 @@ from python3_captchaai.core.config import VERSION
 # Package meta-data.
 NAME = "python3-captchaai"
 DESCRIPTION = "Python 3.7+ CaptchaAI library with AIO module."
-URL = "https://github.com/AndreiDrang/python3-captchaai.git"
+URL = "https://andreidrang.github.io/python3-captchaai/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.7.0"
@@ -68,6 +68,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author_email=EMAIL,
+    project_urls={
+        "Documentation": URL,
+        "Source": "https://github.com/AndreiDrang/python3-captchaai",
+    },
     package_dir={"python3-captchaai": "python3_captchaai"},
     include_package_data=True,
     py_modules=["python3_captchaai"],
