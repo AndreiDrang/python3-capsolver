@@ -51,8 +51,9 @@ v.0.0.1 - First release with basic methods and logic.
 ***
 
 ### Additional info
-1. [All examples of working with the library](src/examples)
-2. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
+1. [Library usage examples](https://andreidrang.github.io/python3-captchaai/)
+2. [All examples of working with the library](src/examples)
+3. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
 
 
 ### Get API Key to work with the library
