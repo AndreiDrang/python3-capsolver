@@ -5,6 +5,10 @@ python3-captchaai
 .. image:: _static/CaptchaAI300x.png
     :align: center
 
+Python3 library for `CaptchaAI API <https://www.captchaai.io/>`_.
+
+The library is intended for software developers and is used to work with the `CaptchaAI API <https://www.captchaai.io/)>`_.
+
 .. toctree::
    :maxdepth: 1
    :caption: Start here:

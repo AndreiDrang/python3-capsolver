@@ -6,12 +6,14 @@
 
 # -- Path setup --------------------------------------------------------------
 
+import os
+import sys
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
+from pallets_sphinx_themes import ProjectLink
 
 os.chdir("../")
 sys.path.insert(0, os.path.abspath("src/"))
@@ -26,35 +28,21 @@ from python3_captchaai import hcaptcha, image_to_text, recaptcha
 project = "python3-captchaai"
 copyright = "2022, AndreiDrang"
 author = "AndreiDrang"
-
-# The full version, including alpha/beta/rc tags
 release = "0.0.6"
 
-
 # -- General configuration ---------------------------------------------------
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
 extensions = (
-    "sphinx.ext.napoleon",
     "myst_parser",
     "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
     "pallets_sphinx_themes",
 )
-intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
 myst_enable_extensions = ["deflist"]
-# Add any paths that contain templates here, relative to this directory.
+intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
 templates_path = ["_templates"]
-
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-
 # -- Options for HTML output -------------------------------------------------
-
 # Theme config
 html_theme = "jinja"
 html_theme_options = {"index_sidebar_logo": False}
@@ -63,6 +51,17 @@ html_favicon = "_static/CaptchaAIESm.png"
 html_logo = "_static/CaptchaAISm.png"
 html_title = f"python3-captchaai ({release})"
 html_show_sourcelink = False
+
+html_context = {
+    "project_links": [
+        ProjectLink("PyPI Releases", "https://pypi.org/project/python3-captchaai/"),
+        ProjectLink("Source Code", "https://github.com/AndreiDrang/python3-captchaai"),
+    ]
+}
+html_sidebars = {
+    "index": ["project.html", "localtoc.html", "searchbox.html", "ethicalads.html"],
+    "**": ["localtoc.html", "relations.html", "searchbox.html", "ethicalads.html"],
+}
 
 # Typehints config
 autodoc_typehints = "description"
