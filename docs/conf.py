@@ -36,12 +36,12 @@ release = "0.0.6"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
+extensions = (
     "sphinx.ext.napoleon",
     "myst_parser",
     "sphinx.ext.autodoc",
-    "sphinx.ext.intersphinx",
-]
+    "pallets_sphinx_themes",
+)
 intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
 myst_enable_extensions = ["deflist"]
 # Add any paths that contain templates here, relative to this directory.
@@ -56,20 +56,16 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # -- Options for HTML output -------------------------------------------------
 
 # Theme config
-html_theme = "scrolls"
-html_favicon = "_static/CaptchaAISm.png"
+html_theme = "jinja"
+html_theme_options = {"index_sidebar_logo": False}
+html_static_path = ["_static"]
+html_favicon = "_static/CaptchaAIESm.png"
 html_logo = "_static/CaptchaAISm.png"
 html_title = f"python3-captchaai Documentation ({release})"
 html_show_sourcelink = False
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
-
-
 # Typehints config
-autodoc_typehints = "signature"
+autodoc_typehints = "description"
 autodoc_typehints_description_target = "all"
 autodoc_typehints_format = "short"
 

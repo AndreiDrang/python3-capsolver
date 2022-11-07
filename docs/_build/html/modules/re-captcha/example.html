@@ -4,54 +4,45 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ReCaptcha &#8212; python3-captchaai Documentation (0.0.6)</title>
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/scrolls.css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/jinja.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/theme_extras.js"></script>
-    <link rel="shortcut icon" href="../../_static/CaptchaAISm.png"/>
+    <link rel="shortcut icon" href="../../_static/CaptchaAIESm.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="HCaptcha" href="../h-captcha/example.html" />
     <link rel="prev" title="ImageToText" href="../image-to-text/example.html" /> 
   </head><body>
-    <div id="content">
-      <div class="header">
-        <h1 class="heading"><a href="../../index.html"
-          title="back to the documentation overview"><span>ReCaptcha</span></a></h1>
-      </div>
-      <div class="relnav" role="navigation" aria-label="related navigation">
-        <a href="../image-to-text/example.html">&laquo; ImageToText</a> |
-        <a href="#">ReCaptcha</a>
-        | <a href="../h-captcha/example.html">HCaptcha &raquo;</a>
-      </div>
-      <div id="contentwrapper">
-        <div id="toc" role="navigation" aria-label="table of contents navigation">
-          <h3>Table of Contents</h3>
-          <ul>
-<li><a class="reference internal" href="#">ReCaptcha</a><ul>
-<li><a class="reference internal" href="#recaptcha.ReCaptcha"><code class="docutils literal notranslate"><span class="pre">ReCaptcha</span></code></a><ul>
-<li><a class="reference internal" href="#recaptcha.ReCaptcha.captcha_handler"><code class="docutils literal notranslate"><span class="pre">ReCaptcha.captcha_handler()</span></code></a></li>
-<li><a class="reference internal" href="#recaptcha.ReCaptcha.aio_captcha_handler"><code class="docutils literal notranslate"><span class="pre">ReCaptcha.aio_captcha_handler()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../h-captcha/example.html" title="HCaptcha"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../image-to-text/example.html" title="ImageToText"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">python3-captchaai Documentation (0.0.6)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ReCaptcha</a></li> 
+      </ul>
+    </div>  
 
-        </div>
-        <div role="main">
-        
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
   <section id="recaptcha">
 <h1>ReCaptcha<a class="headerlink" href="#recaptcha" title="Permalink to this heading">¶</a></h1>
 <p>To import this module:</p>
@@ -60,25 +51,25 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="recaptcha.ReCaptcha">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">recaptcha.</span></span><span class="sig-name descname"><span class="pre">ReCaptcha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">CaptchaTypeEnm</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteURL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageAction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyType</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ProxyType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyAddress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyPort</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.captchaai.io'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#recaptcha.ReCaptcha" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">recaptcha.</span></span><span class="sig-name descname"><span class="pre">ReCaptcha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteURL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageAction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyAddress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxyPort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.captchaai.io'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#recaptcha.ReCaptcha" title="Permalink to this definition">¶</a></dt>
 <dd><p>The class is used to work with CaptchaAI ReCaptcha methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>api_key</strong> – CaptchaAI API key</p></li>
-<li><p><strong>captcha_type</strong> – Captcha type name, like <code class="docutils literal notranslate"><span class="pre">ReCaptchaV2Task</span></code> and etc.</p></li>
-<li><p><strong>websiteURL</strong> – Address of a webpage with Google ReCaptcha</p></li>
-<li><p><strong>websiteKey</strong> – Recaptcha website key. &lt;div class=”g-recaptcha” data-sitekey=”THAT_ONE”&gt;&lt;/div&gt;</p></li>
-<li><p><strong>pageAction</strong> – Widget action value. Website owner defines what user is doing on the page through this parameter.
+<li><p><strong>api_key</strong> (<em>str</em>) – CaptchaAI API key</p></li>
+<li><p><strong>captcha_type</strong> (<em>Union</em><em>[</em><em>CaptchaTypeEnm</em><em>, </em><em>str</em><em>]</em>) – Captcha type name, like <code class="docutils literal notranslate"><span class="pre">ReCaptchaV2Task</span></code> and etc.</p></li>
+<li><p><strong>websiteURL</strong> (<em>str</em>) – Address of a webpage with Google ReCaptcha</p></li>
+<li><p><strong>websiteKey</strong> (<em>str</em>) – Recaptcha website key. &lt;div class=”g-recaptcha” data-sitekey=”THAT_ONE”&gt;&lt;/div&gt;</p></li>
+<li><p><strong>pageAction</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Widget action value. Website owner defines what user is doing on the page through this parameter.
 Default value: <code class="docutils literal notranslate"><span class="pre">verify</span></code>. Example: grecaptcha.execute(‘site_key’, {action:’login_test’}).</p></li>
-<li><p><strong>proxyType</strong> – Type of the proxy</p></li>
-<li><p><strong>proxyAddress</strong> – Proxy IP address IPv4/IPv6. Not allowed to use:
+<li><p><strong>proxyType</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ProxyType</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Type of the proxy</p></li>
+<li><p><strong>proxyAddress</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Proxy IP address IPv4/IPv6. Not allowed to use:
 host names instead of IPs,
 transparent proxies (where client IP is visible),
 proxies from local networks (192.., 10.., 127…)</p></li>
-<li><p><strong>proxyPort</strong> – Proxy port.</p></li>
-<li><p><strong>sleep_time</strong> – The waiting time between requests to get the result of the Captcha</p></li>
-<li><p><strong>request_url</strong> – API address for sending requests</p></li>
+<li><p><strong>proxyPort</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Proxy port.</p></li>
+<li><p><strong>sleep_time</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The waiting time between requests to get the result of the Captcha</p></li>
+<li><p><strong>request_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – API address for sending requests</p></li>
 </ul>
 </dd>
 </dl>
@@ -103,6 +94,20 @@ proxies from local networks (192.., 10.., 127…)</p></li>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>CaptchaResponseSer model with full server response</p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>api_key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>captcha_type</strong> (<em>Union</em><em>[</em><em>CaptchaTypeEnm</em><em>, </em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>websiteURL</strong> (<em>str</em>) – </p></li>
+<li><p><strong>websiteKey</strong> (<em>str</em>) – </p></li>
+<li><p><strong>pageAction</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>proxyType</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>ProxyType</em><em>, </em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>proxyAddress</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>proxyPort</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>sleep_time</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>request_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
 </dl>
 <div class="admonition-notes admonition">
 <p class="admonition-title">Notes</p>
@@ -113,7 +118,7 @@ proxies from local networks (192.., 10.., 127…)</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="recaptcha.ReCaptcha.captcha_handler">
-<span class="sig-name descname"><span class="pre">captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#recaptcha.ReCaptcha.captcha_handler" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#recaptcha.ReCaptcha.captcha_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Synchronous method for captcha solving</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -121,6 +126,9 @@ proxies from local networks (192.., 10.., 127…)</p></li>
 and will be passed to the payload under <code class="docutils literal notranslate"><span class="pre">task</span></code> key.
 Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataSValue</span></code>, <code class="docutils literal notranslate"><span class="pre">isInvisible</span></code>, <code class="docutils literal notranslate"><span class="pre">userAgent</span></code>, <code class="docutils literal notranslate"><span class="pre">cookies</span></code>,
 <code class="docutils literal notranslate"><span class="pre">proxyLogin</span></code>, <code class="docutils literal notranslate"><span class="pre">proxyPassword</span></code> - more info in service docs</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
 </dd>
 </dl>
 <div class="admonition-examples admonition">
@@ -144,6 +152,9 @@ Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataS
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
+</dd>
 </dl>
 <div class="admonition-notes admonition">
 <p class="admonition-title">Notes</p>
@@ -153,7 +164,7 @@ Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataS
 
 <dl class="py method">
 <dt class="sig sig-object py" id="recaptcha.ReCaptcha.aio_captcha_handler">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aio_captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#recaptcha.ReCaptcha.aio_captcha_handler" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aio_captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#recaptcha.ReCaptcha.aio_captcha_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Asynchronous method for captcha solving</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -161,6 +172,9 @@ Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataS
 and will be passed to the payload under <code class="docutils literal notranslate"><span class="pre">task</span></code> key.
 Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataSValue</span></code>, <code class="docutils literal notranslate"><span class="pre">isInvisible</span></code>, <code class="docutils literal notranslate"><span class="pre">userAgent</span></code>, <code class="docutils literal notranslate"><span class="pre">cookies</span></code>,
 <code class="docutils literal notranslate"><span class="pre">proxyLogin</span></code>, <code class="docutils literal notranslate"><span class="pre">proxyPassword</span></code> - more info in service docs</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
 </dd>
 </dl>
 <div class="admonition-examples admonition">
@@ -184,6 +198,9 @@ Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataS
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
+</dd>
 </dl>
 <div class="admonition-notes admonition">
 <p class="admonition-title">Notes</p>
@@ -196,13 +213,60 @@ Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataS
 </section>
 
 
+            <div class="clearer"></div>
+          </div>
         </div>
       </div>
-    </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/CaptchaAISm.png" alt="Logo"/>
+            </a></p>
+  
 
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">ReCaptcha</a><ul>
+<li><a class="reference internal" href="#recaptcha.ReCaptcha"><code class="docutils literal notranslate"><span class="pre">ReCaptcha</span></code></a><ul>
+<li><a class="reference internal" href="#recaptcha.ReCaptcha.captcha_handler"><code class="docutils literal notranslate"><span class="pre">ReCaptcha.captcha_handler()</span></code></a></li>
+<li><a class="reference internal" href="#recaptcha.ReCaptcha.aio_captcha_handler"><code class="docutils literal notranslate"><span class="pre">ReCaptcha.aio_captcha_handler()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../index.html">Overview</a>
+    <ul>
+          <li>Previous: <a href="../image-to-text/example.html" title="previous chapter">ImageToText</a>
+          <li>Next: <a href="../h-captcha/example.html" title="next chapter">HCaptcha</a>
+    </ul>
+  </li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
     <div class="footer" role="contentinfo">
         &#169; Copyright 2022, AndreiDrang.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
+  <script src="../../_static/version_warning_offset.js"></script>
+
   </body>
 </html>

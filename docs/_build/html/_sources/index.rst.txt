@@ -2,7 +2,7 @@
 
 python3-captchaai
 =================
-.. image:: _static/CaptchaAISm.png
+.. image:: _static/CaptchaAI300x.png
     :align: center
 
 .. toctree::
@@ -10,6 +10,7 @@ python3-captchaai
    :caption: Start here:
 
    modules/main/info.md
+   modules/license/info.md
    modules/contacts/info.md
 
 .. toctree::
