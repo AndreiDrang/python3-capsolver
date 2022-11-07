@@ -33,7 +33,6 @@ release = "0.0.6"
 # -- General configuration ---------------------------------------------------
 extensions = (
     "myst_parser",
-    "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "pallets_sphinx_themes",
 )
@@ -68,8 +67,9 @@ html_sidebars = {
 }
 
 # Typehints config
+autoclass_content="class"
 autodoc_typehints = "description"
-autodoc_typehints_description_target = "all"
+autodoc_typehints_description_target = "documented"
 autodoc_typehints_format = "short"
 
 # Napoleon settings
@@ -87,7 +87,6 @@ napoleon_use_rtype = True
 napoleon_preprocess_types = True
 napoleon_type_aliases = True
 napoleon_attr_annotations = True
-
 
 autodoc_preserve_defaults = False
 autodoc_member_order = "bysource"
