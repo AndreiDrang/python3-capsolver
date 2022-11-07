@@ -67,7 +67,6 @@ html_sidebars = {
 }
 
 # Typehints config
-autoclass_content="class"
 autodoc_typehints = "description"
 autodoc_typehints_description_target = "documented"
 autodoc_typehints_format = "short"
