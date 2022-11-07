@@ -2,6 +2,9 @@ install:
 	cd src/ && pip install -e .
 
 refactor:
+	black docs/
+	isort docs/
+
 	cd src/ && \
 	autoflake --in-place \
 				--recursive \

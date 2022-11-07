@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>ReCaptcha &#8212; python3-captchaai 0.0.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="HCaptcha" href="../h-captcha/example.html" />
+    <link rel="prev" title="ImageToText" href="../image-to-text/example.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="recaptcha">
+<h1>ReCaptcha<a class="headerlink" href="#recaptcha" title="Permalink to this heading">¶</a></h1>
+<p>To import this module:</p>
+<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">python3_captchaai.recaptcha</span> <span class="pre">import</span> <span class="pre">ReCaptcha</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="recaptcha.ReCaptcha">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">recaptcha.</span></span><span class="sig-name descname"><span class="pre">ReCaptcha</span></span><a class="headerlink" href="#recaptcha.ReCaptcha" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class is used to work with CaptchaAI ReCaptcha methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_key</strong> – CaptchaAI API key</p></li>
+<li><p><strong>captcha_type</strong> – Captcha type name, like <code class="docutils literal notranslate"><span class="pre">ReCaptchaV2Task</span></code> and etc.</p></li>
+<li><p><strong>websiteURL</strong> – Address of a webpage with Google ReCaptcha</p></li>
+<li><p><strong>websiteKey</strong> – Recaptcha website key. &lt;div class=”g-recaptcha” data-sitekey=”THAT_ONE”&gt;&lt;/div&gt;</p></li>
+<li><p><strong>pageAction</strong> – Widget action value. Website owner defines what user is doing on the page through this parameter.
+Default value: <code class="docutils literal notranslate"><span class="pre">verify</span></code>. Example: grecaptcha.execute(‘site_key’, {action:’login_test’}).</p></li>
+<li><p><strong>proxyType</strong> – Type of the proxy</p></li>
+<li><p><strong>proxyAddress</strong> – Proxy IP address IPv4/IPv6. Not allowed to use:
+host names instead of IPs,
+transparent proxies (where client IP is visible),
+proxies from local networks (192.., 10.., 127…)</p></li>
+<li><p><strong>proxyPort</strong> – Proxy port.</p></li>
+<li><p><strong>sleep_time</strong> – The waiting time between requests to get the result of the Captcha</p></li>
+<li><p><strong>request_url</strong> – API address for sending requests</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ReCaptcha</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-1324...&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">captcha_type</span><span class="o">=</span><span class="s2">&quot;ReCaptchaV2TaskProxyLess&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.google.com/recaptcha/api2/demo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-&quot;</span>
+<span class="gp">... </span>         <span class="p">)</span><span class="o">.</span><span class="n">captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=False</span>
+<span class="go">                   errorCode=None</span>
+<span class="go">                   errorDescription=None</span>
+<span class="go">                   taskId=None</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;</span>
+<span class="go">                   solution={&#39;gRecaptchaResponse&#39;: &#39;44795sds&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full server response</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><a class="reference external" href="https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446">https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393446</a>
+<a class="reference external" href="https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426184">https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426184</a>
+<a class="reference external" href="https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393981">https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393981</a>
+<a class="reference external" href="https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426203">https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426203</a></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="recaptcha.ReCaptcha.captcha_handler">
+<span class="sig-name descname"><span class="pre">captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#recaptcha.ReCaptcha.captcha_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronous method for captcha solving</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>additional_params</strong> – Some additional parameters that will be used in creating the task
+and will be passed to the payload under <code class="docutils literal notranslate"><span class="pre">task</span></code> key.
+Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataSValue</span></code>, <code class="docutils literal notranslate"><span class="pre">isInvisible</span></code>, <code class="docutils literal notranslate"><span class="pre">userAgent</span></code>, <code class="docutils literal notranslate"><span class="pre">cookies</span></code>,
+<code class="docutils literal notranslate"><span class="pre">proxyLogin</span></code>, <code class="docutils literal notranslate"><span class="pre">proxyPassword</span></code> - more info in service docs</p>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ReCaptcha</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-1324...&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">captcha_type</span><span class="o">=</span><span class="s2">&quot;ReCaptchaV2TaskProxyLess&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.google.com/recaptcha/api2/demo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-&quot;</span>
+<span class="gp">... </span>         <span class="p">)</span><span class="o">.</span><span class="n">captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=False</span>
+<span class="go">                   errorCode=None</span>
+<span class="go">                   errorDescription=None</span>
+<span class="go">                   taskId=None</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;</span>
+<span class="go">                   solution={&#39;gRecaptchaResponse&#39;: &#39;44795sds&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Check class docstirng for more info</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="recaptcha.ReCaptcha.aio_captcha_handler">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aio_captcha_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">additional_params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#recaptcha.ReCaptcha.aio_captcha_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronous method for captcha solving</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>additional_params</strong> – Some additional parameters that will be used in creating the task
+and will be passed to the payload under <code class="docutils literal notranslate"><span class="pre">task</span></code> key.
+Like <code class="docutils literal notranslate"><span class="pre">recaptchaDataSValue</span></code>, <code class="docutils literal notranslate"><span class="pre">isInvisible</span></code>, <code class="docutils literal notranslate"><span class="pre">userAgent</span></code>, <code class="docutils literal notranslate"><span class="pre">cookies</span></code>,
+<code class="docutils literal notranslate"><span class="pre">proxyLogin</span></code>, <code class="docutils literal notranslate"><span class="pre">proxyPassword</span></code> - more info in service docs</p>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">ReCaptcha</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-1324...&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">captcha_type</span><span class="o">=</span><span class="s2">&quot;ReCaptchaV2TaskProxyLess&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.google.com/recaptcha/api2/demo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-&quot;</span>
+<span class="gp">... </span>               <span class="p">)</span><span class="o">.</span><span class="n">aio_captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=False</span>
+<span class="go">                   errorCode=None</span>
+<span class="go">                   errorDescription=None</span>
+<span class="go">                   taskId=None</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;</span>
+<span class="go">                   solution={&#39;gRecaptchaResponse&#39;: &#39;44795sds&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Check class docstirng for more info</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">python3-captchaai</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main/info.html">Welcome to python3-captchaai</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contacts/info.html">Contacts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Captcha examples:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../image-to-text/example.html">ImageToText</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ReCaptcha</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#recaptcha.ReCaptcha"><code class="docutils literal notranslate"><span class="pre">ReCaptcha</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../h-captcha/example.html">HCaptcha</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../image-to-text/example.html" title="previous chapter">ImageToText</a></li>
+      <li>Next: <a href="../h-captcha/example.html" title="next chapter">HCaptcha</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, AndreiDrang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/modules/re-captcha/example.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
