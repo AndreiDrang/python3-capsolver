@@ -27,33 +27,9 @@ Or email python-captcha@pm.me
 
 ***
 
-## How to install?
-
-### pip
-
-```bash
-pip install python3-captchaai
-```
-
-### Source
-```bash
-git clone https://github.com/AndreiDrang/python3-captchaai.git
-cd python3-captchaai
-python setup.py install
-```
-
-### Changelog
-
-v.0.0.6 - Added HCaptcha, Image to Text captcha and ReCaptcha(V2 and V3).
-
-v.0.0.1 - First release with basic methods and logic.
-
-***
-
 ### Additional info
 1. [Library usage examples](https://andreidrang.github.io/python3-captchaai/)
-2. [All examples of working with the library](src/examples)
-3. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
+2. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
 
 
 ### Get API Key to work with the library
