@@ -2,9 +2,12 @@ name: Sphinx build
 
 on:
   push:
-    branches: [ "release", "gh-pages" ]
-  pull_request:
-    branches: [ "release", "gh-pages" ]
+    branches: [ "release" ]
+  paths:
+    - '.github/workflows/sphinx.yml'
+    - 'src/**'
+    - 'docs/**'
+    - 'files/**'
 
 jobs:
   docs:
