@@ -22,13 +22,14 @@ for x in os.walk("src/python3_captchaai/"):
     sys.path.insert(0, x[0])
 
 from python3_captchaai import hcaptcha, image_to_text, recaptcha
+from python3_captchaai.core.config import VERSION
 
 # -- Project information -----------------------------------------------------
 
 project = "python3-captchaai"
 copyright = "2022, AndreiDrang"
 author = "AndreiDrang"
-release = "0.0.6"
+release = VERSION
 
 # -- General configuration ---------------------------------------------------
 extensions = (
