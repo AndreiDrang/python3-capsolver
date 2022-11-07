@@ -2,8 +2,8 @@ import pytest
 from pydantic import ValidationError
 
 from src.tests.conftest import BaseTest
+from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
 from python3_captchaai.recaptcha import ReCaptcha
-from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm
 
 GOOGLE_KEY = "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
 PAGE_URL = "https://www.google.com/recaptcha/api2/demo"

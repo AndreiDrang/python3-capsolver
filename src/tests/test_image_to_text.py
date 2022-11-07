@@ -3,7 +3,7 @@ import base64
 import pytest
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.core.enums import ResponseStatusEnm
+from python3_captchaai.core.enum import ResponseStatusEnm
 from python3_captchaai.image_to_text import ImageToText
 from python3_captchaai.core.serializer import CaptchaResponseSer
 

@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field, BaseModel, conint, constr
 
-from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm, ResponseStatusEnm
+from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm, ResponseStatusEnm
 
 """
 HTTP API Request ser

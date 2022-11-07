@@ -21,21 +21,21 @@ sys.path.insert(0, os.path.abspath("src/"))
 for x in os.walk("src/python3_captchaai/"):
     sys.path.insert(0, x[0])
 
-from python3_captchaai import hcaptcha, image_to_text, recaptcha
+from python3_captchaai import core, hcaptcha, image_to_text, recaptcha
 from python3_captchaai.__version__ import __version__
 
 # -- Project information -----------------------------------------------------
 
 project = "python3-captchaai"
-copyright = "2022, AndreiDrang"
+copyright = f"2022, AndreiDrang, Release - {__version__}"
 author = "AndreiDrang"
-release = __version__
 
 # -- General configuration ---------------------------------------------------
 extensions = (
     "myst_parser",
     "sphinx.ext.napoleon",
     "pallets_sphinx_themes",
+    "sphinxcontrib.autodoc_pydantic",
 )
 myst_enable_extensions = ["deflist"]
 intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
@@ -49,7 +49,7 @@ html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
 html_favicon = "_static/CaptchaAIESm.png"
 html_logo = "_static/CaptchaAISm.png"
-html_title = f"python3-captchaai ({release})"
+html_title = f"python3-captchaai ({__version__})"
 html_show_sourcelink = False
 
 html_context = {
@@ -68,7 +68,7 @@ html_sidebars = {
 }
 
 # Typehints config
-autodoc_typehints = "description"
+autodoc_typehints = "both"
 autodoc_typehints_description_target = "documented"
 autodoc_typehints_format = "short"
 
@@ -91,3 +91,7 @@ napoleon_attr_annotations = True
 autodoc_preserve_defaults = False
 autodoc_member_order = "bysource"
 autodoc_class_signature = "mixed"
+
+# Pydantic
+autodoc_pydantic_model_show_json = True
+autodoc_pydantic_settings_show_json = False

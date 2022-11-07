@@ -9,7 +9,7 @@ import requests
 from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
-from python3_captchaai.core.enums import CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
+from python3_captchaai.core.enum import CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
 from python3_captchaai.core.config import RETRIES, VALID_STATUS_CODES, attempts_generator
 from python3_captchaai.core.serializer import CaptchaOptionsSer, CaptchaResponseSer, RequestGetTaskResultSer
 
