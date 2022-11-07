@@ -61,7 +61,7 @@ html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
 html_favicon = "_static/CaptchaAIESm.png"
 html_logo = "_static/CaptchaAISm.png"
-html_title = f"python3-captchaai Documentation ({release})"
+html_title = f"python3-captchaai ({release})"
 html_show_sourcelink = False
 
 # Typehints config
