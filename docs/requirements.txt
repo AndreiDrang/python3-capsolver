@@ -1,3 +1,2 @@
-jinja2==3.1.*
 pallets_sphinx_themes==2.*
 myst-parser==0.18.*
