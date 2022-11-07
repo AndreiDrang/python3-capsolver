@@ -3,7 +3,7 @@ ReCaptcha
 
 To import this module:
 
-.. code-block:: text
+.. code-block:: python
 
     from python3_captchaai.recaptcha import ReCaptcha
 

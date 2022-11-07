@@ -25,3 +25,10 @@ The library is intended for software developers and is used to work with the `Ca
    modules/image-to-text/example.rst
    modules/re-captcha/example.rst
    modules/h-captcha/example.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Additional modules
+
+   modules/enum/info.rst
+   modules/serializer/info.rst

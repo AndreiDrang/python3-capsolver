@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath("src/"))
 for x in os.walk("src/python3_captchaai/"):
     sys.path.insert(0, x[0])
 
-from python3_captchaai import hcaptcha, image_to_text, recaptcha
+from python3_captchaai import core, hcaptcha, image_to_text, recaptcha
 from python3_captchaai.__version__ import __version__
 
 # -- Project information -----------------------------------------------------
@@ -35,6 +35,7 @@ extensions = (
     "myst_parser",
     "sphinx.ext.napoleon",
     "pallets_sphinx_themes",
+    "sphinxcontrib.autodoc_pydantic",
 )
 myst_enable_extensions = ["deflist"]
 intersphinx_mapping = {"python": ("https://docs.python.org/3.10/", None)}
@@ -90,3 +91,7 @@ napoleon_attr_annotations = True
 autodoc_preserve_defaults = False
 autodoc_member_order = "bysource"
 autodoc_class_signature = "mixed"
+
+# Pydantic
+autodoc_pydantic_model_show_json = True
+autodoc_pydantic_settings_show_json = False

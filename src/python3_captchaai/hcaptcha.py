@@ -1,7 +1,7 @@
 from typing import List, Union, Optional
 
 from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm
+from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import (
     CaptchaResponseSer,

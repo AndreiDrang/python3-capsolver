@@ -3,7 +3,7 @@ from pydantic import ValidationError
 
 from src.tests.conftest import BaseTest
 from python3_captchaai.hcaptcha import HCaptcha
-from python3_captchaai.core.enums import ProxyType, CaptchaTypeEnm
+from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
 
 HCAPTCHA_KEY = "a5f74b19-9e45-40e0-b45d-47ff91b7a6c2"
 PAGE_URL = "https://accounts.hcaptcha.com/demo"

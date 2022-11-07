@@ -1,5 +1,5 @@
 from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enums import CaptchaTypeEnm
+from python3_captchaai.core.enum import CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateTaskSer
 
