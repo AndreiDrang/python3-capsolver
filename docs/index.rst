@@ -14,6 +14,7 @@ The library is intended for software developers and is used to work with the `Ca
    :caption: Start here:
 
    modules/main/info.md
+   modules/other-libs/info.md
    modules/license/info.md
    modules/contacts/info.md
 
