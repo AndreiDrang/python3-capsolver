@@ -31,4 +31,4 @@ tests:
 	coverage run --rcfile=.coveragerc -m pytest -s tests -vv --disable-warnings && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty && \
-	coverage lcov -o coverage/lcov.info
+	coverage xml -o coverage/coverage.xml
