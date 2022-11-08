@@ -63,7 +63,7 @@ class CaptchaOptionsSer(BaseModel):
 
 
 """
-ReCaptcha ser
+Captcha tasks ser
 """
 
 
@@ -104,3 +104,12 @@ class HCaptchaOptionsSer(BaseModel):
     question: str = Field(
         ..., description="Question ID. Support English and Chinese, other languages please convert yourself"
     )
+
+
+class GeeTestProxyLessOptionsSer(BaseModel):
+    websiteURL: str = Field(..., description="Address of a webpage with Geetest")
+    gt: str = Field(..., description="The domain public key, rarely updated")
+
+
+class GeeTestOptionsSer(GeeTestProxyLessOptionsSer, ProxyDataOptionsSer):
+    pass
