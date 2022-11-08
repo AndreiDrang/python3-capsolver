@@ -44,9 +44,9 @@ jobs:
       - name: Test
         run: make tests
 
-  finish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: /home/runner/work/python3-captchaai/python3-captchaai/src/coverage/coverage.xml
+          fail_ci_if_error: true
+          verbose: true
