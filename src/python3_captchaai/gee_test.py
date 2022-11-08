@@ -24,8 +24,7 @@ class BaseGeeTest(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> GeeTest(
-        ...         api_key="CAI-1324...",
+        >>> GeeTest(api_key="CAI-1324...",
         ...         captcha_type="GeetestTaskProxyless",
         ...         websiteURL="https://www.geetest.com/en/demo",
         ...         gt="022397c99c9f646f6477822485f30404",
@@ -95,15 +94,14 @@ class GeeTest(BaseGeeTest):
                                 Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
 
         Examples:
-        >>> GeeTest(
-        ...         api_key="CAI-1324...",
-        ...         captcha_type="GeetestTaskProxyless",
-        ...         websiteURL="https://www.geetest.com/en/demo",
-        ...         gt="022397c99c9f646f6477822485f30404",
-        ...        ).captcha_handler(
-        ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
-        ...                    geetestApiServerSubdomain="api.geetest.com"
-        ...                )
+            >>> GeeTest(api_key="CAI-1324...",
+            ...         captcha_type="GeetestTaskProxyless",
+            ...         websiteURL="https://www.geetest.com/en/demo",
+            ...         gt="022397c99c9f646f6477822485f30404",
+            ...        ).captcha_handler(
+            ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
+            ...                    geetestApiServerSubdomain="api.geetest.com"
+            ...                )
             CaptchaResponseSer(errorId=False
                                errorCode=None
                                errorDescription=None
@@ -138,15 +136,14 @@ class GeeTest(BaseGeeTest):
                                 Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
 
         Examples:
-        >>> await GeeTest(
-        ...         api_key="CAI-1324...",
-        ...         captcha_type="GeetestTaskProxyless",
-        ...         websiteURL="https://www.geetest.com/en/demo",
-        ...         gt="022397c99c9f646f6477822485f30404",
-        ...        ).aio_captcha_handler(
-        ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
-        ...                    geetestApiServerSubdomain="api.geetest.com"
-        ...                )
+            >>> await GeeTest(api_key="CAI-1324...",
+            ...                 captcha_type="GeetestTaskProxyless",
+            ...                 websiteURL="https://www.geetest.com/en/demo",
+            ...                 gt="022397c99c9f646f6477822485f30404",
+            ...             ).aio_captcha_handler(
+            ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
+            ...                    geetestApiServerSubdomain="api.geetest.com"
+            ...                )
             CaptchaResponseSer(errorId=False
                                errorCode=None
                                errorDescription=None
