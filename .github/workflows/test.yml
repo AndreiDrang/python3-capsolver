@@ -48,7 +48,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           version: "v0.1.15"
-          files: ./coverage/coverage.xml
+          files: /home/runner/work/python3-captchaai/python3-captchaai/src/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
 
@@ -60,6 +60,6 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         version: "v0.1.15"
-        files: ./coverage/coverage.xml
+        files: /home/runner/work/python3-captchaai/python3-captchaai/src/coverage/coverage.xml
         fail_ci_if_error: true
         verbose: true
