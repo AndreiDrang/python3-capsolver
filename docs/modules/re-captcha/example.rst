@@ -1,5 +1,5 @@
 ReCaptcha
-=============
+=========
 
 To import this module:
 
