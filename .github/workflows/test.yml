@@ -44,7 +44,7 @@ jobs:
       - name: Test
         run: make tests
 
-  finish:
+  codecov:
     needs: test
     runs-on: ubuntu-latest
     steps:
