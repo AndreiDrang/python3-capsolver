@@ -44,6 +44,14 @@ jobs:
       - name: Test
         run: make tests
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: src/coverage/coverage.xml
+          fail_ci_if_error: true
+          root_dir: python3_captchaai/
+          verbose: true
+
   codecov:
     needs: test
     runs-on: ubuntu-latest
@@ -52,3 +60,6 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         files: ./src/coverage/coverage.xml
+        fail_ci_if_error: true
+        root_dir: python3_captchaai/
+        verbose: true
