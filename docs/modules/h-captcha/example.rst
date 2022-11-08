@@ -1,5 +1,5 @@
 HCaptcha
-=============
+========
 
 To import this module:
 
