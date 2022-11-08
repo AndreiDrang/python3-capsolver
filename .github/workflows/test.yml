@@ -44,22 +44,9 @@ jobs:
       - name: Test
         run: make tests
 
-      - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./src/coverage/lcov.info
-          flag-name: Pytests
-          parallel: true
-
   finish:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        parallel-finished: true
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./src/coverage/lcov.info
-        flag-name: Pytests
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
