@@ -9,6 +9,8 @@ ASYNC_RETRIES = AsyncRetrying(wait=wait_fixed(5), stop=stop_after_attempt(5), re
 REQUEST_URL = "https://api.captchaai.io"
 VALID_STATUS_CODES = (200, 400)
 
+APP_ID = "3E36E3CD-7EB5-4CAF-AA15-91011E652321"
+
 
 # Connection retry generator
 def attempts_generator(amount: int = 16) -> Generator:

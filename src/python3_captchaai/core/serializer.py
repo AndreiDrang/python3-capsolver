@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import Field, BaseModel, conint, constr
 
 from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm, ResponseStatusEnm
+from python3_captchaai.core.config import APP_ID
 
 """
 HTTP API Request ser
@@ -19,6 +20,7 @@ class TaskSer(BaseModel):
 
 class RequestCreateTaskSer(PostRequestSer):
     task: Optional[TaskSer] = Field(None, description="Task object")
+    appId: str = Field(APP_ID, description="AppID")
 
 
 class RequestGetTaskResultSer(PostRequestSer):
