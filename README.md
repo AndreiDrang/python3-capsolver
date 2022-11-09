@@ -30,7 +30,7 @@ Or email python-captcha@pm.me
 ***
 
 ### Additional info
-1. [Library usage examples](https://andreidrang.github.io/python3-captchaai/)
+1. [Library usage examples && Docs](https://andreidrang.github.io/python3-captchaai/)
 2. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
 
 
