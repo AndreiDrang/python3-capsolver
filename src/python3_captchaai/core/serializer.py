@@ -70,10 +70,8 @@ Captcha tasks ser
 
 
 class WebsiteDataOptionsSer(BaseModel):
-    websiteURL: str = Field(..., description="Address of a webpage with Google ReCaptcha")
-    websiteKey: str = Field(
-        ..., description="Recaptcha website key. <div class='g-recaptcha' data-sitekey='THAT_ONE'></div>"
-    )
+    websiteURL: str = Field(..., description="Address of a webpage with Captcha")
+    websiteKey: str = Field(..., description="Website key")
 
 
 class ProxyDataOptionsSer(WebsiteDataOptionsSer):
@@ -114,4 +112,18 @@ class GeeTestProxyLessOptionsSer(BaseModel):
 
 
 class GeeTestOptionsSer(GeeTestProxyLessOptionsSer, ProxyDataOptionsSer):
+    pass
+
+
+class FunCaptchaProxyLessOptionsSer(BaseModel):
+    websiteURL: str = Field(..., description="Address of a webpage with Funcaptcha")
+    websitePublicKey: str = Field(..., description="Funcaptcha website key.")
+    funcaptchaApiJSSubdomain: str = Field(
+        ...,
+        description="A special subdomain of funcaptcha.com, from which the JS captcha widget should be loaded."
+        "Most FunCaptcha installations work from shared domains.",
+    )
+
+
+class FunCaptchaOptionsSer(FunCaptchaProxyLessOptionsSer, ProxyDataOptionsSer):
     pass
