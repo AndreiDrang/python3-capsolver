@@ -1,4 +1,5 @@
 import pytest
+from pydantic import ValidationError
 
 from src.tests.conftest import BaseTest
 from python3_captchaai.core.enum import CaptchaTypeEnm
@@ -30,7 +31,17 @@ class TestFunCaptchaBase(BaseTest):
                 websiteURL=websiteURL,
                 websitePublicKey=websitePublicKey,
                 funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
-            )
+            ).captcha_handler()
+
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    def test_wrong_type_params(self, captcha_type: str):
+        with pytest.raises(expected_exception=(ValidationError, ValueError)):
+            FunCaptcha(api_key=self.get_random_string(36), captcha_type=captcha_type).captcha_handler()
+
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    async def test_aio_wrong_type_params(self, captcha_type: str):
+        with pytest.raises(expected_exception=(ValidationError, ValueError)):
+            await FunCaptcha(api_key=self.get_random_string(36), captcha_type=captcha_type).aio_captcha_handler()
 
     def test_no_captcha_type(self):
         with pytest.raises(TypeError):

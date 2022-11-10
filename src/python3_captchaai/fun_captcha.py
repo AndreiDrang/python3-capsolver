@@ -180,7 +180,7 @@ class FunCaptcha(BaseFunCaptcha):
         """
         # validation of the received parameters for FunCaptchaClassification
         if self.captcha_type == CaptchaTypeEnm.FunCaptchaClassification:
-            if not image and not question:
+            if not image or not question:
                 raise ValueError(
                     f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
                     available - {CaptchaTypeEnm.FuncaptchaTaskProxyless.value,
@@ -265,7 +265,7 @@ class FunCaptcha(BaseFunCaptcha):
         """
         # validation of the received parameters for FunCaptchaClassification
         if self.captcha_type == CaptchaTypeEnm.FunCaptchaClassification:
-            if not image and not question:
+            if not image or not question:
                 raise ValueError(
                     f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
                     available - {CaptchaTypeEnm.FuncaptchaTaskProxyless.value,
