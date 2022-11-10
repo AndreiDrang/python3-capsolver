@@ -32,11 +32,11 @@ class BaseGeeTest(BaseCaptcha):
         ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
         ...                    geetestApiServerSubdomain="api.geetest.com"
         ...                )
-        CaptchaResponseSer(errorId=False
-                           errorCode=None
-                           errorDescription=None
-                           taskId=None
-                           status=<ResponseStatusEnm.Ready: 'ready'>
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
                            solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
@@ -102,11 +102,11 @@ class GeeTest(BaseGeeTest):
             ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
             ...                    geetestApiServerSubdomain="api.geetest.com"
             ...                )
-            CaptchaResponseSer(errorId=False
-                               errorCode=None
-                               errorDescription=None
-                               taskId=None
-                               status=<ResponseStatusEnm.Ready: 'ready'>
+            CaptchaResponseSer(errorId=False,
+                               errorCode=None,
+                               errorDescription=None,
+                               taskId='73bdcd28-6c77-4414-8....',
+                               status=<ResponseStatusEnm.Ready: 'ready'>,
                                solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
@@ -144,11 +144,11 @@ class GeeTest(BaseGeeTest):
             ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
             ...                    geetestApiServerSubdomain="api.geetest.com"
             ...                )
-            CaptchaResponseSer(errorId=False
-                               errorCode=None
-                               errorDescription=None
-                               taskId=None
-                               status=<ResponseStatusEnm.Ready: 'ready'>
+            CaptchaResponseSer(errorId=False,
+                               errorCode=None,
+                               errorDescription=None,
+                               taskId='73bdcd28-6c77-4414-8....',
+                               status=<ResponseStatusEnm.Ready: 'ready'>,
                                solution={'gRecaptchaResponse': '44795sds...'}
                               )
 

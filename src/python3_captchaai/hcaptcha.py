@@ -39,11 +39,11 @@ class BaseHCaptcha(BaseCaptcha):
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...         ).captcha_handler()
-        CaptchaResponseSer(errorId=False
-                           errorCode=None
-                           errorDescription=None
-                           taskId=None
-                           status=<ResponseStatusEnm.Ready: 'ready'>
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
                            solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
@@ -112,11 +112,11 @@ class HCaptcha(BaseHCaptcha):
             ...          websiteURL="https://accounts.hcaptcha.com/demo",
             ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
             ...         ).captcha_handler()
-            CaptchaResponseSer(errorId=False
-                               errorCode=None
-                               errorDescription=None
-                               taskId=None
-                               status=<ResponseStatusEnm.Ready: 'ready'>
+            CaptchaResponseSer(errorId=False,
+                               errorCode=None,
+                               errorDescription=None,
+                               taskId='73bdcd28-6c77-4414-8....',
+                               status=<ResponseStatusEnm.Ready: 'ready'>,
                                solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
@@ -147,11 +147,11 @@ class HCaptcha(BaseHCaptcha):
             ...                websiteURL="https://accounts.hcaptcha.com/demo",
             ...                websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
             ...               ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=False
-                               errorCode=None
-                               errorDescription=None
-                               taskId=None
-                               status=<ResponseStatusEnm.Ready: 'ready'>
+            CaptchaResponseSer(errorId=False,
+                               errorCode=None,
+                               errorDescription=None,
+                               taskId='73bdcd28-6c77-4414-8....',
+                               status=<ResponseStatusEnm.Ready: 'ready'>,
                                solution={'gRecaptchaResponse': '44795sds...'}
                               )
 
