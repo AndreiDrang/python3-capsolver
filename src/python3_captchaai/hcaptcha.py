@@ -6,9 +6,9 @@ from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import (
     CaptchaResponseSer,
     HCaptchaOptionsSer,
-    ProxyDataOptionsSer,
     RequestCreateTaskSer,
     WebsiteDataOptionsSer,
+    HCaptchaClassificationOptionsSer,
 )
 
 
@@ -34,11 +34,12 @@ class BaseHCaptcha(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> HCaptcha(api_key="CAI-1324...",
-        ...          captcha_type="HCaptchaTaskProxyless",
+        >>> HCaptcha(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
+        ...          captcha_type='HCaptchaTaskProxyless',
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
-        ...         ).captcha_handler()
+        ...         ).captcha_handler(challenge="a66f31a53a404af8d1f271eec5138aa1",
+        ...                         geetestApiServerSubdomain="api.geetest.com")
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
                            errorDescription=None,
@@ -78,10 +79,10 @@ class BaseHCaptcha(BaseCaptcha):
             self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         # validation of the received parameters for HCaptchaTask
         elif self.captcha_type == CaptchaTypeEnm.HCaptchaTask:
-            self.task_params = ProxyDataOptionsSer(**locals()).dict()
+            self.task_params = HCaptchaOptionsSer(**locals()).dict()
         # validation of the received parameters for HCaptchaClassification
         elif self.captcha_type == CaptchaTypeEnm.HCaptchaClassification:
-            self.task_params = HCaptchaOptionsSer(**locals()).dict()
+            self.task_params = HCaptchaClassificationOptionsSer(**locals()).dict()
         else:
             raise ValueError(
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
@@ -111,7 +112,8 @@ class HCaptcha(BaseHCaptcha):
             ...          captcha_type='HCaptchaTaskProxyless',
             ...          websiteURL="https://accounts.hcaptcha.com/demo",
             ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
-            ...         ).captcha_handler()
+            ...         ).captcha_handler(challenge="a66f31a53a404af8d1f271eec5138aa1",
+            ...                         geetestApiServerSubdomain="api.geetest.com")
             CaptchaResponseSer(errorId=False,
                                errorCode=None,
                                errorDescription=None,
@@ -143,10 +145,11 @@ class HCaptcha(BaseHCaptcha):
 
         Examples:
             >>> await HCaptcha(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
-            ...                captcha_type='HCaptchaTaskProxyless',
-            ...                websiteURL="https://accounts.hcaptcha.com/demo",
-            ...                websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
-            ...               ).aio_captcha_handler()
+            ...          captcha_type='HCaptchaTaskProxyless',
+            ...          websiteURL="https://accounts.hcaptcha.com/demo",
+            ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
+            ...         ).aio_captcha_handler(challenge="a66f31a53a404af8d1f271eec5138aa1",
+            ...                             geetestApiServerSubdomain="api.geetest.com")
             CaptchaResponseSer(errorId=False,
                                errorCode=None,
                                errorDescription=None,

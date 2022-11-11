@@ -74,7 +74,7 @@ class WebsiteDataOptionsSer(BaseModel):
     websiteKey: str = Field(..., description="Website key")
 
 
-class ProxyDataOptionsSer(WebsiteDataOptionsSer):
+class ProxyDataOptionsSer(BaseModel):
     proxyType: ProxyType = Field(..., description="Type of the proxy")
     proxyAddress: str = Field(
         ...,
@@ -99,7 +99,11 @@ class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer, ProxyDataOptionsSer)
     pass
 
 
-class HCaptchaOptionsSer(BaseModel):
+class HCaptchaOptionsSer(WebsiteDataOptionsSer, ProxyDataOptionsSer):
+    pass
+
+
+class HCaptchaClassificationOptionsSer(BaseModel):
     queries: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
     question: str = Field(
         ..., description="Question ID. Support English and Chinese, other languages please convert yourself"
