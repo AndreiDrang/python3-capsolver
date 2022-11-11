@@ -1,7 +1,7 @@
 from typing import Union, Optional
 
 from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enum import CaptchaTypeEnm
+from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
 from python3_captchaai.core.serializer import (
     GeeTestOptionsSer,
@@ -20,6 +20,12 @@ class BaseGeeTest(BaseCaptcha):
         captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
         websiteURL: Address of a webpage with Geetest
         gt: The domain public key, rarely updated
+        proxyType: Type of the proxy
+        proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
+                        host names instead of IPs,
+                        transparent proxies (where client IP is visible),
+                        proxies from local networks (192.., 10.., 127...)
+        proxyPort: Proxy port.
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
 
@@ -54,6 +60,9 @@ class BaseGeeTest(BaseCaptcha):
         captcha_type: Union[CaptchaTypeEnm, str],
         websiteURL: str,
         gt: str,
+        proxyType: Optional[Union[ProxyType, str]] = None,
+        proxyAddress: Optional[str] = None,
+        proxyPort: Optional[int] = None,
         sleep_time: Optional[int] = 5,
         request_url: Optional[str] = REQUEST_URL,
     ):
