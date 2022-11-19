@@ -1,5 +1,4 @@
 import base64
-import logging
 
 import pytest
 from pydantic import ValidationError
