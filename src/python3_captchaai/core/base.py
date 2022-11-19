@@ -134,8 +134,6 @@ class BaseCaptcha:
                     if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
                         # if captcha ready\failed or have unknown status - return exist data
                         return result_data
-                elif resp.status_code == 401:
-                    raise ValueError("Authentication failed, indicating that the API key is not correct")
                 else:
                     raise ValueError(resp.raise_for_status())
             except Exception as error:
@@ -208,8 +206,6 @@ class BaseCaptcha:
                             if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
                                 # if captcha ready\failed or have unknown status - return exist data
                                 return result_data
-                        elif resp.status == 401:
-                            raise ValueError("Authentication failed, indicating that the API key is not correct")
                         else:
                             raise ValueError(resp.reason)
                 except Exception as error:
