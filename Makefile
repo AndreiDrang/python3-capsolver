@@ -28,7 +28,7 @@ upload:
 
 tests:
 	cd src/ && \
-	coverage run --rcfile=.coveragerc -m pytest -s tests -vv --disable-warnings && \
+	coverage run --rcfile=.coveragerc -m pytest -s tests --disable-warnings && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
-	coverage html --precision=3 --skip-empty && \
+	coverage html --precision=3 --skip-empty -d coverage/html/ && \
 	coverage xml -o coverage/coverage.xml

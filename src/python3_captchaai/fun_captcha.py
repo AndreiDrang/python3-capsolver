@@ -75,9 +75,9 @@ class BaseFunCaptcha(BaseCaptcha):
         self,
         api_key: str,
         captcha_type: Union[CaptchaTypeEnm, str],
-        websiteURL: str = None,
-        websitePublicKey: str = None,
-        funcaptchaApiJSSubdomain: str = None,
+        websiteURL: Optional[str] = None,
+        websitePublicKey: Optional[str] = None,
+        funcaptchaApiJSSubdomain: Optional[str] = None,
         proxyType: Optional[Union[ProxyType, str]] = None,
         proxyAddress: Optional[str] = None,
         proxyPort: Optional[int] = None,
@@ -109,8 +109,8 @@ class FunCaptcha(BaseFunCaptcha):
 
     def captcha_handler(
         self,
-        image: str = None,
-        question: str = None,
+        image: Optional[str] = None,
+        question: Optional[str] = None,
         **additional_params,
     ) -> CaptchaResponseSer:
         """
@@ -194,8 +194,8 @@ class FunCaptcha(BaseFunCaptcha):
 
     async def aio_captcha_handler(
         self,
-        image: str = None,
-        question: str = None,
+        image: Optional[str] = None,
+        question: Optional[str] = None,
         **additional_params,
     ) -> CaptchaResponseSer:
         """

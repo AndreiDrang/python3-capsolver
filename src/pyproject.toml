@@ -26,3 +26,4 @@ asyncio_mode = "auto"
 testpaths = [
     "tests",
 ]
+addopts = "-vv --tb=short --durations=5"

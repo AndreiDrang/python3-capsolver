@@ -1,3 +1,5 @@
+import base64
+
 import pytest
 from pydantic import ValidationError
 
@@ -9,6 +11,9 @@ from python3_captchaai.core.serializer import CaptchaResponseSer
 websiteURL = "https://api.funcaptcha.com/fc/api/nojs/"
 websitePublicKey = "69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC"
 funcaptchaApiJSSubdomain = "https://api.funcaptcha.com/"
+
+with open("tests/files/fun_class.png", "rb") as img_file:
+    img_data = img_file.read()
 
 captcha_types = (
     CaptchaTypeEnm.FuncaptchaTask,
@@ -192,3 +197,89 @@ class TestFunCaptchaProxyless(BaseTest):
                 websitePublicKey=websitePublicKey,
                 funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
             ).captcha_handler()
+
+
+class TestFunCaptchaClassification(BaseTest):
+
+    captcha_type = CaptchaTypeEnm.FunCaptchaClassification
+
+    question = "Pick the bicycle"
+    image = base64.b64encode(img_data).decode("utf-8")
+    """
+    Success tests
+    """
+
+    def test_params(self):
+        FunCaptcha(api_key=self.get_random_string(36), captcha_type=self.captcha_type)
+
+    def test_params_context(self):
+        with FunCaptcha(api_key=self.get_random_string(36), captcha_type=self.captcha_type) as instance:
+            pass
+
+    def test_solve(self):
+        resp = FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).captcha_handler(
+            image=self.image, question=self.question
+        )
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Processing
+        assert resp.errorId is True
+        """assert resp.errorId is False
+        assert resp.errorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None"""
+
+    def test_solve_context(self):
+        with FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type) as instance:
+            resp = instance.captcha_handler(image=self.image, question=self.question)
+            assert isinstance(resp, CaptchaResponseSer)
+            assert resp.status == ResponseStatusEnm.Processing
+            assert resp.errorId is True
+            """assert resp.errorId is False
+            assert resp.errorCode is None
+            assert resp.errorDescription is None
+            assert resp.solution is not None"""
+
+    async def test_aio_solve(self):
+        resp = await FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).aio_captcha_handler(
+            image=self.image, question=self.question
+        )
+        assert isinstance(resp, CaptchaResponseSer)
+        assert resp.status == ResponseStatusEnm.Processing
+        assert resp.errorId is True
+        """assert resp.errorId is False
+        assert resp.errorCode is None
+        assert resp.errorDescription is None
+        assert resp.solution is not None"""
+
+    async def test_aio_solve_context(self):
+        with FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type) as instance:
+            resp = await instance.aio_captcha_handler(image=self.image, question=self.question)
+            assert isinstance(resp, CaptchaResponseSer)
+            assert resp.status == ResponseStatusEnm.Processing
+            assert resp.errorId is True
+            """assert resp.errorId is False
+            assert resp.errorCode is None
+            assert resp.errorDescription is None
+            assert resp.solution is not None"""
+
+    """
+    Failed tests
+    """
+
+    def test_no_image(self):
+        with pytest.raises(ValueError):
+            FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).captcha_handler(question=self.question)
+
+    def test_no_question(self):
+        with pytest.raises(ValueError):
+            FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).captcha_handler(image=self.image)
+
+    async def test_aio_no_image(self):
+        with pytest.raises(ValueError):
+            await FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).aio_captcha_handler(
+                question=self.question
+            )
+
+    async def test_aio_no_question(self):
+        with pytest.raises(ValueError):
+            await FunCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type).aio_captcha_handler(image=self.image)
