@@ -131,3 +131,8 @@ class FunCaptchaProxyLessOptionsSer(BaseModel):
 
 class FunCaptchaOptionsSer(FunCaptchaProxyLessOptionsSer, ProxyDataOptionsSer):
     pass
+
+
+class DatadomeSliderOptionsSer(ProxyDataOptionsSer):
+    websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
+    captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
