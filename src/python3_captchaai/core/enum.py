@@ -45,6 +45,13 @@ class EndpointPostfixEnm(str, MyEnum):
 
 
 class CaptchaTypeEnm(str, MyEnum):
+    """
+    Enum with all available captcha types
+
+    Notes:
+        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393295
+    """
+
     Control = "Control"  # custom captcha type
     ImageToTextTask = "ImageToTextTask"
     # Recaptcha
