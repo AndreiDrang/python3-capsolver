@@ -3,12 +3,12 @@ from typing import Optional
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enum import CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
-from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateTaskSer, MtCaptchaTaskOptionsSer
+from python3_captchaai.core.serializer import CaptchaResponseSer, MtCaptchaOptionsSer, RequestCreateTaskSer
 
 
-class BaseMtCaptchaTask(BaseCaptcha):
+class BaseMtCaptcha(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI MtCaptchaTask method.
+    The class is used to work with CaptchaAI MtCaptcha method.
 
     Args:
         api_key: CaptchaAI API key
@@ -19,7 +19,7 @@ class BaseMtCaptchaTask(BaseCaptcha):
         request_url: API address for sending requests
 
     Examples:
-        >>> MtCaptchaTask(api_key="CAI-1324...",
+        >>> MtCaptcha(api_key="CAI-1324...",
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -32,7 +32,7 @@ class BaseMtCaptchaTask(BaseCaptcha):
                            solution={'token': 'v1(03,79a,MTPublic-tqNCRE0GS,c9...'}
                           )
 
-        >>> MtCaptchaTask(api_key="CAI-1324...",
+        >>> MtCaptcha(api_key="CAI-1324...",
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -45,7 +45,7 @@ class BaseMtCaptchaTask(BaseCaptcha):
                            solution={'token': 'v1(03,79a,MTPublic-tqNCRE0GS,c9...'}
                           )
 
-        >>> await MtCaptchaTask(api_key="CAI-1324...",
+        >>> await MtCaptcha(api_key="CAI-1324...",
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -58,7 +58,7 @@ class BaseMtCaptchaTask(BaseCaptcha):
                            solution={'token': 'v1(03,79a,MTPublic-tqNCRE0GS,c9...'}
                           )
 
-        >>> await MtCaptchaTask(api_key="CAI-1324...",
+        >>> await MtCaptcha(api_key="CAI-1324...",
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -95,11 +95,11 @@ class BaseMtCaptchaTask(BaseCaptcha):
             request_url=request_url,
         )
 
-        self.task_params = MtCaptchaTaskOptionsSer(**locals()).dict()
+        self.task_params = MtCaptchaOptionsSer(**locals()).dict()
 
 
-class MtCaptchaTask(BaseMtCaptchaTask):
-    __doc__ = BaseMtCaptchaTask.__doc__
+class MtCaptcha(BaseMtCaptcha):
+    __doc__ = BaseMtCaptcha.__doc__
 
     def captcha_handler(
         self,
@@ -114,7 +114,7 @@ class MtCaptchaTask(BaseMtCaptchaTask):
                                 Like ``isInvisible``, ``userAgent`` and etc. - more info in service docs
 
         Examples:
-            >>> MtCaptchaTask(api_key="CAI-1324...",
+            >>> MtCaptcha(api_key="CAI-1324...",
             ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
             ...         websiteKey="MTPublic-tqNCRE0GS",
             ...         proxy="198.22.3.1:10001:user:pwd"
@@ -148,7 +148,7 @@ class MtCaptchaTask(BaseMtCaptchaTask):
                                 Like ``isInvisible``, ``userAgent`` and etc. - more info in service docs
 
         Examples:
-            >>> await MtCaptchaTask(api_key="CAI-1324...",
+            >>> await MtCaptcha(api_key="CAI-1324...",
             ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
             ...         websiteKey="MTPublic-tqNCRE0GS",
             ...         proxy="198.22.3.1:10001:user:pwd"
