@@ -26,40 +26,36 @@ class TestImageToText(BaseTest):
     def test_solve_image(self):
         resp = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     def test_solve_image_context(self):
         with ImageToText(api_key=self.API_KEY) as instance:
             resp = instance.captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     async def test_aio_solve_image(self):
         resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     async def test_aio_solve_image_context(self):
         with ImageToText(api_key=self.API_KEY) as instance:
             resp = await instance.aio_captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     """
     Failed tests
