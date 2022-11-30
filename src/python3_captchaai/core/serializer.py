@@ -138,5 +138,5 @@ class DatadomeSliderOptionsSer(ProxyDataOptionsSer):
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
 
 
-class MtCaptchaTaskOptionsSer(WebsiteDataOptionsSer):
+class MtCaptchaOptionsSer(WebsiteDataOptionsSer):
     proxy: str = Field(..., description="String with proxy connection params, example: `198.22.3.1:10001:user:pwd`")
