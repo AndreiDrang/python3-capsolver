@@ -26,7 +26,6 @@ class TestImageToText(BaseTest):
     def test_solve_image(self):
         resp = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
         assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
         assert resp.errorId in (False, True)
         assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
@@ -36,7 +35,6 @@ class TestImageToText(BaseTest):
         with ImageToText(api_key=self.API_KEY) as instance:
             resp = instance.captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
         assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
         assert resp.errorId in (False, True)
         assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
@@ -45,7 +43,6 @@ class TestImageToText(BaseTest):
     async def test_aio_solve_image(self):
         resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
         assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
         assert resp.errorId in (False, True)
         assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
