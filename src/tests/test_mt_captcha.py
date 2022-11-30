@@ -17,6 +17,18 @@ class TestMtCaptchaBase(BaseTest):
     def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in MtCaptcha.__dict__.keys()
 
+    def test_no_website_url(self):
+        with pytest.raises(TypeError):
+            MtCaptcha(api_key=self.API_KEY, websiteKey=websiteKey, proxy=proxy)
+
+    def test_no_website_key(self):
+        with pytest.raises(TypeError):
+            MtCaptcha(api_key=self.API_KEY, websiteURL=websiteURL, proxy=proxy)
+
+    def test_no_proxy(self):
+        with pytest.raises(TypeError):
+            MtCaptcha(api_key=self.API_KEY, websiteURL=websiteURL, websiteKey=websiteKey)
+
 
 class TestMtCaptcha(BaseTest):
     proxyAddress = "0.0.0.0"
