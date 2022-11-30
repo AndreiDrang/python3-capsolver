@@ -31,8 +31,6 @@ class TestMtCaptchaBase(BaseTest):
 
 
 class TestMtCaptcha(BaseTest):
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
     """
     Success tests
     """
