@@ -5,8 +5,8 @@ To import this module:
 
 .. code-block:: python
 
-    from python3_captchaai.mt_captcha import MtCaptchaTask
+    from python3_captchaai.mt_captcha import MtCaptcha
 
 
-.. autoclass:: mt_captcha.MtCaptchaTask
+.. autoclass:: mt_captcha.MtCaptcha
     :members:
