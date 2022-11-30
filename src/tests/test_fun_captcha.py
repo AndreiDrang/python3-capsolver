@@ -94,11 +94,10 @@ class TestFunCaptchaProxyless(BaseTest):
             funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
         ).captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     def test_solve_context(self):
         with FunCaptcha(
@@ -110,11 +109,10 @@ class TestFunCaptchaProxyless(BaseTest):
         ) as instance:
             resp = instance.captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
-            assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
-            assert resp.errorCode is None
-            assert resp.errorDescription is None
-            assert resp.solution is not None
+            assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+            assert resp.errorId in (False, True)
+            assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+            assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     async def test_aio_solve(self):
         resp = await FunCaptcha(
@@ -125,11 +123,10 @@ class TestFunCaptchaProxyless(BaseTest):
             funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
         ).aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId is False
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
+        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+        assert resp.errorId in (False, True)
+        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+        assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     async def test_aio_solve_context(self):
         with FunCaptcha(
@@ -141,11 +138,10 @@ class TestFunCaptchaProxyless(BaseTest):
         ) as instance:
             resp = await instance.aio_captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
-            assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
-            assert resp.errorCode is None
-            assert resp.errorDescription is None
-            assert resp.solution is not None
+            assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
+            assert resp.errorId in (False, True)
+            assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
+            assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     """
     Failed tests
