@@ -66,6 +66,7 @@ class CaptchaTypeEnm(str, MyEnum):
     FuncaptchaTask = "FuncaptchaTask"
     FuncaptchaTaskProxyless = "FuncaptchaTaskProxyless"
     # Other types
+    MtCaptchaTask = "MtCaptchaTask"
     DatadomeSliderTask = "DatadomeSliderTask"
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"

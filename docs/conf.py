@@ -22,7 +22,7 @@ for x in os.walk("src/python3_captchaai/"):
     sys.path.insert(0, x[0])
 
 from python3_captchaai import (core, datadome_slider, fun_captcha, gee_test,
-                               hcaptcha, image_to_text, recaptcha)
+                               hcaptcha, image_to_text, mt_captcha, recaptcha)
 from python3_captchaai.__version__ import __version__
 
 # -- Project information -----------------------------------------------------
