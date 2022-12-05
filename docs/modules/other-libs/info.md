@@ -1,4 +1,4 @@
-# Captcha services libs
+# Other captcha-solving services libs
 
 ## Other libraries for Captcha-solving services
 1. [RuCaptcha / 2Captcha](https://github.com/AndreiDrang/python-rucaptcha)
