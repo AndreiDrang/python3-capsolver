@@ -140,3 +140,13 @@ class DatadomeSliderOptionsSer(ProxyDataOptionsSer):
 
 class MtCaptchaOptionsSer(WebsiteDataOptionsSer):
     proxy: str = Field(..., description="String with proxy connection params, example: `198.22.3.1:10001:user:pwd`")
+
+
+class KasadaOptionsSer(ProxyDataOptionsSer):
+    pageURL: str = Field(..., description="Address of a webpage with Kasada")
+    proxyLogin: str = Field(
+        ...,
+        description="Login for proxy which requires authorizaiton (basic)."
+        "This isn’t required if you are using proxies authenticated by IP",
+    )
+    proxyPassword: str = Field(..., description="This isn’t required if you are using proxies authenticated by IP")
