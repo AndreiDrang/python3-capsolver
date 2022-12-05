@@ -46,6 +46,26 @@ class BaseKasada(BaseCaptcha):
                             }
                           )
 
+        >>> Kasada(api_key="CAI-1324...",
+        ...         pageURL="http://mywebsite.com/kasada",
+        ...         proxyType="http",
+        ...         proxyAddress="0.0.0.0",
+        ...         proxyPort=9090,
+        ...         proxyLogin="some_login",
+        ...         proxyPassword="some_password",
+        ...        ).captcha_handler(userAgent="Mozilla/5.0 (pl.....")
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={
+                               "x-kpsdk-ct": "",
+                                "x-kpsdk-cd": "",
+                                "user-agent": "Mozilla/5.0 (Windows NT 10...."
+                            }
+                          )
+
     Returns:
         CaptchaResponseSer model with full server response
 
