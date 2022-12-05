@@ -14,10 +14,10 @@ from python3_captchaai.core.serializer import (
 
 class BaseHCaptcha(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI HCaptcha methods.
+    The class is used to work with Capsolver HCaptcha methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         captcha_type: Captcha type name, like ``HCaptchaTaskProxyless`` and etc.
         websiteURL: Address of a webpage with hCaptcha
         websiteKey: hCaptcha website key

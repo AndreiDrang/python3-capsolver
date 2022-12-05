@@ -7,7 +7,7 @@ from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
 class BaseControl(BaseCaptcha):
     """
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
     """
@@ -28,7 +28,7 @@ class BaseControl(BaseCaptcha):
 
 class Control(BaseControl):
     """
-    The class is used to work with CaptchaAI control methods.
+    The class is used to work with Capsolver control methods.
 
     Notes:
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042/API+Methods

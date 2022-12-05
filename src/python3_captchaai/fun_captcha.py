@@ -13,10 +13,10 @@ from python3_captchaai.core.serializer import (
 
 class BaseFunCaptcha(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI FuncaptchaTask methods.
+    The class is used to work with Capsolver FuncaptchaTask methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
         websiteURL: Address of a webpage with Geetest.
         websitePublicKey: Funcaptcha website key.

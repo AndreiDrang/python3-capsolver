@@ -8,10 +8,10 @@ from python3_captchaai.core.serializer import KasadaOptionsSer, CaptchaResponseS
 
 class BaseKasada(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI AntiKasadaTask methods.
+    The class is used to work with Capsolver AntiKasadaTask methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         pageURL: Address of a webpage with Kasada
         proxyType: Type of the proxy
         proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:

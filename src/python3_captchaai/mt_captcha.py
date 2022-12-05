@@ -8,10 +8,10 @@ from python3_captchaai.core.serializer import CaptchaResponseSer, MtCaptchaOptio
 
 class BaseMtCaptcha(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI MtCaptcha method.
+    The class is used to work with Capsolver MtCaptcha method.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         websiteURL: Address of a webpage with mtcaptcha
         websiteKey: `sk=MTPublic-xxx` public key
         proxy: String with proxy connection params, example: `198.22.3.1:10001:user:pwd`

@@ -13,10 +13,10 @@ from python3_captchaai.core.serializer import (
 
 class BaseGeeTest(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI GeetestTask methods.
+    The class is used to work with Capsolver GeetestTask methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
         websiteURL: Address of a webpage with Geetest
         gt: The domain public key, rarely updated

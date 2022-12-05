@@ -59,8 +59,8 @@ html_context = {
         ProjectLink("PyPI Releases", "https://pypi.org/project/python3-captchaai/"),
         ProjectLink("Source Code", "https://github.com/AndreiDrang/python3-captchaai"),
         ProjectLink(
-            "CaptchaAI",
-            "https://dashboard.captchaai.io/passport/register?inviteCode=kQTn-tG07Jb1",
+            "Capsolver",
+            "https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1",
         ),
     ]
 }

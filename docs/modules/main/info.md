@@ -18,11 +18,11 @@
 [![Lint](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml)
 
 
-Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
+Python3 library for [Capsolver](https://capsolver.com/) service API.
 
 Tested on UNIX based OS.
 
-The library is intended for software developers and is used to work with the [CaptchaAI](https://www.captchaai.io/) service API.
+The library is intended for software developers and is used to work with the [Capsolver](https://capsolver.com/) service API.
 
 ## How to install?
 

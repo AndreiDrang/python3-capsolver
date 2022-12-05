@@ -15,11 +15,11 @@
 [![Lint](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml)
 
 
-Python3 library for [CaptchaAI](https://www.captchaai.io/) service API.
+Python3 library for [Capsolver](https://capsolver.com/) service API.
 
 Tested on UNIX based OS.
 
-The library is intended for software developers and is used to work with the [CaptchaAI](https://www.captchaai.io/) service API.
+The library is intended for software developers and is used to work with the [Capsolver](https://capsolver.com/) service API.
 
 ***
 
@@ -31,9 +31,9 @@ Or email python-captcha@pm.me
 
 ### Additional info
 1. [Library usage examples && Docs](https://andreidrang.github.io/python3-captchaai/)
-2. [CaptchaAI errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/errorCode+full+list+of+errors)
+2. [Capsolver errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/)
 
 
 ### Get API Key to work with the library
-1. On the page - https://dashboard.captchaai.io/overview/user-center
+1. On the page - https://dashboard.capsolver.com/overview/user-center
 2. Find it: ![img.png](files/img.png)

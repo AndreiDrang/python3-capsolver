@@ -19,7 +19,7 @@ class BaseCaptcha:
     Basic Captcha solving class
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         captcha_type: Captcha type name, like `ReCaptchaV2Task` and etc.
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
