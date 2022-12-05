@@ -29,6 +29,7 @@ The library is intended for software developers and is used to work with the `Ca
    modules/fun-captcha/example.rst
    modules/datadome/example.rst
    modules/mt-captcha/example.rst
+   modules/kasada/example.rst
 
 .. toctree::
    :maxdepth: 2
