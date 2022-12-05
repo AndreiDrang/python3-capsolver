@@ -6,10 +6,10 @@ from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateT
 
 class BaseImageToText(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI Image captcha solving methods.
+    The class is used to work with Capsolver Image captcha solving methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         sleep_time: The waiting time between requests to get the result of the Captcha
         request_url: API address for sending requests
 

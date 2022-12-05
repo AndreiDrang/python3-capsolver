@@ -15,10 +15,10 @@ from python3_captchaai.core.serializer import (
 
 class BaseReCaptcha(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI ReCaptcha methods.
+    The class is used to work with Capsolver ReCaptcha methods.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         captcha_type: Captcha type name, like ``ReCaptchaV2Task`` and etc.
         websiteURL: Address of a webpage with Google ReCaptcha
         websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>

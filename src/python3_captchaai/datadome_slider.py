@@ -8,10 +8,10 @@ from python3_captchaai.core.serializer import CaptchaResponseSer, RequestCreateT
 
 class BaseDatadomeSlider(BaseCaptcha):
     """
-    The class is used to work with CaptchaAI DatadomeSlider method.
+    The class is used to work with Capsolver DatadomeSlider method.
 
     Args:
-        api_key: CaptchaAI API key
+        api_key: Capsolver API key
         websiteURL: Address of the webpage
         captchaUrl: Captcha Url where is the captcha
         proxyType: Type of the proxy
