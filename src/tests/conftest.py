@@ -16,6 +16,9 @@ class BaseTest:
     API_KEY = os.getenv("API_KEY", "ad9053f3182ca81755768608fa758570")
     sleep_time = 5
 
+    proxyAddress = "0.0.0.0"
+    proxyPort = 9999
+
     @staticmethod
     def get_random_string(length: int) -> str:
         """
