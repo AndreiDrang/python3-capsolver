@@ -3,7 +3,7 @@ from typing import Union, Optional
 from python3_captchaai.core.base import BaseCaptcha
 from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
 from python3_captchaai.core.config import REQUEST_URL
-from python3_captchaai.core.serializer import KasadaOptionsSer, CaptchaResponseSer
+from python3_captchaai.core.serializer import KasadaOptionsSer, CaptchaResponseSer, RequestCreateTaskSer
 
 
 class BaseKasada(BaseCaptcha):
@@ -134,6 +134,7 @@ class Kasada(BaseKasada):
             Check class docstirng for more info
         """
         self.task_params.update({**additional_params})
+        self._prepare_create_task_payload(serializer=RequestCreateTaskSer, create_params=self.task_params)
         return CaptchaResponseSer(**self._create_task(url_postfix=self.task_postfix))
 
     async def aio_captcha_handler(self, **additional_params) -> CaptchaResponseSer:
@@ -173,4 +174,5 @@ class Kasada(BaseKasada):
             Check class docstirng for more info
         """
         self.task_params.update({**additional_params})
+        self._prepare_create_task_payload(serializer=RequestCreateTaskSer, create_params=self.task_params)
         return CaptchaResponseSer(**await self._aio_create_task(url_postfix=self.task_postfix))
