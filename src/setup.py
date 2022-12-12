@@ -94,7 +94,10 @@ setup(
 				python3
 				tiktok
 				python-library
-				captcha.ai
+				capsolver
+				kasada
+				datadomeslider
+				mtcaptcha
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
