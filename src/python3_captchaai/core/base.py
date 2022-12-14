@@ -115,7 +115,7 @@ class BaseCaptcha:
 
     def _get_result(self, url_postfix: str = EndpointPostfixEnm.GET_TASK_RESULT.value) -> CaptchaResponseSer:
         """
-        Function send SYNC request to service and wait for result
+        Method send SYNC request to service and wait for result
         """
         # initial waiting
         time.sleep(self.__params.sleep_time)

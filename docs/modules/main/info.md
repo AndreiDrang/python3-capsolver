@@ -26,8 +26,7 @@ The library is intended for software developers and is used to work with the [Ca
 
 ## How to install?
 
-We recommend using the latest version of Python. `python3-captchaai` supports Python
-3.7+.
+We recommend using the latest version of Python. `python3-captchaai` supports Python 3.7+.
 
 ### pip
 

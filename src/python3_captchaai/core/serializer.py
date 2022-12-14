@@ -20,7 +20,7 @@ class TaskSer(BaseModel):
 
 class RequestCreateTaskSer(PostRequestSer):
     task: Optional[TaskSer] = Field(None, description="Task object")
-    appId: str = Field(APP_ID, description="AppID")
+    appId: str = Field(APP_ID, description="AppID", const=True)
 
 
 class RequestGetTaskResultSer(PostRequestSer):

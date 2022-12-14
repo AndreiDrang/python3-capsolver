@@ -95,13 +95,13 @@ class ResponseStatusEnm(str, MyEnum):
 
 class ProxyType(str, MyEnum):
     """
-    Enum store results `status` field variants
+    Enum store proxy types
 
     Notes:
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124
     """
 
     http = "http"  # usual http / https
-    https = "https"  # try this only if "http" doesn't work (required by some custom proxy servers)
+    https = "https"
     socks4 = "socks4"
     socks5 = "socks5"
