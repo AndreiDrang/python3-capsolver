@@ -35,4 +35,4 @@ tests:
 
 doc:
 	cd docs/ && \
-	make html
+	make html -e
