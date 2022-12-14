@@ -92,7 +92,6 @@ setup(
 				funcaptcha
 				keycaptcha
 				python3
-				tiktok
 				python-library
 				capsolver
 				kasada
