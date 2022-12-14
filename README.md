@@ -15,7 +15,7 @@
 [![Lint](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml)
 
 
-Python3 library for [Capsolver](https://capsolver.com/) service API.
+Python 3 library for [Capsolver](https://capsolver.com/) service API.
 
 Tested on UNIX based OS.
 
