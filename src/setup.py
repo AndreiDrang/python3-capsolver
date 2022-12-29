@@ -82,21 +82,21 @@ setup(
     url=URL,
     license="MIT",
     keywords="""
-                captcha 
-				recaptcha
-				geetest
-				hcaptcha
-				capypuzzle
-				tiktok
-				rotatecaptcha
-				funcaptcha
-				keycaptcha
-				python3
-				python-library
-				capsolver
-				kasada
-				datadomeslider
-				mtcaptcha
+              	captcha 
+		recaptcha
+		geetest
+		hcaptcha
+		capypuzzle
+		tiktok
+		rotatecaptcha
+		funcaptcha
+		keycaptcha
+		python3
+		python-library
+		capsolver
+		kasada
+		datadomeslider
+		mtcaptcha
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
