@@ -51,11 +51,6 @@ python setup.py install
 1. You need set ``API_KEY`` in your environment(get this value from you account).
 2. Run command ``make tests``, from root directory.
 
-### Additional info
-1. [Library usage examples && Docs](https://andreidrang.github.io/python3-captchaai/)
-2. [Capsolver errors list](https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426145/)
-
-
 ### How to get API Key to work with the library
 1. On the page - https://dashboard.capsolver.com/overview/user-center
 2. Find it: ![img.png](files/img.png)
