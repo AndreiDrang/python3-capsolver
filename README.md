@@ -39,6 +39,11 @@ We recommend using the latest version of Python. `python3-captchaai` supports Py
 pip install python3-captchaai
 ```
 
+## How to use?
+
+Is described in the [documentation-website](https://andreidrang.github.io/python3-captchaai/).
+
+
 ## How to test?
 
 1. You need set ``API_KEY`` in your environment(get this value from you account).
