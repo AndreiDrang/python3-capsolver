@@ -39,13 +39,6 @@ We recommend using the latest version of Python. `python3-captchaai` supports Py
 pip install python3-captchaai
 ```
 
-### Source
-```bash
-git clone https://github.com/AndreiDrang/python3-captchaai.git
-cd python3-captchaai
-python setup.py install
-```
-
 ## How to test?
 
 1. You need set ``API_KEY`` in your environment(get this value from you account).
