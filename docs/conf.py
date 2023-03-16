@@ -19,7 +19,7 @@ from python3_captchaai.__version__ import __version__
 # -- Project information -----------------------------------------------------
 
 project = "python3-captchaai"
-copyright = f"2022, AndreiDrang, Release - {__version__}"
+copyright = f"2023, AndreiDrang, Release - {__version__}"
 author = "AndreiDrang"
 
 # -- General configuration ---------------------------------------------------
