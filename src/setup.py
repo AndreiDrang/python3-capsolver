@@ -66,7 +66,7 @@ setup(
     name=NAME,
     version=VERSION,
     author=AUTHOR,
-    packages=["python3_captchaai"],
+    packages=["python3_captchaai", "python3_captchaai.core"],
     install_requires=REQUIRED,
     description=DESCRIPTION,
     long_description=long_description,
