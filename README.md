@@ -1,6 +1,10 @@
 # python3-captchaai
 ![](files/CaptchaAISm.png)
 
+[![Capsolver](files/2938013993.gif)](https://www.capsolver.com/?utm_source=pythoncaptchatelegram&utm_medium=pythoncaptchatelegram&utm_campaign=pythoncaptchatelegram&utm_id=pythoncaptchatelegram&utm_term=pythoncaptchatelegram&utm_content=pythoncaptchatelegram)
+
+
+
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)
 [![Downloads](https://pepy.tech/badge/python3-captchaai/month)](https://pepy.tech/project/python3-captchaai)
