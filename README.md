@@ -1,7 +1,7 @@
 # python3-captchaai
 ![](files/CaptchaAISm.png)
 
-[![Capsolver](files/2938013993.gif)](https://www.capsolver.com/?utm_source=pythoncaptchatelegram&utm_medium=pythoncaptchatelegram&utm_campaign=pythoncaptchatelegram&utm_id=pythoncaptchatelegram&utm_term=pythoncaptchatelegram&utm_content=pythoncaptchatelegram)
+[![Capsolver](files/2938013993.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
 
 
 
@@ -19,11 +19,11 @@
 [![Lint](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/AndreiDrang/python3-captchaai/actions/workflows/lint.yml)
 
 
-Python 3 library for [Capsolver](https://capsolver.com/) service API.
+Python 3 library for [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
 Tested on UNIX based OS.
 
-The library is intended for software developers and is used to work with the [Capsolver](https://capsolver.com/) service API.
+The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
 ***
 
