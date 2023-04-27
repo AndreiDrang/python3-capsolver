@@ -1,9 +1,7 @@
 # python3-captchaai
 ![](files/CaptchaAISm.png)
 
-[![Capsolver](files/2938013993.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
-
-
+[![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
 
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)
