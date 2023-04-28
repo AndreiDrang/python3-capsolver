@@ -6,7 +6,6 @@ from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import CaptchaResponseSer, RequestCreateTaskSer, DatadomeSliderOptionsSer
 
 
-
 class DatadomeSlider(BaseCaptcha):
     """
     The class is used to work with Capsolver DatadomeSlider method.
