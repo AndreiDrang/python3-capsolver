@@ -1,7 +1,7 @@
 from typing import Union
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import MtCaptchaV3TypeEnm
+from python3_capsolver.core.enum import MtCaptchaTypeEnm
 from python3_capsolver.core.serializer import CaptchaResponseSer, WebsiteDataOptionsSer
 
 
@@ -17,7 +17,7 @@ class MtCaptcha(BaseCaptcha):
 
     Examples:
         >>> MtCaptcha(api_key="CAI-1324...",
-        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTaskProxyLess,
+        ...         captcha_type=MtCaptchaTypeEnm.MtCaptchaTaskProxyLess,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -31,7 +31,7 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> MtCaptcha(api_key="CAI-1324...",
-        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
+        ...         captcha_type=MtCaptchaTypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -45,7 +45,7 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> await MtCaptcha(api_key="CAI-1324...",
-        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
+        ...         captcha_type=MtCaptchaTypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -59,7 +59,7 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> await MtCaptcha(api_key="CAI-1324...",
-        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
+        ...         captcha_type=MtCaptchaTypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -81,7 +81,7 @@ class MtCaptcha(BaseCaptcha):
 
     def __init__(
         self,
-        captcha_type: Union[MtCaptchaV3TypeEnm, str],
+        captcha_type: Union[MtCaptchaTypeEnm, str],
         websiteURL: str,
         websiteKey: str,
         *args,
@@ -89,12 +89,12 @@ class MtCaptcha(BaseCaptcha):
     ):
         super().__init__(*args, **kwargs)
 
-        if captcha_type in MtCaptchaV3TypeEnm.list():
+        if captcha_type in MtCaptchaTypeEnm.list():
             self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         else:
             raise ValueError(
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {MtCaptchaV3TypeEnm}"""
+                available - {MtCaptchaTypeEnm}"""
             )
         for key in kwargs:
             self.task_params.update({key: kwargs[key]})
