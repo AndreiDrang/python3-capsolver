@@ -62,8 +62,6 @@ class CaptchaTypeEnm(str, MyEnum):
     ReCaptchaV3Task = "ReCaptchaV3Task"
     ReCaptchaV3TaskProxyless = "ReCaptchaV3TaskProxyless"
     # HCaptcha
-    HCaptchaTask = "HCaptchaTask"
-    HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
     HCaptchaClassification = "HCaptchaClassification"
     # GeeTest
     GeetestTask = "GeetestTask"
@@ -78,6 +76,14 @@ class CaptchaTypeEnm(str, MyEnum):
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
 
+
+class HCaptchaTypeEnm(str, MyEnum):
+    HCaptchaTask = "HCaptchaTask"
+    HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
+    HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
+    HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
+    HCaptchaTurboTask = "HCaptchaTurboTask"
+    HCaptchaTurboTaskProxyLess = "HCaptchaTurboTaskProxyLess"
 
 class ResponseStatusEnm(str, MyEnum):
     """

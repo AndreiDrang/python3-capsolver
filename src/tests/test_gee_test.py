@@ -2,8 +2,8 @@ import pytest
 from pydantic import ValidationError
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.gee_test import GeeTest
-from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.gee_test import GeeTest
+from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
 
 PAGE_URL = "https://www.geetest.com/en/demo"
 GT = "022397c99c9f646f6477822485f30404"

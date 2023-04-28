@@ -1,11 +1,10 @@
 from typing import Union, Optional
 
-from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
-from python3_captchaai.core.config import REQUEST_URL
-from python3_captchaai.core.serializer import (
+from python3_capsolver.core.base import BaseCaptcha
+from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.config import REQUEST_URL
+from python3_capsolver.core.serializer import (
     CaptchaResponseSer,
-    ProxyDataOptionsSer,
     RequestCreateTaskSer,
     ReCaptchaV3OptionsSer,
     WebsiteDataOptionsSer,
@@ -81,7 +80,7 @@ class BaseReCaptcha(BaseCaptcha):
             self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         # validation of the received parameters for ReCaptcha V2 with Proxy params
         elif self.captcha_type in (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask):
-            self.task_params = ProxyDataOptionsSer(**locals()).dict()
+            self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         # validation of the received parameters for ReCaptcha V3 with ProxyLess params
         elif self.captcha_type == CaptchaTypeEnm.ReCaptchaV3TaskProxyless:
             self.task_params = ReCaptchaV3ProxyLessOptionsSer(**locals()).dict()

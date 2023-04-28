@@ -1,25 +1,17 @@
 # -- Path setup --------------------------------------------------------------
-
-import os
-import sys
+from datetime import date
 
 from pallets_sphinx_themes import ProjectLink
 
-os.chdir("../")
-sys.path.insert(0, os.path.abspath("src/"))
-
-for x in os.walk("src/python3_captchaai/"):
-    sys.path.insert(0, x[0])
-
-from python3_captchaai import (core, datadome_slider, fun_captcha, gee_test,
+from python3_capsolver import (core, datadome_slider, fun_captcha, gee_test,
                                hcaptcha, image_to_text, kasada, mt_captcha,
                                recaptcha)
-from python3_captchaai.__version__ import __version__
+from python3_capsolver.__version__ import __version__
 
 # -- Project information -----------------------------------------------------
 
-project = "python3-captchaai"
-copyright = f"2023, AndreiDrang, Release - {__version__}"
+project = "python3-capsolver"
+copyright = f"{date.today().year}, AndreiDrang; Release - {__version__}; Last update - {date.today()}"
 author = "AndreiDrang"
 
 # -- General configuration ---------------------------------------------------
@@ -39,15 +31,15 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "jinja"
 html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
-html_favicon = "_static/CaptchaAIESm.png"
-html_logo = "_static/CaptchaAISm.png"
-html_title = f"python3-captchaai ({__version__})"
+html_favicon = "_static/CapsolverESm.png"
+html_logo = "_static/CapsolverSm.png"
+html_title = f"python3-capsolver ({__version__})"
 html_show_sourcelink = False
 
 html_context = {
     "project_links": [
-        ProjectLink("PyPI Releases", "https://pypi.org/project/python3-captchaai/"),
-        ProjectLink("Source Code", "https://github.com/AndreiDrang/python3-captchaai"),
+        ProjectLink("PyPI Releases", "https://pypi.org/project/python3-capsolver/"),
+        ProjectLink("Source Code", "https://github.com/AndreiDrang/python3-capsolver"),
         ProjectLink(
             "Capsolver",
             "https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1",

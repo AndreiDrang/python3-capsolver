@@ -4,9 +4,9 @@ import pytest
 from pydantic import ValidationError
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.core.enum import CaptchaTypeEnm, ResponseStatusEnm
-from python3_captchaai.fun_captcha import FunCaptcha
-from python3_captchaai.core.serializer import CaptchaResponseSer
+from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
+from python3_capsolver.fun_captcha import FunCaptcha
+from python3_capsolver.core.serializer import CaptchaResponseSer
 
 websiteURL = "https://api.funcaptcha.com/fc/api/nojs/"
 websitePublicKey = "69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC"

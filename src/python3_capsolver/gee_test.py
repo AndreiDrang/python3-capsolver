@@ -1,9 +1,9 @@
 from typing import Union, Optional
 
-from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm
-from python3_captchaai.core.config import REQUEST_URL
-from python3_captchaai.core.serializer import (
+from python3_capsolver.core.base import BaseCaptcha
+from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.config import REQUEST_URL
+from python3_capsolver.core.serializer import (
     GeeTestOptionsSer,
     CaptchaResponseSer,
     RequestCreateTaskSer,

@@ -1,9 +1,9 @@
 import pytest
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.core.enum import ProxyType, ResponseStatusEnm
-from python3_captchaai.core.serializer import CaptchaResponseSer
-from python3_captchaai.datadome_slider import DatadomeSlider
+from python3_capsolver.core.enum import ProxyType, ResponseStatusEnm
+from python3_capsolver.core.serializer import CaptchaResponseSer
+from python3_capsolver.datadome_slider import DatadomeSlider
 
 websiteURL = "https://www.some-url.com/"
 captchaUrl = "https://www.some-url.com/to-page-with-captcha"

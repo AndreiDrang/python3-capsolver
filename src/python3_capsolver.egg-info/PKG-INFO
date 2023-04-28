@@ -1,3 +1,46 @@
+Metadata-Version: 2.1
+Name: python3-capsolver
+Version: 0.5.4
+Summary: Python 3.7+ Capsolver library with AIO module.
+Home-page: https://andreidrang.github.io/python3-capsolver/
+Author: AndreiDrang
+Author-email: python-captcha@pm.me
+License: MIT
+Project-URL: Documentation, https://andreidrang.github.io/python3-capsolver/
+Project-URL: Source, https://github.com/AndreiDrang/python3-captchaai
+Keywords: captcha 
+                recaptcha
+                geetest
+                hcaptcha
+                capypuzzle
+                tiktok
+                rotatecaptcha
+                funcaptcha
+                keycaptcha
+                python3
+                python-library
+                capsolver
+                kasada
+                datadomeslider
+                mtcaptcha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Framework :: AsyncIO
+Classifier: Operating System :: Unix
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS
+Requires-Python: >=3.7.0
+Description-Content-Type: text/markdown
+
+
 # python3-capsolver
 ![Python3-Capsolver](https://github.com/AndreiDrang/python3-capsolver/blob/main/files/CaptchaAISm.png)
 

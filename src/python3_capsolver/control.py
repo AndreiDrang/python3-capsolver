@@ -1,7 +1,7 @@
-from python3_captchaai.core.base import BaseCaptcha
-from python3_captchaai.core.enum import CaptchaTypeEnm, EndpointPostfixEnm
-from python3_captchaai.core.config import REQUEST_URL
-from python3_captchaai.core.serializer import PostRequestSer, ControlResponseSer
+from python3_capsolver.core.base import BaseCaptcha
+from python3_capsolver.core.enum import CaptchaTypeEnm, EndpointPostfixEnm
+from python3_capsolver.core.config import REQUEST_URL
+from python3_capsolver.core.serializer import PostRequestSer, ControlResponseSer
 
 
 class BaseControl(BaseCaptcha):

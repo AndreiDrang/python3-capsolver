@@ -1,6 +1,6 @@
 .. rst-class:: hide-header
 
-python3-captchaai
+python3-capsolver
 =================
 .. image:: _static/CaptchaAI300x.png
     :align: center

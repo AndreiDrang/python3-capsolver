@@ -1,8 +1,8 @@
 import pytest
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.control import Control
-from python3_captchaai.core.serializer import ControlResponseSer
+from python3_capsolver.control import Control
+from python3_capsolver.core.serializer import ControlResponseSer
 
 
 class TestControl(BaseTest):

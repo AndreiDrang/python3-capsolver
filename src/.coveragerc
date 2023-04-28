@@ -4,7 +4,7 @@ omit =
         */tests/*
 
 include =
-        */python3_captchaai/*
+        */python3_capsolver/*
 
 
 [report]
@@ -13,4 +13,4 @@ omit =
         */tests/*
 
 include =
-        */python3_captchaai/*
+        */python3_capsolver/*

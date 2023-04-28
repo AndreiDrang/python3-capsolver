@@ -7,7 +7,7 @@ RETRIES = Retry(total=5, backoff_factor=0.9, status_forcelist=[500, 502, 503, 50
 ASYNC_RETRIES = AsyncRetrying(wait=wait_fixed(5), stop=stop_after_attempt(5), reraise=True)
 
 REQUEST_URL = "https://api.capsolver.com"
-VALID_STATUS_CODES = (200, 400)
+VALID_STATUS_CODES = (200, 400, 401)
 
 APP_ID = "3E36E3CD-7EB5-4CAF-AA15-91011E652321"
 

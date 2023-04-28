@@ -3,9 +3,9 @@ import base64
 import pytest
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.core.enum import ResponseStatusEnm
-from python3_captchaai.image_to_text import ImageToText
-from python3_captchaai.core.serializer import CaptchaResponseSer
+from python3_capsolver.core.enum import ResponseStatusEnm
+from python3_capsolver.image_to_text import ImageToText
+from python3_capsolver.core.serializer import CaptchaResponseSer
 
 with open("tests/files/captcha_example.jpeg", "rb") as img_file:
     img_data = img_file.read()

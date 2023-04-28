@@ -1,8 +1,8 @@
 import pytest
 
 from src.tests.conftest import BaseTest
-from python3_captchaai.kasada import Kasada
-from python3_captchaai.core.enum import ProxyType
+from python3_capsolver.kasada import Kasada
+from python3_capsolver.core.enum import ProxyType
 
 pageURL = "http://mywebsite.com/kasada"
 

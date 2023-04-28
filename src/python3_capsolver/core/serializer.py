@@ -2,8 +2,8 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import Field, BaseModel, conint, constr
 
-from python3_captchaai.core.enum import ProxyType, CaptchaTypeEnm, ResponseStatusEnm
-from python3_captchaai.core.config import APP_ID
+from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
+from python3_capsolver.core.config import APP_ID
 
 """
 HTTP API Request ser
@@ -15,11 +15,11 @@ class PostRequestSer(BaseModel):
 
 
 class TaskSer(BaseModel):
-    type: CaptchaTypeEnm = Field(..., description="Task type name")
+    type: str = Field(..., description="Task type name", alias="captcha_type")
 
 
 class RequestCreateTaskSer(PostRequestSer):
-    task: Optional[TaskSer] = Field(None, description="Task object")
+    task: dict = Field(None, description="Task object")
     appId: str = Field(APP_ID, description="AppID", const=True)
 
 
@@ -33,7 +33,7 @@ HTTP API Response ser
 
 
 class ResponseSer(BaseModel):
-    errorId: bool = Field(False, description="Error message: `False` - no error, `True` - with error")
+    errorId: int = Field(..., description="Error message: `False` - no error, `True` - with error")
     # error info
     errorCode: Optional[str] = Field(None, description="Error code")
     errorDescription: Optional[str] = Field(None, description="Error description")
@@ -41,8 +41,7 @@ class ResponseSer(BaseModel):
 
 class CaptchaResponseSer(ResponseSer):
     taskId: Optional[str] = Field(None, description="Task ID for future use in getTaskResult method.")
-    # TODO check docs, this field some times is `status` and some times its `state`
-    status: ResponseStatusEnm = Field(ResponseStatusEnm.Processing, description="Task current status", alias="state")
+    status: ResponseStatusEnm = Field(ResponseStatusEnm.Processing, description="Task current status")
     solution: Dict[str, Any] = Field(None, description="Task result data. Different for each type of task.")
 
     class Config:
@@ -60,8 +59,8 @@ Other ser
 
 
 class CaptchaOptionsSer(BaseModel):
-    api_key: constr(min_length=36, max_length=36)
-    sleep_time: conint(ge=5)
+    api_key: str
+    sleep_time: conint(ge=5) = 5
 
 
 """
@@ -69,22 +68,9 @@ Captcha tasks ser
 """
 
 
-class WebsiteDataOptionsSer(BaseModel):
+class WebsiteDataOptionsSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Captcha")
     websiteKey: str = Field(..., description="Website key")
-
-
-class ProxyDataOptionsSer(BaseModel):
-    proxyType: ProxyType = Field(..., description="Type of the proxy")
-    proxyAddress: str = Field(
-        ...,
-        description="Proxy IP address IPv4/IPv6."
-        "Not allowed to use:"
-        "host names instead of IPs,"
-        "transparent proxies (where client IP is visible),"
-        "proxies from local networks (192.., 10.., 127...)",
-    )
-    proxyPort: int = Field(..., description="Proxy port.")
 
 
 class ReCaptchaV3ProxyLessOptionsSer(WebsiteDataOptionsSer):
@@ -95,11 +81,11 @@ class ReCaptchaV3ProxyLessOptionsSer(WebsiteDataOptionsSer):
     )
 
 
-class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer, ProxyDataOptionsSer):
+class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer):
     pass
 
 
-class HCaptchaOptionsSer(WebsiteDataOptionsSer, ProxyDataOptionsSer):
+class HCaptchaOptionsSer(WebsiteDataOptionsSer):
     pass
 
 
@@ -115,7 +101,7 @@ class GeeTestProxyLessOptionsSer(BaseModel):
     gt: str = Field(..., description="The domain public key, rarely updated")
 
 
-class GeeTestOptionsSer(GeeTestProxyLessOptionsSer, ProxyDataOptionsSer):
+class GeeTestOptionsSer(GeeTestProxyLessOptionsSer):
     pass
 
 
@@ -129,11 +115,11 @@ class FunCaptchaProxyLessOptionsSer(BaseModel):
     )
 
 
-class FunCaptchaOptionsSer(FunCaptchaProxyLessOptionsSer, ProxyDataOptionsSer):
+class FunCaptchaOptionsSer(FunCaptchaProxyLessOptionsSer):
     pass
 
 
-class DatadomeSliderOptionsSer(ProxyDataOptionsSer):
+class DatadomeSliderOptionsSer(BaseModel):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
 
@@ -142,7 +128,7 @@ class MtCaptchaOptionsSer(WebsiteDataOptionsSer):
     proxy: str = Field(..., description="String with proxy connection params, example: `198.22.3.1:10001:user:pwd`")
 
 
-class KasadaOptionsSer(ProxyDataOptionsSer):
+class KasadaOptionsSer(BaseModel):
     pageURL: str = Field(..., description="Address of a webpage with Kasada")
     proxyLogin: str = Field(
         ...,

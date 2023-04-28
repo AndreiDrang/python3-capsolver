@@ -38,6 +38,11 @@ class UploadCommand(Command):
     description = "Build and publish the package."
     user_options = []
 
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print("\033[1m{0}\033[0m".format(s))
+
     def initialize_options(self):
         pass
 
@@ -66,7 +71,7 @@ setup(
     name=NAME,
     version=VERSION,
     author=AUTHOR,
-    packages=["python3_captchaai", "python3_captchaai.core"],
+    packages=["python3_capsolver", "python3_capsolver.core"],
     install_requires=REQUIRED,
     description=DESCRIPTION,
     long_description=long_description,
@@ -76,27 +81,27 @@ setup(
         "Documentation": URL,
         "Source": "https://github.com/AndreiDrang/python3-captchaai",
     },
-    package_dir={"python3-captchaai": "python3_captchaai"},
+    package_dir={"python3-captchaai": "python3_capsolver"},
     include_package_data=True,
-    py_modules=["python3_captchaai"],
+    py_modules=["python3_capsolver"],
     url=URL,
     license="MIT",
     keywords="""
               	captcha 
-		recaptcha
-		geetest
-		hcaptcha
-		capypuzzle
-		tiktok
-		rotatecaptcha
-		funcaptcha
-		keycaptcha
-		python3
-		python-library
-		capsolver
-		kasada
-		datadomeslider
-		mtcaptcha
+                recaptcha
+                geetest
+                hcaptcha
+                capypuzzle
+                tiktok
+                rotatecaptcha
+                funcaptcha
+                keycaptcha
+                python3
+                python-library
+                capsolver
+                kasada
+                datadomeslider
+                mtcaptcha
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
