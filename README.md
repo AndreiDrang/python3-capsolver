@@ -1,4 +1,4 @@
-# python3-captchaai
+# python3-capsolver
 ![](files/CaptchaAISm.png)
 
 [![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
