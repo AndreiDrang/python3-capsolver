@@ -58,6 +58,36 @@ class ReCaptcha(BaseCaptcha):
                            solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
+        >>> ReCaptcha(api_key="CAI-1324...",
+        ...           captcha_type=ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess,
+        ...           websiteURL="https://2captcha.com/demo/recaptcha-v3",
+        ...           websiteKey="6LfB5_IbAAAAAMCtsjEHEHKqcB9iQocwwxTiihJu",
+        ...           pageAction="demo_action",
+        ...           proxy="socks5:192.191.100.10:4780:user:pwd"
+        ...          ).captcha_handler()
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'gRecaptchaResponse': '44795sds...'}
+                          )
+
+        >>> await ReCaptcha(api_key="CAI-1324...",
+        ...           captcha_type=ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess,
+        ...           websiteURL="https://2captcha.com/demo/recaptcha-v3",
+        ...           websiteKey="6LfB5_IbAAAAAMCtsjEHEHKqcB9iQocwwxTiihJu",
+        ...           pageAction="demo_action",
+        ...           proxy="socks5:192.191.100.10:4780:user:pwd"
+        ...          ).aio_captcha_handler()
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'gRecaptchaResponse': '44795sds...'}
+                          )
+
     Returns:
         CaptchaResponseSer model with full server response
 
