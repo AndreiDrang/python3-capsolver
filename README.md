@@ -1,5 +1,5 @@
 # python3-capsolver
-![Python3-Capsolver](https://github.com/AndreiDrang/python3-capsolver/blob/main/files/CaptchaAISm.png)
+![Python3-Capsolver](https://github.com/AndreiDrang/python3-capsolver/blob/main/files/CapsolverSm.png)
 
 [![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
 
