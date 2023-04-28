@@ -98,9 +98,17 @@ class ReCaptchaV3TypeEnm(str, MyEnum):
     ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
 
 
-class MtCaptchaV3TypeEnm(str, MyEnum):
+class MtCaptchaTypeEnm(str, MyEnum):
     MtCaptchaTask = "MtCaptchaTask"
     MtCaptchaTaskProxyLess = "MtCaptchaTaskProxyLess"
+
+
+class DatadomeSliderTypeEnm(str, MyEnum):
+    DatadomeSliderTask = "DatadomeSliderTask"
+
+
+class CloudflareTypeEnm(str, MyEnum):
+    AntiCloudflareTask = "AntiCloudflareTask"
 
 
 class ResponseStatusEnm(str, MyEnum):
@@ -115,17 +123,3 @@ class ResponseStatusEnm(str, MyEnum):
     Processing = "processing"  # Task is not ready yet
     Ready = "ready"  # Task completed, solution object can be found in solution property
     Failed = "failed"  # Task failed, check the errorDescription to know why failed.
-
-
-class ProxyType(str, MyEnum):
-    """
-    Enum store proxy types
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124
-    """
-
-    http = "http"  # usual http / https
-    https = "https"
-    socks4 = "socks4"
-    socks5 = "socks5"
