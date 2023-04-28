@@ -1,9 +1,8 @@
-from typing import Union, Optional
+from typing import Union
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType
-from python3_capsolver.core.config import REQUEST_URL
-from python3_capsolver.core.serializer import CaptchaResponseSer, RequestCreateTaskSer, DatadomeSliderOptionsSer
+from python3_capsolver.core.enum import DatadomeSliderTypeEnm
+from python3_capsolver.core.serializer import DatadomeSliderSer, CaptchaResponseSer
 
 
 class DatadomeSlider(BaseCaptcha):
@@ -14,22 +13,16 @@ class DatadomeSlider(BaseCaptcha):
         api_key: Capsolver API key
         websiteURL: Address of the webpage
         captchaUrl: Captcha Url where is the captcha
-        proxyType: Type of the proxy
-        proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
-                        host names instead of IPs,
-                        transparent proxies (where client IP is visible),
-                        proxies from local networks (192.., 10.., 127...)
-        proxyPort: Proxy port.
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
+        proxy: Proxy data
+        userAgent: Browser's User-Agent which is used in emulation
 
     Examples:
         >>> DatadomeSlider(api_key="CAI-1324...",
+        ...         captcha_type=DatadomeSliderTypeEnm.DatadomeSliderTask,
         ...         websiteURL="https://www.some-url.com/",
         ...         captchaUrl="https://www.some-url.com/to-page-with-captcha",
-        ...         proxyType="http",
-        ...         proxyAddress="0.0.0.0",
-        ...         proxyPort=9090,
+        ...         proxy="socks5:158.120.100.23:334:user:pass",
+        ...         userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         ...        ).captcha_handler()
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
@@ -40,11 +33,11 @@ class DatadomeSlider(BaseCaptcha):
                           )
 
         >>> await DatadomeSlider(api_key="CAI-1324...",
+        ...         captcha_type="DatadomeSliderTask",
         ...         websiteURL="https://www.some-url.com/",
         ...         captchaUrl="https://www.some-url.com/to-page-with-captcha",
-        ...         proxyType="http",
-        ...         proxyAddress="0.0.0.0",
-        ...         proxyPort=9090,
+        ...         proxy="socks5:158.120.100.23:334:user:pass",
+        ...         userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         ...        ).aio_captcha_handler()
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
@@ -58,56 +51,35 @@ class DatadomeSlider(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426393/
+        https://docs.capsolver.com/guide/antibots/datadome.html
     """
 
     def __init__(
         self,
-        api_key: str,
+        captcha_type: Union[DatadomeSliderTypeEnm, str],
         websiteURL: str,
         captchaUrl: str,
-        proxyType: Union[ProxyType, str],
-        proxyAddress: str,
-        proxyPort: int,
-        sleep_time: Optional[int] = 5,
-        request_url: Optional[str] = REQUEST_URL,
+        proxy: str,
+        userAgent: str,
+        *args,
+        **kwargs,
     ):
 
-        super().__init__(
-            api_key=api_key,
-            sleep_time=sleep_time,
-            request_url=request_url,
-        )
+        super().__init__(*args, **kwargs)
 
-        self.task_params = DatadomeSliderOptionsSer(**locals()).dict()
+        if captcha_type in DatadomeSliderTypeEnm.list():
+            self.task_params = DatadomeSliderSer(**locals()).dict()
+        else:
+            raise ValueError(
+                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
+                available - {DatadomeSliderTypeEnm.list()}"""
+            )
+        for key in kwargs:
+            self.task_params.update({key: kwargs[key]})
 
-    def captcha_handler(
-        self,
-        **additional_params,
-    ) -> CaptchaResponseSer:
+    def captcha_handler(self) -> CaptchaResponseSer:
         """
-        Synchronous method for captcha solving
-
-        Args:
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``proxyPassword``, ``userAgent`` and etc. - more info in service docs
-
-        Examples:
-            >>> DatadomeSlider(api_key="CAI-1324...",
-            ...         websiteURL="https://www.some-url.com/",
-            ...         captchaUrl="https://www.some-url.com/to-page-with-captcha",
-            ...         proxyType="http",
-            ...         proxyAddress="0.0.0.0",
-            ...         proxyPort=9090,
-            ...        ).captcha_handler()
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+        Sync method for captcha solving
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -115,35 +87,14 @@ class DatadomeSlider(BaseCaptcha):
         Notes:
             Check class docstring for more info
         """
-        return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params)
+        return self._processing_captcha(create_params=self.task_params)
 
     async def aio_captcha_handler(
         self,
         **additional_params,
     ) -> CaptchaResponseSer:
         """
-        Asynchronous method for captcha solving
-
-        Args:
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
-
-        Examples:
-            >>> await DatadomeSlider(api_key="CAI-1324...",
-            ...         websiteURL="https://www.some-url.com/",
-            ...         captchaUrl="https://www.some-url.com/to-page-with-captcha",
-            ...         proxyType="http",
-            ...         proxyAddress="0.0.0.0",
-            ...         proxyPort=9090,
-            ...        ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+        Async method for captcha solving
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -151,6 +102,4 @@ class DatadomeSlider(BaseCaptcha):
         Notes:
             Check class docstring for more info
         """
-        return await self._aio_processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params
-        )
+        return await self._aio_processing_captcha(create_params=self.task_params)
