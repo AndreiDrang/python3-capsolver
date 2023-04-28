@@ -34,9 +34,6 @@ class MyEnum(Enum):
 class EndpointPostfixEnm(str, MyEnum):
     """
     Enum stored URL postfixes for API endpoints
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042
     """
 
     GET_BALANCE = "getBalance"
@@ -47,9 +44,6 @@ class EndpointPostfixEnm(str, MyEnum):
 class CaptchaTypeEnmXXX(str, MyEnum):
     """
     Enum with all available captcha types
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393295
     """
 
     ImageToTextTask = "ImageToTextTask"
@@ -114,7 +108,7 @@ class ResponseStatusEnm(str, MyEnum):
     Enum store results `status` field variants
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124
+        https://docs.capsolver.com/guide/api-createtask.html
     """
 
     Idle = "idle"  # Task created
