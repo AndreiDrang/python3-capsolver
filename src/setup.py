@@ -7,12 +7,12 @@ import logging
 from setuptools import Command, setup
 from pkg_resources import parse_requirements
 
-from python3_captchaai.__version__ import __version__
+from python3_capsolver.__version__ import __version__
 
 # Package meta-data.
-NAME = "python3-captchaai"
+NAME = "python3-capsolver"
 DESCRIPTION = "Python 3.7+ Capsolver library with AIO module."
-URL = "https://andreidrang.github.io/python3-captchaai/"
+URL = "https://andreidrang.github.io/python3-capsolver/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.7.0"
@@ -38,6 +38,11 @@ class UploadCommand(Command):
     description = "Build and publish the package."
     user_options = []
 
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print("\033[1m{0}\033[0m".format(s))
+
     def initialize_options(self):
         pass
 
@@ -45,20 +50,22 @@ class UploadCommand(Command):
         pass
 
     def run(self):
-        logging.info("Clean builds . . .")
-        shutil.rmtree("dist/", ignore_errors=True)
-
         logging.info("Building Source and Wheel distribution . . .")
-        os.system("python setup.py bdist_wheel")
+        os.system("python setup.py sdist bdist_wheel")
 
         logging.info("Uploading the package to PyPI via Twin . . .")
         os.system("twine upload dist/* --verbose")
 
         logging.info("🤖 Uploaded . . .")
 
-        logging.info("Clean builds . . .")
-        shutil.rmtree("dist/")
+        logging.info("Clean dist . . .")
+        shutil.rmtree("dist/", ignore_errors=True)
 
+        logging.info("Clean build . . .")
+        shutil.rmtree("build/", ignore_errors=True)
+
+        logging.info("Clean python_rucaptcha.egg-info . . .")
+        shutil.rmtree("python3_capsolver.egg-info/", ignore_errors=True)
         sys.exit()
 
 
@@ -66,7 +73,7 @@ setup(
     name=NAME,
     version=VERSION,
     author=AUTHOR,
-    packages=["python3_captchaai"],
+    packages=["python3_capsolver", "python3_capsolver.core"],
     install_requires=REQUIRED,
     description=DESCRIPTION,
     long_description=long_description,
@@ -76,27 +83,30 @@ setup(
         "Documentation": URL,
         "Source": "https://github.com/AndreiDrang/python3-captchaai",
     },
-    package_dir={"python3-captchaai": "python3_captchaai"},
+    package_dir={"python3-captchaai": "python3_capsolver"},
     include_package_data=True,
-    py_modules=["python3_captchaai"],
+    py_modules=["python3_capsolver"],
     url=URL,
     license="MIT",
     keywords="""
               	captcha 
-		recaptcha
-		geetest
-		hcaptcha
-		capypuzzle
-		tiktok
-		rotatecaptcha
-		funcaptcha
-		keycaptcha
-		python3
-		python-library
-		capsolver
-		kasada
-		datadomeslider
-		mtcaptcha
+                recaptcha
+                geetest
+                hcaptcha
+                capypuzzle
+                rotatecaptcha
+                funcaptcha
+                keycaptcha
+                python3
+                python-library
+                capsolver
+                datadomeslider
+                datadome
+                mtcaptcha
+				turnstile
+				cloudflare
+				amazon
+				amazon_waf
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
@@ -113,6 +123,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: AsyncIO",
         "Operating System :: Unix",
         "Operating System :: Microsoft :: Windows",
