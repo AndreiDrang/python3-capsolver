@@ -1,7 +1,7 @@
 import time
 import asyncio
 import logging
-from typing import Any, Dict, Type, Union
+from typing import Any, Dict, Type
 from urllib import parse
 
 import aiohttp
@@ -9,7 +9,7 @@ import requests
 from pydantic import BaseModel
 from requests.adapters import HTTPAdapter
 
-from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
+from python3_capsolver.core.enum import ResponseStatusEnm, EndpointPostfixEnm
 from python3_capsolver.core.config import RETRIES, REQUEST_URL, VALID_STATUS_CODES, attempts_generator
 from python3_capsolver.core.serializer import (
     CaptchaOptionsSer,
@@ -92,7 +92,7 @@ class BaseCaptcha:
         if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
         # if captcha is not ready but task success created - waiting captcha result
-        elif self.created_task_data.errorId==0:
+        elif self.created_task_data.errorId == 0:
             return self._get_result()
         return self.created_task_data
 
@@ -162,7 +162,7 @@ class BaseCaptcha:
         if self.created_task_data.status == ResponseStatusEnm.Ready.value:
             return self.created_task_data
         # if captcha is not ready but task success created - waiting captcha result
-        elif self.created_task_data.errorId==0:
+        elif self.created_task_data.errorId == 0:
             return await self._aio_get_result()
         return self.created_task_data
 
