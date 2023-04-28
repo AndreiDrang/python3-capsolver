@@ -94,16 +94,19 @@ setup(
                 geetest
                 hcaptcha
                 capypuzzle
-                tiktok
                 rotatecaptcha
                 funcaptcha
                 keycaptcha
                 python3
                 python-library
                 capsolver
-                kasada
                 datadomeslider
+                datadome
                 mtcaptcha
+				turnstile
+				cloudflare
+				amazon
+				amazon_waf
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,
@@ -120,6 +123,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: AsyncIO",
         "Operating System :: Unix",
         "Operating System :: Microsoft :: Windows",
