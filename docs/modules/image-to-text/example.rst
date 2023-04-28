@@ -5,8 +5,8 @@ To import this module:
 
 .. code-block:: python
 
-    from python3_captchaai.image_to_text import ImageToText
+    from python3_capsolver.image_to_text import ImageToText
 
 
-.. autoclass:: image_to_text.ImageToText
+.. autoclass:: python3_capsolver.image_to_text.ImageToText
     :members:

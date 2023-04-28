@@ -5,7 +5,6 @@ from pallets_sphinx_themes import ProjectLink
 
 from python3_capsolver import (
     core,
-    kasada,
     gee_test,
     hcaptcha,
     recaptcha,
@@ -40,7 +39,7 @@ html_theme = "jinja"
 html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
 html_favicon = "_static/CapsolverESm.png"
-html_logo = "_static/CapsolverSm.png"
+html_logo = "_static/CapsolverSM.png"
 html_title = f"python3-capsolver ({__version__})"
 html_show_sourcelink = False
 

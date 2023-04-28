@@ -2,7 +2,7 @@
 
 ## Welcome to python3-captchaai
 
-![](../../_static/CaptchaAISm.png)
+![](../../_static/CapsolverSM.png)
 
 [![PyPI version](https://badge.fury.io/py/python3-captchaai.svg)](https://badge.fury.io/py/python3-captchaai)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-captchaai.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-captchaai)

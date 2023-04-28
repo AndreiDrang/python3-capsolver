@@ -5,25 +5,17 @@ To import this module:
 
 .. code-block:: python
 
-    from python3_captchaai.core import enum
+    from python3_capsolver.core import enum
 
 
-.. autoclass:: core.enum.MyEnum
+.. autoclass:: python3_capsolver.core.enum.MyEnum
     :members:
     :undoc-members:
 
-.. autoclass:: core.enum.EndpointPostfixEnm
+.. autoclass:: python3_capsolver.core.enum.EndpointPostfixEnm
     :members:
     :undoc-members:
 
-.. autoclass:: core.enum.CaptchaTypeEnm
-    :members:
-    :undoc-members:
-
-.. autoclass:: core.enum.ResponseStatusEnm
-    :members:
-    :undoc-members:
-
-.. autoclass:: core.enum.ProxyType
+.. autoclass:: python3_capsolver.core.enum.ResponseStatusEnm
     :members:
     :undoc-members:

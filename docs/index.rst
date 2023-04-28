@@ -2,7 +2,7 @@
 
 python3-capsolver
 =================
-.. image:: _static/CaptchaAI300x.png
+.. image:: _static/Capsolver300x.png
     :align: center
 
 Python3 library for `Capsolver API <https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1>`_.
@@ -29,7 +29,6 @@ The library is intended for software developers and is used to work with the `Ca
    modules/fun-captcha/example.rst
    modules/datadome/example.rst
    modules/mt-captcha/example.rst
-   modules/kasada/example.rst
 
 .. toctree::
    :maxdepth: 2
