@@ -35,6 +35,7 @@ class BaseCaptcha:
         api_key: str,
         sleep_time: int = 5,
         request_url: str = REQUEST_URL,
+        **kwargs,
     ):
         # assign args to validator
         self.__params = CaptchaOptionsSer(**locals())
@@ -101,7 +102,10 @@ class BaseCaptcha:
         Function send SYNC request to service and wait for result
         """
         try:
-            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.task_payload.dict())
+            print(self.task_payload.dict(exclude_none=True))
+            resp = self.__session.post(parse.urljoin(self.__request_url, url_postfix), json=self.task_payload.dict(exclude_none=True))
+            print(resp.status_code)
+            print(resp.json())
             if resp.status_code in VALID_STATUS_CODES:
                 return resp.json()
             else:
@@ -124,7 +128,7 @@ class BaseCaptcha:
         for _ in attempts:
             try:
                 resp = self.__session.post(
-                    parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
+                    parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict(exclude_none=True)
                 )
                 if resp.status_code in VALID_STATUS_CODES:
                     result_data = CaptchaResponseSer(**resp.json())
@@ -173,7 +177,7 @@ class BaseCaptcha:
         async with aiohttp.ClientSession() as session:
             try:
                 async with session.post(
-                    parse.urljoin(self.__request_url, url_postfix), json=self.task_payload.dict()
+                    parse.urljoin(self.__request_url, url_postfix), json=self.task_payload.dict(exclude_none=True)
                 ) as resp:
                     if resp.status in VALID_STATUS_CODES:
                         return await resp.json()
@@ -198,7 +202,7 @@ class BaseCaptcha:
             for _ in attempts:
                 try:
                     async with session.post(
-                        parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict()
+                        parse.urljoin(self.__request_url, url_postfix), json=get_result_payload.dict(exclude_none=True)
                     ) as resp:
                         if resp.status in VALID_STATUS_CODES:
                             result_data = CaptchaResponseSer(**await resp.json())

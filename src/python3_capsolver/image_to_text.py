@@ -112,7 +112,7 @@ class ImageToText(BaseImageToText):
             CaptchaResponseSer model with full server response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return self._processing_captcha(
             serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params
@@ -144,7 +144,7 @@ class ImageToText(BaseImageToText):
             CaptchaResponseSer model with full server response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return await self._aio_processing_captcha(
             serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params

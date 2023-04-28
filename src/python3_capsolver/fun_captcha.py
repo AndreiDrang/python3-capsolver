@@ -15,19 +15,9 @@ class FunCaptcha(BaseCaptcha):
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
+        captcha_type: Captcha type name, like ``FuncaptchaTaskProxyless`` and etc.
         websiteURL: Address of a webpage with Geetest.
         websitePublicKey: Funcaptcha website key.
-        funcaptchaApiJSSubdomain: A special subdomain of funcaptcha.com,from which the JS captcha should be loaded.
-                                    Most FunCaptcha installations work from shared domains.
-        proxyType: Type of the proxy
-        proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
-                        host names instead of IPs,
-                        transparent proxies (where client IP is visible),
-                        proxies from local networks (192.., 10.., 127...)
-        proxyPort: Proxy port.
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
 
     Examples:
         >>> with FunCaptcha(api_key="CAI-1324...",
@@ -64,9 +54,7 @@ class FunCaptcha(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426302
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/394062
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426373
+        https://docs.capsolver.com/guide/captcha/FunCaptcha.html
     """
 
     def __init__(
@@ -126,7 +114,7 @@ class FunCaptcha(BaseCaptcha):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return self._processing_captcha(create_params=self.task_params)
 
@@ -188,6 +176,6 @@ class FunCaptcha(BaseCaptcha):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return await self._aio_processing_captcha(create_params=self.task_params)

@@ -63,9 +63,6 @@ class CaptchaTypeEnm(str, MyEnum):
     ReCaptchaV3TaskProxyless = "ReCaptchaV3TaskProxyless"
     # HCaptcha
     HCaptchaClassification = "HCaptchaClassification"
-    # GeeTest
-    GeetestTask = "GeetestTask"
-    GeetestTaskProxyless = "GeetestTaskProxyless"
     # FunCaptcha
     FunCaptchaClassification = "FunCaptchaClassification"
     # Other types
@@ -86,6 +83,10 @@ class HCaptchaTypeEnm(str, MyEnum):
 class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
+
+class GeeTestCaptchaTypeEnm(str, MyEnum):
+    GeeTestTask = "GeeTestTask"
+    GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
 class ResponseStatusEnm(str, MyEnum):
     """

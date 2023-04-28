@@ -1,17 +1,15 @@
 from typing import Union, Optional
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm, GeeTestCaptchaTypeEnm
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import (
-    GeeTestOptionsSer,
     CaptchaResponseSer,
-    RequestCreateTaskSer,
-    GeeTestProxyLessOptionsSer,
+    RequestCreateTaskSer,GeeTestSer
 )
 
 
-class BaseGeeTest(BaseCaptcha):
+class GeeTest(BaseCaptcha):
     """
     The class is used to work with Capsolver GeetestTask methods.
 
@@ -20,24 +18,15 @@ class BaseGeeTest(BaseCaptcha):
         captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
         websiteURL: Address of a webpage with Geetest
         gt: The domain public key, rarely updated
-        proxyType: Type of the proxy
-        proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
-                        host names instead of IPs,
-                        transparent proxies (where client IP is visible),
-                        proxies from local networks (192.., 10.., 127...)
-        proxyPort: Proxy port.
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
+        challenge: If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4
 
     Examples:
         >>> GeeTest(api_key="CAI-1324...",
-        ...         captcha_type="GeetestTaskProxyless",
+        ...         captcha_type=GeeTestCaptchaTypeEnm.GeeTestTaskProxyLess,
         ...         websiteURL="https://www.geetest.com/en/demo",
         ...         gt="022397c99c9f646f6477822485f30404",
-        ...        ).captcha_handler(
-        ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
-        ...                    geetestApiServerSubdomain="api.geetest.com"
-        ...                )
+        ...         challenge='12345678abc90123d45678ef90123a456b'
+        ...        ).captcha_handler()
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
                            errorDescription=None,
@@ -46,128 +35,88 @@ class BaseGeeTest(BaseCaptcha):
                            solution={'gRecaptchaResponse': '44795sds...'}
                           )
 
+        >>> GeeTest(api_key="CAI-1324...",
+        ...         captcha_type=GeeTestCaptchaTypeEnm.GeeTestTask,
+        ...         websiteURL="https://www.geetest.com/en/demo",
+        ...         gt="022397c99c9f646f6477822485f30404",
+        ...         challenge='12345678abc90123d45678ef90123a456b'
+        ...         proxy="socks5:192.191.100.10:4780:user:pwd"
+        ...        ).captcha_handler()
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'gRecaptchaResponse': '44795sds...'}
+                          )
+
+        >>> await GeeTest(api_key="CAI-1324...",
+        ...         captcha_type="GeetestTaskProxyless",
+        ...         websiteURL="https://www.geetest.com/en/demo",
+        ...         gt="022397c99c9f646f6477822485f30404",
+        ...         challenge='12345678abc90123d45678ef90123a456b'
+        ...        ).aio_captcha_handler()
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'gRecaptchaResponse': '44795sds...'}
+                          )
+
+
     Returns:
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/394048
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426338
+        https://docs.capsolver.com/guide/captcha/Geetest.html
     """
 
     def __init__(
         self,
-        api_key: str,
         captcha_type: Union[CaptchaTypeEnm, str],
         websiteURL: str,
         gt: str,
-        proxyType: Optional[Union[ProxyType, str]] = None,
-        proxyAddress: Optional[str] = None,
-        proxyPort: Optional[int] = None,
-        sleep_time: Optional[int] = 5,
-        request_url: Optional[str] = REQUEST_URL,
+        challenge: str,
+            *args, **kwargs
     ):
 
-        super().__init__(api_key=api_key, captcha_type=captcha_type, sleep_time=sleep_time, request_url=request_url)
+        super().__init__(*args, **kwargs)
 
-        # validation of the received parameters for GeetestTaskProxyless
-        if self.captcha_type == CaptchaTypeEnm.GeetestTaskProxyless:
-            self.task_params = GeeTestProxyLessOptionsSer(**locals()).dict()
-        # validation of the received parameters for GeetestTask
-        elif self.captcha_type == CaptchaTypeEnm.GeetestTask:
-            self.task_params = GeeTestOptionsSer(**locals()).dict()
+        if captcha_type in GeeTestCaptchaTypeEnm.list():
+            self.task_params = GeeTestSer(**locals()).dict()
         else:
             raise ValueError(
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {CaptchaTypeEnm.GeetestTaskProxyless.value,
-                             CaptchaTypeEnm.GeetestTask.value}"""
+                available - {GeeTestCaptchaTypeEnm.list()}"""
             )
-
-
-class GeeTest(BaseGeeTest):
-    __doc__ = BaseGeeTest.__doc__
+        for key in kwargs:
+            self.task_params.update({key: kwargs[key]})
 
     def captcha_handler(
-        self,
-        challenge: str,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Synchronous method for captcha solving
-
-        Args:
-            challenge: Changing token key.
-                        Make sure you grab a fresh one for each captcha;
-                        otherwise, you'll be charged for an error task.
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
-
-        Examples:
-            >>> GeeTest(api_key="CAI-1324...",
-            ...         captcha_type="GeetestTaskProxyless",
-            ...         websiteURL="https://www.geetest.com/en/demo",
-            ...         gt="022397c99c9f646f6477822485f30404",
-            ...        ).captcha_handler(
-            ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
-            ...                    geetestApiServerSubdomain="api.geetest.com"
-            ...                )
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+        Sync solving method
 
         Returns:
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
-        self.task_params.update({**additional_params, "challenge": challenge})
-        return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **self.task_params)
+        return self._processing_captcha(create_params=self.task_params)
 
     async def aio_captcha_handler(
-        self,
-        challenge: str,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Asynchronous method for captcha solving
-
-        Args:
-            challenge: Changing token key.
-                        Make sure you grab a fresh one for each captcha;
-                        otherwise, you'll be charged for an error task.
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
-
-        Examples:
-            >>> await GeeTest(api_key="CAI-1324...",
-            ...                 captcha_type="GeetestTaskProxyless",
-            ...                 websiteURL="https://www.geetest.com/en/demo",
-            ...                 gt="022397c99c9f646f6477822485f30404",
-            ...             ).aio_captcha_handler(
-            ...                    challenge="a66f31a53a404af8d1f271eec5138aa1",
-            ...                    geetestApiServerSubdomain="api.geetest.com"
-            ...                )
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+        Async  solving method
 
         Returns:
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
-        self.task_params.update({**additional_params, "challenge": challenge})
-        return await self._aio_processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, **self.task_params
-        )
+        return await self._aio_processing_captcha(create_params=self.task_params)

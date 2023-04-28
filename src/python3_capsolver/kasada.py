@@ -131,7 +131,7 @@ class Kasada(BaseKasada):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         self.task_params.update({**additional_params})
         self._prepare_create_task_payload(serializer=RequestCreateTaskSer, create_params=self.task_params)
@@ -171,7 +171,7 @@ class Kasada(BaseKasada):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         self.task_params.update({**additional_params})
         self._prepare_create_task_payload(serializer=RequestCreateTaskSer, create_params=self.task_params)

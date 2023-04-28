@@ -118,7 +118,7 @@ class DatadomeSlider(BaseDatadomeSlider):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params)
 
@@ -154,7 +154,7 @@ class DatadomeSlider(BaseDatadomeSlider):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         return await self._aio_processing_captcha(
             serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params

@@ -133,7 +133,7 @@ class ReCaptcha(BaseReCaptcha):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         self.task_params.update(additional_params)
         return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **self.task_params)
@@ -169,7 +169,7 @@ class ReCaptcha(BaseReCaptcha):
             CaptchaResponseSer model with full service response
 
         Notes:
-            Check class docstirng for more info
+            Check class docstring for more info
         """
         self.task_params.update(additional_params)
         return await self._aio_processing_captcha(

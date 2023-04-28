@@ -50,20 +50,22 @@ class UploadCommand(Command):
         pass
 
     def run(self):
-        logging.info("Clean builds . . .")
-        shutil.rmtree("dist/", ignore_errors=True)
-
         logging.info("Building Source and Wheel distribution . . .")
-        os.system("python setup.py bdist_wheel")
+        os.system("python setup.py sdist bdist_wheel")
 
         logging.info("Uploading the package to PyPI via Twin . . .")
         os.system("twine upload dist/* --verbose")
 
         logging.info("🤖 Uploaded . . .")
 
-        logging.info("Clean builds . . .")
-        shutil.rmtree("dist/")
+        logging.info("Clean dist . . .")
+        shutil.rmtree("dist/", ignore_errors=True)
 
+        logging.info("Clean build . . .")
+        shutil.rmtree("build/", ignore_errors=True)
+
+        logging.info("Clean python_rucaptcha.egg-info . . .")
+        shutil.rmtree("python3_capsolver.egg-info/", ignore_errors=True)
         sys.exit()
 
 

@@ -14,17 +14,6 @@ class HCaptcha(BaseCaptcha):
         captcha_type: Captcha type name, like ``HCaptchaTaskProxyless`` and etc.
         websiteURL: Address of a webpage with hCaptcha
         websiteKey: hCaptcha website key
-        queries: Base64-encoded images, do not include "data : image / *** ; base64,".
-                    Format to send: [“base64”,”base64”,”base64”,…..]
-        question: Question ID. Support English and Chinese, other languages please convert yourself
-        proxyType: Type of the proxy
-        proxyAddress: Proxy IP address IPv4/IPv6. Not allowed to use:
-                        host names instead of IPs,
-                        transparent proxies (where client IP is visible),
-                        proxies from local networks (192.., 10.., 127...)
-        proxyPort: Proxy port.
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
 
     Examples:
         >>> HCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
@@ -41,7 +30,20 @@ class HCaptcha(BaseCaptcha):
                           )
 
         >>> HCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-        ...          captcha_type='HCaptchaTask',
+        ...          captcha_type=HCaptchaTypeEnm.HCaptchaEnterpriseTaskProxyLess,
+        ...          websiteURL="https://accounts.hcaptcha.com/demo",
+        ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
+        ...         ).captcha_handler()
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'gRecaptchaResponse': '44795sds...'}
+                          )
+
+        >>> HCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type=HCaptchaTypeEnm.HCaptchaTask,
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...          proxy="socks5:192.191.100.10:4780:user:pwd"
@@ -56,7 +58,7 @@ class HCaptcha(BaseCaptcha):
                           )
 
         >>> await HCaptcha(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
-        ...          captcha_type='HCaptchaTaskProxyless',
+        ...          captcha_type=HCaptchaTypeEnm.HCaptchaTaskProxyless,
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...         ).aio_captcha_handler()

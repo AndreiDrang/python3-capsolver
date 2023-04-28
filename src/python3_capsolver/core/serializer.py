@@ -96,16 +96,15 @@ class HCaptchaClassificationOptionsSer(BaseModel):
     )
 
 
-class GeeTestProxyLessOptionsSer(BaseModel):
+class GeeTestSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Geetest")
     gt: str = Field(..., description="The domain public key, rarely updated")
+    challenge: Optional[str] = Field('', description="If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4")
 
 
-class GeeTestOptionsSer(GeeTestProxyLessOptionsSer):
-    pass
 
 
-class FunCaptchaSer(BaseModel):
+class FunCaptchaSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Funcaptcha")
     websitePublicKey: str = Field(..., description="Funcaptcha website key.")
     funcaptchaApiJSSubdomain: Optional[str] = Field(
