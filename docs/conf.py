@@ -3,9 +3,17 @@ from datetime import date
 
 from pallets_sphinx_themes import ProjectLink
 
-from python3_capsolver import (core, datadome_slider, fun_captcha, gee_test,
-                               hcaptcha, image_to_text, kasada, mt_captcha,
-                               recaptcha)
+from python3_capsolver import (
+    core,
+    kasada,
+    gee_test,
+    hcaptcha,
+    recaptcha,
+    mt_captcha,
+    fun_captcha,
+    image_to_text,
+    datadome_slider,
+)
 from python3_capsolver.__version__ import __version__
 
 # -- Project information -----------------------------------------------------
