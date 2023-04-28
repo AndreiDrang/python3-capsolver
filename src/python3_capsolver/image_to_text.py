@@ -67,7 +67,7 @@ class BaseImageToText(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393427
+        https://docs.capsolver.com/guide/recognition/ImageToTextTask.html
     """
 
     def __init__(
