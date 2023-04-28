@@ -68,8 +68,6 @@ class CaptchaTypeEnm(str, MyEnum):
     GeetestTaskProxyless = "GeetestTaskProxyless"
     # FunCaptcha
     FunCaptchaClassification = "FunCaptchaClassification"
-    FuncaptchaTask = "FuncaptchaTask"
-    FuncaptchaTaskProxyless = "FuncaptchaTaskProxyless"
     # Other types
     MtCaptchaTask = "MtCaptchaTask"
     DatadomeSliderTask = "DatadomeSliderTask"
@@ -84,6 +82,10 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
     HCaptchaTurboTask = "HCaptchaTurboTask"
     HCaptchaTurboTaskProxyLess = "HCaptchaTurboTaskProxyLess"
+
+class FunCaptchaTypeEnm(str, MyEnum):
+    FunCaptchaTask = "FunCaptchaTask"
+    FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
 
 class ResponseStatusEnm(str, MyEnum):
     """
