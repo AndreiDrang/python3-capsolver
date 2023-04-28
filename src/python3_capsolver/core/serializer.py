@@ -70,7 +70,7 @@ Captcha tasks ser
 
 class WebsiteDataOptionsSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Captcha")
-    websiteKey: str = Field(..., description="Website key")
+    websiteKey: Optional[str] = Field(None, description="Website key")
 
 
 class ReCaptchaV3Ser(WebsiteDataOptionsSer):
@@ -107,9 +107,11 @@ class FunCaptchaSer(TaskSer):
     )
 
 
-class DatadomeSliderOptionsSer(BaseModel):
+class DatadomeSliderSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
+    proxy: str = Field(..., description="Proxy data")
+    userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
 
 
 class KasadaOptionsSer(BaseModel):
@@ -120,3 +122,10 @@ class KasadaOptionsSer(BaseModel):
         "This isn’t required if you are using proxies authenticated by IP",
     )
     proxyPassword: str = Field(..., description="This isn’t required if you are using proxies authenticated by IP")
+
+
+class CloudflareTurnstileSer(WebsiteDataOptionsSer):
+    metadata: dict = Field(..., description="Extra data")
+    html: Optional[str] = Field(
+        None, description="You can pass in the entire html source code for the challenge directly."
+    )
