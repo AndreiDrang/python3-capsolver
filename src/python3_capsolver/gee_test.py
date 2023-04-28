@@ -71,7 +71,6 @@ class GeeTest(BaseCaptcha):
     def __init__(
         self, captcha_type: Union[GeeTestCaptchaTypeEnm, str], websiteURL: str, gt: str, challenge: str, *args, **kwargs
     ):
-
         super().__init__(*args, **kwargs)
 
         if captcha_type in GeeTestCaptchaTypeEnm.list():

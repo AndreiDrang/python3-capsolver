@@ -78,7 +78,6 @@ class HCaptcha(BaseCaptcha):
     """
 
     def __init__(self, captcha_type: Union[HCaptchaTypeEnm, str], websiteURL: str, websiteKey: str, *args, **kwargs):
-
         super().__init__(*args, **kwargs)
 
         if captcha_type in HCaptchaTypeEnm.list():

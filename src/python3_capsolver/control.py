@@ -21,7 +21,6 @@ class Control(BaseCaptcha):
         *args,
         **kwargs,
     ):
-
         super().__init__(*args, **kwargs)
 
     def get_balance(self) -> ControlResponseSer:

@@ -60,7 +60,6 @@ class TestFunCaptchaBase(BaseTest):
 
 
 class TestFunCaptchaProxyless(BaseTest):
-
     captcha_type = CaptchaTypeEnm.FuncaptchaTaskProxyless
     """
     Success tests
@@ -196,7 +195,6 @@ class TestFunCaptchaProxyless(BaseTest):
 
 
 class TestFunCaptchaClassification(BaseTest):
-
     captcha_type = CaptchaTypeEnm.FunCaptchaClassification
 
     question = "Pick the bicycle"

@@ -76,7 +76,6 @@ class BaseImageToText(BaseCaptcha):
         sleep_time: int = 10,
         request_url: str = REQUEST_URL,
     ):
-
         super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url)
 
 

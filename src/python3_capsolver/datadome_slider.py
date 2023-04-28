@@ -64,7 +64,6 @@ class DatadomeSlider(BaseCaptcha):
         *args,
         **kwargs,
     ):
-
         super().__init__(*args, **kwargs)
 
         if captcha_type in DatadomeSliderTypeEnm.list():
