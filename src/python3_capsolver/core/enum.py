@@ -59,7 +59,6 @@ class CaptchaTypeEnmXXX(str, MyEnum):
     # FunCaptcha
     FunCaptchaClassification = "FunCaptchaClassification"
     # Other types
-    MtCaptchaTask = "MtCaptchaTask"
     DatadomeSliderTask = "DatadomeSliderTask"
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
@@ -97,6 +96,11 @@ class ReCaptchaV3TypeEnm(str, MyEnum):
     ReCaptchaV3EnterpriseTask = "ReCaptchaV3EnterpriseTask"
     ReCaptchaV3TaskProxyLess = "ReCaptchaV3TaskProxyLess"
     ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
+
+class MtCaptchaV3TypeEnm(str, MyEnum):
+    MtCaptchaTask = "MtCaptchaTask"
+    MtCaptchaTaskProxyLess = "MtCaptchaTaskProxyLess"
+
 
 
 class ResponseStatusEnm(str, MyEnum):
