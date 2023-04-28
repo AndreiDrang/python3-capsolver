@@ -52,6 +52,11 @@ Is described in the [documentation-website](https://andreidrang.github.io/python
 1. You need set ``API_KEY`` in your environment(get this value from you account).
 2. Run command ``make tests``, from root directory.
 
+
+### Changelog
+
+Check [releases page](https://github.com/AndreiDrang/python3-capsolver/releases).
+
 ### How to get API Key to work with the library
 1. On the page - https://dashboard.capsolver.com/overview/user-center
 2. Find it: ![img.png](files/img.png)
