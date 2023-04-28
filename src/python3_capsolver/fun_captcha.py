@@ -1,17 +1,15 @@
 from typing import Union, Optional
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
-from python3_capsolver.core.config import REQUEST_URL
+from python3_capsolver.core.enum import FunCaptchaTypeEnm
 from python3_capsolver.core.serializer import (
     CaptchaResponseSer,
-    FunCaptchaOptionsSer,
+    FunCaptchaSer,
     RequestCreateTaskSer,
-    FunCaptchaProxyLessOptionsSer,
 )
 
 
-class BaseFunCaptcha(BaseCaptcha):
+class FunCaptcha(BaseCaptcha):
     """
     The class is used to work with Capsolver FuncaptchaTask methods.
 
@@ -72,60 +70,28 @@ class BaseFunCaptcha(BaseCaptcha):
     """
 
     def __init__(
-        self,
-        api_key: str,
-        captcha_type: Union[CaptchaTypeEnm, str],
-        websiteURL: Optional[str] = None,
-        websitePublicKey: Optional[str] = None,
-        funcaptchaApiJSSubdomain: Optional[str] = None,
-        proxyType: Optional[Union[ProxyType, str]] = None,
-        proxyAddress: Optional[str] = None,
-        proxyPort: Optional[int] = None,
-        sleep_time: Optional[int] = 5,
-        request_url: Optional[str] = REQUEST_URL,
+        self, captcha_type: Union[FunCaptchaSer, str], websiteURL: str, websitePublicKey: str, *args, **kwargs
     ):
-        super().__init__(api_key=api_key, captcha_type=captcha_type, sleep_time=sleep_time, request_url=request_url)
+        super().__init__(*args, **kwargs)
 
-        # validation of the received parameters for FuncaptchaTaskProxyless
-        if self.captcha_type == CaptchaTypeEnm.FuncaptchaTaskProxyless:
-            self.task_params = FunCaptchaProxyLessOptionsSer(**locals()).dict()
-        # validation of the received parameters for FuncaptchaTask
-        elif self.captcha_type == CaptchaTypeEnm.FuncaptchaTask:
-            self.task_params = FunCaptchaOptionsSer(**locals()).dict()
-        # validation of the received parameters for FunCaptchaClassification
-        elif self.captcha_type == CaptchaTypeEnm.FunCaptchaClassification:
-            self.task_params = {}
+        if captcha_type in FunCaptchaTypeEnm.list():
+            self.task_params = FunCaptchaSer(**locals()).dict()
         else:
             raise ValueError(
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {CaptchaTypeEnm.FuncaptchaTaskProxyless.value,
-                             CaptchaTypeEnm.FuncaptchaTask.value,
-                             CaptchaTypeEnm.FunCaptchaClassification.value}"""
+                available - {FunCaptchaTypeEnm.list()}"""
             )
-
-
-class FunCaptcha(BaseFunCaptcha):
-    __doc__ = BaseFunCaptcha.__doc__
+        for key in kwargs:
+            self.task_params.update({key: kwargs[key]})
 
     def captcha_handler(
-        self,
-        image: Optional[str] = None,
-        question: Optional[str] = None,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Synchronous method for captcha solving
-
-        Args:
-            image: Base64 encoded image, can be a screenshot
-                    (pass only the hexagonal image, do not pass the rest of the content)
-            question: Question name. Pass the full name, such as: Pick the lion
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``data``, ``proxyLogin`` and etc. - more info in service docs
+        Sync solving method
 
         Examples:
-            >>> FunCaptcha(api_key="CAI-1324...",
+            >>> FunCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
             ...         captcha_type="FuncaptchaTaskProxyless",
             ...         websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
@@ -139,7 +105,7 @@ class FunCaptcha(BaseFunCaptcha):
                                solution={'token': '44795sds...'}
                               )
 
-            >>> FunCaptcha(api_key="CAI-1324...",
+            >>> FunCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
             ...         captcha_type="FuncaptchaTask",
             ...         websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
@@ -156,58 +122,19 @@ class FunCaptcha(BaseFunCaptcha):
                                solution={'token': '44795sds...'}
                               )
 
-            >>> with open('some_image.jpeg', 'rb') as img_file:
-            ...    img_data = img_file.read()
-            >>> body = base64.b64encode(img_data).decode("utf-8")
-            >>> FunCaptcha(api_key="CAI-1324...",
-            ...         captcha_type="FunCaptchaClassification"
-            ...        ).captcha_handler(
-            ...                     image=body,
-            ...                     question="Ask your question")
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'token': '44795sds...'}
-                              )
-
         Returns:
             CaptchaResponseSer model with full service response
 
         Notes:
             Check class docstirng for more info
         """
-        # validation of the received parameters for FunCaptchaClassification
-        if self.captcha_type == CaptchaTypeEnm.FunCaptchaClassification:
-            if not image or not question:
-                raise ValueError(
-                    f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                    available - {CaptchaTypeEnm.FuncaptchaTaskProxyless.value,
-                                 CaptchaTypeEnm.FuncaptchaTask.value,
-                                 CaptchaTypeEnm.FunCaptchaClassification.value}"""
-                )
-            self.task_params.update({"image": image, "question": question})
-
-        self.task_params.update({**additional_params})
-        return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **self.task_params)
+        return self._processing_captcha(create_params=self.task_params)
 
     async def aio_captcha_handler(
-        self,
-        image: Optional[str] = None,
-        question: Optional[str] = None,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Asynchronous method for captcha solving
-
-        Args:
-            image: Base64 encoded image, can be a screenshot
-                    (pass only the hexagonal image, do not pass the rest of the content)
-            question: Question name. Pass the full name, such as: Pick the lion
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``coordinate``, ``enterprisePayload`` and etc. - more info in service docs
+        Async method for captcha solving
 
         Examples:
             >>> await FunCaptcha(api_key="CAI-1324...",
@@ -263,18 +190,4 @@ class FunCaptcha(BaseFunCaptcha):
         Notes:
             Check class docstirng for more info
         """
-        # validation of the received parameters for FunCaptchaClassification
-        if self.captcha_type == CaptchaTypeEnm.FunCaptchaClassification:
-            if not image or not question:
-                raise ValueError(
-                    f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                    available - {CaptchaTypeEnm.FuncaptchaTaskProxyless.value,
-                                 CaptchaTypeEnm.FuncaptchaTask.value,
-                                 CaptchaTypeEnm.FunCaptchaClassification.value}"""
-                )
-            self.task_params.update({"image": image, "question": question})
-
-        self.task_params.update({**additional_params})
-        return await self._aio_processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, **self.task_params
-        )
+        return await self._aio_processing_captcha(create_params=self.task_params)
