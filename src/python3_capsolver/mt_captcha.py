@@ -2,23 +2,28 @@ from typing import Optional
 
 from python3_capsolver.core.base import BaseCaptcha
 from python3_capsolver.core.config import REQUEST_URL
-from python3_capsolver.core.serializer import CaptchaResponseSer, MtCaptchaOptionsSer, RequestCreateTaskSer
+from python3_capsolver.core.serializer import CaptchaResponseSer, WebsiteDataOptionsSer, RequestCreateTaskSer
+from python3_capsolver.core.enum import MtCaptchaV3TypeEnm
+from typing import Union, Optional
 
+from python3_capsolver.core.base import BaseCaptcha
 
-class BaseMtCaptcha(BaseCaptcha):
+class MtCaptcha(BaseCaptcha):
     """
     The class is used to work with Capsolver MtCaptcha method.
 
     Args:
         api_key: Capsolver API key
-        websiteURL: Address of a webpage with mtcaptcha
-        websiteKey: `sk=MTPublic-xxx` public key
-        proxy: String with proxy connection params, example: `198.22.3.1:10001:user:pwd`
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
+        captcha_type: Captcha type name, like ``MtCaptchaTask`` and etc.
+        websiteURL: Address of a webpage with Google ReCaptcha
+        websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
+        pageAction: Widget action value. Website owner defines what user is doing on the page through this parameter.
+                    Default value: ``verify``. Example: grecaptcha.execute('site_key', {action:'login_test'}).
+
 
     Examples:
         >>> MtCaptcha(api_key="CAI-1324...",
+        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTaskProxyLess,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -74,56 +79,34 @@ class BaseMtCaptcha(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426393/
+        https://docs.capsolver.com/guide/captcha/MtCaptcha.html
     """
 
     def __init__(
         self,
-        api_key: str,
+        captcha_type: Union[MtCaptchaV3TypeEnm, str],
         websiteURL: str,
         websiteKey: str,
-        proxy: str,
-        sleep_time: Optional[int] = 5,
-        request_url: Optional[str] = REQUEST_URL,
+        *args,
+        **kwargs,
     ):
+        super().__init__(*args, **kwargs)
 
-        super().__init__(
-            api_key=api_key,
-            sleep_time=sleep_time,
-            request_url=request_url,
-        )
-
-        self.task_params = MtCaptchaOptionsSer(**locals()).dict()
-
-
-class MtCaptcha(BaseMtCaptcha):
-    __doc__ = BaseMtCaptcha.__doc__
+        if captcha_type in MtCaptchaV3TypeEnm.list():
+            self.task_params = WebsiteDataOptionsSer(**locals()).dict()
+        else:
+            raise ValueError(
+                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
+                available - {MtCaptchaV3TypeEnm}"""
+            )
+        for key in kwargs:
+            self.task_params.update({key: kwargs[key]})
 
     def captcha_handler(
-        self,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Synchronous method for captcha solving
-
-        Args:
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``isInvisible``, ``userAgent`` and etc. - more info in service docs
-
-        Examples:
-            >>> MtCaptcha(api_key="CAI-1324...",
-            ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
-            ...         websiteKey="MTPublic-tqNCRE0GS",
-            ...         proxy="198.22.3.1:10001:user:pwd"
-            ...        ).captcha_handler()
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'token': 'v1(03,79a,MTPublic-tqNCRE0GS,c9...'}
-                              )
+        Sync method for captcha solving
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -131,33 +114,13 @@ class MtCaptcha(BaseMtCaptcha):
         Notes:
             Check class docstring for more info
         """
-        return self._processing_captcha(serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params)
+        return self._processing_captcha(create_params=self.task_params)
 
     async def aio_captcha_handler(
-        self,
-        **additional_params,
+        self
     ) -> CaptchaResponseSer:
         """
-        Asynchronous method for captcha solving
-
-        Args:
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``isInvisible``, ``userAgent`` and etc. - more info in service docs
-
-        Examples:
-            >>> await MtCaptcha(api_key="CAI-1324...",
-            ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
-            ...         websiteKey="MTPublic-tqNCRE0GS",
-            ...         proxy="198.22.3.1:10001:user:pwd"
-            ...        ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'token': 'v1(03,79a,MTPublic-tqNCRE0GS,c9...'}
-                              )
+        Async method for captcha solving
 
         Returns:
             CaptchaResponseSer model with full service response
@@ -165,6 +128,4 @@ class MtCaptcha(BaseMtCaptcha):
         Notes:
             Check class docstring for more info
         """
-        return await self._aio_processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, **additional_params
-        )
+        return await self._aio_processing_captcha(create_params=self.task_params)
