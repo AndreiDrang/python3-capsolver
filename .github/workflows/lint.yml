@@ -37,6 +37,6 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -r requirements.style.txt
-        
+
     - name: Lint
       run: make lint
