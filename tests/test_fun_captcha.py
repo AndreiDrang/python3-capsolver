@@ -3,7 +3,7 @@ import base64
 import pytest
 from pydantic import ValidationError
 
-from src.tests.conftest import BaseTest
+from tests.conftest import BaseTest
 from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
 from python3_capsolver.fun_captcha import FunCaptcha
 from python3_capsolver.core.serializer import CaptchaResponseSer

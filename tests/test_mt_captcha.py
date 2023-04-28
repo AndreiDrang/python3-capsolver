@@ -1,6 +1,6 @@
 import pytest
 
-from src.tests.conftest import BaseTest
+from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ProxyType, ResponseStatusEnm
 from python3_capsolver.mt_captcha import MtCaptcha
 from python3_capsolver.core.serializer import CaptchaResponseSer

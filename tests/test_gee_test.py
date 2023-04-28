@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from src.tests.conftest import BaseTest
+from tests.conftest import BaseTest
 from python3_capsolver.gee_test import GeeTest
 from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
 

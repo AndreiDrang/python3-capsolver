@@ -1,6 +1,6 @@
 import pytest
 
-from src.tests.conftest import BaseTest
+from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ProxyType, ResponseStatusEnm
 from python3_capsolver.core.serializer import CaptchaResponseSer
 from python3_capsolver.datadome_slider import DatadomeSlider

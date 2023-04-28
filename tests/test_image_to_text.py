@@ -2,7 +2,7 @@ import base64
 
 import pytest
 
-from src.tests.conftest import BaseTest
+from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.image_to_text import ImageToText
 from python3_capsolver.core.serializer import CaptchaResponseSer
