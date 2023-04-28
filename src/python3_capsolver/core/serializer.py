@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field, BaseModel, conint, constr
+from pydantic import Field, BaseModel, conint
 
-from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
+from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.core.config import APP_ID
 
 """
@@ -105,19 +105,14 @@ class GeeTestOptionsSer(GeeTestProxyLessOptionsSer):
     pass
 
 
-class FunCaptchaProxyLessOptionsSer(BaseModel):
+class FunCaptchaSer(BaseModel):
     websiteURL: str = Field(..., description="Address of a webpage with Funcaptcha")
     websitePublicKey: str = Field(..., description="Funcaptcha website key.")
-    funcaptchaApiJSSubdomain: str = Field(
-        ...,
+    funcaptchaApiJSSubdomain: Optional[str] = Field(
+        None,
         description="A special subdomain of funcaptcha.com, from which the JS captcha widget should be loaded."
         "Most FunCaptcha installations work from shared domains.",
     )
-
-
-class FunCaptchaOptionsSer(FunCaptchaProxyLessOptionsSer):
-    pass
-
 
 class DatadomeSliderOptionsSer(BaseModel):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
