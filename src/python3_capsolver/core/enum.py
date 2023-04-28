@@ -52,14 +52,12 @@ class CaptchaTypeEnmXXX(str, MyEnum):
         https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393295
     """
 
-    Control = "Control"  # custom captcha type
     ImageToTextTask = "ImageToTextTask"
     # HCaptcha
     HCaptchaClassification = "HCaptchaClassification"
     # FunCaptcha
     FunCaptchaClassification = "FunCaptchaClassification"
     # Other types
-    DatadomeSliderTask = "DatadomeSliderTask"
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
 

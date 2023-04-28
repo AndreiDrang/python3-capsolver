@@ -1,52 +1,42 @@
 from python3_capsolver.core.base import BaseCaptcha
 from python3_capsolver.core.enum import EndpointPostfixEnm
-from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import PostRequestSer, ControlResponseSer
 
 
-class BaseControl(BaseCaptcha):
+class Control(BaseCaptcha):
     """
+    The class is used to work with Capsolver control methods.
+
     Args:
         api_key: Capsolver API key
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
+
+    Notes:
+        https://docs.capsolver.com/guide/api-getbalance.html
     """
 
     serializer = PostRequestSer
 
     def __init__(
         self,
-        api_key: str,
-        sleep_time: int = 10,
-        request_url: str = REQUEST_URL,
+        *args,
+        **kwargs,
     ):
 
-        super().__init__(
-            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type="CaptchaTypeEnm.Control"
-        )
-
-
-class Control(BaseControl):
-    """
-    The class is used to work with Capsolver control methods.
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042/API+Methods
-    """
+        super().__init__(*args, **kwargs)
 
     def get_balance(self) -> ControlResponseSer:
         """
         Synchronous method to view the balance
 
         Examples:
-            >>> Control(api_key="CAI-12345").get_balance()
-            ResponseSer(balance=1.0 errorId=False errorCode=None errorDescription=None)
+            >>> Control(api_key="CAI-1324...").get_balance()
+            ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
 
         Returns:
             ResponseSer model with full server response
 
         Notes:
-            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
+            https://docs.capsolver.com/guide/api-getbalance.html
         """
         self._prepare_create_task_payload(serializer=self.serializer)
         return ControlResponseSer(
@@ -60,14 +50,14 @@ class Control(BaseControl):
         Asynchronous method to view the balance
 
         Examples:
-            >>> await Control(api_key="CAI-12345").aio_get_balance()
-            ResponseSer(balance=1.0 errorId=False errorCode=None errorDescription=None)
+            >>> await Control(api_key="CAI-1324...").aio_get_balance()
+            ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
 
         Returns:
             ResponseSer model with full server response
 
         Notes:
-            https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426080/getBalance+retrieve+account+balance
+            https://docs.capsolver.com/guide/api-getbalance.html
         """
         self._prepare_create_task_payload(serializer=self.serializer)
         return ControlResponseSer(

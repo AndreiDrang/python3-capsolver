@@ -12,6 +12,7 @@ HTTP API Request ser
 
 class PostRequestSer(BaseModel):
     clientKey: str = Field(..., description="Client account key, can be found in user account")
+    task: dict = Field(None, description="Task object")
 
 
 class TaskSer(BaseModel):
@@ -19,7 +20,6 @@ class TaskSer(BaseModel):
 
 
 class RequestCreateTaskSer(PostRequestSer):
-    task: dict = Field(None, description="Task object")
     appId: str = Field(APP_ID, description="AppID", const=True)
 
 
@@ -50,7 +50,6 @@ class CaptchaResponseSer(ResponseSer):
 
 class ControlResponseSer(ResponseSer):
     balance: Optional[float] = Field(0, description="Account balance value in USD")
-    packages: List = Field(None, description="Monthly Packages")
 
 
 """

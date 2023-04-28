@@ -102,12 +102,9 @@ class BaseCaptcha:
         Function send SYNC request to service and wait for result
         """
         try:
-            print(self.task_payload.dict(exclude_none=True))
             resp = self.__session.post(
                 parse.urljoin(self.__request_url, url_postfix), json=self.task_payload.dict(exclude_none=True)
             )
-            print(resp.status_code)
-            print(resp.json())
             if resp.status_code in VALID_STATUS_CODES:
                 return resp.json()
             else:
