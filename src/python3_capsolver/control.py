@@ -1,5 +1,5 @@
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import CaptchaTypeEnm, EndpointPostfixEnm
+from python3_capsolver.core.enum import EndpointPostfixEnm
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import PostRequestSer, ControlResponseSer
 
@@ -22,7 +22,7 @@ class BaseControl(BaseCaptcha):
     ):
 
         super().__init__(
-            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=CaptchaTypeEnm.Control
+            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type="CaptchaTypeEnm.Control"
         )
 
 

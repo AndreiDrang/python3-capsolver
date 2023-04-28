@@ -1,12 +1,8 @@
-from typing import Union, Optional
+from typing import Union
 
 from python3_capsolver.core.base import BaseCaptcha
 from python3_capsolver.core.enum import FunCaptchaTypeEnm
-from python3_capsolver.core.serializer import (
-    CaptchaResponseSer,
-    FunCaptchaSer,
-    RequestCreateTaskSer,
-)
+from python3_capsolver.core.serializer import FunCaptchaSer, CaptchaResponseSer
 
 
 class FunCaptcha(BaseCaptcha):
@@ -72,9 +68,7 @@ class FunCaptcha(BaseCaptcha):
         for key in kwargs:
             self.task_params.update({key: kwargs[key]})
 
-    def captcha_handler(
-        self
-    ) -> CaptchaResponseSer:
+    def captcha_handler(self) -> CaptchaResponseSer:
         """
         Sync solving method
 
@@ -118,9 +112,7 @@ class FunCaptcha(BaseCaptcha):
         """
         return self._processing_captcha(create_params=self.task_params)
 
-    async def aio_captcha_handler(
-        self
-    ) -> CaptchaResponseSer:
+    async def aio_captcha_handler(self) -> CaptchaResponseSer:
         """
         Async method for captcha solving
 

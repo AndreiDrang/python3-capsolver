@@ -73,20 +73,12 @@ class WebsiteDataOptionsSer(TaskSer):
     websiteKey: str = Field(..., description="Website key")
 
 
-class ReCaptchaV3ProxyLessOptionsSer(WebsiteDataOptionsSer):
+class ReCaptchaV3Ser(WebsiteDataOptionsSer):
     pageAction: str = Field(
         "verify",
         description="Widget action value."
         "Website owner defines what user is doing on the page through this parameter",
     )
-
-
-class ReCaptchaV3OptionsSer(ReCaptchaV3ProxyLessOptionsSer):
-    pass
-
-
-class HCaptchaOptionsSer(WebsiteDataOptionsSer):
-    pass
 
 
 class HCaptchaClassificationOptionsSer(BaseModel):
@@ -99,9 +91,10 @@ class HCaptchaClassificationOptionsSer(BaseModel):
 class GeeTestSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Geetest")
     gt: str = Field(..., description="The domain public key, rarely updated")
-    challenge: Optional[str] = Field('', description="If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4")
-
-
+    challenge: Optional[str] = Field(
+        "",
+        description="If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4",
+    )
 
 
 class FunCaptchaSer(TaskSer):
@@ -112,6 +105,7 @@ class FunCaptchaSer(TaskSer):
         description="A special subdomain of funcaptcha.com, from which the JS captcha widget should be loaded."
         "Most FunCaptcha installations work from shared domains.",
     )
+
 
 class DatadomeSliderOptionsSer(BaseModel):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")

@@ -1,7 +1,6 @@
 from typing import Optional
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import CaptchaTypeEnm
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import CaptchaResponseSer, MtCaptchaOptionsSer, RequestCreateTaskSer
 
@@ -90,7 +89,6 @@ class BaseMtCaptcha(BaseCaptcha):
 
         super().__init__(
             api_key=api_key,
-            captcha_type=CaptchaTypeEnm.MtCaptchaTask,
             sleep_time=sleep_time,
             request_url=request_url,
         )

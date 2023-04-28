@@ -1,7 +1,7 @@
 from typing import Union, Optional
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import ProxyType
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import CaptchaResponseSer, RequestCreateTaskSer, DatadomeSliderOptionsSer
 
@@ -75,7 +75,6 @@ class BaseDatadomeSlider(BaseCaptcha):
 
         super().__init__(
             api_key=api_key,
-            captcha_type=CaptchaTypeEnm.DatadomeSliderTask,
             sleep_time=sleep_time,
             request_url=request_url,
         )

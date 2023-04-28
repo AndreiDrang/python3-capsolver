@@ -44,7 +44,7 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_TASK_RESULT = "getTaskResult"
 
 
-class CaptchaTypeEnm(str, MyEnum):
+class CaptchaTypeEnmXXX(str, MyEnum):
     """
     Enum with all available captcha types
 
@@ -54,13 +54,6 @@ class CaptchaTypeEnm(str, MyEnum):
 
     Control = "Control"  # custom captcha type
     ImageToTextTask = "ImageToTextTask"
-    # Recaptcha
-    ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
-    ReCaptchaV2Task = "ReCaptchaV2Task"
-    ReCaptchaV2EnterpriseTask = "ReCaptchaV2EnterpriseTask"
-    ReCaptchaV2EnterpriseTaskProxyless = "ReCaptchaV2EnterpriseTaskProxyless"
-    ReCaptchaV3Task = "ReCaptchaV3Task"
-    ReCaptchaV3TaskProxyless = "ReCaptchaV3TaskProxyless"
     # HCaptcha
     HCaptchaClassification = "HCaptchaClassification"
     # FunCaptcha
@@ -80,13 +73,31 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaTurboTask = "HCaptchaTurboTask"
     HCaptchaTurboTaskProxyLess = "HCaptchaTurboTaskProxyLess"
 
+
 class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
 
+
 class GeeTestCaptchaTypeEnm(str, MyEnum):
     GeeTestTask = "GeeTestTask"
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
+
+
+class ReCaptchaV2TypeEnm(str, MyEnum):
+    # V2
+    ReCaptchaV2Task = "ReCaptchaV2Task"
+    ReCaptchaV2EnterpriseTask = "ReCaptchaV2EnterpriseTask"
+    ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
+    ReCaptchaV2EnterpriseTaskProxyLess = "ReCaptchaV2EnterpriseTaskProxyLess"
+
+
+class ReCaptchaV3TypeEnm(str, MyEnum):
+    ReCaptchaV3Task = "ReCaptchaV3Task"
+    ReCaptchaV3EnterpriseTask = "ReCaptchaV3EnterpriseTask"
+    ReCaptchaV3TaskProxyLess = "ReCaptchaV3TaskProxyLess"
+    ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
+
 
 class ResponseStatusEnm(str, MyEnum):
     """

@@ -1,7 +1,7 @@
 from typing import Union, Optional
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import ProxyType
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import KasadaOptionsSer, CaptchaResponseSer, RequestCreateTaskSer
 
@@ -87,9 +87,7 @@ class BaseKasada(BaseCaptcha):
     ):
         self.task_postfix = "/kasada/invoke"
 
-        super().__init__(
-            api_key=api_key, captcha_type=CaptchaTypeEnm.AntiKasadaTask, sleep_time=sleep_time, request_url=request_url
-        )
+        super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url)
 
         self.task_params = KasadaOptionsSer(**locals()).dict()
 

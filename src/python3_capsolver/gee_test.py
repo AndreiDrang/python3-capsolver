@@ -1,12 +1,8 @@
-from typing import Union, Optional
+from typing import Union
 
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm, GeeTestCaptchaTypeEnm
-from python3_capsolver.core.config import REQUEST_URL
-from python3_capsolver.core.serializer import (
-    CaptchaResponseSer,
-    RequestCreateTaskSer,GeeTestSer
-)
+from python3_capsolver.core.enum import GeeTestCaptchaTypeEnm
+from python3_capsolver.core.serializer import GeeTestSer, CaptchaResponseSer
 
 
 class GeeTest(BaseCaptcha):
@@ -73,12 +69,7 @@ class GeeTest(BaseCaptcha):
     """
 
     def __init__(
-        self,
-        captcha_type: Union[CaptchaTypeEnm, str],
-        websiteURL: str,
-        gt: str,
-        challenge: str,
-            *args, **kwargs
+        self, captcha_type: Union[GeeTestCaptchaTypeEnm, str], websiteURL: str, gt: str, challenge: str, *args, **kwargs
     ):
 
         super().__init__(*args, **kwargs)
@@ -93,9 +84,7 @@ class GeeTest(BaseCaptcha):
         for key in kwargs:
             self.task_params.update({key: kwargs[key]})
 
-    def captcha_handler(
-        self
-    ) -> CaptchaResponseSer:
+    def captcha_handler(self) -> CaptchaResponseSer:
         """
         Sync solving method
 
@@ -107,9 +96,7 @@ class GeeTest(BaseCaptcha):
         """
         return self._processing_captcha(create_params=self.task_params)
 
-    async def aio_captcha_handler(
-        self
-    ) -> CaptchaResponseSer:
+    async def aio_captcha_handler(self) -> CaptchaResponseSer:
         """
         Async  solving method
 

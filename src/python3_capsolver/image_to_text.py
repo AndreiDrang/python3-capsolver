@@ -1,5 +1,4 @@
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import CaptchaTypeEnm
 from python3_capsolver.core.config import REQUEST_URL
 from python3_capsolver.core.serializer import CaptchaResponseSer, RequestCreateTaskSer
 
@@ -78,9 +77,7 @@ class BaseImageToText(BaseCaptcha):
         request_url: str = REQUEST_URL,
     ):
 
-        super().__init__(
-            api_key=api_key, sleep_time=sleep_time, request_url=request_url, captcha_type=CaptchaTypeEnm.ImageToTextTask
-        )
+        super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url)
 
 
 class ImageToText(BaseImageToText):
