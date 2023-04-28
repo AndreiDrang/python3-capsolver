@@ -112,7 +112,6 @@ class DatadomeSliderOptionsSer(BaseModel):
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
 
 
-
 class KasadaOptionsSer(BaseModel):
     pageURL: str = Field(..., description="Address of a webpage with Kasada")
     proxyLogin: str = Field(

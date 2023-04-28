@@ -8,22 +8,20 @@ refactor:
 	black docs/
 	isort docs/
 
-	cd src/ && \
 	autoflake --in-place \
 				--recursive \
 				--remove-unused-variables \
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				--ignore-init-module-imports \
-				python3_capsolver/ tests/ && \
-	black python3_capsolver/ tests/ && \
-	isort python3_capsolver/ tests/
+				src/ tests/ && \
+	black src/ tests/ && \
+	isort src/ tests/
 
 lint:
-	cd src/ && \
-	autoflake --in-place --recursive python3_capsolver/ --check && \
-	black python3_capsolver/ --check && \
-	isort python3_capsolver/ --check-only
+	autoflake --in-place --recursive src/ --check && \
+	black src/ --check && \
+	isort src/ --check-only
 
 upload:
 	pip install twine

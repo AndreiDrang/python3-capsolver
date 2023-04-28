@@ -97,10 +97,10 @@ class ReCaptchaV3TypeEnm(str, MyEnum):
     ReCaptchaV3TaskProxyLess = "ReCaptchaV3TaskProxyLess"
     ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
 
+
 class MtCaptchaV3TypeEnm(str, MyEnum):
     MtCaptchaTask = "MtCaptchaTask"
     MtCaptchaTaskProxyLess = "MtCaptchaTaskProxyLess"
-
 
 
 class ResponseStatusEnm(str, MyEnum):
