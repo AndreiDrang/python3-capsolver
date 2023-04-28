@@ -1,6 +1,9 @@
 install:
 	cd src/ && pip install -e .
 
+remove:
+	pip uninstall python3_capsolver -y
+
 refactor:
 	black docs/
 	isort docs/
@@ -26,13 +29,12 @@ upload:
 	pip install twine
 	cd src/ && python setup.py upload
 
-tests:
-	cd src/ && \
-	coverage run --rcfile=.coveragerc -m pytest -s tests --disable-warnings && \
+tests: install
+	coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --pastebin=all tests --disable-warnings && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty -d coverage/html/ && \
 	coverage xml -o coverage/coverage.xml
 
-doc:
+doc: install
 	cd docs/ && \
 	make html -e
