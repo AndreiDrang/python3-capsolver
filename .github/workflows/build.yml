@@ -1,16 +1,16 @@
-name: Test Build
+name: Build
 
 on:
   push:
     branches: [ "main", "release"]
     paths:
-      - '.github/workflows/test_build.yml'
+      - '.github/workflows/build.yml'
       - 'src/**'
       - 'Makefile'
   pull_request:
     branches: [ "main", "release"]
     paths:
-      - '.github/workflows/test_build.yml'
+      - '.github/workflows/build.yml'
       - 'src/**'
       - 'Makefile'
 
@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v3
