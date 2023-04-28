@@ -79,7 +79,7 @@ class HCaptcha(BaseCaptcha):
 
         super().__init__(*args, **kwargs)
 
-        if captcha_type in (HCaptchaTypeEnm.list()):
+        if captcha_type in HCaptchaTypeEnm.list():
             self.task_params = WebsiteDataOptionsSer(**locals()).dict()
         else:
             raise ValueError(
