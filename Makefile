@@ -12,15 +12,15 @@ refactor:
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				--ignore-init-module-imports \
-				python3_captchaai/ tests/ && \
-	black python3_captchaai/ tests/ && \
-	isort python3_captchaai/ tests/
+				python3_capsolver/ tests/ && \
+	black python3_capsolver/ tests/ && \
+	isort python3_capsolver/ tests/
 
 lint:
 	cd src/ && \
-	autoflake --in-place --recursive python3_captchaai/ --check && \
-	black python3_captchaai/ --check && \
-	isort python3_captchaai/ --check-only
+	autoflake --in-place --recursive python3_capsolver/ --check && \
+	black python3_capsolver/ --check && \
+	isort python3_capsolver/ --check-only
 
 upload:
 	pip install twine
