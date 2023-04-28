@@ -14,9 +14,6 @@ class MtCaptcha(BaseCaptcha):
         captcha_type: Captcha type name, like ``MtCaptchaTask`` and etc.
         websiteURL: Address of a webpage with Google ReCaptcha
         websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
-        pageAction: Widget action value. Website owner defines what user is doing on the page through this parameter.
-                    Default value: ``verify``. Example: grecaptcha.execute('site_key', {action:'login_test'}).
-
 
     Examples:
         >>> MtCaptcha(api_key="CAI-1324...",
@@ -34,10 +31,11 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> MtCaptcha(api_key="CAI-1324...",
+        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
-        ...        ).captcha_handler(isInvisible=False, userAgent='Mozilla/5.0 (pl.....')
+        ...        ).captcha_handler()
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
                            errorDescription=None,
@@ -47,6 +45,7 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> await MtCaptcha(api_key="CAI-1324...",
+        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
@@ -60,10 +59,11 @@ class MtCaptcha(BaseCaptcha):
                           )
 
         >>> await MtCaptcha(api_key="CAI-1324...",
+        ...         captcha_type=MtCaptchaV3TypeEnm.MtCaptchaTask,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
-        ...        ).aio_captcha_handler(isInvisible=False, userAgent='Mozilla/5.0 (pl.....')
+        ...        ).aio_captcha_handler()
         CaptchaResponseSer(errorId=False,
                            errorCode=None,
                            errorDescription=None,
