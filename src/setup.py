@@ -7,12 +7,12 @@ import logging
 from setuptools import Command, setup
 from pkg_resources import parse_requirements
 
-from python3_captchaai.__version__ import __version__
+from python3_capsolver.__version__ import __version__
 
 # Package meta-data.
-NAME = "python3-captchaai"
+NAME = "python3-capsolver"
 DESCRIPTION = "Python 3.7+ Capsolver library with AIO module."
-URL = "https://andreidrang.github.io/python3-captchaai/"
+URL = "https://andreidrang.github.io/python3-capsolver/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
 REQUIRES_PYTHON = ">=3.7.0"
