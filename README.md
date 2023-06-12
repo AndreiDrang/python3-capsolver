@@ -1,7 +1,12 @@
 # python3-capsolver
 ![Python3-Capsolver](https://github.com/AndreiDrang/python3-capsolver/blob/main/files/CapsolverSm.png)
 
-[![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
+<a href="https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1">
+    <img src="https://cdn.discordapp.com/attachments/1105172394655625306/1105180101802471575/20221207-160749.gif" alt="Capsolver's Banner">
+</a>
+<br>
+At the lowest price on the market, you may receive a variety of solutions, including reCAPTCHA V2, reCAPTCHA V3, hCaptcha, hCaptcha Click, FunCaptcha, picture-to-text, and more. With this service, 0.1s is the slowest speed ever measured.
+<hr>
 
 [![PyPI version](https://badge.fury.io/py/python3-capsolver.svg)](https://badge.fury.io/py/python3-capsolver)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-capsolver.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-capsolver)
