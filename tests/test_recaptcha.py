@@ -2,7 +2,7 @@ import pytest
 from pydantic import ValidationError
 
 from tests.conftest import BaseTest
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import ReCaptchaV2TypeEnm, ReCaptchaV3TypeEnm
 from python3_capsolver.recaptcha import ReCaptcha
 
 GOOGLE_KEY = "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
@@ -20,7 +20,7 @@ class TestReCaptchaBase(BaseTest):
         with pytest.raises(ValueError):
             ReCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.Control,
+                captcha_type="test",
                 websiteURL=self.get_random_string(5),
                 websiteKey=self.get_random_string(5),
             )
@@ -38,7 +38,7 @@ class TestReCaptchaV2ProxyLess(BaseTest):
     googlekey = GOOGLE_KEY
     pageurl = PAGE_URL
 
-    captcha_types = (CaptchaTypeEnm.ReCaptchaV2TaskProxyLess, CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyless)
+    captcha_types = (ReCaptchaV2TypeEnm.ReCaptchaV2TaskProxyLess, ReCaptchaV2TypeEnm.ReCaptchaV2EnterpriseTaskProxyLess)
     """
     Success tests
     """
@@ -153,14 +153,14 @@ class TestReCaptchaV2(BaseTest):
     pageurl = PAGE_URL
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
-    captcha_types = (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask)
+    captcha_types = (ReCaptchaV2TypeEnm.ReCaptchaV2Task, ReCaptchaV2TypeEnm.ReCaptchaV2EnterpriseTask)
 
     """
     Success tests
     """
 
     @pytest.mark.parametrize("captcha_type", captcha_types)
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str, captcha_type: str):
         ReCaptcha(
             api_key=self.API_KEY,
@@ -173,7 +173,7 @@ class TestReCaptchaV2(BaseTest):
         )
 
     @pytest.mark.parametrize("captcha_type", captcha_types)
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str, captcha_type: str):
         with ReCaptcha(
             api_key=self.API_KEY,
@@ -213,7 +213,7 @@ class TestReCaptchaV2(BaseTest):
             )
 
     @pytest.mark.parametrize("captcha_type", captcha_types)
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_address(self, proxy_type: str, captcha_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
@@ -226,7 +226,7 @@ class TestReCaptchaV2(BaseTest):
             )
 
     @pytest.mark.parametrize("captcha_type", captcha_types)
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_port(self, proxy_type, captcha_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
@@ -264,7 +264,7 @@ class TestReCaptchaV3ProxyLess(BaseTest):
     pageurl = PAGE_URL
 
     pageAction = BaseTest().get_random_string(5)
-    captcha_type = CaptchaTypeEnm.ReCaptchaV3TaskProxyless
+    captcha_type = ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess
 
     """
     Success tests
@@ -348,13 +348,13 @@ class TestReCaptchaV3(BaseTest):
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
     pageAction = BaseTest().get_random_string(5)
-    captcha_type = CaptchaTypeEnm.ReCaptchaV3Task
+    captcha_type = ReCaptchaV3TypeEnm.ReCaptchaV3Task
 
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         ReCaptcha(
             api_key=self.API_KEY,
@@ -367,7 +367,7 @@ class TestReCaptchaV3(BaseTest):
             proxyPort=self.proxyPort,
         )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with ReCaptcha(
             api_key=self.API_KEY,
@@ -421,7 +421,7 @@ class TestReCaptchaV3(BaseTest):
                 proxyPort=self.proxyPort,
             )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_address(self, proxy_type: str):
         with pytest.raises(ValidationError):
             ReCaptcha(
@@ -434,7 +434,7 @@ class TestReCaptchaV3(BaseTest):
                 proxyPort=self.proxyPort,
             )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_port(self, proxy_type):
         with pytest.raises(ValidationError):
             ReCaptcha(
