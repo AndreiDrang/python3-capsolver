@@ -19,3 +19,15 @@ To import this module:
 .. autoclass:: python3_capsolver.core.enum.ResponseStatusEnm
     :members:
     :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.FunCaptchaTypeEnm
+    :members:
+    :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.FunCaptchaClassificationTypeEnm
+    :members:
+    :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.CloudflareTypeEnm
+    :members:
+    :undoc-members:
