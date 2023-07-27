@@ -54,6 +54,10 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaClassification = "HCaptchaClassification"
 
 
+class HCaptchaClassificationTypeEnm(str, MyEnum):
+    HCaptchaClassification = "HCaptchaClassification"
+
+
 class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
