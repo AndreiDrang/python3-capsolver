@@ -103,6 +103,16 @@ class CloudflareTypeEnm(str, MyEnum):
     AntiCloudflareTask = "AntiCloudflareTask"
 
 
+class AntiAwsWafTaskTypeEnm(str, MyEnum):
+    AntiAwsWafTask = "AntiAwsWafTask"
+    AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
+
+
+class AntiCyberSiAraTaskTypeEnm(str, MyEnum):
+    AntiCyberSiAraTask = "AntiCyberSiAraTask"
+    AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
+
+
 class ResponseStatusEnm(str, MyEnum):
     """
     Enum store results `status` field variants
