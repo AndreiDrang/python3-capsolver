@@ -63,7 +63,7 @@ class TestMtCaptcha(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
         assert resp.errorId == 1
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
 
     @pytest.mark.parametrize("captcha_type", captcha_types)
@@ -74,5 +74,5 @@ class TestMtCaptcha(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
         assert resp.errorId == 1
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
