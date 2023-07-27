@@ -56,11 +56,10 @@ class DatadomeSlider(BaseCaptcha):
 
     def __init__(
         self,
-        captcha_type: Union[DatadomeSliderTypeEnm, str],
         websiteURL: str,
         captchaUrl: str,
-        proxy: str,
         userAgent: str,
+        captcha_type: Union[DatadomeSliderTypeEnm, str]=DatadomeSliderTypeEnm.DatadomeSliderTask,
         *args,
         **kwargs,
     ):
