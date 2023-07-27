@@ -1,5 +1,4 @@
 import pytest
-from pydantic import ValidationError
 
 from tests.conftest import BaseTest
 from python3_capsolver.gee_test import GeeTest
@@ -25,25 +24,30 @@ class TestGeeTestBase(BaseTest):
                 captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
+                challenge=CHALLENGE,
+                geetestApiServerSubdomain="api.geetest.com",
             )
 
     def test_wrong_type_params(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(ValueError):
             GeeTest(
                 api_key=self.get_random_string(36),
                 captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
-            ).captcha_handler(challenge=CHALLENGE)
+                challenge=CHALLENGE,
+                geetestApiServerSubdomain="api.geetest.com",
+            ).captcha_handler()
 
     async def test_aio_wrong_type_params(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(ValueError):
             await GeeTest(
                 api_key=self.get_random_string(36),
                 captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
-            ).aio_captcha_handler(challenge=CHALLENGE)
+                challenge=CHALLENGE,
+            ).aio_captcha_handler()
 
     def test_no_captcha_type(self):
         with pytest.raises(TypeError):
@@ -51,6 +55,7 @@ class TestGeeTestBase(BaseTest):
                 api_key=self.get_random_string(36),
                 websiteURL="https://www.geetest.com/en/demo",
                 gt="022397c99c9f646f6477822485f30404",
+                challenge=CHALLENGE,
             )
 
     @pytest.mark.parametrize("captcha_type", GeeTestCaptchaTypeEnm.list_values())
@@ -63,6 +68,15 @@ class TestGeeTestBase(BaseTest):
         with pytest.raises(TypeError):
             GeeTest(api_key=self.API_KEY, captcha_type=captcha_type, gt=GT)
 
+    @pytest.mark.parametrize("captcha_type", GeeTestCaptchaTypeEnm.list_values())
+    def test_no_challenge(self, captcha_type: str):
+        with pytest.raises(TypeError):
+            GeeTest(
+                api_key=self.get_random_string(36),
+                websiteURL="https://www.geetest.com/en/demo",
+                gt="022397c99c9f646f6477822485f30404",
+            )
+
 
 class TestGeeTestProxyLess(BaseTest):
     captcha_type = GeeTestCaptchaTypeEnm.GeeTestTaskProxyLess
@@ -71,10 +85,22 @@ class TestGeeTestProxyLess(BaseTest):
     """
 
     def test_params(self):
-        GeeTest(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=PAGE_URL, gt=GT)
+        GeeTest(
+            api_key=self.API_KEY,
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            challenge=CHALLENGE,
+        )
 
     def test_params_context(self):
-        with GeeTest(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=PAGE_URL, gt=GT) as instance:
+        with GeeTest(
+            api_key=self.API_KEY,
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            challenge=CHALLENGE,
+        ) as instance:
             pass
 
     """
@@ -82,16 +108,30 @@ class TestGeeTestProxyLess(BaseTest):
     """
 
     async def test_aio_api_key_err(self):
-        with pytest.raises(ValueError):
-            await GeeTest(
-                api_key=self.get_random_string(36), captcha_type=self.captcha_type, websiteURL=PAGE_URL, gt=GT
-            ).aio_captcha_handler(challenge=CHALLENGE, geetestApiServerSubdomain="api.geetest.com")
+        result = await GeeTest(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            challenge=CHALLENGE,
+            geetestApiServerSubdomain="api.geetest.com",
+        ).aio_captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
     def test_api_key_err(self):
-        with pytest.raises(ValueError):
-            GeeTest(
-                api_key=self.get_random_string(36), captcha_type=self.captcha_type, websiteURL=PAGE_URL, gt=GT
-            ).captcha_handler(challenge=CHALLENGE, geetestApiServerSubdomain="api.geetest.com")
+        result = GeeTest(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            challenge=CHALLENGE,
+            geetestApiServerSubdomain="api.geetest.com",
+        ).captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
 
 class TestGeeTest(BaseTest):
@@ -108,6 +148,7 @@ class TestGeeTest(BaseTest):
             captcha_type=self.captcha_type,
             websiteURL=PAGE_URL,
             gt=GT,
+            challenge=CHALLENGE,
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -120,6 +161,7 @@ class TestGeeTest(BaseTest):
             captcha_type=self.captcha_type,
             websiteURL=PAGE_URL,
             gt=GT,
+            challenge=CHALLENGE,
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -132,26 +174,34 @@ class TestGeeTest(BaseTest):
 
     @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     async def test_aio_api_key_err(self, proxy_type: str):
-        with pytest.raises(ValueError):
-            await GeeTest(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=PAGE_URL,
-                gt=GT,
-                proxyAddress=self.proxyAddress,
-                proxyType=proxy_type,
-                proxyPort=self.proxyPort,
-            ).aio_captcha_handler(challenge=CHALLENGE, geetestApiServerSubdomain="api.geetest.com")
+        result = await GeeTest(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            proxyAddress=self.proxyAddress,
+            proxyType=proxy_type,
+            proxyPort=self.proxyPort,
+            challenge=CHALLENGE,
+            geetestApiServerSubdomain="api.geetest.com",
+        ).aio_captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
     @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_api_key_err(self, proxy_type: str):
-        with pytest.raises(ValueError):
-            GeeTest(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=PAGE_URL,
-                gt=GT,
-                proxyAddress=self.proxyAddress,
-                proxyType=proxy_type,
-                proxyPort=self.proxyPort,
-            ).captcha_handler(challenge=CHALLENGE, geetestApiServerSubdomain="api.geetest.com")
+        result = GeeTest(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=PAGE_URL,
+            gt=GT,
+            proxyAddress=self.proxyAddress,
+            proxyType=proxy_type,
+            proxyPort=self.proxyPort,
+            challenge=CHALLENGE,
+            geetestApiServerSubdomain="api.geetest.com",
+        ).captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
