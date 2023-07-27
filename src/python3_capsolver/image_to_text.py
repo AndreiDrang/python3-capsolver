@@ -1,16 +1,17 @@
+from typing import Union
+
 from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.config import REQUEST_URL
-from python3_capsolver.core.serializer import CaptchaResponseSer, RequestCreateTaskSer
+from python3_capsolver.core.enum import ImageToTextTaskTypeEnm
+from python3_capsolver.core.serializer import TaskSer, CaptchaResponseSer
 
 
-class BaseImageToText(BaseCaptcha):
+class ImageToText(BaseCaptcha):
     """
     The class is used to work with Capsolver Image captcha solving methods.
 
     Args:
         api_key: Capsolver API key
-        sleep_time: The waiting time between requests to get the result of the Captcha
-        request_url: API address for sending requests
+        captcha_type: Captcha type name, like ``ImageToTextTask`` and etc.
 
     Examples:
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -22,7 +23,37 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'confidence': 0.9585, 'text': 'gcphjd'}
+                          )
+
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> ImageToText(api_key="CAI-12345....",
+        ...             module='queueit'
+        ...            ).captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'confidence': 0.9585, 'text': 'zzzzz'}
+                          )
+
+        >>> with open('some_image.jpeg', 'rb') as img_file:
+        ...    img_data = img_file.read()
+        >>> body = base64.b64encode(img_data).decode("utf-8")
+        >>> ImageToText(api_key="CAI-12345....",
+        ...             module='dell',
+        ...             score=0.98,
+        ...             case=True,
+        ...            ).captcha_handler(body=body)
+        CaptchaResponseSer(errorId=False,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'confidence': 0.9585, 'text': 'gcphjd'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -35,7 +66,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'confidence': 0.9585, 'text': 'gcphjd'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -47,7 +78,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'confidence': 0.9585, 'text': 'gcphjd'}
                           )
 
         >>> with open('some_image.jpeg', 'rb') as img_file:
@@ -60,7 +91,7 @@ class BaseImageToText(BaseCaptcha):
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'confidence': 0.9585, 'text': 'gcphjd'}
                           )
 
     Returns:
@@ -72,37 +103,27 @@ class BaseImageToText(BaseCaptcha):
 
     def __init__(
         self,
-        api_key: str,
-        sleep_time: int = 10,
-        request_url: str = REQUEST_URL,
+        captcha_type: Union[ImageToTextTaskTypeEnm, str] = ImageToTextTaskTypeEnm.ImageToTextTask,
+        *args,
+        **kwargs,
     ):
-        super().__init__(api_key=api_key, sleep_time=sleep_time, request_url=request_url)
+        super().__init__(*args, **kwargs)
+        if captcha_type in ImageToTextTaskTypeEnm.list():
+            self.task_params = TaskSer(**locals()).dict(exclude_none=True)
+        else:
+            raise ValueError(
+                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
+                available - {ImageToTextTaskTypeEnm.list()}"""
+            )
+        for key in kwargs:
+            self.task_params.update({key: kwargs[key]})
 
-
-class ImageToText(BaseImageToText):
-    __doc__ = BaseImageToText.__doc__
-
-    def captcha_handler(self, body: str, **additional_params) -> CaptchaResponseSer:
+    def captcha_handler(self, body: str) -> CaptchaResponseSer:
         """
         Synchronous method for captcha solving
 
         Args:
-            body: Base64 encoded content of the image
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key
-
-        Examples:
-            >>> with open('some_image.jpeg', 'rb') as img_file:
-            ...    img_data = img_file.read()
-            >>> body = base64.b64encode(img_data).decode("utf-8")
-            >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+            body: Base64 encoded content of the image, decoded into str
 
         Returns:
             CaptchaResponseSer model with full server response
@@ -110,31 +131,15 @@ class ImageToText(BaseImageToText):
         Notes:
             Check class docstring for more info
         """
-        return self._processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params
-        )
+        self.task_params.update({"body": body})
+        return self._processing_captcha(create_params=self.task_params)
 
-    async def aio_captcha_handler(self, body: str, **additional_params) -> CaptchaResponseSer:
+    async def aio_captcha_handler(self, body: str) -> CaptchaResponseSer:
         """
         Asynchronous method for captcha solving
 
         Args:
-            body: Base64 encoded content of the image
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key
-
-        Examples:
-            >>> with open('some_image.jpeg', 'rb') as img_file:
-            ...    img_data = img_file.read()
-            >>> body = base64.b64encode(img_data).decode("utf-8")
-            >>> await ImageToText(api_key="CAI-12345....").aio_captcha_handler(body=body)
-            CaptchaResponseSer(errorId=False,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'gRecaptchaResponse': '44795sds...'}
-                              )
+            body: Base64 encoded content of the image, decoded into str
 
         Returns:
             CaptchaResponseSer model with full server response
@@ -142,6 +147,5 @@ class ImageToText(BaseImageToText):
         Notes:
             Check class docstring for more info
         """
-        return await self._aio_processing_captcha(
-            serializer=RequestCreateTaskSer, type=self.captcha_type, body=body, **additional_params
-        )
+        self.task_params.update({"body": body})
+        return await self._aio_processing_captcha(create_params=self.task_params)
