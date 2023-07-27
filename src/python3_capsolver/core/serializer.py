@@ -128,3 +128,10 @@ class CloudflareTurnstileSer(WebsiteDataOptionsSer):
     html: Optional[str] = Field(
         None, description="You can pass in the entire html source code for the challenge directly."
     )
+
+
+class CyberSiAraSer(WebsiteDataOptionsSer):
+    SlideMasterUrlId: str = Field(
+        ..., description="You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request"
+    )
+    UserAgent: str = Field(..., description="Browser userAgent,you need submit your userAgent")
