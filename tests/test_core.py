@@ -22,7 +22,7 @@ class TestCore(BaseTest):
     def test_create_base(self):
         BaseCaptcha(
             api_key=self.get_random_string(36),
-            captcha_type='test',
+            captcha_type="test",
             request_url=REQUEST_URL,
             sleep_time=self.sleep_time,
         )
@@ -30,7 +30,7 @@ class TestCore(BaseTest):
     def test_aio_create_base(self):
         BaseCaptcha(
             api_key=self.get_random_string(36),
-            captcha_type='test',
+            captcha_type="test",
             request_url=REQUEST_URL,
             sleep_time=self.sleep_time,
         )
@@ -38,7 +38,7 @@ class TestCore(BaseTest):
     def test_create_base_context(self):
         with BaseCaptcha(
             api_key=self.get_random_string(36),
-            captcha_type='test',
+            captcha_type="test",
             request_url=REQUEST_URL,
             sleep_time=self.sleep_time,
         ) as instance:
@@ -47,7 +47,7 @@ class TestCore(BaseTest):
     async def test_aio_create_base_context(self):
         async with BaseCaptcha(
             api_key=self.get_random_string(36),
-            captcha_type='test',
+            captcha_type="test",
             request_url=REQUEST_URL,
             sleep_time=self.sleep_time,
         ) as instance:
@@ -59,19 +59,17 @@ class TestCore(BaseTest):
 
     def test_no_key_err(self):
         with pytest.raises(TypeError):
-            BaseCaptcha(captcha_type='test', request_url=REQUEST_URL, sleep_time=self.sleep_time)
+            BaseCaptcha(captcha_type="test", request_url=REQUEST_URL, sleep_time=self.sleep_time)
 
     def test_no_key_err_context(self):
         with pytest.raises(TypeError):
-            with BaseCaptcha(
-                captcha_type='test', request_url=REQUEST_URL, sleep_time=self.sleep_time
-            ) as instance:
+            with BaseCaptcha(captcha_type="test", request_url=REQUEST_URL, sleep_time=self.sleep_time) as instance:
                 pass
 
     async def test_aio_no_key_err_context(self):
         with pytest.raises(TypeError):
             async with BaseCaptcha(
-                captcha_type='test', request_url=REQUEST_URL, sleep_time=self.sleep_time
+                captcha_type="test", request_url=REQUEST_URL, sleep_time=self.sleep_time
             ) as instance:
                 pass
 
@@ -79,7 +77,7 @@ class TestCore(BaseTest):
         with pytest.raises(Exception):
             with BaseCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type='test',
+                captcha_type="test",
                 request_url=REQUEST_URL,
                 sleep_time=self.sleep_time,
             ) as instance:
@@ -89,7 +87,7 @@ class TestCore(BaseTest):
         with pytest.raises(Exception):
             async with BaseCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type='test',
+                captcha_type="test",
                 request_url=REQUEST_URL,
                 sleep_time=self.sleep_time,
             ) as instance:
@@ -100,7 +98,7 @@ class TestCore(BaseTest):
         with pytest.raises(ValueError):
             BaseCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type='test',
+                captcha_type="test",
                 request_url=REQUEST_URL,
                 sleep_time=sleep_time,
             )
@@ -115,6 +113,7 @@ class TestEnum(BaseTest):
 
     def test_enum_list_names(self):
         assert isinstance(MyEnum.list_names(), list)
+
 
 class TestConfig(BaseTest):
     def test_attempts_generator(self):
