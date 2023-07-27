@@ -23,7 +23,7 @@ class GeeTest(BaseCaptcha):
         ...         gt="022397c99c9f646f6477822485f30404",
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -38,7 +38,7 @@ class GeeTest(BaseCaptcha):
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...         proxy="socks5:192.191.100.10:4780:user:pwd"
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -52,7 +52,7 @@ class GeeTest(BaseCaptcha):
         ...         gt="022397c99c9f646f6477822485f30404",
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...        ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

@@ -18,7 +18,7 @@ class ImageToText(BaseCaptcha):
         ...    img_data = img_file.read()
         >>> body = base64.b64encode(img_data).decode("utf-8")
         >>> ImageToText(api_key="CAI-12345....").captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -32,7 +32,7 @@ class ImageToText(BaseCaptcha):
         >>> ImageToText(api_key="CAI-12345....",
         ...             module='queueit'
         ...            ).captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -48,7 +48,7 @@ class ImageToText(BaseCaptcha):
         ...             score=0.98,
         ...             case=True,
         ...            ).captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -61,7 +61,7 @@ class ImageToText(BaseCaptcha):
         >>> body = base64.b64encode(img_data).decode("utf-8")
         >>> with ImageToText(api_key="CAI-12345....") as image_to_text_inst:
         ...    image_to_text_inst.captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -73,7 +73,7 @@ class ImageToText(BaseCaptcha):
         ...    img_data = img_file.read()
         >>> body = base64.b64encode(img_data).decode("utf-8")
         >>> await ImageToText(api_key="CAI-12345....").aio_captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -86,7 +86,7 @@ class ImageToText(BaseCaptcha):
         >>> body = base64.b64encode(img_data).decode("utf-8")
         >>> with ImageToText(api_key="CAI-12345....") as image_to_text_inst:
         ...    await image_to_text_inst.aio_captcha_handler(body=body)
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

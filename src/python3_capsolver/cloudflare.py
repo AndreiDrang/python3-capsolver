@@ -26,7 +26,7 @@ class Cloudflare(BaseCaptcha):
         ...             proxy="socks5:158.120.100.23:334:user:pass",
         ...             metadata={'type': 'turnstile', 'acton':'login', 'cdata': '0000-1111-2222-3333-example-cdata'}
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -41,7 +41,7 @@ class Cloudflare(BaseCaptcha):
         ...             metadata={'type': 'challenge'}
         ...             html="<your challenge html source code>",
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -56,7 +56,7 @@ class Cloudflare(BaseCaptcha):
         ...             proxy="socks5:158.120.100.23:334:user:pass",
         ...             metadata={'type': 'challenge', 'acton':'login', 'cdata': '0000-1111-2222-3333-example-cdata'}
         ...          ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

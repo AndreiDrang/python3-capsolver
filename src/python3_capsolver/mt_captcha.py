@@ -22,7 +22,7 @@ class MtCaptcha(BaseCaptcha):
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -36,7 +36,7 @@ class MtCaptcha(BaseCaptcha):
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -50,7 +50,7 @@ class MtCaptcha(BaseCaptcha):
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
         ...        ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -64,7 +64,7 @@ class MtCaptcha(BaseCaptcha):
         ...         websiteKey="MTPublic-tqNCRE0GS",
         ...         proxy="198.22.3.1:10001:user:pwd"
         ...        ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

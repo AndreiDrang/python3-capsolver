@@ -23,7 +23,7 @@ class ReCaptcha(BaseCaptcha):
         ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
         ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -36,7 +36,7 @@ class ReCaptcha(BaseCaptcha):
         ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
         ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -50,7 +50,7 @@ class ReCaptcha(BaseCaptcha):
         ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
         ...           proxy="socks5:192.191.100.10:4780:user:pwd"
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -65,7 +65,7 @@ class ReCaptcha(BaseCaptcha):
         ...           pageAction="demo_action",
         ...           proxy="socks5:192.191.100.10:4780:user:pwd"
         ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -80,7 +80,7 @@ class ReCaptcha(BaseCaptcha):
         ...           pageAction="demo_action",
         ...           proxy="socks5:192.191.100.10:4780:user:pwd"
         ...          ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

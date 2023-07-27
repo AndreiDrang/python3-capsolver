@@ -25,7 +25,7 @@ class HCaptcha(BaseCaptcha):
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...         ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -38,7 +38,7 @@ class HCaptcha(BaseCaptcha):
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...         ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -53,7 +53,7 @@ class HCaptcha(BaseCaptcha):
         ...          proxy="socks5:192.191.100.10:4780:user:pwd"
         ...          isInvisible=True
         ...         ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -66,7 +66,7 @@ class HCaptcha(BaseCaptcha):
         ...          websiteURL="https://accounts.hcaptcha.com/demo",
         ...          websiteKey="a5f74b19-9e45-40e0-b45d-47ff91b7a6c2",
         ...         ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -136,7 +136,7 @@ class HCaptchaClassification(BaseCaptcha):
         ...          images=["/9j/4AAQS.....", "/9j/4AAQ2.....",],
         ...          question="Please click each image containing a chair",
         ...         ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

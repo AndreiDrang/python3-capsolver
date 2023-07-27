@@ -23,7 +23,7 @@ class FunCaptcha(BaseCaptcha):
         ...             funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
         ...         ) as instance:
         >>>     instance.captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -38,7 +38,7 @@ class FunCaptcha(BaseCaptcha):
         ...             funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
         ...         ) as instance:
         >>>     await instance.aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -79,7 +79,7 @@ class FunCaptcha(BaseCaptcha):
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
             ...         funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
             ...        ).captcha_handler()
-            CaptchaResponseSer(errorId=False,
+            CaptchaResponseSer(errorId=0,
                                errorCode=None,
                                errorDescription=None,
                                taskId='73bdcd28-6c77-4414-8....',
@@ -96,7 +96,7 @@ class FunCaptcha(BaseCaptcha):
             ...         proxyAddress="0.0.0.0",
             ...         proxyPort=9090,
             ...        ).captcha_handler()
-            CaptchaResponseSer(errorId=False,
+            CaptchaResponseSer(errorId=0,
                                errorCode=None,
                                errorDescription=None,
                                taskId='73bdcd28-6c77-4414-8....',
@@ -123,7 +123,7 @@ class FunCaptcha(BaseCaptcha):
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
             ...         funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
             ...        ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=False,
+            CaptchaResponseSer(errorId=0,
                                errorCode=None,
                                errorDescription=None,
                                taskId='73bdcd28-6c77-4414-8....',
@@ -140,7 +140,7 @@ class FunCaptcha(BaseCaptcha):
             ...         proxyAddress="0.0.0.0",
             ...         proxyPort=9090,
             ...        ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=False,
+            CaptchaResponseSer(errorId=0,
                                errorCode=None,
                                errorDescription=None,
                                taskId='73bdcd28-6c77-4414-8....',
@@ -156,7 +156,7 @@ class FunCaptcha(BaseCaptcha):
             ...        ).aio_captcha_handler(
             ...                     image=body,
             ...                     question="Ask your question")
-            CaptchaResponseSer(errorId=False,
+            CaptchaResponseSer(errorId=0,
                                errorCode=None,
                                errorDescription=None,
                                taskId='73bdcd28-6c77-4414-8....',

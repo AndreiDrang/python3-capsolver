@@ -24,7 +24,7 @@ class DatadomeSlider(BaseCaptcha):
         ...         proxy="socks5:158.120.100.23:334:user:pass",
         ...         userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -39,7 +39,7 @@ class DatadomeSlider(BaseCaptcha):
         ...         proxy="socks5:158.120.100.23:334:user:pass",
         ...         userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         ...        ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -59,7 +59,7 @@ class DatadomeSlider(BaseCaptcha):
         websiteURL: str,
         captchaUrl: str,
         userAgent: str,
-        captcha_type: Union[DatadomeSliderTypeEnm, str]=DatadomeSliderTypeEnm.DatadomeSliderTask,
+        captcha_type: Union[DatadomeSliderTypeEnm, str] = DatadomeSliderTypeEnm.DatadomeSliderTask,
         *args,
         **kwargs,
     ):
