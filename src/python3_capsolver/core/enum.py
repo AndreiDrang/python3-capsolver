@@ -46,7 +46,6 @@ class CaptchaTypeEnmXXX(str, MyEnum):
     Enum with all available captcha types
     """
 
-    ImageToTextTask = "ImageToTextTask"
     # HCaptcha
     HCaptchaClassification = "HCaptchaClassification"
     # FunCaptcha
@@ -54,6 +53,10 @@ class CaptchaTypeEnmXXX(str, MyEnum):
     # Other types
     AntiKasadaTask = "AntiKasadaTask"
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
+
+
+class ImageToTextTaskTypeEnm(str, MyEnum):
+    ImageToTextTask = "ImageToTextTask"
 
 
 class HCaptchaTypeEnm(str, MyEnum):
