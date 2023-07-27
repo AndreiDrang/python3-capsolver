@@ -12,15 +12,14 @@ class MtCaptcha(BaseCaptcha):
     Args:
         api_key: Capsolver API key
         captcha_type: Captcha type name, like ``MtCaptchaTask`` and etc.
-        websiteURL: Address of a webpage with Google ReCaptcha
-        websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
+        websiteURL: Web address of the website using hcaptcha, generally it's fixed value. (Ex: https://google.com)
+        websiteKey: The domain public key, rarely updated. (Ex: sk=MTPublic-xxx public key)
 
     Examples:
         >>> MtCaptcha(api_key="CAI-1324...",
         ...         captcha_type=MtCaptchaTypeEnm.MtCaptchaTaskProxyLess,
         ...         websiteURL="https://www.mtcaptcha.com/#mtcaptcha-demo",
         ...         websiteKey="MTPublic-tqNCRE0GS",
-        ...         proxy="198.22.3.1:10001:user:pwd"
         ...        ).captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
