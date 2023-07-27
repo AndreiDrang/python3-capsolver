@@ -117,7 +117,6 @@ class FunCaptchaSer(TaskSer):
 class DatadomeSliderSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
-    proxy: str = Field(..., description="Proxy data")
     userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
 
 
