@@ -113,16 +113,6 @@ class DatadomeSliderSer(TaskSer):
     userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
 
 
-class KasadaOptionsSer(BaseModel):
-    pageURL: str = Field(..., description="Address of a webpage with Kasada")
-    proxyLogin: str = Field(
-        ...,
-        description="Login for proxy which requires authorizaiton (basic)."
-        "This isn’t required if you are using proxies authenticated by IP",
-    )
-    proxyPassword: str = Field(..., description="This isn’t required if you are using proxies authenticated by IP")
-
-
 class CloudflareTurnstileSer(WebsiteDataOptionsSer):
     metadata: dict = Field(..., description="Extra data")
     html: Optional[str] = Field(

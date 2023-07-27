@@ -11,13 +11,13 @@ class FunCaptcha(BaseCaptcha):
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``FuncaptchaTaskProxyless`` and etc.
+        captcha_type: Captcha type name, like ``FunCaptchaTaskProxyLess`` and etc.
         websiteURL: Address of a webpage with Geetest.
         websitePublicKey: Funcaptcha website key.
 
     Examples:
         >>> with FunCaptcha(api_key="CAI-1324...",
-        ...             captcha_type="FuncaptchaTaskProxyless",
+        ...             captcha_type="FunCaptchaTaskProxyLess",
         ...             websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
         ...             websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
         ...             funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
@@ -32,7 +32,7 @@ class FunCaptcha(BaseCaptcha):
                           )
 
         >>> with FunCaptcha(api_key="CAI-1324...",
-        ...             captcha_type="FuncaptchaTaskProxyless",
+        ...             captcha_type="FunCaptchaTaskProxyLess",
         ...             websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
         ...             websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
         ...             funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
@@ -74,7 +74,7 @@ class FunCaptcha(BaseCaptcha):
 
         Examples:
             >>> FunCaptcha(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-            ...         captcha_type="FuncaptchaTaskProxyless",
+            ...         captcha_type="FunCaptchaTaskProxyLess",
             ...         websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
             ...         funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"
@@ -118,7 +118,7 @@ class FunCaptcha(BaseCaptcha):
 
         Examples:
             >>> await FunCaptcha(api_key="CAI-1324...",
-            ...         captcha_type="FuncaptchaTaskProxyless",
+            ...         captcha_type="FunCaptchaTaskProxyLess",
             ...         websiteURL="https://api.funcaptcha.com/fc/api/nojs/",
             ...         websitePublicKey="69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
             ...         funcaptchaApiJSSubdomain="https://api.funcaptcha.com/"

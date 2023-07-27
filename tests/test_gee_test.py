@@ -3,14 +3,12 @@ from pydantic import ValidationError
 
 from tests.conftest import BaseTest
 from python3_capsolver.gee_test import GeeTest
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import GeeTestCaptchaTypeEnm
 
 PAGE_URL = "https://www.geetest.com/en/demo"
 GT = "022397c99c9f646f6477822485f30404"
 CHALLENGE = "a66f31a53a404af8d1f271eec5138aa1"
 API_SUBDOMAIN = "api.geetest.com"
-
-captcha_types = (CaptchaTypeEnm.GeetestTask, CaptchaTypeEnm.GeetestTaskProxyless)
 
 
 class TestGeeTestBase(BaseTest):
@@ -24,7 +22,7 @@ class TestGeeTestBase(BaseTest):
         with pytest.raises(ValueError):
             GeeTest(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.Control,
+                captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
             )
@@ -33,7 +31,7 @@ class TestGeeTestBase(BaseTest):
         with pytest.raises(ValidationError):
             GeeTest(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.GeetestTask,
+                captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
             ).captcha_handler(challenge=CHALLENGE)
@@ -42,7 +40,7 @@ class TestGeeTestBase(BaseTest):
         with pytest.raises(ValidationError):
             await GeeTest(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.GeetestTask,
+                captcha_type="test",
                 websiteURL=PAGE_URL,
                 gt=GT,
             ).aio_captcha_handler(challenge=CHALLENGE)
@@ -55,19 +53,19 @@ class TestGeeTestBase(BaseTest):
                 gt="022397c99c9f646f6477822485f30404",
             )
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
+    @pytest.mark.parametrize("captcha_type", GeeTestCaptchaTypeEnm.list_values())
     def test_no_gt_key(self, captcha_type: str):
         with pytest.raises(TypeError):
             GeeTest(api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=PAGE_URL)
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
+    @pytest.mark.parametrize("captcha_type", GeeTestCaptchaTypeEnm.list_values())
     def test_no_website_url(self, captcha_type: str):
         with pytest.raises(TypeError):
             GeeTest(api_key=self.API_KEY, captcha_type=captcha_type, gt=GT)
 
 
 class TestGeeTestProxyLess(BaseTest):
-    captcha_type = CaptchaTypeEnm.GeetestTaskProxyless
+    captcha_type = GeeTestCaptchaTypeEnm.GeeTestTaskProxyLess
     """
     Success tests
     """
@@ -97,15 +95,13 @@ class TestGeeTestProxyLess(BaseTest):
 
 
 class TestGeeTest(BaseTest):
-    captcha_type = CaptchaTypeEnm.GeetestTask
+    captcha_type = GeeTestCaptchaTypeEnm.GeeTestTask
 
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         GeeTest(
             api_key=self.API_KEY,
@@ -117,7 +113,7 @@ class TestGeeTest(BaseTest):
             proxyPort=self.proxyPort,
         )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with GeeTest(
             api_key=self.API_KEY,
@@ -134,7 +130,7 @@ class TestGeeTest(BaseTest):
     Failed tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     async def test_aio_api_key_err(self, proxy_type: str):
         with pytest.raises(ValueError):
             await GeeTest(
@@ -147,7 +143,7 @@ class TestGeeTest(BaseTest):
                 proxyPort=self.proxyPort,
             ).aio_captcha_handler(challenge=CHALLENGE, geetestApiServerSubdomain="api.geetest.com")
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_api_key_err(self, proxy_type: str):
         with pytest.raises(ValueError):
             GeeTest(

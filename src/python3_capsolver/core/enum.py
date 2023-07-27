@@ -41,20 +41,6 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_TASK_RESULT = "getTaskResult"
 
 
-class CaptchaTypeEnmXXX(str, MyEnum):
-    """
-    Enum with all available captcha types
-    """
-
-    # HCaptcha
-    HCaptchaClassification = "HCaptchaClassification"
-    # FunCaptcha
-    FunCaptchaClassification = "FunCaptchaClassification"
-    # Other types
-    AntiKasadaTask = "AntiKasadaTask"
-    AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
-
-
 class ImageToTextTaskTypeEnm(str, MyEnum):
     ImageToTextTask = "ImageToTextTask"
 
@@ -65,12 +51,13 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
     HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
     HCaptchaTurboTask = "HCaptchaTurboTask"
-    HCaptchaTurboTaskProxyLess = "HCaptchaTurboTaskProxyLess"
+    HCaptchaClassification = "HCaptchaClassification"
 
 
 class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
+    FunCaptchaClassification = "FunCaptchaClassification"
 
 
 class GeeTestCaptchaTypeEnm(str, MyEnum):

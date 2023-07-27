@@ -7,11 +7,11 @@ from python3_capsolver.core.serializer import GeeTestSer, CaptchaResponseSer
 
 class GeeTest(BaseCaptcha):
     """
-    The class is used to work with Capsolver GeetestTask methods.
+    The class is used to work with Capsolver GeeTestTask methods.
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
+        captcha_type: Captcha type name, like ``GeeTestTaskProxyLess`` and etc.
         websiteURL: Address of a webpage with Geetest
         gt: The domain public key, rarely updated
         challenge: If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4

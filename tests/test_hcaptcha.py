@@ -3,7 +3,7 @@ from pydantic import ValidationError
 
 from tests.conftest import BaseTest
 from python3_capsolver.hcaptcha import HCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.core.enum import HCaptchaTypeEnm
 
 HCAPTCHA_KEY = "a5f74b19-9e45-40e0-b45d-47ff91b7a6c2"
 PAGE_URL = "https://accounts.hcaptcha.com/demo"
@@ -20,7 +20,7 @@ class TestHCaptchaBase(BaseTest):
         with pytest.raises(ValueError):
             HCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.Control,
+                captcha_type="test",
                 websiteURL=self.get_random_string(5),
                 websiteKey=self.get_random_string(5),
             )
@@ -38,7 +38,7 @@ class TestHCaptchaProxyless(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
 
-    captcha_type = CaptchaTypeEnm.HCaptchaTaskProxyless
+    captcha_type = HCaptchaTypeEnm.HCaptchaTaskProxyless
     """
     Success tests
     """
@@ -64,7 +64,7 @@ class TestHCaptchaProxyless(BaseTest):
             ).captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -79,7 +79,7 @@ class TestHCaptchaProxyless(BaseTest):
                 resp = instance.captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -93,7 +93,7 @@ class TestHCaptchaProxyless(BaseTest):
             ).aio_captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -108,7 +108,7 @@ class TestHCaptchaProxyless(BaseTest):
                 resp = await instance.aio_captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -147,16 +147,14 @@ class TestHCaptchaProxyless(BaseTest):
 class TestHCaptcha(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
 
-    captcha_type = CaptchaTypeEnm.HCaptchaTask
+    captcha_type = HCaptchaTypeEnm.HCaptchaTask
 
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         HCaptcha(
             api_key=self.API_KEY,
@@ -168,7 +166,7 @@ class TestHCaptcha(BaseTest):
             proxyPort=self.proxyPort,
         )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with HCaptcha(
             api_key=self.API_KEY,
@@ -204,7 +202,7 @@ class TestHCaptcha(BaseTest):
                 proxyPort=self.proxyPort,
             )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_address(self, proxy_type: str):
         with pytest.raises(ValidationError):
             HCaptcha(
@@ -216,7 +214,7 @@ class TestHCaptcha(BaseTest):
                 proxyPort=self.proxyPort,
             )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_no_proxy_port(self, proxy_type):
         with pytest.raises(ValidationError):
             HCaptcha(
@@ -250,10 +248,8 @@ class TestHCaptcha(BaseTest):
 class TestHCaptchaClassification(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
 
-    captcha_type = CaptchaTypeEnm.HCaptchaClassification
+    captcha_type = HCaptchaTypeEnm.HCaptchaClassification
     questions = ["2+2=?", "our planet name"]
 
     """

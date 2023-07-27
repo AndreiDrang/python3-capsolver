@@ -4,8 +4,8 @@ import pytest
 from pydantic import ValidationError
 
 from tests.conftest import BaseTest
-from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
-from python3_capsolver.fun_captcha import FunCaptcha
+from python3_capsolver.core.enum import ResponseStatusEnm
+from python3_capsolver.fun_captcha import FunCaptcha, FunCaptchaTypeEnm
 from python3_capsolver.core.serializer import CaptchaResponseSer
 
 websiteURL = "https://api.funcaptcha.com/fc/api/nojs/"
@@ -14,12 +14,6 @@ funcaptchaApiJSSubdomain = "https://api.funcaptcha.com/"
 
 with open("tests/files/fun_class.png", "rb") as img_file:
     img_data = img_file.read()
-
-captcha_types = (
-    CaptchaTypeEnm.FuncaptchaTask,
-    CaptchaTypeEnm.FuncaptchaTaskProxyless,
-    CaptchaTypeEnm.FunCaptchaClassification,
-)
 
 
 class TestFunCaptchaBase(BaseTest):
@@ -33,18 +27,18 @@ class TestFunCaptchaBase(BaseTest):
         with pytest.raises(ValueError):
             FunCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.Control,
+                captcha_type="test",
                 websiteURL=websiteURL,
                 websitePublicKey=websitePublicKey,
                 funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
             ).captcha_handler()
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
+    @pytest.mark.parametrize("captcha_type", FunCaptchaTypeEnm.list_values())
     def test_wrong_type_params(self, captcha_type: str):
         with pytest.raises(expected_exception=(ValidationError, ValueError)):
             FunCaptcha(api_key=self.get_random_string(36), captcha_type=captcha_type).captcha_handler()
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
+    @pytest.mark.parametrize("captcha_type", FunCaptchaTypeEnm.list_values())
     async def test_aio_wrong_type_params(self, captcha_type: str):
         with pytest.raises(expected_exception=(ValidationError, ValueError)):
             await FunCaptcha(api_key=self.get_random_string(36), captcha_type=captcha_type).aio_captcha_handler()
@@ -60,7 +54,7 @@ class TestFunCaptchaBase(BaseTest):
 
 
 class TestFunCaptchaProxyless(BaseTest):
-    captcha_type = CaptchaTypeEnm.FuncaptchaTaskProxyless
+    captcha_type = FunCaptchaTypeEnm.FunCaptchaTaskProxyLess
     """
     Success tests
     """
@@ -195,7 +189,7 @@ class TestFunCaptchaProxyless(BaseTest):
 
 
 class TestFunCaptchaClassification(BaseTest):
-    captcha_type = CaptchaTypeEnm.FunCaptchaClassification
+    captcha_type = FunCaptchaTypeEnm.FunCaptchaClassification
 
     question = "Pick the bicycle"
     image = base64.b64encode(img_data).decode("utf-8")
@@ -216,8 +210,8 @@ class TestFunCaptchaClassification(BaseTest):
         )
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
-        """assert resp.errorId is False
+        assert resp.errorId == 1
+        """assert resp.errorId == 0
         assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None"""
@@ -227,8 +221,8 @@ class TestFunCaptchaClassification(BaseTest):
             resp = instance.captcha_handler(image=self.image, question=self.question)
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Processing
-            assert resp.errorId is True
-            """assert resp.errorId is False
+            assert resp.errorId == 1
+            """assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None"""
@@ -239,8 +233,8 @@ class TestFunCaptchaClassification(BaseTest):
         )
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
-        """assert resp.errorId is False
+        assert resp.errorId == 1
+        """assert resp.errorId == 0
         assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None"""
@@ -250,8 +244,8 @@ class TestFunCaptchaClassification(BaseTest):
             resp = await instance.aio_captcha_handler(image=self.image, question=self.question)
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Processing
-            assert resp.errorId is True
-            """assert resp.errorId is False
+            assert resp.errorId == 1
+            """assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None"""

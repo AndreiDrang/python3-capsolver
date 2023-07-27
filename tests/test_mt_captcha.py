@@ -1,7 +1,7 @@
 import pytest
 
 from tests.conftest import BaseTest
-from python3_capsolver.core.enum import ProxyType, ResponseStatusEnm
+from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.mt_captcha import MtCaptcha
 from python3_capsolver.core.serializer import CaptchaResponseSer
 
@@ -35,11 +35,11 @@ class TestMtCaptcha(BaseTest):
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         MtCaptcha(api_key=self.API_KEY, websiteURL=websiteURL, websiteKey=websiteKey, proxy=proxy)
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with MtCaptcha(api_key=self.API_KEY, websiteURL=websiteURL, websiteKey=websiteKey, proxy=proxy) as instance:
             pass
@@ -54,7 +54,7 @@ class TestMtCaptcha(BaseTest):
         ).captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
+        assert resp.errorId == 1
         assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
         assert resp.solution is None
 
@@ -64,6 +64,6 @@ class TestMtCaptcha(BaseTest):
         ).aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
+        assert resp.errorId == 1
         assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
         assert resp.solution is None
