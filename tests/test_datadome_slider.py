@@ -28,6 +28,7 @@ class TestDatadomeSlider(BaseTest):
             api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -39,6 +40,7 @@ class TestDatadomeSlider(BaseTest):
             api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -52,9 +54,10 @@ class TestDatadomeSlider(BaseTest):
     @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     async def test_aio_proxy_err(self, proxy_type: str):
         resp = await DatadomeSlider(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -62,15 +65,16 @@ class TestDatadomeSlider(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
         assert resp.errorId == 1
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
 
     @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_proxy_err(self, proxy_type: str):
         resp = DatadomeSlider(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -78,5 +82,5 @@ class TestDatadomeSlider(BaseTest):
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
         assert resp.errorId == 1
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
