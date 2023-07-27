@@ -134,4 +134,4 @@ class CyberSiAraSer(WebsiteDataOptionsSer):
     SlideMasterUrlId: str = Field(
         ..., description="You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request"
     )
-    UserAgent: str = Field(..., description="Browser userAgent,you need submit your userAgent")
+    UserAgent: str = Field(..., description="Browser userAgent, you need submit your userAgent")
