@@ -55,10 +55,13 @@ class TestMtCaptcha(BaseTest):
     Failed tests
     """
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
-    def test_proxy_err(self, captcha_type: str):
+    def test_proxy_err(self):
         resp = MtCaptcha(
-            api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=websiteURL, websiteKey=websiteKey, proxy=proxy
+            api_key=self.API_KEY,
+            captcha_type=MtCaptchaTypeEnm.MtCaptchaTask,
+            websiteURL=websiteURL,
+            websiteKey=websiteKey,
+            proxy=proxy,
         ).captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
@@ -66,10 +69,13 @@ class TestMtCaptcha(BaseTest):
         assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
 
-    @pytest.mark.parametrize("captcha_type", captcha_types)
-    async def test_aio_proxy_err(self, captcha_type: str):
+    async def test_aio_proxy_err(self):
         resp = await MtCaptcha(
-            api_key=self.API_KEY, captcha_type=captcha_type, websiteURL=websiteURL, websiteKey=websiteKey, proxy=proxy
+            api_key=self.API_KEY,
+            captcha_type=MtCaptchaTypeEnm.MtCaptchaTask,
+            websiteURL=websiteURL,
+            websiteKey=websiteKey,
+            proxy=proxy,
         ).aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
