@@ -28,7 +28,7 @@ upload:
 
 tests: install
 	coverage run --rcfile=.coveragerc -m pytest -vv --showlocals --pastebin=all \
-	tests/test_image_to_text.py && \
+	tests && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty -d coverage/html/ && \
 	coverage xml -o coverage/coverage.xml
