@@ -87,6 +87,14 @@ class HCaptchaClassificationOptionsSer(BaseModel):
     )
 
 
+class FunCaptchaClassificationOptionsSer(BaseModel):
+    images: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
+    question: str = Field(
+        ...,
+        description="Question name. this param value from API response game_variant field. Exmaple: maze,maze2,flockCompass,3d_rollball_animals",
+    )
+
+
 class GeeTestSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Geetest")
     gt: str = Field(..., description="The domain public key, rarely updated")
