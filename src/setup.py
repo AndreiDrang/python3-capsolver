@@ -81,9 +81,9 @@ setup(
     author_email=EMAIL,
     project_urls={
         "Documentation": URL,
-        "Source": "https://github.com/AndreiDrang/python3-captchaai",
+        "Source": "https://github.com/AndreiDrang/python3-capsolver",
     },
-    package_dir={"python3-captchaai": "python3_capsolver"},
+    package_dir={"python3-capsolver": "python3_capsolver"},
     include_package_data=True,
     py_modules=["python3_capsolver"],
     url=URL,
