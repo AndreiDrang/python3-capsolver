@@ -34,12 +34,12 @@ class TestControl(BaseTest):
 
     def test_get_balance_api_key_err(self):
         result = Control(api_key=self.get_random_string(36)).get_balance()
-        assert isinstance(resp, ControlResponseSer)
+        assert isinstance(result, ControlResponseSer)
         assert result.errorId == 1
         assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
 
     async def test_aio_get_balance_api_key_err(self):
         result = await Control(api_key=self.get_random_string(36)).aio_get_balance()
-        assert isinstance(resp, ControlResponseSer)
+        assert isinstance(result, ControlResponseSer)
         assert result.errorId == 1
         assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
