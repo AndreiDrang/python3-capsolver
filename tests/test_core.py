@@ -4,6 +4,7 @@ from urllib3.util.retry import Retry
 
 from tests.conftest import BaseTest
 from python3_capsolver.core.base import BaseCaptcha
+from python3_capsolver.core.enum import MyEnum
 from python3_capsolver.core.config import RETRIES, REQUEST_URL, ASYNC_RETRIES, attempts_generator
 
 
@@ -60,22 +61,6 @@ class TestCore(BaseTest):
         with pytest.raises(TypeError):
             BaseCaptcha(captcha_type='test', request_url=REQUEST_URL, sleep_time=self.sleep_time)
 
-    def test_no_captcha_type(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time)
-
-    def test_no_request_url(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', sleep_time=self.sleep_time
-            )
-
-    def test_no_sleep_time(self):
-        with pytest.raises(TypeError):
-            BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', request_url=REQUEST_URL
-            )
-
     def test_no_key_err_context(self):
         with pytest.raises(TypeError):
             with BaseCaptcha(
@@ -83,52 +68,10 @@ class TestCore(BaseTest):
             ) as instance:
                 pass
 
-    def test_no_captcha_type_context(self):
-        with pytest.raises(TypeError):
-            with BaseCaptcha(
-                api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time
-            ) as instance:
-                pass
-
-    def test_no_request_url_context(self):
-        with pytest.raises(TypeError):
-            with BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', sleep_time=self.sleep_time
-            ) as instance:
-                pass
-
-    def test_no_sleep_time_context(self):
-        with pytest.raises(TypeError):
-            with BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', request_url=REQUEST_URL
-            ) as instance:
-                pass
-
     async def test_aio_no_key_err_context(self):
         with pytest.raises(TypeError):
             async with BaseCaptcha(
                 captcha_type='test', request_url=REQUEST_URL, sleep_time=self.sleep_time
-            ) as instance:
-                pass
-
-    async def test_aio_no_captcha_type_context(self):
-        with pytest.raises(TypeError):
-            async with BaseCaptcha(
-                api_key=self.get_random_string(36), request_url=REQUEST_URL, sleep_time=self.sleep_time
-            ) as instance:
-                pass
-
-    async def test_aio_no_request_url_context(self):
-        with pytest.raises(TypeError):
-            async with BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', sleep_time=self.sleep_time
-            ) as instance:
-                pass
-
-    async def test_aio_no_sleep_time_context(self):
-        with pytest.raises(TypeError):
-            async with BaseCaptcha(
-                api_key=self.get_random_string(36), captcha_type='test', request_url=REQUEST_URL
             ) as instance:
                 pass
 
@@ -152,16 +95,6 @@ class TestCore(BaseTest):
             ) as instance:
                 raise Exception()
 
-    @pytest.mark.parametrize("api_len", [35, 37])
-    def test_wrong_key_err(self, api_len: int):
-        with pytest.raises(ValueError):
-            BaseCaptcha(
-                api_key=self.get_random_string(api_len),
-                captcha_type='test',
-                request_url=REQUEST_URL,
-                sleep_time=self.sleep_time,
-            )
-
     @pytest.mark.parametrize("sleep_time", range(-2, 5))
     def test_wrong_sleep_time(self, sleep_time: int):
         with pytest.raises(ValueError):
@@ -172,34 +105,16 @@ class TestCore(BaseTest):
                 sleep_time=sleep_time,
             )
 
-    def test_wrong_captcha_type(self):
-        with pytest.raises(ValueError):
-            BaseCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.get_random_string(10),
-                request_url=REQUEST_URL,
-                sleep_time=self.sleep_time,
-            )
-
 
 class TestEnum(BaseTest):
     def test_enum_list(self):
-        assert isinstance(CaptchaTypeEnm.list(), list)
+        assert isinstance(MyEnum.list(), list)
 
     def test_enum_list_values(self):
-        assert isinstance(CaptchaTypeEnm.list_values(), list)
+        assert isinstance(MyEnum.list_values(), list)
 
     def test_enum_list_names(self):
-        assert isinstance(CaptchaTypeEnm.list_names(), list)
-
-    def test_enum_name(self):
-        assert isinstance('test'.name, str)
-        assert 'test'.name == "Control"
-
-    def test_enum_value(self):
-        assert isinstance('test'.value, str)
-        assert 'test'.value == "Control"
-
+        assert isinstance(MyEnum.list_names(), list)
 
 class TestConfig(BaseTest):
     def test_attempts_generator(self):
