@@ -13,6 +13,8 @@ class CyberSiARA(BaseCaptcha):
         api_key: Capsolver API key
         captcha_type: Captcha type name, like ``AntiCyberSiAraTask`` and etc.
         websiteURL: Address of a webpage with CyberSiARA
+        SlideMasterUrlId: You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request
+        UserAgent: Browser userAgent, you need submit your userAgent
 
     Examples:
         >>> CyberSiARA(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
