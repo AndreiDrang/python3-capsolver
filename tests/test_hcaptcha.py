@@ -1,6 +1,7 @@
-import pytest
-from pydantic import ValidationError
 import base64
+
+import pytest
+
 from tests.conftest import BaseTest
 from python3_capsolver.hcaptcha import HCaptcha, HCaptchaClassification
 from python3_capsolver.core.enum import HCaptchaTypeEnm, HCaptchaClassificationTypeEnm
@@ -198,6 +199,7 @@ class TestHCaptcha(BaseTest):
         with pytest.raises(TypeError):
             HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.hcaptcha_key)
 
+
 class TestHCaptchaClassification(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
@@ -256,7 +258,9 @@ class TestHCaptchaClassification(BaseTest):
                 captcha_type=self.captcha_type,
                 queries=[self.image_body],
             )
-'''
+
+
+"""
     async def test_aio_api_key_err(self):
         result = await HCaptchaClassification(
             api_key=self.get_random_string(36),
@@ -278,4 +282,4 @@ class TestHCaptchaClassification(BaseTest):
         assert result.errorId == 1
         assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
         assert not result.solution
-'''
+"""
