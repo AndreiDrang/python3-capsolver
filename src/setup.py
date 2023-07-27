@@ -50,6 +50,9 @@ class UploadCommand(Command):
         pass
 
     def run(self):
+        logging.info("Prepapre wheel")
+        os.system("pip install wheel")
+
         logging.info("Building Source and Wheel distribution . . .")
         os.system("python setup.py sdist bdist_wheel")
 
