@@ -11,11 +11,11 @@ from python3_capsolver.__version__ import __version__
 
 # Package meta-data.
 NAME = "python3-capsolver"
-DESCRIPTION = "Python 3.7+ Capsolver library with AIO module."
+DESCRIPTION = "Python 3.8+ Capsolver library with AIO module."
 URL = "https://andreidrang.github.io/python3-capsolver/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
-REQUIRES_PYTHON = ">=3.7.0"
+REQUIRES_PYTHON = ">=3.8.0"
 VERSION = __version__
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
@@ -119,7 +119,6 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
