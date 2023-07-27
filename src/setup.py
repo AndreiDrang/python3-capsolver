@@ -11,11 +11,11 @@ from python3_capsolver.__version__ import __version__
 
 # Package meta-data.
 NAME = "python3-capsolver"
-DESCRIPTION = "Python 3.7+ Capsolver library with AIO module."
+DESCRIPTION = "Python 3.8+ Capsolver library with AIO module."
 URL = "https://andreidrang.github.io/python3-capsolver/"
 EMAIL = "python-captcha@pm.me"
 AUTHOR = "AndreiDrang"
-REQUIRES_PYTHON = ">=3.7.0"
+REQUIRES_PYTHON = ">=3.8.0"
 VERSION = __version__
 with open("requirements.txt", "rt") as requirements_txt:
     REQUIRED = [str(requirement) for requirement in parse_requirements(requirements_txt)]
@@ -50,6 +50,9 @@ class UploadCommand(Command):
         pass
 
     def run(self):
+        logging.info("Prepapre wheel")
+        os.system("pip install wheel")
+
         logging.info("Building Source and Wheel distribution . . .")
         os.system("python setup.py sdist bdist_wheel")
 
@@ -81,9 +84,9 @@ setup(
     author_email=EMAIL,
     project_urls={
         "Documentation": URL,
-        "Source": "https://github.com/AndreiDrang/python3-captchaai",
+        "Source": "https://github.com/AndreiDrang/python3-capsolver",
     },
-    package_dir={"python3-captchaai": "python3_capsolver"},
+    package_dir={"python3-capsolver": "python3_capsolver"},
     include_package_data=True,
     py_modules=["python3_capsolver"],
     url=URL,
@@ -119,7 +122,6 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

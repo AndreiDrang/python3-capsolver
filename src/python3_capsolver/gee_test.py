@@ -7,11 +7,11 @@ from python3_capsolver.core.serializer import GeeTestSer, CaptchaResponseSer
 
 class GeeTest(BaseCaptcha):
     """
-    The class is used to work with Capsolver GeetestTask methods.
+    The class is used to work with Capsolver GeeTestTask methods.
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``GeetestTaskProxyless`` and etc.
+        captcha_type: Captcha type name, like ``GeeTestTaskProxyLess`` and etc.
         websiteURL: Address of a webpage with Geetest
         gt: The domain public key, rarely updated
         challenge: If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4
@@ -23,7 +23,7 @@ class GeeTest(BaseCaptcha):
         ...         gt="022397c99c9f646f6477822485f30404",
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -38,7 +38,7 @@ class GeeTest(BaseCaptcha):
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...         proxy="socks5:192.191.100.10:4780:user:pwd"
         ...        ).captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
@@ -52,7 +52,7 @@ class GeeTest(BaseCaptcha):
         ...         gt="022397c99c9f646f6477822485f30404",
         ...         challenge='12345678abc90123d45678ef90123a456b'
         ...        ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=False,
+        CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',

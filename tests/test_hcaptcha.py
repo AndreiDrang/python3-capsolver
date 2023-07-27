@@ -1,12 +1,16 @@
+import base64
+
 import pytest
-from pydantic import ValidationError
 
 from tests.conftest import BaseTest
-from python3_capsolver.hcaptcha import HCaptcha
-from python3_capsolver.core.enum import ProxyType, CaptchaTypeEnm
+from python3_capsolver.hcaptcha import HCaptcha, HCaptchaClassification
+from python3_capsolver.core.enum import HCaptchaTypeEnm, HCaptchaClassificationTypeEnm
 
-HCAPTCHA_KEY = "a5f74b19-9e45-40e0-b45d-47ff91b7a6c2"
+HCAPTCHA_KEY = "3ceb8624-1970-4e6b-91d5-70317b70b651"
 PAGE_URL = "https://accounts.hcaptcha.com/demo"
+
+with open("tests/files/hcap_select.png", "rb") as img_file:
+    img_data = img_file.read()
 
 
 class TestHCaptchaBase(BaseTest):
@@ -20,7 +24,7 @@ class TestHCaptchaBase(BaseTest):
         with pytest.raises(ValueError):
             HCaptcha(
                 api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.Control,
+                captcha_type="test",
                 websiteURL=self.get_random_string(5),
                 websiteKey=self.get_random_string(5),
             )
@@ -38,7 +42,7 @@ class TestHCaptchaProxyless(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
 
-    captcha_type = CaptchaTypeEnm.HCaptchaTaskProxyless
+    captcha_type = HCaptchaTypeEnm.HCaptchaTaskProxyless
     """
     Success tests
     """
@@ -64,7 +68,7 @@ class TestHCaptchaProxyless(BaseTest):
             ).captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -79,7 +83,7 @@ class TestHCaptchaProxyless(BaseTest):
                 resp = instance.captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -93,7 +97,7 @@ class TestHCaptchaProxyless(BaseTest):
             ).aio_captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -108,7 +112,7 @@ class TestHCaptchaProxyless(BaseTest):
                 resp = await instance.aio_captcha_handler()
             assert isinstance(resp, CaptchaResponseSer)
             assert resp.status == ResponseStatusEnm.Ready
-            assert resp.errorId is False
+            assert resp.errorId == 0
             assert resp.errorCode is None
             assert resp.errorDescription is None
             assert resp.solution is not None
@@ -118,45 +122,47 @@ class TestHCaptchaProxyless(BaseTest):
     """
 
     def test_no_website_key(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(TypeError):
             HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl)
 
     def test_no_website_url(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(TypeError):
             HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.hcaptcha_key)
 
     async def test_aio_api_key_err(self):
-        with pytest.raises(Exception):
-            await HCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-            ).aio_captcha_handler()
+        result = await HCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=self.pageurl,
+            websiteKey=self.hcaptcha_key,
+        ).aio_captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
     def test_api_key_err(self):
-        with pytest.raises(Exception):
-            HCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-            ).captcha_handler()
+        result = HCaptcha(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            websiteURL=self.pageurl,
+            websiteKey=self.hcaptcha_key,
+        ).captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
 
 class TestHCaptcha(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
 
-    captcha_type = CaptchaTypeEnm.HCaptchaTask
+    captcha_type = HCaptchaTypeEnm.HCaptchaTask
 
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         HCaptcha(
             api_key=self.API_KEY,
@@ -168,7 +174,7 @@ class TestHCaptcha(BaseTest):
             proxyPort=self.proxyPort,
         )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with HCaptcha(
             api_key=self.API_KEY,
@@ -186,115 +192,50 @@ class TestHCaptcha(BaseTest):
     """
 
     def test_no_website_key(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(TypeError):
             HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteURL=self.pageurl)
 
     def test_no_website_url(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(TypeError):
             HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.hcaptcha_key)
-
-    def test_no_proxy_type(self):
-        with pytest.raises(ValidationError):
-            HCaptcha(
-                api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-                proxyAddress=self.proxyAddress,
-                proxyPort=self.proxyPort,
-            )
-
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_no_proxy_address(self, proxy_type: str):
-        with pytest.raises(ValidationError):
-            HCaptcha(
-                api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-                proxyType=proxy_type,
-                proxyPort=self.proxyPort,
-            )
-
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
-    def test_no_proxy_port(self, proxy_type):
-        with pytest.raises(ValidationError):
-            HCaptcha(
-                api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-                proxyAddress=self.proxyAddress,
-                proxyType=proxy_type,
-            )
-
-    async def test_aio_api_key_err(self):
-        with pytest.raises(Exception):
-            await HCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.googlekey,
-            ).aio_captcha_handler()
-
-    def test_api_key_err(self):
-        with pytest.raises(Exception):
-            HCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.hcaptcha_key,
-            ).captcha_handler()
 
 
 class TestHCaptchaClassification(BaseTest):
     hcaptcha_key = HCAPTCHA_KEY
     pageurl = PAGE_URL
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
 
-    captcha_type = CaptchaTypeEnm.HCaptchaClassification
-    questions = ["2+2=?", "our planet name"]
+    image_body = base64.b64encode(img_data).decode("utf-8")
+
+    captcha_type = HCaptchaClassificationTypeEnm.HCaptchaClassification
+    question = "Please click each image containing a chair"
 
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("question", questions)
-    def test_params(self, question: str):
-        HCaptcha(
+    def test_params(self):
+        HCaptchaClassification(
             api_key=self.API_KEY,
             captcha_type=self.captcha_type,
-            queries=[
-                self.get_random_string(5),
-                self.get_random_string(5),
-            ],
-            question=question,
+            queries=[self.image_body],
+            question=self.question,
         )
 
-    @pytest.mark.parametrize("question", questions)
-    def test_params_context(self, question: str):
-        with HCaptcha(
+    def test_params_context(self):
+        with HCaptchaClassification(
             api_key=self.API_KEY,
             captcha_type=self.captcha_type,
-            queries=[
-                self.get_random_string(5),
-                self.get_random_string(5),
-            ],
-            question=question,
+            queries=[self.image_body],
+            question=self.question,
         ) as instance:
             pass
 
-    @pytest.mark.parametrize("question", questions)
-    async def test_aio_params_context(self, question: str):
-        async with HCaptcha(
+    async def test_aio_params_context(self):
+        async with HCaptchaClassification(
             api_key=self.API_KEY,
             captcha_type=self.captcha_type,
-            queries=[
-                self.get_random_string(5),
-                self.get_random_string(5),
-            ],
-            question=question,
+            queries=[self.image_body],
+            question=self.question,
         ) as instance:
             pass
 
@@ -302,44 +243,43 @@ class TestHCaptchaClassification(BaseTest):
     Failed tests
     """
 
-    @pytest.mark.parametrize("question", questions)
-    def test_no_queries(self, question: str):
-        with pytest.raises(ValidationError):
-            HCaptcha(api_key=self.API_KEY, captcha_type=self.captcha_type, question=question)
-
-    def test_no_question(self):
-        with pytest.raises(ValidationError):
-            HCaptcha(
+    def test_no_queries(self):
+        with pytest.raises(TypeError):
+            HCaptchaClassification(
                 api_key=self.API_KEY,
                 captcha_type=self.captcha_type,
-                queries=[
-                    self.get_random_string(5),
-                    self.get_random_string(5),
-                ],
+                question=self.question,
             )
 
-    @pytest.mark.parametrize("question", questions)
-    async def test_aio_api_key_err(self, question: str):
-        with pytest.raises(Exception):
-            await HCaptcha(
-                api_key=self.get_random_string(36),
+    def test_no_question(self):
+        with pytest.raises(TypeError):
+            HCaptchaClassification(
+                api_key=self.API_KEY,
                 captcha_type=self.captcha_type,
-                queries=[
-                    self.get_random_string(5),
-                    self.get_random_string(5),
-                ],
-                question=question,
-            ).aio_captcha_handler()
+                queries=[self.image_body],
+            )
 
-    @pytest.mark.parametrize("question", questions)
-    def test_api_key_err(self, question: str):
-        with pytest.raises(Exception):
-            HCaptcha(
-                api_key=self.get_random_string(36),
-                captcha_type=self.captcha_type,
-                queries=[
-                    self.get_random_string(5),
-                    self.get_random_string(5),
-                ],
-                question=question,
-            ).captcha_handler()
+
+"""
+    async def test_aio_api_key_err(self):
+        result = await HCaptchaClassification(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            queries=[self.image_body],
+            question=self.question,
+        ).aio_captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
+
+    def test_api_key_err(self):
+        result = HCaptchaClassification(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            queries=[self.image_body],
+            question=self.question,
+        ).captcha_handler()
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
+"""

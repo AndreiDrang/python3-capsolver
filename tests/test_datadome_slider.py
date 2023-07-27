@@ -1,7 +1,7 @@
 import pytest
 
 from tests.conftest import BaseTest
-from python3_capsolver.core.enum import ProxyType, ResponseStatusEnm
+from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.core.serializer import CaptchaResponseSer
 from python3_capsolver.datadome_slider import DatadomeSlider
 
@@ -18,29 +18,29 @@ class TestDatadomeSliderBase(BaseTest):
 
 
 class TestDatadomeSlider(BaseTest):
-    proxyAddress = "0.0.0.0"
-    proxyPort = 9999
     """
     Success tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params(self, proxy_type: str):
         DatadomeSlider(
             api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
         )
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_params_context(self, proxy_type: str):
         with DatadomeSlider(
             api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
@@ -51,34 +51,36 @@ class TestDatadomeSlider(BaseTest):
     Failed tests
     """
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     async def test_aio_proxy_err(self, proxy_type: str):
         resp = await DatadomeSlider(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
         ).aio_captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorId == 1
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None
 
-    @pytest.mark.parametrize("proxy_type", ProxyType.list_values())
+    @pytest.mark.parametrize("proxy_type", BaseTest.proxyTypes)
     def test_proxy_err(self, proxy_type: str):
         resp = DatadomeSlider(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             websiteURL=websiteURL,
             captchaUrl=captchaUrl,
+            userAgent=self.get_random_string(36),
             proxyAddress=self.proxyAddress,
             proxyType=proxy_type,
             proxyPort=self.proxyPort,
         ).captcha_handler()
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status == ResponseStatusEnm.Processing
-        assert resp.errorId is True
-        assert resp.errorCode == "ERROR_INVALID_TASK_DATA"
+        assert resp.errorId == 1
+        assert resp.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
         assert resp.solution is None

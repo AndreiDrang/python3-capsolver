@@ -7,15 +7,22 @@ import pytest
 
 
 @pytest.fixture(scope="function")
-def delay():
-    time.sleep(0)
+def delay_func():
+    time.sleep(0.5)
 
 
-@pytest.mark.usefixtures("delay")
+@pytest.fixture(scope="class")
+def delay_class():
+    time.sleep(2)
+
+
+@pytest.mark.usefixtures("delay_func")
+@pytest.mark.usefixtures("delay_class")
 class BaseTest:
-    API_KEY = os.getenv("API_KEY", "ad9053f3182ca81755768608fa758570")
+    API_KEY = os.environ["API_KEY"]
     sleep_time = 5
 
+    proxyTypes = ["socks5", "http", "https"]
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
 

@@ -1,6 +1,5 @@
 [run]
 omit =
-        *__init__*
         */tests/*
 
 include =
@@ -9,7 +8,6 @@ include =
 
 [report]
 omit =
-        *__init__*
         */tests/*
 
 include =

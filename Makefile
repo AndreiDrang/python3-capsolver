@@ -13,14 +13,13 @@ refactor:
 				--remove-unused-variables \
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
-				--ignore-init-module-imports \
-				src/ tests/ && \
-	black src/ tests/ && \
+				src/ tests/
+	black src/ tests/
 	isort src/ tests/
 
 lint:
-	autoflake --in-place --recursive src/ --check && \
-	black src/ --check && \
+	autoflake --in-place --recursive src/ --check
+	black src/ --check
 	isort src/ --check-only
 
 upload:
@@ -28,7 +27,8 @@ upload:
 	cd src/ && python setup.py upload
 
 tests: install
-	coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --pastebin=all tests --disable-warnings && \
+	coverage run --rcfile=.coveragerc -m pytest -vv --showlocals --pastebin=all \
+	tests && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty -d coverage/html/ && \
 	coverage xml -o coverage/coverage.xml

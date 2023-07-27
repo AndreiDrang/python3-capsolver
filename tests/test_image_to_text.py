@@ -1,7 +1,5 @@
 import base64
 
-import pytest
-
 from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.image_to_text import ImageToText
@@ -62,9 +60,13 @@ class TestImageToText(BaseTest):
     """
 
     def test_captcha_handler_api_key_err(self):
-        with pytest.raises(Exception):
-            ImageToText(api_key=self.get_random_string(36)).captcha_handler(body=self.image_body)
+        result = ImageToText(api_key=self.get_random_string(36)).captcha_handler(body=self.image_body)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
 
     async def test_aio_captcha_handler_api_key_err(self):
-        with pytest.raises(Exception):
-            await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(body=self.image_body)
+        result = await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(body=self.image_body)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution

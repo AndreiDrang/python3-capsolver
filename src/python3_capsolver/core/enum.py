@@ -34,9 +34,6 @@ class MyEnum(Enum):
 class EndpointPostfixEnm(str, MyEnum):
     """
     Enum stored URL postfixes for API endpoints
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426042
     """
 
     GET_BALANCE = "getBalance"
@@ -44,22 +41,8 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_TASK_RESULT = "getTaskResult"
 
 
-class CaptchaTypeEnmXXX(str, MyEnum):
-    """
-    Enum with all available captcha types
-
-    Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/393295
-    """
-
+class ImageToTextTaskTypeEnm(str, MyEnum):
     ImageToTextTask = "ImageToTextTask"
-    # HCaptcha
-    HCaptchaClassification = "HCaptchaClassification"
-    # FunCaptcha
-    FunCaptchaClassification = "FunCaptchaClassification"
-    # Other types
-    AntiKasadaTask = "AntiKasadaTask"
-    AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
 
 
 class HCaptchaTypeEnm(str, MyEnum):
@@ -68,12 +51,20 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
     HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
     HCaptchaTurboTask = "HCaptchaTurboTask"
-    HCaptchaTurboTaskProxyLess = "HCaptchaTurboTaskProxyLess"
+    HCaptchaClassification = "HCaptchaClassification"
+
+
+class HCaptchaClassificationTypeEnm(str, MyEnum):
+    HCaptchaClassification = "HCaptchaClassification"
 
 
 class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
+
+
+class FunCaptchaClassificationTypeEnm(str, MyEnum):
+    FunCaptchaClassification = "FunCaptchaClassification"
 
 
 class GeeTestCaptchaTypeEnm(str, MyEnum):
@@ -109,12 +100,22 @@ class CloudflareTypeEnm(str, MyEnum):
     AntiCloudflareTask = "AntiCloudflareTask"
 
 
+class AntiAwsWafTaskTypeEnm(str, MyEnum):
+    AntiAwsWafTask = "AntiAwsWafTask"
+    AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
+
+
+class AntiCyberSiAraTaskTypeEnm(str, MyEnum):
+    AntiCyberSiAraTask = "AntiCyberSiAraTask"
+    AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
+
+
 class ResponseStatusEnm(str, MyEnum):
     """
     Enum store results `status` field variants
 
     Notes:
-        https://captchaai.atlassian.net/wiki/spaces/CAPTCHAAI/pages/426124
+        https://docs.capsolver.com/guide/api-createtask.html
     """
 
     Idle = "idle"  # Task created

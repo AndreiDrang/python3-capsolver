@@ -87,6 +87,14 @@ class HCaptchaClassificationOptionsSer(BaseModel):
     )
 
 
+class FunCaptchaClassificationOptionsSer(BaseModel):
+    images: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
+    question: str = Field(
+        ...,
+        description="Question name. this param value from API response game_variant field. Exmaple: maze,maze2,flockCompass,3d_rollball_animals",
+    )
+
+
 class GeeTestSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with Geetest")
     gt: str = Field(..., description="The domain public key, rarely updated")
@@ -109,18 +117,7 @@ class FunCaptchaSer(TaskSer):
 class DatadomeSliderSer(TaskSer):
     websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
     captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
-    proxy: str = Field(..., description="Proxy data")
     userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
-
-
-class KasadaOptionsSer(BaseModel):
-    pageURL: str = Field(..., description="Address of a webpage with Kasada")
-    proxyLogin: str = Field(
-        ...,
-        description="Login for proxy which requires authorizaiton (basic)."
-        "This isn’t required if you are using proxies authenticated by IP",
-    )
-    proxyPassword: str = Field(..., description="This isn’t required if you are using proxies authenticated by IP")
 
 
 class CloudflareTurnstileSer(WebsiteDataOptionsSer):
@@ -128,3 +125,10 @@ class CloudflareTurnstileSer(WebsiteDataOptionsSer):
     html: Optional[str] = Field(
         None, description="You can pass in the entire html source code for the challenge directly."
     )
+
+
+class CyberSiAraSer(WebsiteDataOptionsSer):
+    SlideMasterUrlId: str = Field(
+        ..., description="You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request"
+    )
+    UserAgent: str = Field(..., description="Browser userAgent, you need submit your userAgent")
