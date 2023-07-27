@@ -22,6 +22,7 @@ class BaseTest:
     API_KEY = os.environ["API_KEY"]
     sleep_time = 5
 
+    proxyTypes = ["socks5", "http", "https"]
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
 
