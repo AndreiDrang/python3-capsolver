@@ -148,7 +148,7 @@ class HCaptchaClassification(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://docs.capsolver.com/guide/captcha/HCaptcha.html
+        https://docs.capsolver.com/guide/recognition/HCaptchaClassification.html
     """
 
     def __init__(
