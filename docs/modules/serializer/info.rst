@@ -16,3 +16,13 @@ To import this module:
 .. autopydantic_model:: python3_capsolver.core.serializer.WebsiteDataOptionsSer
     :members:
     :undoc-members:
+
+
+.. autopydantic_model:: python3_capsolver.core.serializer.CyberSiAraSer
+    :members:
+    :undoc-members:
+
+
+.. autopydantic_model:: python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer
+    :members:
+    :undoc-members:

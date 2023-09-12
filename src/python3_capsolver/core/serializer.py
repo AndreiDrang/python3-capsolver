@@ -132,3 +132,9 @@ class CyberSiAraSer(WebsiteDataOptionsSer):
         ..., description="You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request"
     )
     UserAgent: str = Field(..., description="Browser userAgent, you need submit your userAgent")
+
+
+class AntiAkamaiBMPTaskSer(BaseModel):
+    packageName: str = Field("de.zalando.iphone", description="Package name of AkamaiBMP mobile APP")
+    version: str = Field("3.2.6", description="AKAMAI BMP Version number")
+    country: str = Field("US", description="AKAMAI BMP country")
