@@ -50,7 +50,7 @@ class TestBinanceBase(BaseTest):
 class TestBinanceCaptchaTaskBase(BaseTest):
     def test_instance(self):
         instance = Binance(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             captcha_type=BinanceCaptchaTaskEnm.BinanceCaptchaTask,
             websiteURL="https://www.milanuncios.com/",
             validateId="3621a4fef82f4ab4a00e8b07465761c5",
@@ -58,7 +58,7 @@ class TestBinanceCaptchaTaskBase(BaseTest):
 
     def test_solve(self):
         instance = Binance(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             captcha_type=BinanceCaptchaTaskEnm.BinanceCaptchaTask,
             websiteURL="https://www.milanuncios.com/",
             validateId="3621a4fef82f4ab4a00e8b07465761c5",
@@ -66,10 +66,12 @@ class TestBinanceCaptchaTaskBase(BaseTest):
         )
         result = instance.captcha_handler()
         assert isinstance(result, CaptchaResponseSer)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
 
     async def test_aio_solve(self):
         instance = Binance(
-            api_key=self.get_random_string(36),
+            api_key=self.API_KEY,
             captcha_type=BinanceCaptchaTaskEnm.BinanceCaptchaTask,
             websiteURL="https://www.milanuncios.com/",
             validateId="3621a4fef82f4ab4a00e8b07465761c5",
@@ -77,3 +79,5 @@ class TestBinanceCaptchaTaskBase(BaseTest):
         )
         result = await instance.aio_captcha_handler()
         assert isinstance(result, CaptchaResponseSer)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
