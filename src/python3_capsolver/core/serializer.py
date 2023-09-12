@@ -121,10 +121,7 @@ class DatadomeSliderSer(TaskSer):
 
 
 class CloudflareTurnstileSer(WebsiteDataOptionsSer):
-    metadata: dict = Field(..., description="Extra data")
-    html: Optional[str] = Field(
-        None, description="You can pass in the entire html source code for the challenge directly."
-    )
+    ...
 
 
 class CyberSiAraSer(WebsiteDataOptionsSer):

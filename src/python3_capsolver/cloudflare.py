@@ -1,4 +1,4 @@
-from typing import Dict, Union, Optional
+from typing import Union, Optional
 
 from python3_capsolver.core.base import BaseCaptcha
 from python3_capsolver.core.enum import CloudflareTypeEnm
@@ -22,46 +22,42 @@ class Cloudflare(BaseCaptcha):
         >>> Cloudflare(api_key="CAI-1324...",
         ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
         ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             websiteKey='4ac25d',
-        ...             proxy="socks5:158.120.100.23:334:user:pass",
-        ...             metadata={'type': 'turnstile', 'acton':'login', 'cdata': '0000-1111-2222-3333-example-cdata'}
+        ...             websiteKey='0x4AAAAAAABS7vwvV6VFfMcD',
+        ...             proxy="socks5:158.120.100.23:334:user:pass"
         ...          ).captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'token': '44795sds...'}
                           )
 
         >>> Cloudflare(api_key="CAI-1324...",
         ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
         ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             proxy="socks5:158.120.100.23:334:user:pass",
-        ...             metadata={'type': 'challenge'}
-        ...             html="<your challenge html source code>",
+        ...             proxy="socks5:158.120.100.23:334:user:pass"
         ...          ).captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'token': '44795sds...'}
                           )
 
         >>> await Cloudflare(api_key="CAI-1324...",
         ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
         ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             websiteKey='4ac25d',
-        ...             proxy="socks5:158.120.100.23:334:user:pass",
-        ...             metadata={'type': 'challenge', 'acton':'login', 'cdata': '0000-1111-2222-3333-example-cdata'}
+        ...             websiteKey='0x4AAAAAAABS7vwvV6VFfMcD',
+        ...             proxy="socks5:158.120.100.23:334:user:pass"
         ...          ).aio_captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
                            errorDescription=None,
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
+                           solution={'token': '44795sds...'}
                           )
 
     Returns:
@@ -76,9 +72,7 @@ class Cloudflare(BaseCaptcha):
         self,
         captcha_type: Union[CloudflareTypeEnm, str],
         websiteURL: str,
-        metadata: Dict[str, str],
         websiteKey: Optional[str] = None,
-        html: Optional[str] = None,
         *args,
         **kwargs,
     ):
