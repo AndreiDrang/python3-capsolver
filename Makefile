@@ -28,10 +28,10 @@ upload:
 
 tests: install
 	coverage run --rcfile=.coveragerc -m pytest -vv --showlocals --pastebin=all \
-	tests && \
+	tests/ && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
-	coverage html --precision=3 --skip-empty -d coverage/html/ && \
-	coverage xml -o coverage/coverage.xml
+	coverage html --precision=3 --skip-empty -d src/coverage/html/ && \
+	coverage xml -o src/coverage/coverage.xml
 
 doc: install
 	cd docs/ && \

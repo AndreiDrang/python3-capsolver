@@ -33,6 +33,8 @@ The library is intended for software developers and is used to work with the `Ca
    modules/aws-waf/example.rst
    modules/cyber-si-ara/example.rst
    modules/akamai/example.rst
+   modules/imperva/example.rst
+   modules/binance/example.rst
 
 .. toctree::
    :maxdepth: 2

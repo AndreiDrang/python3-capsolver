@@ -71,3 +71,15 @@ To import this module:
 .. autoclass:: python3_capsolver.core.enum.ImageToTextTaskTypeEnm
     :members:
     :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.AntiAkamaiTaskEnm
+    :members:
+    :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.AntiImpervaTaskEnm
+    :members:
+    :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.BinanceCaptchaTaskEnm
+    :members:
+    :undoc-members:

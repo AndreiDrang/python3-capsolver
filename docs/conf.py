@@ -6,6 +6,8 @@ from pallets_sphinx_themes import ProjectLink
 from python3_capsolver import (
     core,
     akamai,
+    binance,
+    imperva,
     gee_test,
     hcaptcha,
     recaptcha,
