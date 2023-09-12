@@ -5,6 +5,7 @@ import pytest
 from tests.conftest import BaseTest
 from python3_capsolver.hcaptcha import HCaptcha, HCaptchaClassification
 from python3_capsolver.core.enum import HCaptchaTypeEnm, HCaptchaClassificationTypeEnm
+from python3_capsolver.core.serializer import CaptchaResponseSer
 
 HCAPTCHA_KEY = "3ceb8624-1970-4e6b-91d5-70317b70b651"
 PAGE_URL = "https://accounts.hcaptcha.com/demo"
@@ -275,6 +276,19 @@ class TestHCaptchaClassification(BaseTest):
             queries=[self.image_body],
             question=self.question,
         ).captcha_handler()
+        assert isinstance(result, CaptchaResponseSer)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert not result.solution
+
+    async def test_aio_api_key_err(self):
+        result = await HCaptchaClassification(
+            api_key=self.get_random_string(36),
+            captcha_type=self.captcha_type,
+            queries=[self.image_body],
+            question=self.question,
+        ).aio_captcha_handler()
+        assert isinstance(result, CaptchaResponseSer)
         assert result.errorId == 1
         assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
         assert not result.solution
