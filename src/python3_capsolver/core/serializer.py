@@ -80,14 +80,14 @@ class ReCaptchaV3Ser(WebsiteDataOptionsSer):
     )
 
 
-class HCaptchaClassificationOptionsSer(BaseModel):
+class HCaptchaClassificationOptionsSer(TaskSer):
     queries: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
     question: str = Field(
         ..., description="Question ID. Support English and Chinese, other languages please convert yourself"
     )
 
 
-class FunCaptchaClassificationOptionsSer(BaseModel):
+class FunCaptchaClassificationOptionsSer(TaskSer):
     images: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
     question: str = Field(
         ...,

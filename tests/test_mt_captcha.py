@@ -19,6 +19,16 @@ class TestMtCaptchaBase(BaseTest):
     def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in MtCaptcha.__dict__.keys()
 
+    def test_wrong_captcha_type(self):
+        with pytest.raises(ValueError):
+            MtCaptcha(
+                api_key=self.API_KEY,
+                captcha_type=self.get_random_string(),
+                websiteKey=websiteKey,
+                proxy=proxy,
+                websiteURL=websiteURL,
+            )
+
     @pytest.mark.parametrize("captcha_type", captcha_types)
     def test_no_website_url(self, captcha_type: str):
         with pytest.raises(TypeError):

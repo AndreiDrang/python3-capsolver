@@ -27,7 +27,7 @@ class BaseTest:
     proxyPort = 9999
 
     @staticmethod
-    def get_random_string(length: int) -> str:
+    def get_random_string(length: int = 36) -> str:
         """
         Method generate random string with set length
 
