@@ -3,6 +3,7 @@ import pytest
 from tests.conftest import BaseTest
 from python3_capsolver.core.enum import CloudflareTypeEnm
 from python3_capsolver.cloudflare import Cloudflare
+from python3_capsolver.core.serializer import CaptchaResponseSer
 
 
 class TestCloudflareBase(BaseTest):
@@ -34,3 +35,39 @@ class TestCloudflareBase(BaseTest):
                 captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
                 validateId=self.get_random_string(36),
             )
+
+
+class TestAntiCloudflareTaskBase(BaseTest):
+    def test_instance(self):
+        instance = Cloudflare(
+            api_key=self.API_KEY,
+            captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
+            websiteURL="https://bck.websiteurl.com/registry",
+            proxy="socks5:158.120.100.23:334:user:pass",
+        )
+
+    def test_solve(self):
+        instance = Cloudflare(
+            api_key=self.API_KEY,
+            captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
+            websiteURL="https://bck.websiteurl.com/registry",
+            websiteKey="0x4AAAAAAABS7vwvV6VFfMcD",
+            proxy="socks5:158.120.100.23:334:user:pass",
+        )
+        result = instance.captcha_handler()
+        assert isinstance(result, CaptchaResponseSer)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
+
+    async def test_aio_solve(self):
+        instance = Cloudflare(
+            api_key=self.API_KEY,
+            captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
+            websiteURL="https://bck.websiteurl.com/registry",
+            websiteKey="0x4AAAAAAABS7vwvV6VFfMcD",
+            proxy="socks5:158.120.100.23:334:user:pass",
+        )
+        result = await instance.aio_captcha_handler()
+        assert isinstance(result, CaptchaResponseSer)
+        assert result.errorId == 1
+        assert result.errorCode == "ERROR_PROXY_CONNECT_REFUSED"
