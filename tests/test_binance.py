@@ -3,8 +3,7 @@ import pytest
 from tests.conftest import BaseTest
 from python3_capsolver.binance import Binance
 from python3_capsolver.core.enum import BinanceCaptchaTaskEnm
-
-from python3_capsolver.core.serializer import CaptchaResponseSer, BinanceCaptchaTaskSer
+from python3_capsolver.core.serializer import CaptchaResponseSer
 
 
 class TestBinanceBase(BaseTest):
