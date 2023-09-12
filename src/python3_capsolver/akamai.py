@@ -2,7 +2,12 @@ from typing import Union
 
 from python3_capsolver.core.base import BaseCaptcha
 from python3_capsolver.core.enum import AntiAkamaiTaskEnm, EndpointPostfixEnm
-from python3_capsolver.core.serializer import PostRequestSer, CaptchaResponseSer, AntiAkamaiBMPTaskSer
+from python3_capsolver.core.serializer import (
+    PostRequestSer,
+    CaptchaResponseSer,
+    AntiAkamaiBMPTaskSer,
+    AntiAkamaiWebTaskSer,
+)
 
 
 class Akamai(BaseCaptcha):
@@ -33,6 +38,21 @@ class Akamai(BaseCaptcha):
                           )
 
         >>> Akamai(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type="AntiAkamaiWebTask",
+        ...          url="https://www.xxxx.com/nMRH2/aYJ/PQ4b/32/0peDlm/b9f5NJcXf7tiYE/OE9CMGI1/Nzsn/bCVKCnA",
+        ...          abck="14164862507BD4......",
+        ...          bmsz="4E3C....33",
+        ...          userAgent="Mozilla/5.0 (Wi....",
+        ...         ).captcha_handler()
+        CaptchaResponseSer(errorId=0,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'sensorData': '2;3159346;4338233...'}
+                          )
+
+        >>> Akamai(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
         ...          captcha_type=AntiAkamaiTaskEnm.AntiAkamaiBMPTask,
         ...         ).captcha_handler()
         CaptchaResponseSer(errorId=0,
@@ -41,6 +61,18 @@ class Akamai(BaseCaptcha):
                            taskId='73bdcd28-6c77-4414-8....',
                            status=<ResponseStatusEnm.Ready: 'ready'>,
                            solution={'deviceId': '6DKFOD0...'}
+                          )
+
+        >>> Akamai(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type=AntiAkamaiTaskEnm.AntiAkamaiWebTask,
+        ...          url="https://www.xxxx.com/nMRH2/aYJ/PQ4b/32/0peDlm/b9f5NJcXf7tiYE/OE9CMGI1/Nzsn/bCVKCnA",
+        ...         ).captcha_handler()
+        CaptchaResponseSer(errorId=0,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'sensorData': '2;3159346;4338233...'}
                           )
 
         >>> Akamai(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
@@ -76,6 +108,18 @@ class Akamai(BaseCaptcha):
                            solution={'deviceId': '90F9EAF...'}
                           )
 
+        >>> await Akamai(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type=AntiAkamaiTaskEnm.AntiAkamaiWebTask,
+        ...          url="https://www.xxxx.com/nMRH2/aYJ/PQ4b/32/0peDlm/b9f5NJcXf7tiYE/OE9CMGI1/Nzsn/bCVKCnA",
+        ...         ).aio_captcha_handler()
+        CaptchaResponseSer(errorId=0,
+                           errorCode=None,
+                           errorDescription=None,
+                           taskId='73bdcd28-6c77-4414-8....',
+                           status=<ResponseStatusEnm.Ready: 'ready'>,
+                           solution={'sensorData': '2;3159346;4338233...'}
+                          )
+
     Returns:
         CaptchaResponseSer model with full server response
 
@@ -84,21 +128,26 @@ class Akamai(BaseCaptcha):
         https://docs.capsolver.com/guide/antibots/akamaiweb.html
     """
 
-    serializer = PostRequestSer
-
     def __init__(
         self,
         captcha_type: Union[AntiAkamaiTaskEnm, str],
         packageName: str = "de.zalando.iphone",
         version: str = "3.2.6",
         country: str = "US",
+        url: str = None,
         *args,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
+        self.__serializer = PostRequestSer
+        self.__url_postfix = None
 
         if captcha_type == AntiAkamaiTaskEnm.AntiAkamaiBMPTask:
             self.task_params = AntiAkamaiBMPTaskSer(**locals()).dict()
+            self.__url_postfix = EndpointPostfixEnm.AKAMAI_BMP_INVOKE.value
+        elif captcha_type == AntiAkamaiTaskEnm.AntiAkamaiWebTask:
+            self.task_params = AntiAkamaiWebTaskSer(**locals()).dict()
+            self.__url_postfix = EndpointPostfixEnm.AKAMAI_WEB_INVOKE.value
         else:
             raise ValueError(
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
@@ -118,10 +167,10 @@ class Akamai(BaseCaptcha):
         Notes:
             Check class docstring for more info
         """
-        self._prepare_create_task_payload(serializer=self.serializer, create_params=self.task_params)
+        self._prepare_create_task_payload(serializer=self.__serializer, create_params=self.task_params)
         return CaptchaResponseSer(
             **self._create_task(
-                url_postfix=EndpointPostfixEnm.AKAMAI_BMP_INVOKE.value,
+                url_postfix=self.__url_postfix,
             )
         )
 
@@ -135,9 +184,9 @@ class Akamai(BaseCaptcha):
         Notes:
             Check class docstring for more info
         """
-        self._prepare_create_task_payload(serializer=self.serializer, create_params=self.task_params)
+        self._prepare_create_task_payload(serializer=self.__serializer, create_params=self.task_params)
         return CaptchaResponseSer(
             **await self._aio_create_task(
-                url_postfix=EndpointPostfixEnm.AKAMAI_BMP_INVOKE.value,
+                url_postfix=self.__url_postfix,
             )
         )
