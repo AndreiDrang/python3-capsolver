@@ -13,6 +13,7 @@ from python3_capsolver import (
     fun_captcha,
     image_to_text,
     datadome_slider,
+    imperva,
 )
 from python3_capsolver.__version__ import __version__
 
