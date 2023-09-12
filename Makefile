@@ -28,7 +28,7 @@ upload:
 
 tests: install
 	coverage run --rcfile=.coveragerc -m pytest -vv --showlocals --pastebin=all \
-	tests/test_binance.py && \
+	tests && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty -d src/coverage/html/ && \
 	coverage xml -o src/coverage/coverage.xml
