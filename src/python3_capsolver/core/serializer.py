@@ -151,3 +151,9 @@ class AntiImpervaTaskSer(TaskSer):
         True, description="If cookie contains `incap_see_xxx`, `nlbi_xxx`, `visid_inap_xxx`, mean is true"
     )
     reese84: bool = Field(True, description="if cookie conains `reese84`, set it true")
+
+
+class BinanceCaptchaTaskSer(TaskSer):
+    websiteURL: str = Field(..., description="Address of a webpage with Binance captcha")
+    websiteKey: str = Field("login", description="`bizId` always be `login`")
+    validateId: str = Field(..., description="`validateId` bncaptcha validateId field")

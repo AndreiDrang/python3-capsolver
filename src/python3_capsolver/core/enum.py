@@ -121,6 +121,10 @@ class AntiImpervaTaskEnm(str, MyEnum):
     AntiImpervaTask = "AntiImpervaTask"
 
 
+class BinanceCaptchaTaskEnm(str, MyEnum):
+    BinanceCaptchaTask = "BinanceCaptchaTask"
+
+
 class ResponseStatusEnm(str, MyEnum):
     """
     Enum store results `status` field variants

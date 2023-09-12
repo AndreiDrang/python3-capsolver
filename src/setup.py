@@ -112,6 +112,7 @@ setup(
 				amazon_waf
 				akamai
 				imperva
+				binance
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,

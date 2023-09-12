@@ -79,3 +79,7 @@ To import this module:
 .. autoclass:: python3_capsolver.core.enum.AntiImpervaTaskEnm
     :members:
     :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.BinanceCaptchaTaskEnm
+    :members:
+    :undoc-members:
