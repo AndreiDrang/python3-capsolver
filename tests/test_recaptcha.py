@@ -70,25 +70,11 @@ class TestReCaptchaV2ProxyLess(BaseTest):
         assert resp.errorDescription is None
         assert resp.solution is not None
 
-    """def test_solve_context(self):
-        with ReCaptcha(
-            api_key=self.API_KEY,
-            captcha_type=self.captcha_type,
-            websiteURL=self.pageurl,
-            websiteKey=self.googlekey,
-        ) as instance:
-            resp = instance.captcha_handler()
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId == 0
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None
-
-    async def test_aio_solve(self):
+    @pytest.mark.parametrize("captcha_type", captcha_types)
+    async def test_aio_solve(self, captcha_type: str):
         resp = await ReCaptcha(
             api_key=self.API_KEY,
-            captcha_type=self.captcha_type,
+            captcha_type=captcha_type,
             websiteURL=self.pageurl,
             websiteKey=self.googlekey,
         ).aio_captcha_handler()
@@ -98,21 +84,6 @@ class TestReCaptchaV2ProxyLess(BaseTest):
         assert resp.errorCode is None
         assert resp.errorDescription is None
         assert resp.solution is not None
-
-    async def test_aio_solve_context(self):
-        with ReCaptcha(
-            api_key=self.API_KEY,
-            captcha_type=self.captcha_type,
-            websiteURL=self.pageurl,
-            websiteKey=self.googlekey,
-        ) as instance:
-            resp = await instance.aio_captcha_handler()
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status == ResponseStatusEnm.Ready
-        assert resp.errorId == 0
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
-        assert resp.solution is not None"""
 
     """
     Failed tests
