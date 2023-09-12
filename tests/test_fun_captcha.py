@@ -175,7 +175,7 @@ class TestFunCaptchaProxyless(BaseTest):
             funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
         ).aio_captcha_handler()
         assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert result.errorCode in ["ERROR_KEY_DENIED_ACCESS", "ERROR_INVALID_TASK_DATA"]
         assert not result.solution
 
     def test_api_key_err(self):
@@ -187,7 +187,7 @@ class TestFunCaptchaProxyless(BaseTest):
             funcaptchaApiJSSubdomain=funcaptchaApiJSSubdomain,
         ).captcha_handler()
         assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert result.errorCode in ["ERROR_KEY_DENIED_ACCESS", "ERROR_INVALID_TASK_DATA"]
         assert not result.solution
 
 

@@ -32,6 +32,7 @@ The library is intended for software developers and is used to work with the `Ca
    modules/cloudflare/example.rst
    modules/aws-waf/example.rst
    modules/cyber-si-ara/example.rst
+   modules/akamai/example.rst
 
 .. toctree::
    :maxdepth: 2
