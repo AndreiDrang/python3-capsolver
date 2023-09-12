@@ -16,14 +16,11 @@ class Binance(BaseCaptcha):
         userAgent: Browser userAgent
 
     Examples:
-        >>> Imperva(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-        ...          captcha_type="AntiImpervaTask",
-        ...          websiteUrl="https://www.milanuncios.com/",
-        ...          userAgent="Mozilla/5.0 (Windows ....",
-        ...          proxy="socks5:98.181.137.83:4145",
-        ...          utmvc=True,
-        ...          reese84=True,
-        ...          reeseScriptUrl="https://www.milanuncios.com/librarym.js",
+        >>> Binance(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type="BinanceCaptchaTask",
+        ...          websiteURL="https://www.milanuncios.com/",
+        ...          websiteKey="login",
+        ...          validateId="3621a4fef82f4ab4a00e8b07465761c5",
         ...         ).captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
@@ -33,14 +30,11 @@ class Binance(BaseCaptcha):
                            solution={'token': '90F9EAF...'}
                           )
 
-        >>> Imperva(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-        ...          captcha_type=AntiImpervaTaskEnm.AntiImpervaTask,
-        ...          websiteUrl="https://www.milanuncios.com/",
-        ...          userAgent="Mozilla/5.0 (Windows ....",
-        ...          proxy="socks5:98.181.137.83:4145",
-        ...          utmvc=True,
-        ...          reese84=True,
-        ...          reeseScriptUrl="https://www.milanuncios.com/librarym.js",
+        >>> Binance(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
+        ...          captcha_type=BinanceCaptchaTaskEnm.BinanceCaptchaTask,
+        ...          websiteURL="https://www.milanuncios.com/",
+        ...          websiteKey="login",
+        ...          validateId="3621a4fef82f4ab4a00e8b07465761c5",
         ...         ).captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
@@ -50,14 +44,11 @@ class Binance(BaseCaptcha):
                            solution={'token': '90F9EAF...'}
                           )
 
-        >>> await Imperva(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
-        ...                 captcha_type=AntiImpervaTaskEnm.AntiImpervaTask,
-        ...                 websiteUrl="https://www.milanuncios.com/",
-        ...                 userAgent="Mozilla/5.0 (Windows ....",
-        ...                 proxy="socks5:98.181.137.83:4145",
-        ...                 utmvc=True,
-        ...                 reese84=True,
-        ...                 reeseScriptUrl="https://www.milanuncios.com/librarym.js",
+        >>> await Binance(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
+        ...                 captcha_type=BinanceCaptchaTaskEnm.BinanceCaptchaTask,
+        ...                 websiteURL="https://www.milanuncios.com/",
+        ...                 websiteKey="login",
+        ...                 validateId="3621a4fef82f4ab4a00e8b07465761c5",
         ...         ).aio_captcha_handler()
         CaptchaResponseSer(errorId=0,
                            errorCode=None,
@@ -71,7 +62,7 @@ class Binance(BaseCaptcha):
         CaptchaResponseSer model with full server response
 
     Notes:
-        https://docs.capsolver.com/guide/antibots/imperva.html
+        https://docs.capsolver.com/guide/captcha/BnCaptcha.html
     """
 
     def __init__(
