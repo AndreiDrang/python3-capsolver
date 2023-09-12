@@ -1,5 +1,7 @@
 import base64
 
+import pytest
+
 from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.image_to_text import ImageToText
@@ -9,17 +11,23 @@ with open("tests/files/captcha_example.jpeg", "rb") as img_file:
     img_data = img_file.read()
 
 
-class TestImageToText(BaseTest):
-    image_body = base64.b64encode(img_data).decode("utf-8")
-    """
-    Success tests
-    """
-
+class TestImageToTextBase(BaseTest):
     def test_captcha_handler_exist(self):
         assert "captcha_handler" in ImageToText.__dict__.keys()
 
     def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in ImageToText.__dict__.keys()
+
+    def test_wrong_captcha_type(self):
+        with pytest.raises(ValueError):
+            ImageToText(api_key=self.API_KEY, captcha_type=self.get_random_string())
+
+
+class TestImageToText(BaseTest):
+    image_body = base64.b64encode(img_data).decode("utf-8")
+    """
+    Success tests
+    """
 
     def test_solve_image(self):
         resp = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)

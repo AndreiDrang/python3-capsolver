@@ -16,6 +16,16 @@ class TestDatadomeSliderBase(BaseTest):
     def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in DatadomeSlider.__dict__.keys()
 
+    def test_wrong_captcha_type(self):
+        with pytest.raises(ValueError):
+            DatadomeSlider(
+                api_key=self.API_KEY,
+                captcha_type=self.get_random_string(36),
+                websiteURL=websiteURL,
+                captchaUrl=captchaUrl,
+                userAgent=self.get_random_string(36),
+            )
+
 
 class TestDatadomeSlider(BaseTest):
     """
