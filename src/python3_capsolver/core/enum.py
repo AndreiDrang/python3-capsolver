@@ -39,8 +39,8 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_BALANCE = "getBalance"
     CREATE_TASK = "createTask"
     GET_TASK_RESULT = "getTaskResult"
-    AKAMAI_BMP_INVOKE = "/akamaibmp/invoke"
-    AKAMAI_WEB_INVOKE = "/akamaiweb/invoke"
+    AKAMAI_BMP_INVOKE = "akamaibmp/invoke"
+    AKAMAI_WEB_INVOKE = "akamaiweb/invoke"
 
 
 class ImageToTextTaskTypeEnm(str, MyEnum):
@@ -115,6 +115,10 @@ class AntiCyberSiAraTaskTypeEnm(str, MyEnum):
 class AntiAkamaiTaskEnm(str, MyEnum):
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
     AntiAkamaiWebTask = "AntiAkamaiWebTask"
+
+
+class AntiImpervaTaskEnm(str, MyEnum):
+    AntiImpervaTask = "AntiImpervaTask"
 
 
 class ResponseStatusEnm(str, MyEnum):

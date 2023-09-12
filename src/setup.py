@@ -110,6 +110,8 @@ setup(
 				cloudflare
 				amazon
 				amazon_waf
+				akamai
+				imperva
                """,
     python_requires=REQUIRES_PYTHON,
     zip_safe=False,

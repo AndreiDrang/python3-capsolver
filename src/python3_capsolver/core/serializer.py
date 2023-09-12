@@ -134,11 +134,20 @@ class CyberSiAraSer(WebsiteDataOptionsSer):
     UserAgent: str = Field(..., description="Browser userAgent, you need submit your userAgent")
 
 
-class AntiAkamaiBMPTaskSer(BaseModel):
+class AntiAkamaiBMPTaskSer(TaskSer):
     packageName: str = Field("de.zalando.iphone", description="Package name of AkamaiBMP mobile APP")
     version: str = Field("3.2.6", description="AKAMAI BMP Version number")
     country: str = Field("US", description="AKAMAI BMP country")
 
 
-class AntiAkamaiWebTaskSer(BaseModel):
+class AntiAkamaiWebTaskSer(TaskSer):
     url: str = Field(..., description="Browser url address")
+
+
+class AntiImpervaTaskSer(TaskSer):
+    websiteUrl: str = Field(..., description="The website url")
+    userAgent: str = Field(..., description="Browser userAgent")
+    utmvc: bool = Field(
+        True, description="If cookie contains `incap_see_xxx`, `nlbi_xxx`, `visid_inap_xxx`, mean is true"
+    )
+    reese84: bool = Field(True, description="if cookie conains `reese84`, set it true")
