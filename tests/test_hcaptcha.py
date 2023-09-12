@@ -243,6 +243,15 @@ class TestHCaptchaClassification(BaseTest):
     Failed tests
     """
 
+    def test_wrong_captcha_type(self):
+        with pytest.raises(ValueError):
+            HCaptchaClassification(
+                api_key=self.API_KEY,
+                captcha_type=self.get_random_string(),
+                queries=[self.image_body],
+                question=self.question,
+            )
+
     def test_no_queries(self):
         with pytest.raises(TypeError):
             HCaptchaClassification(
@@ -259,19 +268,6 @@ class TestHCaptchaClassification(BaseTest):
                 queries=[self.image_body],
             )
 
-
-"""
-    async def test_aio_api_key_err(self):
-        result = await HCaptchaClassification(
-            api_key=self.get_random_string(36),
-            captcha_type=self.captcha_type,
-            queries=[self.image_body],
-            question=self.question,
-        ).aio_captcha_handler()
-        assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
-        assert not result.solution
-
     def test_api_key_err(self):
         result = HCaptchaClassification(
             api_key=self.get_random_string(36),
@@ -282,4 +278,3 @@ class TestHCaptchaClassification(BaseTest):
         assert result.errorId == 1
         assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
         assert not result.solution
-"""
