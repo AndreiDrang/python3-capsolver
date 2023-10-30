@@ -54,7 +54,8 @@ html_context = {
             "Capsolver",
             "https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1",
         ),
-    ]
+        ProjectLink("RedPandaDev", "https://red-panda-dev.xyz/"),
+    ],
 }
 html_sidebars = {
     "index": ["project.html", "localtoc.html", "searchbox.html", "ethicalads.html"],
