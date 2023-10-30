@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import Field, BaseModel, conint
 
@@ -20,7 +20,7 @@ class TaskSer(BaseModel):
 
 
 class RequestCreateTaskSer(PostRequestSer):
-    appId: str = Field(APP_ID, description="AppID", const=True)
+    appId: Literal[APP_ID] = APP_ID
 
 
 class RequestGetTaskResultSer(PostRequestSer):
