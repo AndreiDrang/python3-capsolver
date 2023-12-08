@@ -23,7 +23,7 @@ lint:
 	isort src/ --check-only
 
 upload:
-	pip install twine
+	pip install twine wheel
 	cd src/ && python setup.py upload
 
 tests: install
