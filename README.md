@@ -1,5 +1,5 @@
 # python3-capsolver
-![Python3-Capsolver](https://github.com/AndreiDrang/python3-capsolver/blob/main/files/CapsolverSm.png)
+![Python3-Capsolver](files/Capsolver.png)
 
 <a href="https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1">
     <img src="https://cdn.discordapp.com/attachments/1105172394655625306/1105180101802471575/20221207-160749.gif" alt="Capsolver's Banner">
@@ -34,6 +34,10 @@ The library is intended for software developers and is used to work with the [Ca
 If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
 
 Or email python-captcha@pm.me
+
+***
+
+You can check our other projects here - [RedPandaDev group](https://red-panda-dev.xyz/blog/). For example - [Torrents Tracker bot](https://t.me/torrents_tracker_bot) for Telegram.
 
 ***
 
