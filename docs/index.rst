@@ -2,12 +2,14 @@
 
 python3-capsolver
 =================
-.. image:: _static/Capsolver300x.png
+.. image:: _static/Capsolver.png
     :align: center
 
 Python3 library for `Capsolver API <https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1>`_.
 
 The library is intended for software developers and is used to work with the `Capsolver API <https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)>`_.
+
+Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/blog/>`_. For example - `Torrents Tracker bot <https://t.me/torrents_tracker_bot>`_ for Telegram
 
 .. toctree::
    :maxdepth: 1

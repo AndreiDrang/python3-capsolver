@@ -2,7 +2,7 @@
 
 ## Welcome to python3-capsolver
 
-![](../../_static/CapsolverSM.png)
+![](../../_static/Capsolver.png)
 
 [![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
 
@@ -26,6 +26,12 @@ Python 3 library for [Capsolver](https://dashboard.capsolver.com/passport/regist
 Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
+
+***
+
+You can check our other projects here - [RedPandaDev group](https://red-panda-dev.xyz/blog/). For example - [Torrents Tracker bot](https://t.me/torrents_tracker_bot) for Telegram.
+
+***
 
 ## How to install?
 

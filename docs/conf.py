@@ -41,8 +41,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "jinja"
 html_theme_options = {"index_sidebar_logo": False}
 html_static_path = ["_static"]
-html_favicon = "_static/CapsolverESm.png"
-html_logo = "_static/CapsolverSM.png"
+html_favicon = "_static/Capsolver.png"
+html_logo = "_static/Capsolver.png"
 html_title = f"python3-capsolver ({__version__})"
 html_show_sourcelink = False
 
@@ -54,7 +54,7 @@ html_context = {
             "Capsolver",
             "https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1",
         ),
-        ProjectLink("RedPandaDev", "https://red-panda-dev.xyz/"),
+        ProjectLink("RedPandaDev group", "https://red-panda-dev.xyz/blog/"),
     ],
 }
 html_sidebars = {
