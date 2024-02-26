@@ -1,4 +1,4 @@
 requests>=2.21.0
 aiohttp>=3.9.2
-pydantic==2.6.1
+pydantic==2.6.2
 tenacity==8.*
