@@ -23,11 +23,11 @@ lint:
 	isort src/ --check-only
 
 build:
-	pip3 install --upgrade build
+	pip3 install --upgrade build setuptools
 	python3 -m build
 
 upload:
-	pip3 install twine wheel build
+	pip3 install twine wheel setuptools build
 	twine upload dist/*
 
 tests: install
