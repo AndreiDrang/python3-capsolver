@@ -28,3 +28,77 @@ testpaths = [
     "tests",
 ]
 addopts = "-vv --tb=short --durations=10"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python3-capsolver"
+dynamic = ["version"]
+authors = [
+    {name = "AndreiDrang", email = "python-captcha@pm.me"},
+]
+description = "Python 3.8+ Capsolver library with AIO module."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = [    "captcha",
+                "recaptcha",
+                "geetest",
+                "hcaptcha",
+                "capypuzzle",
+                "rotatecaptcha",
+                "funcaptcha",
+                "keycaptcha",
+                "python3",
+                "python-library",
+                "capsolver",
+                "datadomeslider",
+                "datadome",
+                "mtcaptcha",
+				"turnstile",
+				"cloudflare",
+				"amazon",
+				"amazon_waf",
+				"akamai",
+				"imperva",
+				"binance"
+            ]
+license = {text = "MIT License"}
+classifiers = [
+        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+        "Development Status :: 5 - Production/Stable",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Framework :: AsyncIO",
+        "Operating System :: Unix",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS",
+]
+dependencies = [
+    "requests>=2.21.0",
+    "aiohttp>=3.9.2",
+    "pydantic==2.7.0",
+    "tenacity==8.*"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["python3_capsolver*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "python3_capsolver.__version__"}
+
+[project.urls]
+Homepage = "https://andreidrang.github.io/python3-capsolver/"
+Documentation = "https://andreidrang.github.io/python3-capsolver/"
+Repository = "https://github.com/AndreiDrang/python3-capsolver"
+Issues = "https://github.com/AndreiDrang/python3-capsolver/issues"
+Changelog = "https://github.com/AndreiDrang/python3-capsolver/releases"
