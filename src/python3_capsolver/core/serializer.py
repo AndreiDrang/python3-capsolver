@@ -120,8 +120,7 @@ class DatadomeSliderSer(TaskSer):
     userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
 
 
-class CloudflareTurnstileSer(WebsiteDataOptionsSer):
-    ...
+class CloudflareTurnstileSer(WebsiteDataOptionsSer): ...
 
 
 class CyberSiAraSer(WebsiteDataOptionsSer):
