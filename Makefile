@@ -1,5 +1,5 @@
 install:
-	cd src/ && pip install -e .
+	pip3 install -e .
 
 remove:
 	pip uninstall python3_capsolver -y
@@ -22,9 +22,13 @@ lint:
 	black src/ --check
 	isort src/ --check-only
 
+build:
+	pip3 install --upgrade build
+	python3 -m build
+
 upload:
-	pip install twine wheel
-	cd src/ && python setup.py upload
+	pip3 install twine wheel build
+	twine upload dist/*
 
 tests: install
 	coverage run --rcfile=.coveragerc -m pytest -vv --showlocals --pastebin=all \
