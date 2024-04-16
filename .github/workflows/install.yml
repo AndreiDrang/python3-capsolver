@@ -33,4 +33,4 @@ jobs:
       run: make install
 
     - name: PYPI install checking
-      run: pip install python3-capsolver
+      run: pip3 install python3-capsolver
