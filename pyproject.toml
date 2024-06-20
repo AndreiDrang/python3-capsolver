@@ -85,7 +85,7 @@ classifiers = [
 dependencies = [
     "requests>=2.21.0",
     "aiohttp>=3.9.2",
-    "pydantic==2.7.1",
+    "pydantic==2.7.4",
     "tenacity==8.*"
 ]
 
