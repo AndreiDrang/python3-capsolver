@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Binance &#8212; python3-capsolver (0.9.3)</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=bb251e69" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jinja.css?v=85659ec6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Enum" href="../enum/info.html" />
+    <link rel="prev" title="Imperva" href="../imperva/example.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../enum/info.html" title="Enum"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../imperva/example.html" title="Imperva"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">python3-capsolver (0.9.3)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Binance</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="binance">
+<h1>Binance<a class="headerlink" href="#binance" title="Link to this heading">¶</a></h1>
+<p>To import this module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">python3_capsolver.binance</span> <span class="kn">import</span> <span class="n">Binance</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="python3_capsolver.binance.Binance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.binance.</span></span><span class="sig-name descname"><span class="pre">Binance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">captcha_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.BinanceCaptchaTaskEnm" title="python3_capsolver.core.enum.BinanceCaptchaTaskEnm"><span class="pre">BinanceCaptchaTaskEnm</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteURL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validateId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websiteKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'login'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python3_capsolver.binance.Binance" title="Link to this definition">¶</a></dt>
+<dd><p>The class is used to work with Capsolver Imperva method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_key</strong> – Capsolver API key</p></li>
+<li><p><strong>captcha_type</strong> (<a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.BinanceCaptchaTaskEnm" title="python3_capsolver.core.enum.BinanceCaptchaTaskEnm"><em>BinanceCaptchaTaskEnm</em></a><em> | </em><em>str</em>) – Captcha type name, like <code class="docutils literal notranslate"><span class="pre">AntiImpervaTask</span></code> and etc.</p></li>
+<li><p><strong>websiteUrl</strong> – The website url</p></li>
+<li><p><strong>userAgent</strong> – Browser userAgent</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Binance</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-BA9XXXXXXXXXXXXX2702E010&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">captcha_type</span><span class="o">=</span><span class="s2">&quot;BinanceCaptchaTask&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.milanuncios.com/&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">validateId</span><span class="o">=</span><span class="s2">&quot;3621a4fef82f4ab4a00e8b07465761c5&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">)</span><span class="o">.</span><span class="n">captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=0,</span>
+<span class="go">                   errorCode=None,</span>
+<span class="go">                   errorDescription=None,</span>
+<span class="go">                   taskId=&#39;73bdcd28-6c77-4414-8....&#39;,</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;,</span>
+<span class="go">                   solution={&#39;token&#39;: &#39;90F9EAF...&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Binance</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-BA9XXXXXXXXXXXXX2702E010&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">captcha_type</span><span class="o">=</span><span class="n">BinanceCaptchaTaskEnm</span><span class="o">.</span><span class="n">BinanceCaptchaTask</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.milanuncios.com/&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">validateId</span><span class="o">=</span><span class="s2">&quot;3621a4fef82f4ab4a00e8b07465761c5&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">)</span><span class="o">.</span><span class="n">captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=0,</span>
+<span class="go">                   errorCode=None,</span>
+<span class="go">                   errorDescription=None,</span>
+<span class="go">                   taskId=&#39;73bdcd28-6c77-4414-8....&#39;,</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;,</span>
+<span class="go">                   solution={&#39;token&#39;: &#39;90F9EAF...&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">Binance</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;CAI-BA9650D2B9C2786B21120D512702E010&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">captcha_type</span><span class="o">=</span><span class="n">BinanceCaptchaTaskEnm</span><span class="o">.</span><span class="n">BinanceCaptchaTask</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">websiteURL</span><span class="o">=</span><span class="s2">&quot;https://www.milanuncios.com/&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">websiteKey</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">validateId</span><span class="o">=</span><span class="s2">&quot;3621a4fef82f4ab4a00e8b07465761c5&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">)</span><span class="o">.</span><span class="n">aio_captcha_handler</span><span class="p">()</span>
+<span class="go">CaptchaResponseSer(errorId=0,</span>
+<span class="go">                   errorCode=None,</span>
+<span class="go">                   errorDescription=None,</span>
+<span class="go">                   taskId=&#39;73bdcd28-6c77-4414-8....&#39;,</span>
+<span class="go">                   status=&lt;ResponseStatusEnm.Ready: &#39;ready&#39;&gt;,</span>
+<span class="go">                   solution={&#39;token&#39;: &#39;90F9EAF...&#39;}</span>
+<span class="go">                  )</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full server response</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><a class="reference external" href="https://docs.capsolver.com/guide/captcha/BnCaptcha.html">https://docs.capsolver.com/guide/captcha/BnCaptcha.html</a></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="python3_capsolver.binance.Binance.captcha_handler">
+<span class="sig-name descname"><span class="pre">captcha_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#python3_capsolver.binance.Binance.captcha_handler" title="Link to this definition">¶</a></dt>
+<dd><p>Sync solving method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Check class docstring for more info</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python3_capsolver.binance.Binance.aio_captcha_handler">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aio_captcha_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaptchaResponseSer</span></span></span><a class="headerlink" href="#python3_capsolver.binance.Binance.aio_captcha_handler" title="Link to this definition">¶</a></dt>
+<dd><p>Async method for captcha solving</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaptchaResponseSer model with full service response</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>CaptchaResponseSer</em></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Check class docstring for more info</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Capsolver.png" alt="Logo"/>
+            </a></p>
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">Binance</a><ul>
+<li><a class="reference internal" href="#python3_capsolver.binance.Binance"><code class="docutils literal notranslate"><span class="pre">Binance</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.binance.Binance.captcha_handler"><code class="docutils literal notranslate"><span class="pre">Binance.captcha_handler()</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.binance.Binance.aio_captcha_handler"><code class="docutils literal notranslate"><span class="pre">Binance.aio_captcha_handler()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../index.html">Overview</a>
+    <ul>
+          <li>Previous: <a href="../imperva/example.html" title="previous chapter">Imperva</a>
+          <li>Next: <a href="../enum/info.html" title="next chapter">Enum</a>
+    </ul>
+  </li>
+</ul>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, AndreiDrang; Release - 0.9.3; Last update - 2024-06-20.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  <script src="../../_static/version_warning_offset.js"></script>
+
+  </body>
+</html>
