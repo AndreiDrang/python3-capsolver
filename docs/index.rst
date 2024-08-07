@@ -9,7 +9,7 @@ Python3 library for `Capsolver API <https://dashboard.capsolver.com/passport/reg
 
 The library is intended for software developers and is used to work with the `Capsolver API <https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)>`_.
 
-Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/blog/>`_. For example - `Torrents Tracker bot <https://t.me/torrents_tracker_bot>`_ for Telegram
+Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/blog/>`_.
 
 .. toctree::
    :maxdepth: 1

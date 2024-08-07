@@ -29,7 +29,7 @@ The library is intended for software developers and is used to work with the [Ca
 
 ***
 
-You can check our other projects here - [RedPandaDev group](https://red-panda-dev.xyz/blog/). For example - [Torrents Tracker bot](https://t.me/torrents_tracker_bot) for Telegram.
+You can check our other projects here - [RedPandaDev group](https://red-panda-dev.xyz/blog/).
 
 ***
 

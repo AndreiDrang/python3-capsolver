@@ -85,8 +85,8 @@ classifiers = [
 dependencies = [
     "requests>=2.21.0",
     "aiohttp>=3.9.2",
-    "pydantic==2.7.4",
-    "tenacity==8.*"
+    "pydantic==2.8.2",
+    "tenacity>=8,<10"
 ]
 
 [tool.setuptools.packages.find]
