@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Serializer &#8212; python3-capsolver (0.9.3)</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=bb251e69" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jinja.css?v=85659ec6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Enum" href="../enum/info.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../enum/info.html" title="Enum"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">python3-capsolver (0.9.3)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Serializer</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="serializer">
+<h1>Serializer<a class="headerlink" href="#serializer" title="Link to this heading">¶</a></h1>
+<p>To import this module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">python3_capsolver.core</span> <span class="kn">import</span> <span class="n">serializer</span>
+</pre></div>
+</div>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaOptionsSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">CaptchaOptionsSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaOptionsSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CaptchaOptionsSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;api_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Api Key&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;sleep_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sleep Time&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;api_key&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.api_key" title="python3_capsolver.core.serializer.CaptchaOptionsSer.api_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.sleep_time" title="python3_capsolver.core.serializer.CaptchaOptionsSer.sleep_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sleep_time</span> <span class="pre">(int)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaOptionsSer.api_key">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.api_key" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaOptionsSer.sleep_time">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sleep_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Interval</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">gt</span></span><span class="o"><span class="pre">=</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">5</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">lt</span></span><span class="o"><span class="pre">=</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="o"><span class="pre">=</span></span><span class="pre">None</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.sleep_time" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ge</strong> = 5</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.WebsiteDataOptionsSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">WebsiteDataOptionsSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;WebsiteDataOptionsSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Address of a webpage with Captcha&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websiteurl&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Website key&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websitekey&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;websiteURL&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteKey" title="python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteKey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websiteKey</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteURL" title="python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteURL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websiteURL</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteKey">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">websiteKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteKey" title="Link to this definition">¶</a></dt>
+<dd><p>Website key</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteURL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">websiteURL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteURL" title="Link to this definition">¶</a></dt>
+<dd><p>Address of a webpage with Captcha</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CyberSiAraSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">CyberSiAraSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.CyberSiAraSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CyberSiAraSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Address of a webpage with Captcha&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websiteurl&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;anyOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Website key&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websitekey&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;SlideMasterUrlId&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Slidemasterurlid&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;UserAgent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Browser userAgent, you need submit your userAgent&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Useragent&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;websiteURL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;SlideMasterUrlId&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;UserAgent&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.CyberSiAraSer.SlideMasterUrlId" title="python3_capsolver.core.serializer.CyberSiAraSer.SlideMasterUrlId"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SlideMasterUrlId</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.CyberSiAraSer.UserAgent" title="python3_capsolver.core.serializer.CyberSiAraSer.UserAgent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UserAgent</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CyberSiAraSer.SlideMasterUrlId">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SlideMasterUrlId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CyberSiAraSer.SlideMasterUrlId" title="Link to this definition">¶</a></dt>
+<dd><p>You can get MasterUrlId param form <cite>api/CyberSiara/GetCyberSiara</cite> endpoint request</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CyberSiAraSer.UserAgent">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UserAgent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CyberSiAraSer.UserAgent" title="Link to this definition">¶</a></dt>
+<dd><p>Browser userAgent, you need submit your userAgent</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">AntiAkamaiBMPTaskSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AntiAkamaiBMPTaskSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;packageName&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;de.zalando.iphone&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Package name of AkamaiBMP mobile APP&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Packagename&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.2.6&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AKAMAI BMP Version number&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Version&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AKAMAI BMP country&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Country&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.country" title="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.country"><code class="xref py py-obj docutils literal notranslate"><span class="pre">country</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.packageName" title="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.packageName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">packageName</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.version" title="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.country">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'US'</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.country" title="Link to this definition">¶</a></dt>
+<dd><p>AKAMAI BMP country</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.packageName">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">packageName</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'de.zalando.iphone'</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.packageName" title="Link to this definition">¶</a></dt>
+<dd><p>Package name of AkamaiBMP mobile APP</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.version">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3.2.6'</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.version" title="Link to this definition">¶</a></dt>
+<dd><p>AKAMAI BMP Version number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiWebTaskSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">AntiAkamaiWebTaskSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiWebTaskSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AntiAkamaiWebTaskSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Browser url address&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Url&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;url&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiWebTaskSer.url" title="python3_capsolver.core.serializer.AntiAkamaiWebTaskSer.url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiAkamaiWebTaskSer.url">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiAkamaiWebTaskSer.url" title="Link to this definition">¶</a></dt>
+<dd><p>Browser url address</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiImpervaTaskSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">AntiImpervaTaskSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AntiImpervaTaskSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The website url&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websiteurl&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;userAgent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Browser userAgent&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Useragent&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;utmvc&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;If cookie contains `incap_see_xxx`, `nlbi_xxx`, `visid_inap_xxx`, mean is true&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Utmvc&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;reese84&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;if cookie conains `reese84`, set it true&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Reese84&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;websiteUrl&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;userAgent&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.reese84" title="python3_capsolver.core.serializer.AntiImpervaTaskSer.reese84"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reese84</span> <span class="pre">(bool)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.userAgent" title="python3_capsolver.core.serializer.AntiImpervaTaskSer.userAgent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">userAgent</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.utmvc" title="python3_capsolver.core.serializer.AntiImpervaTaskSer.utmvc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utmvc</span> <span class="pre">(bool)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.websiteUrl" title="python3_capsolver.core.serializer.AntiImpervaTaskSer.websiteUrl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websiteUrl</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiImpervaTaskSer.reese84">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reese84</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.reese84" title="Link to this definition">¶</a></dt>
+<dd><p>if cookie conains <cite>reese84</cite>, set it true</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiImpervaTaskSer.userAgent">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">userAgent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.userAgent" title="Link to this definition">¶</a></dt>
+<dd><p>Browser userAgent</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiImpervaTaskSer.utmvc">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">utmvc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.utmvc" title="Link to this definition">¶</a></dt>
+<dd><p>If cookie contains <cite>incap_see_xxx</cite>, <cite>nlbi_xxx</cite>, <cite>visid_inap_xxx</cite>, mean is true</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.AntiImpervaTaskSer.websiteUrl">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">websiteUrl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.websiteUrl" title="Link to this definition">¶</a></dt>
+<dd><p>The website url</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.BinanceCaptchaTaskSer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">BinanceCaptchaTaskSer</span></span><a class="headerlink" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer" title="Link to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BinanceCaptchaTaskSer&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;captcha_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task type name&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Captcha Type&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Address of a webpage with Binance captcha&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websiteurl&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;websiteKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;`bizId` always be `login`&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Websitekey&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;validateId&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;`validateId` bncaptcha validateId field&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Validateid&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;captcha_type&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;websiteURL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;validateId&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.validateId" title="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.validateId"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validateId</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteKey" title="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteKey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websiteKey</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteURL" title="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteURL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websiteURL</span> <span class="pre">(str)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.validateId">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validateId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.validateId" title="Link to this definition">¶</a></dt>
+<dd><p><cite>validateId</cite> bncaptcha validateId field</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteKey">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">websiteKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'login'</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteKey" title="Link to this definition">¶</a></dt>
+<dd><p><cite>bizId</cite> always be <cite>login</cite></p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteURL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">websiteURL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteURL" title="Link to this definition">¶</a></dt>
+<dd><p>Address of a webpage with Binance captcha</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Capsolver.png" alt="Logo of python3-capsolver"/>
+            </a></p>
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">Serializer</a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaOptionsSer"><code class="docutils literal notranslate"><span class="pre">CaptchaOptionsSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.api_key"><code class="docutils literal notranslate"><span class="pre">CaptchaOptionsSer.api_key</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaOptionsSer.sleep_time"><code class="docutils literal notranslate"><span class="pre">CaptchaOptionsSer.sleep_time</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer"><code class="docutils literal notranslate"><span class="pre">WebsiteDataOptionsSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteKey"><code class="docutils literal notranslate"><span class="pre">WebsiteDataOptionsSer.websiteKey</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.WebsiteDataOptionsSer.websiteURL"><code class="docutils literal notranslate"><span class="pre">WebsiteDataOptionsSer.websiteURL</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CyberSiAraSer"><code class="docutils literal notranslate"><span class="pre">CyberSiAraSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CyberSiAraSer.SlideMasterUrlId"><code class="docutils literal notranslate"><span class="pre">CyberSiAraSer.SlideMasterUrlId</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CyberSiAraSer.UserAgent"><code class="docutils literal notranslate"><span class="pre">CyberSiAraSer.UserAgent</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiBMPTaskSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.country"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiBMPTaskSer.country</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.packageName"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiBMPTaskSer.packageName</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer.version"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiBMPTaskSer.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiWebTaskSer"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiWebTaskSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiAkamaiWebTaskSer.url"><code class="docutils literal notranslate"><span class="pre">AntiAkamaiWebTaskSer.url</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer"><code class="docutils literal notranslate"><span class="pre">AntiImpervaTaskSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.reese84"><code class="docutils literal notranslate"><span class="pre">AntiImpervaTaskSer.reese84</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.userAgent"><code class="docutils literal notranslate"><span class="pre">AntiImpervaTaskSer.userAgent</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.utmvc"><code class="docutils literal notranslate"><span class="pre">AntiImpervaTaskSer.utmvc</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.AntiImpervaTaskSer.websiteUrl"><code class="docutils literal notranslate"><span class="pre">AntiImpervaTaskSer.websiteUrl</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer"><code class="docutils literal notranslate"><span class="pre">BinanceCaptchaTaskSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.validateId"><code class="docutils literal notranslate"><span class="pre">BinanceCaptchaTaskSer.validateId</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteKey"><code class="docutils literal notranslate"><span class="pre">BinanceCaptchaTaskSer.websiteKey</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.BinanceCaptchaTaskSer.websiteURL"><code class="docutils literal notranslate"><span class="pre">BinanceCaptchaTaskSer.websiteURL</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../index.html">Overview</a>
+    <ul>
+          <li>Previous: <a href="../enum/info.html" title="previous chapter">Enum</a>
+          
+    </ul>
+  </li>
+</ul>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, AndreiDrang; Release - 0.9.3; Last update - 2024-10-04.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+  <script src="../../_static/version_warning_offset.js"></script>
+
+  </body>
+</html>
