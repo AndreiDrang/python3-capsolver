@@ -1,6 +1,6 @@
 # python3-capsolver
 
-![Logo](https://red-panda-dev.xyz/media/images/Capsolver_ugBYrN0.original.png)
+[![Capsolver.png](https://s.vyjava.xyz/files/2024/12-December/17/109278aa/Capsolver.png)](https://vyjava.xyz/dashboard/image/109278aa-961a-4503-bed0-0a9c838dcef2)
 
 <hr>
 
@@ -58,4 +58,4 @@ Check [releases page](https://github.com/AndreiDrang/python3-capsolver/releases)
 
 ### How to get API Key to work with the library
 1. On the page - https://dashboard.capsolver.com/overview/user-center
-2. Find it: ![img.png](files/img.png)
+2. Find it: [![img.png](https://s.vyjava.xyz/files/2024/12-December/17/ae8d4fbf/img.png)](https://vyjava.xyz/dashboard/image/ae8d4fbf-7451-441d-8984-79b1a7adbe27)
