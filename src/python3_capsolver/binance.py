@@ -1,8 +1,7 @@
 from typing import Union
 
-from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import BinanceCaptchaTaskEnm
-from python3_capsolver.core.serializer import CaptchaResponseSer, BinanceCaptchaTaskSer
+from .core.enum import BinanceCaptchaTaskEnm
+from .core.serializer import CaptchaResponseSer, BinanceCaptchaTaskSer
 
 
 class Binance(BaseCaptcha):

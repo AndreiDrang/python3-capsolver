@@ -1,16 +1,11 @@
 from typing import Union
 
-from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import AntiAkamaiTaskEnm, EndpointPostfixEnm
-from python3_capsolver.core.serializer import (
-    PostRequestSer,
-    CaptchaResponseSer,
-    AntiAkamaiBMPTaskSer,
-    AntiAkamaiWebTaskSer,
-)
+from .core.base import CaptchaParams
+from .core.enum import AntiAkamaiTaskEnm, EndpointPostfixEnm
+from .core.serializer import PostRequestSer, CaptchaResponseSer, AntiAkamaiBMPTaskSer, AntiAkamaiWebTaskSer
 
 
-class Akamai(BaseCaptcha):
+class Akamai(CaptchaParams):
     """
     The class is used to work with Capsolver AntiAkamai methods.
 
