@@ -8,7 +8,7 @@ import requests
 from requests.adapters import HTTPAdapter
 
 from .enum import SaveFormatsEnm, ResponseStatusEnm, EndpointPostfixEnm
-from .const import RETRIES, VALID_STATUS_CODES
+from .const import RETRIES, REQUEST_URL, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
 from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrument
@@ -30,10 +30,6 @@ class SIOCaptchaInstrument(CaptchaInstrument):
         self.session.mount("http://", HTTPAdapter(max_retries=RETRIES))
         self.session.mount("https://", HTTPAdapter(max_retries=RETRIES))
         self.session.verify = False
-
-    """
-    Sync part
-    """
 
     def processing_captcha(self) -> dict:
         self.created_task_data = CaptchaResponseSer(**self.__create_task())
@@ -156,6 +152,25 @@ class SIOCaptchaInstrument(CaptchaInstrument):
         else:
             self.result.errorId = 1
             self.result.errorCode = self.CAPTCHA_UNSOLVABLE
+
+    @staticmethod
+    def send_post_request(
+        payload: Optional[dict] = None,
+        session: requests.Session = requests.Session(),
+        url_postfix: str = GET_BALANCE_POSTFIX,
+    ) -> dict:
+        """
+        Function send SYNC request to service and wait for result
+        """
+        try:
+            resp = session.post(parse.urljoin(REQUEST_URL, url_postfix), json=payload)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                raise ValueError(resp.raise_for_status())
+        except Exception as error:
+            logging.exception(error)
+            raise
 
     def _url_read(self, url: str, **kwargs):
         """
