@@ -2,6 +2,7 @@ from typing import Union, Optional
 
 from .core.base import CaptchaParams
 from .core.enum import AntiAwsWafTaskTypeEnm
+from .core.aio_captcha_instrument import AIOCaptchaInstrument
 from .core.sio_captcha_instrument import SIOCaptchaInstrument
 
 
@@ -118,4 +119,6 @@ class AwsWaf(CaptchaParams):
         Notes:
             Check class docstring for more info
         """
-        return await self._aio_processing_captcha()
+        self.create_task_payload.task = {**self.task_params}
+        self._captcha_handling_instrument = AIOCaptchaInstrument(captcha_params=self)
+        return await self._captcha_handling_instrument._aio_processing_captcha()
