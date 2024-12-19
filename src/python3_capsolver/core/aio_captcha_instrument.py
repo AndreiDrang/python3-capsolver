@@ -3,14 +3,13 @@ import asyncio
 import logging
 from typing import Union, Optional
 from urllib import parse
-from urllib.parse import urljoin
 
 import aiohttp
 
-from .enum import SaveFormatsEnm
-from .const import ASYNC_RETRIES, BASE_REQUEST_URL, GET_RESULT_POSTFIX, CREATE_TASK_POSTFIX
+from .enum import SaveFormatsEnm, ResponseStatusEnm, EndpointPostfixEnm
+from .const import REQUEST_URL, ASYNC_RETRIES, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
 from .utils import attempts_generator
-from .serializer import CreateTaskResponseSer
+from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrument
 
 __all__ = ("AIOCaptchaInstrument",)
@@ -24,21 +23,70 @@ class AIOCaptchaInstrument(CaptchaInstrument):
     def __init__(self, captcha_params: "CaptchaParams"):
         super().__init__()
         self.captcha_params = captcha_params
+        self.created_task_data = CaptchaResponseSer
 
     async def processing_captcha(self) -> dict:
-        # added task params to payload
-        self.captcha_params.create_task_payload.task.update(self.captcha_params.task_params)
+        self.created_task_data = CaptchaResponseSer(**await self.__create_task())
 
-        created_task = await self._create_task()
+        # if task created and already ready - return result
+        if self.created_task_data.errorId == 0 and self.created_task_data.status == ResponseStatusEnm.Processing.value:
+            return (await self.__get_result()).to_dict()
+        return self.created_task_data.to_dict()
 
-        if created_task.errorId == 0:
-            self.captcha_params.get_result_params.taskId = created_task.taskId
-        else:
-            return created_task.to_dict()
+    async def __create_task(self, url_postfix: str = EndpointPostfixEnm.CREATE_TASK.value) -> dict:
+        """
+        Function send the ASYNC request to service and wait for result
+        """
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.post(
+                    parse.urljoin(self.captcha_params.request_url, url_postfix),
+                    json=self.captcha_params.create_task_payload.to_dict(),
+                ) as resp:
+                    if resp.status in VALID_STATUS_CODES:
+                        return await resp.json()
+                    else:
+                        raise ValueError(resp.reason)
+            except Exception as error:
+                logging.exception(error)
+                raise
 
+    async def __get_result(self, url_postfix: str = EndpointPostfixEnm.GET_TASK_RESULT.value) -> CaptchaResponseSer:
+        """
+        Function send the ASYNC request to service and wait for result
+        """
+        # initial waiting
         await asyncio.sleep(self.captcha_params.sleep_time)
 
-        return await self._get_result()
+        self.captcha_params.get_result_params.taskId = self.created_task_data.taskId
+        attempts = attempts_generator()
+        async with aiohttp.ClientSession() as session:
+            for _ in attempts:
+                try:
+                    async with session.post(
+                        parse.urljoin(self.captcha_params.request_url, url_postfix),
+                        json=self.captcha_params.get_result_params.to_dict(),
+                    ) as resp:
+                        if resp.status in VALID_STATUS_CODES:
+                            result_data = CaptchaResponseSer(**await resp.json())
+                            if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
+                                # if captcha ready\failed or have unknown status - return exist data
+                                return result_data
+                        else:
+                            raise ValueError(resp.reason)
+                except Exception as error:
+                    logging.exception(error)
+                    raise
+
+                # if captcha just created or in processing now - wait
+                await asyncio.sleep(self.captcha_params.sleep_time)
+
+            # default response if server is silent
+            self.result.errorId = 1
+            self.result.errorCode = self.CAPTCHA_UNSOLVABLE
+            self.result.errorDescription = "Captcha not recognized"
+            self.result.taskId = self.created_task_data.taskId
+            self.result.status = ResponseStatusEnm.Failed
 
     async def processing_image_captcha(
         self,
@@ -94,49 +142,22 @@ class AIOCaptchaInstrument(CaptchaInstrument):
                 self.captcha_params.create_task_payload.task.update({"body": base64.b64encode(content).decode("utf-8")})
             except Exception as error:
                 self.result.errorId = 12
-                self.result.errorCode = self.NO_CAPTCHA_ERR
+                self.result.errorCode = self.CAPTCHA_UNSOLVABLE
                 self.result.errorDescription = str(error)
 
         else:
             self.result.errorId = 12
-            self.result.errorCode = self.NO_CAPTCHA_ERR
-
-    async def _url_read(self, url: str, **kwargs) -> bytes:
-        """
-        Async method read bytes from link
-        """
-        async with aiohttp.ClientSession() as session:
-            async for attempt in ASYNC_RETRIES:
-                with attempt:
-                    async with session.get(url=url, **kwargs) as resp:
-                        return await resp.content.read()
-
-    async def _create_task(self, url_postfix: str = CREATE_TASK_POSTFIX) -> CreateTaskResponseSer:
-        """
-        Function send SYNC request to service and wait for result
-        """
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.post(
-                    parse.urljoin(BASE_REQUEST_URL, url_postfix), json=self.captcha_params.create_task_payload.to_dict()
-                ) as resp:
-                    if resp.status == 200:
-                        return CreateTaskResponseSer(**await resp.json())
-                    else:
-                        raise ValueError(resp.reason)
-            except Exception as error:
-                logging.exception(error)
-                raise
+            self.result.errorCode = self.CAPTCHA_UNSOLVABLE
 
     @staticmethod
-    async def send_post_request(payload: Optional[dict] = None, url_postfix: str = CREATE_TASK_POSTFIX) -> dict:
+    async def send_post_request(payload: Optional[dict] = None, url_postfix: str = GET_BALANCE_POSTFIX) -> dict:
         """
         Function send ASYNC request to service and wait for result
         """
 
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(parse.urljoin(BASE_REQUEST_URL, url_postfix), json=payload) as resp:
+                async with session.post(parse.urljoin(REQUEST_URL, url_postfix), json=payload) as resp:
                     if resp.status == 200:
                         return await resp.json()
                     else:
@@ -145,24 +166,13 @@ class AIOCaptchaInstrument(CaptchaInstrument):
                 logging.exception(error)
                 raise
 
-    async def _get_result(self, url_response: str = GET_RESULT_POSTFIX) -> dict:
-        attempts = attempts_generator()
-        # Send request for status of captcha solution.
+    @staticmethod
+    async def _url_read(url: str, **kwargs) -> bytes:
+        """
+        Async method read bytes from link
+        """
         async with aiohttp.ClientSession() as session:
-            for _ in attempts:
-                async with session.post(
-                    url=urljoin(BASE_REQUEST_URL, url_response), json=self.captcha_params.get_result_params.to_dict()
-                ) as resp:
-                    json_result = await resp.json()
-                    # if there is no error, check CAPTCHA status
-                    if json_result["errorId"] == 0:
-                        # If not yet resolved, wait
-                        if json_result["status"] == "processing":
-                            await asyncio.sleep(self.captcha_params.sleep_time)
-                        # otherwise return response
-                        else:
-                            json_result.update({"taskId": self.captcha_params.get_result_params.taskId})
-                            return json_result
-                    else:
-                        json_result.update({"taskId": self.captcha_params.get_result_params.taskId})
-                        return json_result
+            async for attempt in ASYNC_RETRIES:
+                with attempt:
+                    async with session.get(url=url, **kwargs) as resp:
+                        return await resp.content.read()
