@@ -2,8 +2,6 @@ from typing import Union, Optional
 
 from .core.base import CaptchaParams
 from .core.enum import AntiAwsWafTaskTypeEnm
-from .core.aio_captcha_instrument import AIOCaptchaInstrument
-from .core.sio_captcha_instrument import SIOCaptchaInstrument
 
 
 class AwsWaf(CaptchaParams):
@@ -94,31 +92,3 @@ class AwsWaf(CaptchaParams):
                 f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
                 available - {AntiAwsWafTaskTypeEnm.list_values()}"""
             )
-
-    def captcha_handler(self) -> dict:
-        """
-        Sync solving method
-
-        Returns:
-            Dict with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        self.create_task_payload.task = {**self.task_params}
-        self._captcha_handling_instrument = SIOCaptchaInstrument(captcha_params=self)
-        return self._captcha_handling_instrument.processing_captcha()
-
-    async def aio_captcha_handler(self) -> dict:
-        """
-        Async method for captcha solving
-
-        Returns:
-            Dict with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        self.create_task_payload.task = {**self.task_params}
-        self._captcha_handling_instrument = AIOCaptchaInstrument(captcha_params=self)
-        return await self._captcha_handling_instrument._aio_processing_captcha()
