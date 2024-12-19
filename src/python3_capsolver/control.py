@@ -5,6 +5,8 @@ from .core.const import GET_BALANCE_POSTFIX
 from .core.aio_captcha_instrument import AIOCaptchaInstrument
 from .core.sio_captcha_instrument import SIOCaptchaInstrument
 
+__all__ = ("Control",)
+
 
 class Control(CaptchaParams):
 
