@@ -3,6 +3,8 @@ from typing import Union, Optional
 from .core.base import CaptchaParams
 from .core.enum import AntiAwsWafTaskTypeEnm
 
+__all__ = ("AwsWaf",)
+
 
 class AwsWaf(CaptchaParams):
     def __init__(
