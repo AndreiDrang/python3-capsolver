@@ -1,10 +1,11 @@
 from typing import Union
 
+from python3_capsolver.core.base import CaptchaParams
 from .core.enum import BinanceCaptchaTaskEnm
 from .core.serializer import CaptchaResponseSer, BinanceCaptchaTaskSer
 
 
-class Binance(BaseCaptcha):
+class Binance(CaptchaParams):
     """
     The class is used to work with Capsolver Imperva method.
 
@@ -66,9 +67,9 @@ class Binance(BaseCaptcha):
 
     def __init__(
         self,
-        captcha_type: Union[BinanceCaptchaTaskEnm, str],
         websiteURL: str,
         validateId: str,
+        captcha_type: Union[BinanceCaptchaTaskEnm, str] = BinanceCaptchaTaskEnm.BinanceCaptchaTask,
         websiteKey: str = "login",
         *args,
         **kwargs,
