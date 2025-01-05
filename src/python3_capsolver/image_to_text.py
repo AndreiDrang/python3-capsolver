@@ -1,11 +1,11 @@
 from typing import Union
 
-from python3_capsolver.core.base import BaseCaptcha
+from python3_capsolver.core.base import CaptchaParams
 from python3_capsolver.core.enum import ImageToTextTaskTypeEnm
 from python3_capsolver.core.serializer import TaskSer, CaptchaResponseSer
 
 
-class ImageToText(BaseCaptcha):
+class ImageToText(CaptchaParams):
     """
     The class is used to work with Capsolver Image captcha solving methods.
 

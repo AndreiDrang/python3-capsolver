@@ -1,30 +1,38 @@
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import Field, BaseModel, conint
+from msgspec import Struct
 
-from python3_capsolver.core.enum import ResponseStatusEnm
-from python3_capsolver.core.config import APP_ID
+from .enum import ResponseStatusEnm
+from .const import APP_ID
+
+
+class MyBaseModel(Struct):
+    def to_dict(self):
+        return {f: getattr(self, f) for f in self.__struct_fields__}
+
 
 """
 HTTP API Request ser
 """
 
 
-class PostRequestSer(BaseModel):
-    clientKey: str = Field(..., description="Client account key, can be found in user account")
-    task: dict = Field(None, description="Task object")
+class PostRequestSer(MyBaseModel):
+    clientKey: str
+    task: Dict = {}
+    callbackUrl: Optional[str] = None
 
 
-class TaskSer(BaseModel):
-    type: str = Field(..., description="Task type name", alias="captcha_type")
+class TaskSer(MyBaseModel):
+    type: str
 
 
 class RequestCreateTaskSer(PostRequestSer):
     appId: Literal[APP_ID] = APP_ID
 
 
-class RequestGetTaskResultSer(PostRequestSer):
-    taskId: Optional[str] = Field(None, description="ID created by the createTask method")
+class RequestGetTaskResultSer(MyBaseModel):
+    clientKey: str
+    taskId: Optional[str] = None
 
 
 """
@@ -32,24 +40,21 @@ HTTP API Response ser
 """
 
 
-class ResponseSer(BaseModel):
-    errorId: int = Field(..., description="Error message: `False` - no error, `True` - with error")
+class ResponseSer(MyBaseModel):
+    errorId: int = 0
     # error info
-    errorCode: Optional[str] = Field(None, description="Error code")
-    errorDescription: Optional[str] = Field(None, description="Error description")
+    errorCode: Optional[str] = None
+    errorDescription: Optional[str] = None
 
 
 class CaptchaResponseSer(ResponseSer):
-    taskId: Optional[str] = Field(None, description="Task ID for future use in getTaskResult method.")
-    status: ResponseStatusEnm = Field(ResponseStatusEnm.Processing, description="Task current status")
-    solution: Dict[str, Any] = Field(None, description="Task result data. Different for each type of task.")
-
-    class Config:
-        populate_by_name = True
+    taskId: Optional[str] = None
+    status: ResponseStatusEnm = ResponseStatusEnm.Processing
+    solution: Optional[Dict[str, Any]] = None
 
 
 class ControlResponseSer(ResponseSer):
-    balance: Optional[float] = Field(0, description="Account balance value in USD")
+    balance: float = 0
 
 
 """
@@ -57,9 +62,9 @@ Other ser
 """
 
 
-class CaptchaOptionsSer(BaseModel):
-    api_key: str
-    sleep_time: conint(ge=5) = 5
+class CaptchaOptionsSer(MyBaseModel):
+    api_key: str = None
+    sleep_time: int = 5
 
 
 """
@@ -68,88 +73,67 @@ Captcha tasks ser
 
 
 class WebsiteDataOptionsSer(TaskSer):
-    websiteURL: str = Field(..., description="Address of a webpage with Captcha")
-    websiteKey: Optional[str] = Field(None, description="Website key")
+    websiteURL: str
+    websiteKey: Optional[str]
 
 
 class ReCaptchaV3Ser(WebsiteDataOptionsSer):
-    pageAction: str = Field(
-        "verify",
-        description="Widget action value."
-        "Website owner defines what user is doing on the page through this parameter",
-    )
+    pageAction: str = "verify"
 
 
 class HCaptchaClassificationOptionsSer(TaskSer):
-    queries: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
-    question: str = Field(
-        ..., description="Question ID. Support English and Chinese, other languages please convert yourself"
-    )
+    queries: List[str]
+    question: str
 
 
 class FunCaptchaClassificationOptionsSer(TaskSer):
-    images: List[str] = Field(..., description="Base64-encoded images, do not include 'data:image/***;base64,'")
-    question: str = Field(
-        ...,
-        description="Question name. this param value from API response game_variant field. Exmaple: maze,maze2,flockCompass,3d_rollball_animals",
-    )
+    images: List[str]
+    question: str
 
 
 class GeeTestSer(TaskSer):
-    websiteURL: str = Field(..., description="Address of a webpage with Geetest")
-    gt: str = Field(..., description="The domain public key, rarely updated")
-    challenge: Optional[str] = Field(
-        "",
-        description="If you need to solve Geetest V3 you must use this parameter, don't need if you need to solve GeetestV4",
-    )
+    websiteURL: str
+    gt: str
+    challenge: Optional[str] = ""
 
 
 class FunCaptchaSer(TaskSer):
-    websiteURL: str = Field(..., description="Address of a webpage with Funcaptcha")
-    websitePublicKey: str = Field(..., description="Funcaptcha website key.")
-    funcaptchaApiJSSubdomain: Optional[str] = Field(
-        None,
-        description="A special subdomain of funcaptcha.com, from which the JS captcha widget should be loaded."
-        "Most FunCaptcha installations work from shared domains.",
-    )
+    websiteURL: str
+    websitePublicKey: str
+    funcaptchaApiJSSubdomain: Optional[str] = None
 
 
 class DatadomeSliderSer(TaskSer):
-    websiteURL: str = Field(..., description="Address of a webpage with DatadomeSlider")
-    captchaUrl: str = Field(..., description="Captcha Url where is the captcha")
-    userAgent: str = Field(..., description="Browser's User-Agent which is used in emulation")
+    websiteURL: str
+    captchaUrl: str
+    userAgent: str
 
 
 class CloudflareTurnstileSer(WebsiteDataOptionsSer): ...
 
 
 class CyberSiAraSer(WebsiteDataOptionsSer):
-    SlideMasterUrlId: str = Field(
-        ..., description="You can get MasterUrlId param form `api/CyberSiara/GetCyberSiara` endpoint request"
-    )
-    UserAgent: str = Field(..., description="Browser userAgent, you need submit your userAgent")
+    SlideMasterUrlId: str
 
 
 class AntiAkamaiBMPTaskSer(TaskSer):
-    packageName: str = Field("de.zalando.iphone", description="Package name of AkamaiBMP mobile APP")
-    version: str = Field("3.2.6", description="AKAMAI BMP Version number")
-    country: str = Field("US", description="AKAMAI BMP country")
+    packageName: str = "de.zalando.iphone"
+    version: str = "3.2.6"
+    country: str = "US"
 
 
 class AntiAkamaiWebTaskSer(TaskSer):
-    url: str = Field(..., description="Browser url address")
+    url: str
 
 
 class AntiImpervaTaskSer(TaskSer):
-    websiteUrl: str = Field(..., description="The website url")
-    userAgent: str = Field(..., description="Browser userAgent")
-    utmvc: bool = Field(
-        True, description="If cookie contains `incap_see_xxx`, `nlbi_xxx`, `visid_inap_xxx`, mean is true"
-    )
-    reese84: bool = Field(True, description="if cookie conains `reese84`, set it true")
+    websiteUrl: str
+    userAgent: str
+    utmvc: bool = True
+    reese84: bool = True
 
 
 class BinanceCaptchaTaskSer(TaskSer):
-    websiteURL: str = Field(..., description="Address of a webpage with Binance captcha")
-    websiteKey: str = Field("login", description="`bizId` always be `login`")
-    validateId: str = Field(..., description="`validateId` bncaptcha validateId field")
+    websiteURL: str
+    validateId: str
+    websiteKey: str = "login"

@@ -1,29 +1,35 @@
-from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import EndpointPostfixEnm
-from python3_capsolver.core.serializer import PostRequestSer, ControlResponseSer
+from python3_capsolver.core.serializer import PostRequestSer
+
+from .core.base import CaptchaParams
+from .core.const import GET_BALANCE_POSTFIX
+from .core.aio_captcha_instrument import AIOCaptchaInstrument
+from .core.sio_captcha_instrument import SIOCaptchaInstrument
+
+__all__ = ("Control",)
 
 
-class Control(BaseCaptcha):
-    """
-    The class is used to work with Capsolver control methods.
-
-    Args:
-        api_key: Capsolver API key
-
-    Notes:
-        https://docs.capsolver.com/guide/api-getbalance.html
-    """
+class Control(CaptchaParams):
 
     serializer = PostRequestSer
 
     def __init__(
         self,
+        api_key: str,
         *args,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
+        """
+        The class is used to work with Capsolver control methods.
 
-    def get_balance(self) -> ControlResponseSer:
+        Args:
+            api_key: Capsolver API key
+
+        Notes:
+            https://docs.capsolver.com/guide/api-getbalance.html
+        """
+        super().__init__(api_key=api_key, *args, **kwargs)
+
+    def get_balance(self) -> dict:
         """
         Synchronous method to view the balance
 
@@ -32,19 +38,19 @@ class Control(BaseCaptcha):
             ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
 
         Returns:
-            ResponseSer model with full server response
+            Dict with full server response
 
         Notes:
-            https://docs.capsolver.com/guide/api-getbalance.html
+            Check class docstring for more info
         """
-        self._prepare_create_task_payload(serializer=self.serializer)
-        return ControlResponseSer(
-            **self._create_task(
-                url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
-            )
+        self._captcha_handling_instrument = SIOCaptchaInstrument(captcha_params=self)
+        return self._captcha_handling_instrument.send_post_request(
+            session=self._captcha_handling_instrument.session,
+            url_postfix=GET_BALANCE_POSTFIX,
+            payload={"clientKey": self.create_task_payload.clientKey},
         )
 
-    async def aio_get_balance(self) -> ControlResponseSer:
+    async def aio_get_balance(self) -> dict:
         """
         Asynchronous method to view the balance
 
@@ -53,14 +59,12 @@ class Control(BaseCaptcha):
             ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
 
         Returns:
-            ResponseSer model with full server response
+            Dict with full server response
 
         Notes:
-            https://docs.capsolver.com/guide/api-getbalance.html
+            Check class docstring for more info
         """
-        self._prepare_create_task_payload(serializer=self.serializer)
-        return ControlResponseSer(
-            **await self._aio_create_task(
-                url_postfix=EndpointPostfixEnm.GET_BALANCE.value,
-            )
+        return await AIOCaptchaInstrument.send_post_request(
+            url_postfix=GET_BALANCE_POSTFIX,
+            payload={"clientKey": self.create_task_payload.clientKey},
         )

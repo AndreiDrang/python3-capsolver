@@ -137,3 +137,8 @@ class ResponseStatusEnm(str, MyEnum):
     Processing = "processing"  # Task is not ready yet
     Ready = "ready"  # Task completed, solution object can be found in solution property
     Failed = "failed"  # Task failed, check the errorDescription to know why failed.
+
+
+class SaveFormatsEnm(str, MyEnum):
+    TEMP = "temp"
+    CONST = "const"
