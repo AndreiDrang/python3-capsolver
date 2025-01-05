@@ -25,12 +25,6 @@ Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
-***
-
-If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
-
-Or email python-captcha@pm.me
-
 ## How to install?
 
 We recommend using the latest version of Python. `python3-capsolver` supports Python 3.7+.
@@ -59,3 +53,9 @@ Check [releases page](https://github.com/AndreiDrang/python3-capsolver/releases)
 ### How to get API Key to work with the library
 1. On the page - https://dashboard.capsolver.com/overview/user-center
 2. Find it: [![img.png](https://s.vyjava.xyz/files/2024/12-December/17/ae8d4fbf/img.png)](https://vyjava.xyz/dashboard/image/ae8d4fbf-7451-441d-8984-79b1a7adbe27)
+
+### Contacts
+
+If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
+
+Or email python-captcha@pm.me
