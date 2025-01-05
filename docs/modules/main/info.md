@@ -27,8 +27,6 @@ Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
-***
-
 You can check our other projects here - [RedPandaDev group](https://red-panda-dev.xyz/blog/).
 
 ***
@@ -59,3 +57,9 @@ python setup.py install
 ### Changelog
 
 Check [releases page](https://github.com/AndreiDrang/python3-capsolver/releases).
+
+### Contacts
+
+If you have any questions, please send a message to the [Telegram](https://t.me/pythoncaptcha) chat room.
+
+Or email python-captcha@pm.me
