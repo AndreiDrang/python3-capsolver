@@ -29,8 +29,8 @@ class EndpointPostfixEnm(str, MyEnum):
 
 
 class CaptchaTypeEnm(str, MyEnum):
-
     ImageToTextTask = "ImageToTextTask"
+    VisionEngine = "VisionEngine"
 
     HCaptchaTask = "HCaptchaTask"
     HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
