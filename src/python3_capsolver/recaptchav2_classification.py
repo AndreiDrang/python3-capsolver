@@ -12,6 +12,11 @@ class ReCaptchaV2Classification(CaptchaParams):
 
     Args:
         api_key: Capsolver API key
+        kwargs: additional params for client, like captcha waiting time
+                    available keys:
+                     - sleep_time: int - captcha solution waintig time in sec
+                     - request_url: str - API address for sending requests,
+                                            else official will be used
 
     Examples:
         >>> from python3_capsolver.recaptchav2_classification import ReCaptchaV2Classification
@@ -19,8 +24,8 @@ class ReCaptchaV2Classification(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ReCaptchaV2Classification(api_key="CAI-12345....").captcha_handler(
-        >>>                             task_payload={"image": body, "question": "/m/04_sv"}
-        >>>                     )
+        ...                             task_payload={"image": body, "question": "/m/04_sv"}
+        ...                     )
         {
            "errorId":0,
            "errorCode":"None",
@@ -39,9 +44,9 @@ class ReCaptchaV2Classification(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> asyncio.run(ReCaptchaV2Classification(api_key="CAI-12345....").aio_captcha_handler(
-        >>>                                         task_payload={"image": body, "question": "/m/04_sv"}
-        >>>                                 )
-        >>>         )
+        ...                                         task_payload={"image": body, "question": "/m/04_sv"}
+        ...                                 )
+        ...         )
         {
            "errorId":0,
            "errorCode":"None",
@@ -59,8 +64,8 @@ class ReCaptchaV2Classification(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ReCaptchaV2Classification(api_key="CAI-12345....").captcha_handler(
-        >>>                             task_payload={"image": body, "question": "/m/04_sv"}
-        >>>                     )
+        ...                             task_payload={"image": body, "question": "/m/04_sv"}
+        ...                     )
         {
            "errorId":0,
            "errorCode":"None",
