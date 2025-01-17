@@ -28,7 +28,7 @@ class AwsWaf(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
-        >>>  AwsWaf(api_key="CAP-488C9D7519EA18FC626579D1581D1357",
+        >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
         ...         ).captcha_handler(task_payload={
         ...                                 "images": [image],
@@ -60,7 +60,7 @@ class AwsWaf(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
-        >>> asyncio.run(AwsWaf(api_key="CAP-488C9D7519EA18FC626579D1581D1357",
+        >>> asyncio.run(AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
         ...         ).aio_captcha_handler(task_payload={
         ...                                 "images": [image],
@@ -90,7 +90,7 @@ class AwsWaf(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
-        >>>  AwsWaf(api_key="CAP-488C9D7519EA18FC626579D1581D1357",
+        >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTaskProxyLess
         ...         ).captcha_handler(task_payload={
         ...                                 "websiteURL": "https://xxxxxx/latest",
@@ -112,7 +112,7 @@ class AwsWaf(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
-        >>>  AwsWaf(api_key="CAP-488C9D7519EA18FC626579D1581D1357",
+        >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTask
         ...         ).captcha_handler(task_payload={
         ...                                 "websiteURL": "https://xxxxxx/latest",
