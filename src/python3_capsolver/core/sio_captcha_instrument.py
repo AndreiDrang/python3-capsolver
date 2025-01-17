@@ -38,6 +38,8 @@ class SIOCaptchaInstrument(CaptchaInstrument):
         # if task created and ready - return result
         if self.created_task_data.errorId == 0 and self.created_task_data.status == ResponseStatusEnm.Processing:
             return self.__get_result().to_dict()
+
+        self.created_task_data.status = ResponseStatusEnm.Failed
         return self.created_task_data.to_dict()
 
     def __create_task(self, url_postfix: str = EndpointPostfixEnm.CREATE_TASK.value) -> dict:
