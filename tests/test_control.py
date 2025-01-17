@@ -1,3 +1,6 @@
+import pytest
+from requests.exceptions import HTTPError
+
 from tests.conftest import BaseTest
 from python3_capsolver.control import Control
 
@@ -16,20 +19,19 @@ class TestControl(BaseTest):
     def test_get_balance(self):
         result = Control(api_key=self.API_KEY).get_balance()
         assert isinstance(result, dict)
+        assert result["errorId"] == 0
+        assert result["balance"] != 0.0
 
     async def test_aio_get_balance(self):
         result = await Control(api_key=self.API_KEY).aio_get_balance()
         assert isinstance(result, dict)
         assert result["errorId"] == 0
-        assert result["errorCode"] is None
-        assert result["errorDescription"] is None
+        assert result["balance"] != 0.0
 
     """
     Failed tests
     """
 
     def test_get_balance_api_key_err(self):
-        result = Control(api_key=self.get_random_string(36)).get_balance()
-        assert isinstance(result, dict)
-        assert result["errorId"] == 1
-        assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"
+        with pytest.raises(HTTPError):
+            result = Control(api_key=self.get_random_string(36)).get_balance()
