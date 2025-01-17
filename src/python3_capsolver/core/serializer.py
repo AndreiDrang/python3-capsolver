@@ -1,9 +1,11 @@
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, Literal, Optional
 
 from msgspec import Struct
 
 from .enum import ResponseStatusEnm
 from .const import APP_ID
+
+__all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponseSer")
 
 
 class MyBaseModel(Struct):
@@ -51,89 +53,3 @@ class CaptchaResponseSer(ResponseSer):
     taskId: Optional[str] = None
     status: ResponseStatusEnm = ResponseStatusEnm.Processing
     solution: Optional[Dict[str, Any]] = None
-
-
-class ControlResponseSer(ResponseSer):
-    balance: float = 0
-
-
-"""
-Other ser
-"""
-
-
-class CaptchaOptionsSer(MyBaseModel):
-    api_key: str = None
-    sleep_time: int = 5
-
-
-"""
-Captcha tasks ser
-"""
-
-
-class WebsiteDataOptionsSer(TaskSer):
-    websiteURL: str
-    websiteKey: Optional[str]
-
-
-class ReCaptchaV3Ser(WebsiteDataOptionsSer):
-    pageAction: str = "verify"
-
-
-class HCaptchaClassificationOptionsSer(TaskSer):
-    queries: List[str]
-    question: str
-
-
-class FunCaptchaClassificationOptionsSer(TaskSer):
-    images: List[str]
-    question: str
-
-
-class GeeTestSer(TaskSer):
-    websiteURL: str
-    gt: str
-    challenge: Optional[str] = ""
-
-
-class FunCaptchaSer(TaskSer):
-    websiteURL: str
-    websitePublicKey: str
-    funcaptchaApiJSSubdomain: Optional[str] = None
-
-
-class DatadomeSliderSer(TaskSer):
-    websiteURL: str
-    captchaUrl: str
-    userAgent: str
-
-
-class CloudflareTurnstileSer(WebsiteDataOptionsSer): ...
-
-
-class CyberSiAraSer(WebsiteDataOptionsSer):
-    SlideMasterUrlId: str
-
-
-class AntiAkamaiBMPTaskSer(TaskSer):
-    packageName: str = "de.zalando.iphone"
-    version: str = "3.2.6"
-    country: str = "US"
-
-
-class AntiAkamaiWebTaskSer(TaskSer):
-    url: str
-
-
-class AntiImpervaTaskSer(TaskSer):
-    websiteUrl: str
-    userAgent: str
-    utmvc: bool = True
-    reese84: bool = True
-
-
-class BinanceCaptchaTaskSer(TaskSer):
-    websiteURL: str
-    validateId: str
-    websiteKey: str = "login"
