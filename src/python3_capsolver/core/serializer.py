@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Any, Dict, Literal, Optional
 
 from msgspec import Struct
@@ -9,8 +10,14 @@ __all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponse
 
 
 class MyBaseModel(Struct):
-    def to_dict(self):
-        return {f: getattr(self, f) for f in self.__struct_fields__}
+    def to_dict(self) -> Dict[str, str]:
+        result = {}
+        for f in self.__struct_fields__:
+            if isinstance(getattr(self, f), Enum):
+                result.update({f: getattr(self, f).value})
+            else:
+                result.update({f: getattr(self, f)})
+        return result
 
 
 """
