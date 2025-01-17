@@ -39,6 +39,7 @@ class CaptchaParams(SIOContextManager, AIOContextManager):
         self.get_result_params = RequestGetTaskResultSer(clientKey=api_key)
         self.request_url = request_url
         self._captcha_handling_instrument = CaptchaInstrument()
+        self.sleep_time = sleep_time
 
     def captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
         """
