@@ -1,13 +1,12 @@
-import base64
 import asyncio
 import logging
-from typing import Union, Optional
+from typing import Optional
 from urllib import parse
 
 import aiohttp
 
-from .enum import SaveFormatsEnm, ResponseStatusEnm, EndpointPostfixEnm
-from .const import REQUEST_URL, ASYNC_RETRIES, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
+from .enum import ResponseStatusEnm, EndpointPostfixEnm
+from .const import REQUEST_URL, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
 from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrument
@@ -26,6 +25,7 @@ class AIOCaptchaInstrument(CaptchaInstrument):
         self.created_task_data = CaptchaResponseSer
 
     async def processing_captcha(self) -> dict:
+        self.captcha_params.create_task_payload.task = self.captcha_params.task_params
         self.created_task_data = CaptchaResponseSer(**await self.__create_task())
 
         # if task created and already ready - return result
@@ -88,67 +88,6 @@ class AIOCaptchaInstrument(CaptchaInstrument):
             self.result.taskId = self.created_task_data.taskId
             self.result.status = ResponseStatusEnm.Failed
 
-    async def processing_image_captcha(
-        self,
-        save_format: Union[str, SaveFormatsEnm],
-        img_clearing: bool,
-        captcha_link: str,
-        captcha_file: str,
-        captcha_base64: bytes,
-        img_path: str,
-    ) -> dict:
-        await self.__body_file_processing(
-            save_format=save_format,
-            img_clearing=img_clearing,
-            file_path=img_path,
-            captcha_link=captcha_link,
-            captcha_file=captcha_file,
-            captcha_base64=captcha_base64,
-        )
-        if not self.result.errorId:
-            return await self.processing_captcha()
-        return self.result.to_dict()
-
-    async def __body_file_processing(
-        self,
-        save_format: SaveFormatsEnm,
-        img_clearing: bool,
-        file_path: str,
-        file_extension: str = "png",
-        captcha_link: Optional[str] = None,
-        captcha_file: Optional[str] = None,
-        captcha_base64: Optional[bytes] = None,
-        **kwargs,
-    ):
-        # if a local file link is passed
-        if captcha_file:
-            self.captcha_params.create_task_payload.task.update(
-                {"body": base64.b64encode(self._local_file_captcha(captcha_file=captcha_file)).decode("utf-8")}
-            )
-        # if the file is transferred in base64 encoding
-        elif captcha_base64:
-            self.captcha_params.create_task_payload.task.update(
-                {"body": base64.b64encode(captcha_base64).decode("utf-8")}
-            )
-        # if a URL is passed
-        elif captcha_link:
-            try:
-                content = await self._url_read(url=captcha_link, **kwargs)
-                # according to the value of the passed parameter, select the function to save the image
-                if save_format == SaveFormatsEnm.CONST.value:
-                    full_file_path = self._file_const_saver(content, file_path, file_extension=file_extension)
-                    if img_clearing:
-                        self._file_clean(full_file_path=full_file_path)
-                self.captcha_params.create_task_payload.task.update({"body": base64.b64encode(content).decode("utf-8")})
-            except Exception as error:
-                self.result.errorId = 12
-                self.result.errorCode = self.CAPTCHA_UNSOLVABLE
-                self.result.errorDescription = str(error)
-
-        else:
-            self.result.errorId = 12
-            self.result.errorCode = self.CAPTCHA_UNSOLVABLE
-
     @staticmethod
     async def send_post_request(payload: Optional[dict] = None, url_postfix: str = GET_BALANCE_POSTFIX) -> dict:
         """
@@ -165,14 +104,3 @@ class AIOCaptchaInstrument(CaptchaInstrument):
             except Exception as error:
                 logging.exception(error)
                 raise
-
-    @staticmethod
-    async def _url_read(url: str, **kwargs) -> bytes:
-        """
-        Async method read bytes from link
-        """
-        async with aiohttp.ClientSession() as session:
-            async for attempt in ASYNC_RETRIES:
-                with attempt:
-                    async with session.get(url=url, **kwargs) as resp:
-                        return await resp.content.read()
