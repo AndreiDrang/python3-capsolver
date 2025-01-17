@@ -1,5 +1,4 @@
 from enum import Enum
-from types import DynamicClassAttribute
 from typing import List
 
 
@@ -16,20 +15,6 @@ class MyEnum(Enum):
     def list_names(cls) -> List[str]:
         return list(map(lambda c: c.name, cls))
 
-    @DynamicClassAttribute
-    def name(self) -> str:
-        """
-        The name of the Enum member
-        """
-        return self._name_
-
-    @DynamicClassAttribute
-    def value(self) -> str:
-        """
-        The name of the Enum member
-        """
-        return self._value_
-
 
 class EndpointPostfixEnm(str, MyEnum):
     """
@@ -43,11 +28,10 @@ class EndpointPostfixEnm(str, MyEnum):
     AKAMAI_WEB_INVOKE = "akamaiweb/invoke"
 
 
-class ImageToTextTaskTypeEnm(str, MyEnum):
+class CaptchaTypeEnm(str, MyEnum):
+
     ImageToTextTask = "ImageToTextTask"
 
-
-class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaTask = "HCaptchaTask"
     HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
     HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
@@ -55,73 +39,43 @@ class HCaptchaTypeEnm(str, MyEnum):
     HCaptchaTurboTask = "HCaptchaTurboTask"
     HCaptchaClassification = "HCaptchaClassification"
 
-
-class HCaptchaClassificationTypeEnm(str, MyEnum):
-    HCaptchaClassification = "HCaptchaClassification"
-
-
-class FunCaptchaTypeEnm(str, MyEnum):
     FunCaptchaTask = "FunCaptchaTask"
     FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
 
-
-class FunCaptchaClassificationTypeEnm(str, MyEnum):
     FunCaptchaClassification = "FunCaptchaClassification"
 
-
-class GeeTestCaptchaTypeEnm(str, MyEnum):
     GeeTestTask = "GeeTestTask"
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
-
-class ReCaptchaV2TypeEnm(str, MyEnum):
     # V2
     ReCaptchaV2Task = "ReCaptchaV2Task"
     ReCaptchaV2EnterpriseTask = "ReCaptchaV2EnterpriseTask"
     ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
     ReCaptchaV2EnterpriseTaskProxyLess = "ReCaptchaV2EnterpriseTaskProxyLess"
 
-
-class ReCaptchaV3TypeEnm(str, MyEnum):
     ReCaptchaV3Task = "ReCaptchaV3Task"
     ReCaptchaV3EnterpriseTask = "ReCaptchaV3EnterpriseTask"
     ReCaptchaV3TaskProxyLess = "ReCaptchaV3TaskProxyLess"
     ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
 
-
-class MtCaptchaTypeEnm(str, MyEnum):
     MtCaptchaTask = "MtCaptchaTask"
     MtCaptchaTaskProxyLess = "MtCaptchaTaskProxyLess"
 
-
-class DatadomeSliderTypeEnm(str, MyEnum):
     DatadomeSliderTask = "DatadomeSliderTask"
 
-
-class CloudflareTypeEnm(str, MyEnum):
     AntiCloudflareTask = "AntiCloudflareTask"
 
-
-class AntiAwsWafTaskTypeEnm(str, MyEnum):
     AntiAwsWafTask = "AntiAwsWafTask"
     AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
 
-
-class AntiCyberSiAraTaskTypeEnm(str, MyEnum):
     AntiCyberSiAraTask = "AntiCyberSiAraTask"
     AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
 
-
-class AntiAkamaiTaskEnm(str, MyEnum):
     AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
     AntiAkamaiWebTask = "AntiAkamaiWebTask"
 
-
-class AntiImpervaTaskEnm(str, MyEnum):
     AntiImpervaTask = "AntiImpervaTask"
 
-
-class BinanceCaptchaTaskEnm(str, MyEnum):
     BinanceCaptchaTask = "BinanceCaptchaTask"
 
 
