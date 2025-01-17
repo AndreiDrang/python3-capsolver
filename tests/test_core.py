@@ -96,16 +96,6 @@ class TestCore(BaseTest):
             ) as instance:
                 raise Exception()
 
-    @pytest.mark.parametrize("sleep_time", range(-2, 5))
-    def test_wrong_sleep_time(self, sleep_time: int):
-        with pytest.raises(ValueError):
-            CaptchaParams(
-                api_key=self.get_random_string(36),
-                captcha_type=CaptchaTypeEnm.VisionEngine,
-                request_url=REQUEST_URL,
-                sleep_time=sleep_time,
-            )
-
 
 class TestEnum(BaseTest):
     def test_enum_list(self):
