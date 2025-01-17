@@ -1,8 +1,7 @@
 import pytest
-from pydantic import ValidationError
 
 from tests.conftest import BaseTest
-from python3_capsolver.core.enum import ResponseStatusEnm, ReCaptchaV2TypeEnm, ReCaptchaV3TypeEnm
+from python3_capsolver.core.enum import CaptchaTypeEnm, ResponseStatusEnm
 from python3_capsolver.recaptcha import ReCaptcha
 from python3_capsolver.core.serializer import CaptchaResponseSer
 
@@ -39,7 +38,7 @@ class TestReCaptchaV2ProxyLess(BaseTest):
     googlekey = GOOGLE_KEY
     pageurl = PAGE_URL
 
-    captcha_types = (ReCaptchaV2TypeEnm.ReCaptchaV2TaskProxyLess, ReCaptchaV2TypeEnm.ReCaptchaV2EnterpriseTaskProxyLess)
+    captcha_types = (CaptchaTypeEnm.ReCaptchaV2TaskProxyLess, CaptchaTypeEnm.ReCaptchaV2EnterpriseTaskProxyLess)
     """
     Success tests
     """
@@ -105,7 +104,7 @@ class TestReCaptchaV2(BaseTest):
     pageurl = PAGE_URL
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
-    captcha_types = (ReCaptchaV2TypeEnm.ReCaptchaV2Task, ReCaptchaV2TypeEnm.ReCaptchaV2EnterpriseTask)
+    captcha_types = (CaptchaTypeEnm.ReCaptchaV2Task, CaptchaTypeEnm.ReCaptchaV2EnterpriseTask)
 
     """
     Success tests
@@ -158,7 +157,7 @@ class TestReCaptchaV3ProxyLess(BaseTest):
     pageurl = PAGE_URL
 
     pageAction = BaseTest().get_random_string(5)
-    captcha_type = ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess
+    captcha_type = CaptchaTypeEnm.ReCaptchaV3TaskProxyLess
 
     """
     Success tests
@@ -205,15 +204,6 @@ class TestReCaptchaV3ProxyLess(BaseTest):
                 pageAction=self.pageAction,
             )
 
-    def test_no_page_action(self):
-        with pytest.raises(ValidationError):
-            ReCaptcha(
-                api_key=self.API_KEY,
-                captcha_type=self.captcha_type,
-                websiteURL=self.pageurl,
-                websiteKey=self.googlekey,
-            )
-
 
 class TestReCaptchaV3(BaseTest):
     googlekey = GOOGLE_KEY
@@ -222,7 +212,7 @@ class TestReCaptchaV3(BaseTest):
     proxyAddress = "0.0.0.0"
     proxyPort = 9999
     pageAction = BaseTest().get_random_string(5)
-    captcha_type = ReCaptchaV3TypeEnm.ReCaptchaV3Task
+    captcha_type = CaptchaTypeEnm.ReCaptchaV3Task
 
     """
     Success tests
@@ -275,10 +265,4 @@ class TestReCaptchaV3(BaseTest):
                 captcha_type=self.captcha_type,
                 websiteKey=self.googlekey,
                 pageAction=self.pageAction,
-            )
-
-    def test_no_page_action(self):
-        with pytest.raises(ValidationError):
-            ReCaptcha(
-                api_key=self.API_KEY, captcha_type=self.captcha_type, websiteKey=self.googlekey, websiteURL=self.pageurl
             )

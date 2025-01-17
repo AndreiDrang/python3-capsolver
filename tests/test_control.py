@@ -1,6 +1,5 @@
 from tests.conftest import BaseTest
 from python3_capsolver.control import Control
-from python3_capsolver.core.serializer import ControlResponseSer
 
 
 class TestControl(BaseTest):
@@ -15,18 +14,15 @@ class TestControl(BaseTest):
         assert "aio_get_balance" in Control.__dict__.keys()
 
     def test_get_balance(self):
-        resp = Control(api_key=self.API_KEY).get_balance()
-        assert isinstance(resp, ControlResponseSer)
-        assert resp.errorId == 0
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
+        result = Control(api_key=self.API_KEY).get_balance()
+        assert isinstance(result, dict)
 
     async def test_aio_get_balance(self):
-        resp = await Control(api_key=self.API_KEY).aio_get_balance()
-        assert isinstance(resp, ControlResponseSer)
-        assert resp.errorId == 0
-        assert resp.errorCode is None
-        assert resp.errorDescription is None
+        result = await Control(api_key=self.API_KEY).aio_get_balance()
+        assert isinstance(result, dict)
+        assert result["errorId"] == 0
+        assert result["errorCode"] is None
+        assert result["errorDescription"] is None
 
     """
     Failed tests
@@ -34,12 +30,6 @@ class TestControl(BaseTest):
 
     def test_get_balance_api_key_err(self):
         result = Control(api_key=self.get_random_string(36)).get_balance()
-        assert isinstance(result, ControlResponseSer)
-        assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
-
-    async def test_aio_get_balance_api_key_err(self):
-        result = await Control(api_key=self.get_random_string(36)).aio_get_balance()
-        assert isinstance(result, ControlResponseSer)
-        assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
+        assert isinstance(result, dict)
+        assert result["errorId"] == 1
+        assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"

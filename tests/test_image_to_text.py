@@ -30,16 +30,7 @@ class TestImageToText(BaseTest):
     """
 
     def test_solve_image(self):
-        resp = ImageToText(api_key=self.API_KEY).captcha_handler(body=self.image_body)
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
-        assert resp.errorId in (False, True)
-        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
-        assert resp.errorDescription in (None, "Your service balance is insufficient.")
-
-    def test_solve_image_context(self):
-        with ImageToText(api_key=self.API_KEY) as instance:
-            resp = instance.captcha_handler(body=self.image_body)
+        resp = ImageToText(api_key=self.API_KEY).captcha_handler(task_payload=dict(body=self.image_body))
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
         assert resp.errorId in (False, True)
@@ -47,16 +38,7 @@ class TestImageToText(BaseTest):
         assert resp.errorDescription in (None, "Your service balance is insufficient.")
 
     async def test_aio_solve_image(self):
-        resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(body=self.image_body)
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
-        assert resp.errorId in (False, True)
-        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
-        assert resp.errorDescription in (None, "Your service balance is insufficient.")
-
-    async def test_aio_solve_image_context(self):
-        with ImageToText(api_key=self.API_KEY) as instance:
-            resp = await instance.aio_captcha_handler(body=self.image_body)
+        resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(task_payload=dict(body=self.image_body))
         assert isinstance(resp, CaptchaResponseSer)
         assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
         assert resp.errorId in (False, True)
@@ -68,13 +50,17 @@ class TestImageToText(BaseTest):
     """
 
     def test_captcha_handler_api_key_err(self):
-        result = ImageToText(api_key=self.get_random_string(36)).captcha_handler(body=self.image_body)
-        assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
-        assert not result.solution
+        result = ImageToText(api_key=self.get_random_string(36)).captcha_handler(
+            task_payload=dict(body=self.image_body)
+        )
+        assert result["errorId"] == 1
+        assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"
+        assert result["solution"] is None
 
     async def test_aio_captcha_handler_api_key_err(self):
-        result = await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(body=self.image_body)
-        assert result.errorId == 1
-        assert result.errorCode == "ERROR_KEY_DENIED_ACCESS"
-        assert not result.solution
+        result = await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(
+            task_payload=dict(body=self.image_body)
+        )
+        assert result["errorId"] == 1
+        assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"
+        assert result["solution"] is None
