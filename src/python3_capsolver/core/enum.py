@@ -68,6 +68,7 @@ class CaptchaTypeEnm(str, MyEnum):
 
     AntiAwsWafTask = "AntiAwsWafTask"
     AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
+    AwsWafClassification = "AwsWafClassification"
 
     AntiCyberSiAraTask = "AntiCyberSiAraTask"
     AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
