@@ -1,7 +1,5 @@
 import base64
 
-import pytest
-
 from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.image_to_text import ImageToText
@@ -18,10 +16,6 @@ class TestImageToTextBase(BaseTest):
     def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in ImageToText.__dict__.keys()
 
-    def test_wrong_captcha_type(self):
-        with pytest.raises(ValueError):
-            ImageToText(api_key=self.API_KEY, captcha_type=self.get_random_string())
-
 
 class TestImageToText(BaseTest):
     image_body = base64.b64encode(img_data).decode("utf-8")
@@ -31,19 +25,23 @@ class TestImageToText(BaseTest):
 
     def test_solve_image(self):
         resp = ImageToText(api_key=self.API_KEY).captcha_handler(task_payload=dict(body=self.image_body))
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
-        assert resp.errorId in (False, True)
-        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
-        assert resp.errorDescription in (None, "Your service balance is insufficient.")
+        assert isinstance(resp, dict)
+        assert CaptchaResponseSer(**resp)
+        assert resp["status"] == ResponseStatusEnm.Ready.value
+        assert resp["errorId"] == 0
+        assert resp["errorCode"] is None
+        assert resp["errorDescription"] is None
+        assert isinstance(resp["solution"], dict)
 
     async def test_aio_solve_image(self):
         resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(task_payload=dict(body=self.image_body))
-        assert isinstance(resp, CaptchaResponseSer)
-        assert resp.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Processing)
-        assert resp.errorId in (False, True)
-        assert resp.errorCode in (None, "ERROR_ZERO_BALANCE")
-        assert resp.errorDescription in (None, "Your service balance is insufficient.")
+        assert isinstance(resp, dict)
+        assert CaptchaResponseSer(**resp)
+        assert resp["status"] == ResponseStatusEnm.Ready.value
+        assert resp["errorId"] == 0
+        assert resp["errorCode"] is None
+        assert resp["errorDescription"] is None
+        assert isinstance(resp["solution"], dict)
 
     """
     Failed tests
