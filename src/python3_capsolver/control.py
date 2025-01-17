@@ -1,6 +1,5 @@
-from python3_capsolver.core.serializer import PostRequestSer
-
 from .core.base import CaptchaParams
+from .core.enum import CaptchaTypeEnm
 from .core.const import GET_BALANCE_POSTFIX
 from .core.aio_captcha_instrument import AIOCaptchaInstrument
 from .core.sio_captcha_instrument import SIOCaptchaInstrument
@@ -9,33 +8,30 @@ __all__ = ("Control",)
 
 
 class Control(CaptchaParams):
+    """
+    The class is used to work with Capsolver control methods.
 
-    serializer = PostRequestSer
+    Args:
+        api_key: Capsolver API key
+
+    Notes:
+        https://docs.capsolver.com/en/guide/api-getbalance/
+    """
 
     def __init__(
         self,
         api_key: str,
-        *args,
-        **kwargs,
     ):
-        """
-        The class is used to work with Capsolver control methods.
-
-        Args:
-            api_key: Capsolver API key
-
-        Notes:
-            https://docs.capsolver.com/guide/api-getbalance.html
-        """
-        super().__init__(api_key=api_key, *args, **kwargs)
+        super().__init__(api_key=api_key, captcha_type=CaptchaTypeEnm.Control)
 
     def get_balance(self) -> dict:
         """
         Synchronous method to view the balance
 
         Examples:
+            >>> from python3_capsolver.control import Control
             >>> Control(api_key="CAI-1324...").get_balance()
-            ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
+            {'balance': 48.6361, 'errorId': 0, 'packages': []}
 
         Returns:
             Dict with full server response
@@ -55,8 +51,10 @@ class Control(CaptchaParams):
         Asynchronous method to view the balance
 
         Examples:
-            >>> await Control(api_key="CAI-1324...").aio_get_balance()
-            ControlResponseSer(errorId=0 errorCode=None errorDescription=None balance=150.9085)
+        >>> import asyncio
+        >>> from python3_capsolver.control import Control
+        >>> asyncio.run(Control(api_key="CAI-1324...").aio_get_balance())
+        {'balance': 48.6361, 'errorId': 0, 'packages': []}
 
         Returns:
             Dict with full server response
