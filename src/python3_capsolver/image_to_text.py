@@ -10,6 +10,11 @@ class ImageToText(CaptchaParams):
 
     Args:
         api_key: Capsolver API key
+        kwargs: additional params for client, like captcha waiting time
+                    available keys:
+                     - sleep_time: int - captcha solution waintig time in sec
+                     - request_url: str - API address for sending requests,
+                                            else official will be used
 
     Examples:
         >>> from python3_capsolver.image_to_text import ImageToText
@@ -17,8 +22,8 @@ class ImageToText(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ImageToText(api_key="CAI-12345....").captcha_handler(
-        >>>                     task_payload={"body": body, "module": "common"}
-        >>>                     )
+        ...                     task_payload={"body": body, "module": "common"}
+        ...                    )
         {
            "errorId":0,
            "errorCode":"None",
@@ -37,9 +42,9 @@ class ImageToText(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> asyncio.run(ImageToText(api_key="CAI-12345....").aio_captcha_handler(
-        >>>                     task_payload={"body": body, "module": "common"}
-        >>>                     )
-        >>>         )
+        ...                     task_payload={"body": body, "module": "common"}
+        ...                     )
+        ...         )
         {
            "errorId":0,
            "errorCode":"None",
@@ -57,10 +62,10 @@ class ImageToText(CaptchaParams):
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ImageToText(api_key="CAI-12345....").captcha_handler(
-        >>>                     task_payload={"body": body,
-        >>>                                     "module": "common",
-        >>>                                     "score": 0.92}
-        >>>                     )
+        ...                     task_payload={"body": body,
+        ...                                     "module": "common",
+        ...                                     "score": 0.92}
+        ...                     )
         {
            "errorId":0,
            "errorCode":"None",
