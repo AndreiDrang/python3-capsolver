@@ -1,6 +1,7 @@
 from typing import Union
 
 from python3_capsolver.core.base import CaptchaParams
+
 from .core.enum import BinanceCaptchaTaskEnm
 from .core.serializer import CaptchaResponseSer, BinanceCaptchaTaskSer
 
