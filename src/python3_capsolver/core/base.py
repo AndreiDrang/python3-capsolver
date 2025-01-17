@@ -1,3 +1,6 @@
+from python3_capsolver.core.enum import CaptchaTypeEnm
+from python3_capsolver.core.serializer import TaskSer
+
 from .const import REQUEST_URL
 from .serializer import RequestCreateTaskSer, RequestGetTaskResultSer
 from .context_instr import AIOContextManager, SIOContextManager
@@ -22,14 +25,14 @@ class CaptchaParams(SIOContextManager, AIOContextManager):
     def __init__(
         self,
         api_key: str,
+        captcha_type: CaptchaTypeEnm,
         sleep_time: int = 5,
         request_url: str = REQUEST_URL,
-        **kwargs,
     ):
         # assign args to validator
         self.create_task_payload = RequestCreateTaskSer(clientKey=api_key)
         # `task` body for task creation payload
-        self.task_params = {}
+        self.task_params = TaskSer(type=captcha_type.value).to_dict()
         # prepare `get task result` payload
         self.get_result_params = RequestGetTaskResultSer(clientKey=api_key)
         self.request_url = request_url
