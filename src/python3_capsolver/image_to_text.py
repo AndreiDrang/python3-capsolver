@@ -2,13 +2,11 @@ from typing import Dict
 
 from .core.base import CaptchaParams
 from .core.enum import CaptchaTypeEnm
-from .core.aio_captcha_instrument import AIOCaptchaInstrument
-from .core.sio_captcha_instrument import SIOCaptchaInstrument
 
 
 class ImageToText(CaptchaParams):
     """
-    The class is used to work with Capsolver Image captcha solving methods.
+    The class is used to work with Capsolver Image captcha solving method.
 
     Args:
         api_key: Capsolver API key
@@ -18,7 +16,7 @@ class ImageToText(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> ImageToText(api_key="CAI-12345....")captcha_handler(
+        >>> ImageToText(api_key="CAI-12345....").captcha_handler(
         >>>                     task_payload={"body": body, "module": "common"}
         >>>                     )
         {
@@ -58,7 +56,7 @@ class ImageToText(CaptchaParams):
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> ImageToText(api_key="CAI-12345....")captcha_handler(
+        >>> ImageToText(api_key="CAI-12345....").captcha_handler(
         >>>                     task_payload={"body": body,
         >>>                                     "module": "common",
         >>>                                     "score": 0.92}
@@ -100,9 +98,7 @@ class ImageToText(CaptchaParams):
             Check class docstring for more info
         """
         task_payload.pop("type", None)
-        self.task_params.update(task_payload)
-        self._captcha_handling_instrument = SIOCaptchaInstrument(captcha_params=self)
-        return self._captcha_handling_instrument.processing_captcha()
+        return super().captcha_handler(task_payload=task_payload)
 
     async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
         """
@@ -118,6 +114,4 @@ class ImageToText(CaptchaParams):
             Check class docstring for more info
         """
         task_payload.pop("type", None)
-        self.task_params.update(task_payload)
-        self._captcha_handling_instrument = AIOCaptchaInstrument(captcha_params=self)
-        return await self._captcha_handling_instrument.processing_captcha()
+        return await super().aio_captcha_handler(task_payload=task_payload)
