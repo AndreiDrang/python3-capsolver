@@ -80,9 +80,6 @@ class ImageToText(CaptchaParams):
            }
         }
 
-    Returns:
-        Dict with full server response
-
     Notes:
         https://docs.capsolver.com/guide/recognition/ImageToTextTask.html
     """
