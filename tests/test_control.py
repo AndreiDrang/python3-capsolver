@@ -12,8 +12,6 @@ class TestControl(BaseTest):
 
     def test_get_balance_exist(self):
         assert "get_balance" in Control.__dict__.keys()
-
-    def test_aio_get_balance_exist(self):
         assert "aio_get_balance" in Control.__dict__.keys()
 
     def test_get_balance(self):
@@ -34,4 +32,8 @@ class TestControl(BaseTest):
 
     def test_get_balance_api_key_err(self):
         with pytest.raises(HTTPError):
-            result = Control(api_key=self.get_random_string(36)).get_balance()
+            Control(api_key=self.get_random_string(36)).get_balance()
+
+    async def test_aio_get_balance_api_key_err(self):
+        with pytest.raises(HTTPError):
+            await Control(api_key=self.get_random_string(36)).aio_get_balance()
