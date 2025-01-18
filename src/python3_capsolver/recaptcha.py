@@ -1,145 +1,104 @@
-from typing import Union, Optional
+from typing import Union
 
-from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import ReCaptchaV2TypeEnm, ReCaptchaV3TypeEnm
-from python3_capsolver.core.serializer import ReCaptchaV3Ser, CaptchaResponseSer, WebsiteDataOptionsSer
+from .core.base import CaptchaParams
+from .core.enum import CaptchaTypeEnm
+
+__all__ = ("ReCaptcha",)
 
 
-class ReCaptcha(BaseCaptcha):
+class ReCaptcha(CaptchaParams):
     """
-    The class is used to work with Capsolver ReCaptcha methods.
+    The class is used to work with Capsolver ReCaptcha captcha solving methods:
+     - ReCaptchaV2Classification
+     - ReCaptchaV2Task
+     - ReCaptchaV2EnterpriseTask
+     - ReCaptchaV2TaskProxyLess
+     - ReCaptchaV2EnterpriseTaskProxyLess
+     - ReCaptchaV3Task
+     - ReCaptchaV3EnterpriseTask
+     - ReCaptchaV3TaskProxyLess
+     - ReCaptchaV3EnterpriseTaskProxyLess
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``ReCaptchaV2Task`` and etc.
-        websiteURL: Address of a webpage with Google ReCaptcha
-        websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
-        pageAction: Widget action value. Website owner defines what user is doing on the page through this parameter.
-                    Default value: ``verify``. Example: grecaptcha.execute('site_key', {action:'login_test'}).
+        kwargs: additional params for client, like captcha waiting time
+                    available keys:
+                     - sleep_time: int - captcha solution waintig time in sec
+                     - request_url: str - API address for sending requests,
+                                            else official will be used
 
     Examples:
-        >>> ReCaptcha(api_key="CAI-1324...",
-        ...           captcha_type="ReCaptchaV2TaskProxyLess",
-        ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
-        ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
-                          )
+        >>> from python3_capsolver.recaptcha import ReCaptcha
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
-        >>> ReCaptcha(api_key="CAI-1324...",
-        ...           captcha_type=ReCaptchaV2TypeEnm.ReCaptchaV2TaskProxyLess,
-        ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
-        ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
-                          )
+        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
+        >>> ReCaptcha(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.ReCaptchaV2Classification)
+        ...         .captcha_handler(task_payload={"image": body, "question": "/m/04_sv"})
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+              "confidence":0.9585,
+              "text":"gcphjd"
+           }
+        }
 
-        >>> ReCaptcha(api_key="CAI-1324...",
-        ...           captcha_type=ReCaptchaV2TypeEnm.ReCaptchaV2Task,
-        ...           websiteURL="https://www.google.com/recaptcha/api2/demo",
-        ...           websiteKey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
-        ...           proxy="socks5:192.191.100.10:4780:user:pwd"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
-                          )
+        >>> import asyncio
+        >>> from python3_capsolver.recaptcha import ReCaptcha
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
 
-        >>> ReCaptcha(api_key="CAI-1324...",
-        ...           captcha_type=ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess,
-        ...           websiteURL="https://2captcha.com/demo/recaptcha-v3",
-        ...           websiteKey="6LfB5_IbAAAAAMCtsjEHEHKqcB9iQocwwxTiihJu",
-        ...           pageAction="demo_action",
-        ...           proxy="socks5:192.191.100.10:4780:user:pwd"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
-                          )
+        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
+        >>> asyncio.run(ReCaptcha(api_key="CAI-12345....").aio_captcha_handler(
+        ...                                         task_payload={"image": body, "question": "/m/04_sv"}
+        ...                                 )
+        ...         )
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+              "confidence":0.9585,
+              "text":"gcphjd"
+           }
+        }
 
-        >>> await ReCaptcha(api_key="CAI-1324...",
-        ...           captcha_type=ReCaptchaV3TypeEnm.ReCaptchaV3TaskProxyLess,
-        ...           websiteURL="https://2captcha.com/demo/recaptcha-v3",
-        ...           websiteKey="6LfB5_IbAAAAAMCtsjEHEHKqcB9iQocwwxTiihJu",
-        ...           pageAction="demo_action",
-        ...           proxy="socks5:192.191.100.10:4780:user:pwd"
-        ...          ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'gRecaptchaResponse': '44795sds...'}
-                          )
+        >>> from python3_capsolver.recaptcha import ReCaptcha
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+
+        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
+        >>> ReCaptcha(api_key="CAI-12345....").captcha_handler(
+        ...                             task_payload={"image": body, "question": "/m/04_sv"}
+        ...                     )
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+              "confidence":0.9585,
+              "text":"gcphjd"
+           }
+        }
 
     Returns:
-        CaptchaResponseSer model with full server response
+        Dict with full server response
 
     Notes:
-        https://docs.capsolver.com/guide/captcha/ReCaptchaV2.html
-        https://docs.capsolver.com/guide/captcha/ReCaptchaV3.html
+        https://docs.capsolver.com/en/guide/recognition/ReCaptchaClassification/
+
+        https://docs.capsolver.com/en/guide/captcha/ReCaptchaV2/
+
+        https://docs.capsolver.com/en/guide/captcha/ReCaptchaV3/
     """
 
-    def __init__(
-        self,
-        captcha_type: Union[ReCaptchaV2TypeEnm, ReCaptchaV3TypeEnm, str],
-        websiteURL: str,
-        websiteKey: str,
-        pageAction: Optional[str] = None,
-        *args,
-        **kwargs,
-    ):
-        super().__init__(*args, **kwargs)
+    def __init__(self, api_key: str, captcha_type: Union[CaptchaTypeEnm, str], **kwargs):
 
-        if captcha_type in ReCaptchaV2TypeEnm.list():
-            self.task_params = WebsiteDataOptionsSer(**locals()).dict()
-        elif captcha_type in ReCaptchaV3TypeEnm.list():
-            self.task_params = ReCaptchaV3Ser(**locals()).dict()
-        else:
-            raise ValueError(
-                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {ReCaptchaV2TypeEnm.list(), ReCaptchaV3TypeEnm.list()}"""
-            )
-        for key in kwargs:
-            self.task_params.update({key: kwargs[key]})
-
-    def captcha_handler(self) -> CaptchaResponseSer:
-        """
-        Sync method for captcha solving
-
-        Returns:
-            CaptchaResponseSer model with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        return self._processing_captcha(create_params=self.task_params)
-
-    async def aio_captcha_handler(self) -> CaptchaResponseSer:
-        """
-        Async method for captcha solving
-
-
-        Returns:
-            CaptchaResponseSer model with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        return await self._aio_processing_captcha(create_params=self.task_params)
+        super().__init__(api_key=api_key, captcha_type=captcha_type, **kwargs)
