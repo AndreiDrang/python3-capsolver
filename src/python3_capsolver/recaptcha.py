@@ -21,6 +21,7 @@ class ReCaptcha(CaptchaParams):
 
     Args:
         api_key: Capsolver API key
+        captcha_type: Captcha type name, like ``ReCaptchaV2Task`` and etc.
         kwargs: additional params for client, like captcha waiting time
                     available keys:
                      - sleep_time: int - captcha solution waintig time in sec
@@ -31,7 +32,6 @@ class ReCaptcha(CaptchaParams):
         >>> from python3_capsolver.recaptcha import ReCaptcha
         >>> from python3_capsolver.core.enum import CaptchaTypeEnm
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ReCaptcha(api_key="CAI-12345....",
         ...             captcha_type=CaptchaTypeEnm.ReCaptchaV2Classification)
@@ -51,7 +51,6 @@ class ReCaptcha(CaptchaParams):
         >>> import asyncio
         >>> from python3_capsolver.recaptcha import ReCaptcha
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> asyncio.run(ReCaptcha(api_key="CAI-12345....").aio_captcha_handler(
         ...                                         task_payload={"image": body, "question": "/m/04_sv"}
@@ -68,28 +67,6 @@ class ReCaptcha(CaptchaParams):
               "text":"gcphjd"
            }
         }
-
-        >>> from python3_capsolver.recaptcha import ReCaptcha
-        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
-        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> ReCaptcha(api_key="CAI-12345....").captcha_handler(
-        ...                             task_payload={"image": body, "question": "/m/04_sv"}
-        ...                     )
-        {
-           "errorId":0,
-           "errorCode":"None",
-           "errorDescription":"None",
-           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
-           "status":"ready",
-           "solution":{
-              "confidence":0.9585,
-              "text":"gcphjd"
-           }
-        }
-
-    Returns:
-        Dict with full server response
 
     Notes:
         https://docs.capsolver.com/en/guide/recognition/ReCaptchaClassification/
