@@ -48,7 +48,7 @@ class CaptchaTypeEnm(str, MyEnum):
 
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
-    # V2
+    # re-captcha
     ReCaptchaV2Classification = "ReCaptchaV2Classification"
     ReCaptchaV2Task = "ReCaptchaV2Task"
     ReCaptchaV2EnterpriseTask = "ReCaptchaV2EnterpriseTask"
