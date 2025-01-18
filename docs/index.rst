@@ -25,18 +25,9 @@ Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/bl
    :caption: Captcha examples:
 
    modules/image-to-text/example.rst
-   modules/re-captcha/example.rst
-   modules/h-captcha/example.rst
    modules/gee-test/example.rst
-   modules/fun-captcha/example.rst
-   modules/datadome/example.rst
-   modules/mt-captcha/example.rst
-   modules/cloudflare/example.rst
    modules/aws-waf/example.rst
-   modules/cyber-si-ara/example.rst
-   modules/akamai/example.rst
-   modules/imperva/example.rst
-   modules/binance/example.rst
+   modules/re-captcha/example.rst
 
 .. toctree::
    :maxdepth: 2
