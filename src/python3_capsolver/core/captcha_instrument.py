@@ -76,7 +76,7 @@ class FileInstrument:
         captcha_base64: Optional[bytes] = None,
         save_format: SaveFormatsEnm = SaveFormatsEnm.TEMP,
         img_clearing: bool = True,
-        file_path: str = None,
+        file_path: str = "/tmp/",
         file_extension: str = "png",
         **kwargs,
     ) -> str:
@@ -100,13 +100,13 @@ class FileInstrument:
 
     async def aio_file_processing(
         self,
-        save_format: SaveFormatsEnm,
-        img_clearing: bool,
-        file_path: str,
-        file_extension: str = "png",
         captcha_link: Optional[str] = None,
         captcha_file: Optional[str] = None,
         captcha_base64: Optional[bytes] = None,
+        save_format: SaveFormatsEnm = SaveFormatsEnm.TEMP,
+        img_clearing: bool = True,
+        file_path: str = "/tmp/",
+        file_extension: str = "png",
         **kwargs,
     ) -> str:
         # if a local file link is passed
