@@ -10,12 +10,12 @@ from .enum import ResponseStatusEnm, EndpointPostfixEnm
 from .const import RETRIES, REQUEST_URL, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
 from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
-from .captcha_instrument import CaptchaInstrument
+from .captcha_instrument import CaptchaInstrumentBase
 
 __all__ = ("SIOCaptchaInstrument",)
 
 
-class SIOCaptchaInstrument(CaptchaInstrument):
+class SIOCaptchaInstrument(CaptchaInstrumentBase):
     """
     Instrument for working with sync captcha
     """
@@ -92,7 +92,7 @@ class SIOCaptchaInstrument(CaptchaInstrument):
         # default response if server is silent
         self.result.errorId = 1
         self.result.errorCode = self.CAPTCHA_UNSOLVABLE
-        self.result.errorDescription = "Captcha not recognized"
+        self.result.errorDescription = self.CAPTCHA_UNSOLVABLE_DESCRIPTION
         self.result.taskId = self.created_task_data.taskId
         self.result.status = ResponseStatusEnm.Failed
 
