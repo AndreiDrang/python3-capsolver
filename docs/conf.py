@@ -5,16 +5,16 @@ from pallets_sphinx_themes import ProjectLink
 
 from python3_capsolver import (
     core,
-    akamai,
-    binance,
-    imperva,
+    yandex,
+    aws_waf,
+    control,
     gee_test,
-    hcaptcha,
     recaptcha,
+    cloudflare,
     mt_captcha,
-    fun_captcha,
     image_to_text,
     datadome_slider,
+    friendly_captcha,
 )
 from python3_capsolver.__version__ import __version__
 

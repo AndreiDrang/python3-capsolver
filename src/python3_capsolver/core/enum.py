@@ -1,9 +1,10 @@
 from enum import Enum
-from types import DynamicClassAttribute
 from typing import List
 
+__all__ = ("EndpointPostfixEnm", "CaptchaTypeEnm", "ResponseStatusEnm", "SaveFormatsEnm")
 
-class MyEnum(Enum):
+
+class MyEnum(str, Enum):
     @classmethod
     def list(cls) -> List[Enum]:
         return list(map(lambda c: c, cls))
@@ -16,22 +17,8 @@ class MyEnum(Enum):
     def list_names(cls) -> List[str]:
         return list(map(lambda c: c.name, cls))
 
-    @DynamicClassAttribute
-    def name(self) -> str:
-        """
-        The name of the Enum member
-        """
-        return self._name_
 
-    @DynamicClassAttribute
-    def value(self) -> str:
-        """
-        The name of the Enum member
-        """
-        return self._value_
-
-
-class EndpointPostfixEnm(str, MyEnum):
+class EndpointPostfixEnm(MyEnum):
     """
     Enum stored URL postfixes for API endpoints
     """
@@ -39,93 +26,46 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_BALANCE = "getBalance"
     CREATE_TASK = "createTask"
     GET_TASK_RESULT = "getTaskResult"
-    AKAMAI_BMP_INVOKE = "akamaibmp/invoke"
-    AKAMAI_WEB_INVOKE = "akamaiweb/invoke"
 
 
-class ImageToTextTaskTypeEnm(str, MyEnum):
+class CaptchaTypeEnm(MyEnum):
+    Control = "Control"
+
     ImageToTextTask = "ImageToTextTask"
+    VisionEngine = "VisionEngine"
 
-
-class HCaptchaTypeEnm(str, MyEnum):
-    HCaptchaTask = "HCaptchaTask"
-    HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
-    HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
-    HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
-    HCaptchaTurboTask = "HCaptchaTurboTask"
-    HCaptchaClassification = "HCaptchaClassification"
-
-
-class HCaptchaClassificationTypeEnm(str, MyEnum):
-    HCaptchaClassification = "HCaptchaClassification"
-
-
-class FunCaptchaTypeEnm(str, MyEnum):
-    FunCaptchaTask = "FunCaptchaTask"
-    FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
-
-
-class FunCaptchaClassificationTypeEnm(str, MyEnum):
-    FunCaptchaClassification = "FunCaptchaClassification"
-
-
-class GeeTestCaptchaTypeEnm(str, MyEnum):
-    GeeTestTask = "GeeTestTask"
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
-
-class ReCaptchaV2TypeEnm(str, MyEnum):
-    # V2
+    # re-captcha
+    ReCaptchaV2Classification = "ReCaptchaV2Classification"
     ReCaptchaV2Task = "ReCaptchaV2Task"
     ReCaptchaV2EnterpriseTask = "ReCaptchaV2EnterpriseTask"
     ReCaptchaV2TaskProxyLess = "ReCaptchaV2TaskProxyLess"
     ReCaptchaV2EnterpriseTaskProxyLess = "ReCaptchaV2EnterpriseTaskProxyLess"
 
-
-class ReCaptchaV3TypeEnm(str, MyEnum):
     ReCaptchaV3Task = "ReCaptchaV3Task"
     ReCaptchaV3EnterpriseTask = "ReCaptchaV3EnterpriseTask"
     ReCaptchaV3TaskProxyLess = "ReCaptchaV3TaskProxyLess"
     ReCaptchaV3EnterpriseTaskProxyLess = "ReCaptchaV3EnterpriseTaskProxyLess"
 
-
-class MtCaptchaTypeEnm(str, MyEnum):
     MtCaptchaTask = "MtCaptchaTask"
     MtCaptchaTaskProxyLess = "MtCaptchaTaskProxyLess"
 
-
-class DatadomeSliderTypeEnm(str, MyEnum):
     DatadomeSliderTask = "DatadomeSliderTask"
 
-
-class CloudflareTypeEnm(str, MyEnum):
+    AntiTurnstileTaskProxyLess = "AntiTurnstileTaskProxyLess"
     AntiCloudflareTask = "AntiCloudflareTask"
 
+    FriendlyCaptchaTaskProxyless = "FriendlyCaptchaTaskProxyless"
 
-class AntiAwsWafTaskTypeEnm(str, MyEnum):
+    YandexCaptchaTaskProxyLess = "YandexCaptchaTaskProxyLess"
+
     AntiAwsWafTask = "AntiAwsWafTask"
     AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
+    AwsWafClassification = "AwsWafClassification"
 
 
-class AntiCyberSiAraTaskTypeEnm(str, MyEnum):
-    AntiCyberSiAraTask = "AntiCyberSiAraTask"
-    AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
-
-
-class AntiAkamaiTaskEnm(str, MyEnum):
-    AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
-    AntiAkamaiWebTask = "AntiAkamaiWebTask"
-
-
-class AntiImpervaTaskEnm(str, MyEnum):
-    AntiImpervaTask = "AntiImpervaTask"
-
-
-class BinanceCaptchaTaskEnm(str, MyEnum):
-    BinanceCaptchaTask = "BinanceCaptchaTask"
-
-
-class ResponseStatusEnm(str, MyEnum):
+class ResponseStatusEnm(MyEnum):
     """
     Enum store results `status` field variants
 
@@ -139,6 +79,6 @@ class ResponseStatusEnm(str, MyEnum):
     Failed = "failed"  # Task failed, check the errorDescription to know why failed.
 
 
-class SaveFormatsEnm(str, MyEnum):
+class SaveFormatsEnm(MyEnum):
     TEMP = "temp"
     CONST = "const"

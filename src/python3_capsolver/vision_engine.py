@@ -3,12 +3,12 @@ from typing import Dict
 from .core.base import CaptchaParams
 from .core.enum import CaptchaTypeEnm
 
-__all__ = ("ImageToText",)
+__all__ = ("VisionEngine",)
 
 
-class ImageToText(CaptchaParams):
+class VisionEngine(CaptchaParams):
     """
-    The class is used to work with Capsolver Image captcha solving method.
+    The class is used to work with Capsolver VisionEngine captcha solving method.
 
     Args:
         api_key: Capsolver API key
@@ -19,13 +19,16 @@ class ImageToText(CaptchaParams):
                                             else official will be used
 
     Examples:
-        >>> from python3_capsolver.image_to_text import ImageToText
+        >>> from python3_capsolver.vision_engine import VisionEngine
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> ImageToText(api_key="CAI-12345....").captcha_handler(
-        ...                     task_payload={"body": body, "module": "common"}
-        ...                    )
+        >>> VisionEngine(api_key="CAI-12345....").captcha_handler(
+        ...                             task_payload={
+        ...                                 "image": body,
+        ...                                 "question": "click on the unique object",
+        ...                                 "module": "space_detection",
+        ...                             }
+        ...                     )
         {
            "errorId":0,
            "errorCode":"None",
@@ -33,20 +36,21 @@ class ImageToText(CaptchaParams):
            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
            "status":"ready",
            "solution":{
-              "confidence":0.9585,
-              "text":"gcphjd"
+              "box": [163.5, 107.5]
            }
         }
 
         >>> import asyncio
-        >>> from python3_capsolver.image_to_text import ImageToText
+        >>> from python3_capsolver.vision_engine import VisionEngine
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> asyncio.run(ImageToText(api_key="CAI-12345....").aio_captcha_handler(
-        ...                     task_payload={"body": body, "module": "common"}
-        ...                     )
-        ...         )
+        >>> asyncio.run(VisionEngine(api_key="CAI-12345....").aio_captcha_handler(
+        ...                             task_payload={
+        ...                                 "image": body,
+        ...                                 "question": "click on the unique object",
+        ...                                 "module": "space_detection",
+        ...                             }
+        ...                     ))
         {
            "errorId":0,
            "errorCode":"None",
@@ -54,39 +58,16 @@ class ImageToText(CaptchaParams):
            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
            "status":"ready",
            "solution":{
-              "confidence":0.9585,
-              "text":"gcphjd"
-           }
-        }
-
-        >>> from python3_capsolver.image_to_text import ImageToText
-        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
-        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
-        >>> ImageToText(api_key="CAI-12345....").captcha_handler(
-        ...                     task_payload={"body": body,
-        ...                                     "module": "common",
-        ...                                     "score": 0.92}
-        ...                     )
-        {
-           "errorId":0,
-           "errorCode":"None",
-           "errorDescription":"None",
-           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
-           "status":"ready",
-           "solution":{
-              "confidence":0.9585,
-              "text":"gcphjd"
+              "box": [163.5, 107.5]
            }
         }
 
     Notes:
-        https://docs.capsolver.com/guide/recognition/ImageToTextTask.html
+        https://docs.capsolver.com/en/guide/recognition/VisionEngine/
     """
 
     def __init__(self, api_key: str, **kwargs):
-
-        super().__init__(api_key=api_key, captcha_type=CaptchaTypeEnm.ImageToTextTask, **kwargs)
+        super().__init__(api_key=api_key, captcha_type=CaptchaTypeEnm.VisionEngine, **kwargs)
 
     def captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
         """
@@ -109,7 +90,7 @@ class ImageToText(CaptchaParams):
         Asynchronous method for captcha solving
 
         Args:
-            task_payload: Captcha solving `task` payload, include `body`, `module` and other fields.
+            task_payload: Captcha solving `task` payload, include `question`, `image` and other fields.
 
         Returns:
             Dict with full server response

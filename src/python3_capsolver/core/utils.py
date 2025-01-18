@@ -1,5 +1,7 @@
 from typing import Generator
 
+__all__ = ("attempts_generator",)
+
 
 # Connection retry generator
 def attempts_generator(amount: int = 16) -> Generator:

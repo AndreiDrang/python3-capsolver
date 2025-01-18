@@ -1,96 +1,138 @@
-from typing import Union, Optional
+from typing import Union
 
 from .core.base import CaptchaParams
-from .core.enum import AntiAwsWafTaskTypeEnm
+from .core.enum import CaptchaTypeEnm
 
 __all__ = ("AwsWaf",)
 
 
 class AwsWaf(CaptchaParams):
-    def __init__(
-        self,
-        api_key: str,
-        captcha_type: Union[AntiAwsWafTaskTypeEnm, str],
-        websiteURL: str,
-        sleep_time: Optional[int] = 10,
-        **additional_params,
-    ):
-        """
-        The class is used to work with Capsolver AwsWaf methods.
+    """
+    The class is used to work with Capsolver AwsWaf methods:
+     - AntiAwsWafTask
+     - AntiAwsWafTaskProxyLess
+     - AwsWafClassification
 
-        Args:
-            api_key: Capsolver API key
-            captcha_type: Captcha type name, like ``AntiAwsWafTask`` and etc.
-            websiteURL: Address of a webpage with AwsWaf
-            additional_params: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``proxyLogin``, ``proxyPassword`` and etc. - more info in service docs
+    Args:
+        api_key: Capsolver API key
+        captcha_type: Captcha type name, like ``AntiAwsWafTask`` and etc.
+        kwargs: additional params for client, like captcha waiting time
+                    available keys:
+                     - sleep_time: int - captcha solution waintig time in sec
+                     - request_url: str - API address for sending requests,
+                                            else official will be used
 
 
-        Examples:
-            >>> AwsWaf(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-            ...          captcha_type='AntiAwsWafTaskProxyLess',
-            ...          websiteURL="https://efw47fpad9.execute-api.us-east-1.amazonaws.com/latest",
-            ...         ).captcha_handler()
-            CaptchaResponseSer(errorId=0,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'cookie': '44795sds...'}
-                              )
+    Examples:
+        >>> from python3_capsolver.aws_waf import AwsWaf
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
+        >>>  AwsWaf(api_key="CAP-XXXXX",
+        ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
+        ...         ).captcha_handler(task_payload={
+        ...                                 "images": [image],
+        ...                                 "question": "some question",
+        ...                                 "websiteURL": "https://xxxx.com",
+        ...                         })
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                //carcity point
+                "box": [
+                    116.7,
+                    164.1
+                ],
+                // grid type, objects means the image index that matches the question
+                "objects": [0, 1, 3, 4, 6],
+                //if question include `bifurcatedzoo`
+                "distance": 500
+            }
+        }
 
-            >>> AwsWaf(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-            ...          captcha_type=AntiAwsWafTaskTypeEnm.AntiAwsWafTaskProxyLess,
-            ...          websiteURL="https://efw47fpad9.execute-api.us-east-1.amazonaws.com/latest",
-            ...         ).captcha_handler()
-            CaptchaResponseSer(errorId=0,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'cookie': '44795sds...'}
-                              )
 
-            >>> AwsWaf(api_key="CAI-BA9XXXXXXXXXXXXX2702E010",
-            ...          captcha_type=AntiAwsWafTaskTypeEnm.AntiAwsWafTask,
-            ...          websiteURL="https://efw47fpad9.execute-api.us-east-1.amazonaws.com/latest",
-            ...          proxy="socks5:192.191.100.10:4780:user:pwd",
-            ...          awsKey="some key"
-            ...         ).captcha_handler()
-            CaptchaResponseSer(errorId=0,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId="87f149f4-1c....",
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'cookie': '44795sds...'}
-                              )
+        >>> import asyncio
+        >>> from python3_capsolver.aws_waf import AwsWaf
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
+        >>> asyncio.run(AwsWaf(api_key="CAP-XXXXX",
+        ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
+        ...         ).aio_captcha_handler(task_payload={
+        ...                                 "images": [image],
+        ...                                 "question": "some question",
+        ...                                 "websiteURL": "https://xxxx.com",
+        ...                         }))
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                //carcity point
+                "box": [
+                    116.7,
+                    164.1
+                ],
+                // grid type, objects means the image index that matches the question
+                "objects": [0, 1, 3, 4, 6],
+                //if question include `bifurcatedzoo`
+                "distance": 500
+            }
+        }
 
-            >>> await AwsWaf(api_key="CAI-BA9650D2B9C2786B21120D512702E010",
-            ...          captcha_type=AntiAwsWafTaskTypeEnm.AntiAwsWafTaskProxyLess,
-            ...          websiteURL="https://efw47fpad9.execute-api.us-east-1.amazonaws.com/latest",
-            ...         ).aio_captcha_handler()
-            CaptchaResponseSer(errorId=0,
-                               errorCode=None,
-                               errorDescription=None,
-                               taskId='73bdcd28-6c77-4414-8....',
-                               status=<ResponseStatusEnm.Ready: 'ready'>,
-                               solution={'cookie': '44795sds...'}
-                              )
+        >>> from python3_capsolver.aws_waf import AwsWaf
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
+        >>>  AwsWaf(api_key="CAP-XXXXX",
+        ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTaskProxyLess
+        ...         ).captcha_handler(task_payload={
+        ...                                 "websiteURL": "https://xxxxxx/latest",
+        ...                                 "awsKey": "AQIDAHjcYu/GjX+QlghicBg......shMIKvZswZemrVVqA==",
+        ...                                 "awsChallengeJS": "https://xxxxx/challenge.js",
+        ...                         })
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                "cookie": "223d1f60-xxxxxxxx"
+            }
+        }
 
-        Returns:
-            CaptchaResponseSer model with full server response
+        >>> from python3_capsolver.aws_waf import AwsWaf
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
+        >>>  AwsWaf(api_key="CAP-XXXXX",
+        ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTask
+        ...         ).captcha_handler(task_payload={
+        ...                                 "websiteURL": "https://xxxxxx/latest",
+        ...                                 "awsKey": "AQIDAHjcYu/GjX+QlghicBg......shMIKvZswZemrVVqA==",
+        ...                                 "awsChallengeJS": "https://xxxxx/challenge.js",
+        ...                                 "proxy": "ip:port:user:pass"
+        ...                         })
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                "cookie": "223d1f60-xxxxxxxx"
+            }
+        }
 
-        Notes:
-            https://docs.capsolver.com/guide/captcha/awsWaf.html
-        """
+    Notes:
+        https://docs.capsolver.com/en/guide/captcha/awsWaf/
 
-        super().__init__(api_key=api_key, sleep_time=sleep_time)
+        https://docs.capsolver.com/en/guide/recognition/AwsWafClassification/
+    """
 
-        if captcha_type in AntiAwsWafTaskTypeEnm.list():
-            self.task_params.update(dict(type=captcha_type, websiteURL=websiteURL, **additional_params))
-        else:
-            raise ValueError(
-                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {AntiAwsWafTaskTypeEnm.list_values()}"""
-            )
+    def __init__(self, api_key: str, captcha_type: Union[CaptchaTypeEnm, str], **kwargs):
+
+        super().__init__(api_key=api_key, captcha_type=captcha_type, **kwargs)

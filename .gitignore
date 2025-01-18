@@ -426,10 +426,7 @@ __pycache__/
 dist/
 
 env/
+/coverage/
 /.coverage
 /src/python3_capsolver.egg-info/
-/src/.coverage
-/src/coverage/lcov.info
-/src/htmlcov/
-/src/coverage/
 /docs/_build/

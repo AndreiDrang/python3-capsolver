@@ -1,114 +1,95 @@
-from typing import Union, Optional
+from typing import Union
 
-from python3_capsolver.core.base import BaseCaptcha
-from python3_capsolver.core.enum import CloudflareTypeEnm
-from python3_capsolver.core.serializer import CaptchaResponseSer, CloudflareTurnstileSer
+from .core.base import CaptchaParams
+from .core.enum import CaptchaTypeEnm
+
+__all__ = ("Cloudflare",)
 
 
-class Cloudflare(BaseCaptcha):
+class Cloudflare(CaptchaParams):
     """
-    The class is used to work with Capsolver Cloudflare methods.
+    The class is used to work with Capsolver AntiTurnstileTaskProxyLess captcha solving method
 
     Args:
         api_key: Capsolver API key
-        captcha_type: Captcha type name, like ``ReCaptchaV2Task`` and etc.
-        websiteURL: Address of a webpage with Google ReCaptcha
-        websiteKey: Recaptcha website key. <div class="g-recaptcha" data-sitekey="THAT_ONE"></div>
-        metadata: Extra data
-        html: You can pass in the entire html source code for the challenge directly.
-
+        captcha_type: Captcha type name, like ``AntiTurnstileTaskProxyLess`` and etc.
+        kwargs: additional params for client, like captcha waiting time
+                    available keys:
+                     - sleep_time: int - captcha solution waintig time in sec
+                     - request_url: str - API address for sending requests,
+                                            else official will be used
 
     Examples:
-        >>> Cloudflare(api_key="CAI-1324...",
-        ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
-        ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             websiteKey='0x4AAAAAAABS7vwvV6VFfMcD',
-        ...             proxy="socks5:158.120.100.23:334:user:pass"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'token': '44795sds...'}
-                          )
+        >>> from python3_capsolver.cloudflare import Cloudflare
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> Cloudflare(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.AntiTurnstileTaskProxyLess)
+        ...         .captcha_handler(task_payload={
+        ...                     "websiteKey": "0x4XXXXXXXXXXXXXXXXX",
+        ...                     "metadata": {
+        ...                         "action": "login",
+        ...                         "cdata": "0000-1111-2222-3333-example-cdata"
+        ...                     }
+        ...         })
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+                "token": "0.mF74FV8wEufAWxxxx",
+                "type": "turnstile",
+                "userAgent": "Mozilla/5.0 xxxx"
+           }
+        }
 
-        >>> Cloudflare(api_key="CAI-1324...",
-        ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
-        ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             proxy="socks5:158.120.100.23:334:user:pass"
-        ...          ).captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'token': '44795sds...'}
-                          )
-
-        >>> await Cloudflare(api_key="CAI-1324...",
-        ...             captcha_type=CloudflareTypeEnm.AntiCloudflareTask,
-        ...             websiteURL="https://bck.websiteurl.com/registry",
-        ...             websiteKey='0x4AAAAAAABS7vwvV6VFfMcD',
-        ...             proxy="socks5:158.120.100.23:334:user:pass"
-        ...          ).aio_captcha_handler()
-        CaptchaResponseSer(errorId=0,
-                           errorCode=None,
-                           errorDescription=None,
-                           taskId='73bdcd28-6c77-4414-8....',
-                           status=<ResponseStatusEnm.Ready: 'ready'>,
-                           solution={'token': '44795sds...'}
-                          )
-
-    Returns:
-        CaptchaResponseSer model with full server response
+        >>> from python3_capsolver.cloudflare import Cloudflare
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> Cloudflare(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.AntiCloudflareTask)
+        ...         .captcha_handler(task_payload={
+        ...                     "websiteURL": "https://www.yourwebsite.com",
+        ...                     "proxy": "ip:port:user:pass",
+        ...         })
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                "cookies": "cf_clearance=_VPxxxx",
+                "headers": {
+                    "sec-ch-ua": "\"Chromium\";v=\"130\", \"Google Chrome\";v=\"130\", \"Not?A_Brand\";v=\"99\"",
+                    "sec-ch-ua-platform": "\"Windows\"",
+                    "accept": "text/html,axxxx",
+                    "User-Agent": "Mozilla/5.0xxxx",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-fetch-user": "?1",
+                    "referer": "https://www.yourwebsite.com",
+                    "Sec-Fetch-Dest": "document",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-Site": "same-origin",
+                    "accept-language": "en",
+                },
+                "page_url": "https://www.yourwebsite.com",
+                "proxy": "your proxyxxxx",
+                "token": "_VPCTZXP5bhinxxxx"
+            }
+        }
 
     Notes:
-        https://docs.capsolver.com/guide/antibots/cloudflare_turnstile.html
-        https://docs.capsolver.com/guide/antibots/cloudflare_challenge.html
+        https://docs.capsolver.com/en/guide/captcha/cloudflare_turnstile/
+
+        https://docs.capsolver.com/en/guide/captcha/cloudflare_challenge/
     """
 
     def __init__(
         self,
-        captcha_type: Union[CloudflareTypeEnm, str],
-        websiteURL: str,
-        websiteKey: Optional[str] = None,
-        *args,
+        api_key: str,
+        captcha_type: Union[CaptchaTypeEnm, str] = CaptchaTypeEnm.AntiTurnstileTaskProxyLess,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
 
-        if captcha_type in CloudflareTypeEnm.list():
-            self.task_params = CloudflareTurnstileSer(**locals()).dict(exclude_none=True)
-        else:
-            raise ValueError(
-                f"""Invalid `captcha_type` parameter set for `{self.__class__.__name__}`,
-                available - {CloudflareTypeEnm.list()}"""
-            )
-        for key in kwargs:
-            self.task_params.update({key: kwargs[key]})
-
-    def captcha_handler(self) -> CaptchaResponseSer:
-        """
-        Sync method for captcha solving
-
-        Returns:
-            CaptchaResponseSer model with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        return self._processing_captcha(create_params=self.task_params)
-
-    async def aio_captcha_handler(self) -> CaptchaResponseSer:
-        """
-        Async method for captcha solving
-
-
-        Returns:
-            CaptchaResponseSer model with full service response
-
-        Notes:
-            Check class docstring for more info
-        """
-        return await self._aio_processing_captcha(create_params=self.task_params)
+        super().__init__(api_key=api_key, captcha_type=captcha_type, **kwargs)
