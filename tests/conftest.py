@@ -19,6 +19,11 @@ def delay_class():
 @pytest.mark.usefixtures("delay_func")
 @pytest.mark.usefixtures("delay_class")
 class BaseTest:
+    image_captcha_path_example = "tests/files/captcha_example.jpeg"
+    image_captcha_url_example = (
+        "https://github.com/AndreiDrang/python3-capsolver/blob/main/tests/files/captcha_example.jpeg?raw=true"
+    )
+
     API_KEY = os.environ["API_KEY"]
     sleep_time = 5
 
