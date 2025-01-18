@@ -1,5 +1,3 @@
-import base64
-
 import pytest
 
 from tests.conftest import BaseTest
@@ -11,13 +9,6 @@ class TestFileInstrument(BaseTest):
     """
     Success tests
     """
-
-    def read_image(self) -> bytes:
-        with open(self.image_captcha_path_example, "rb") as img_file:
-            return img_file.read()
-
-    def read_image_as_str(self) -> str:
-        return base64.b64encode(self.read_image()).decode("utf-8")
 
     def test_file_processing_exist(self):
         assert "file_processing" in FileInstrument.__dict__.keys()
