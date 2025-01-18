@@ -110,7 +110,7 @@ class SIOCaptchaInstrument(CaptchaInstrument):
             if resp.status_code == 200:
                 return resp.json()
             else:
-                raise ValueError(resp.raise_for_status())
+                raise ValueError(resp.status_code)
         except Exception as error:
             logging.exception(error)
             raise
