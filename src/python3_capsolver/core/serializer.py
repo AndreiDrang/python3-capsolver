@@ -6,7 +6,7 @@ from msgspec import Struct
 from .enum import ResponseStatusEnm
 from .const import APP_ID
 
-__all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponseSer")
+__all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponseSer", "RequestGetTaskResultSer")
 
 
 class MyBaseModel(Struct):
