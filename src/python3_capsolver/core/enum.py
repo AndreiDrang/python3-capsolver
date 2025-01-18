@@ -1,8 +1,10 @@
 from enum import Enum
 from typing import List
 
+__all__ = ("EndpointPostfixEnm", "CaptchaTypeEnm", "ResponseStatusEnm", "SaveFormatsEnm")
 
-class MyEnum(Enum):
+
+class MyEnum(str, Enum):
     @classmethod
     def list(cls) -> List[Enum]:
         return list(map(lambda c: c, cls))
@@ -16,7 +18,7 @@ class MyEnum(Enum):
         return list(map(lambda c: c.name, cls))
 
 
-class EndpointPostfixEnm(str, MyEnum):
+class EndpointPostfixEnm(MyEnum):
     """
     Enum stored URL postfixes for API endpoints
     """
@@ -26,7 +28,7 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_TASK_RESULT = "getTaskResult"
 
 
-class CaptchaTypeEnm(str, MyEnum):
+class CaptchaTypeEnm(MyEnum):
     Control = "Control"
 
     ImageToTextTask = "ImageToTextTask"
@@ -63,7 +65,7 @@ class CaptchaTypeEnm(str, MyEnum):
     AwsWafClassification = "AwsWafClassification"
 
 
-class ResponseStatusEnm(str, MyEnum):
+class ResponseStatusEnm(MyEnum):
     """
     Enum store results `status` field variants
 
@@ -77,6 +79,6 @@ class ResponseStatusEnm(str, MyEnum):
     Failed = "failed"  # Task failed, check the errorDescription to know why failed.
 
 
-class SaveFormatsEnm(str, MyEnum):
+class SaveFormatsEnm(MyEnum):
     TEMP = "temp"
     CONST = "const"
