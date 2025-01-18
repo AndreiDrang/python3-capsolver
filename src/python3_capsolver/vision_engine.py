@@ -64,9 +64,6 @@ class VisionEngine(CaptchaParams):
            }
         }
 
-    Returns:
-        Dict with full server response
-
     Notes:
         https://docs.capsolver.com/en/guide/recognition/VisionEngine/
     """
