@@ -21,7 +21,6 @@ class VisionEngine(CaptchaParams):
     Examples:
         >>> from python3_capsolver.vision_engine import VisionEngine
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> VisionEngine(api_key="CAI-12345....").captcha_handler(
         ...                             task_payload={
@@ -44,7 +43,6 @@ class VisionEngine(CaptchaParams):
         >>> import asyncio
         >>> from python3_capsolver.vision_engine import VisionEngine
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> asyncio.run(VisionEngine(api_key="CAI-12345....").aio_captcha_handler(
         ...                             task_payload={
