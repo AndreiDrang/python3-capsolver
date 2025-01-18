@@ -12,8 +12,6 @@ with open("tests/files/captcha_example.jpeg", "rb") as img_file:
 class TestImageToTextBase(BaseTest):
     def test_captcha_handler_exist(self):
         assert "captcha_handler" in ImageToText.__dict__.keys()
-
-    def test_aio_captcha_handler_exist(self):
         assert "aio_captcha_handler" in ImageToText.__dict__.keys()
 
 
