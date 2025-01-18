@@ -1,12 +1,7 @@
-import base64
-
 from tests.conftest import BaseTest
 from python3_capsolver.core.enum import ResponseStatusEnm
 from python3_capsolver.image_to_text import ImageToText
 from python3_capsolver.core.serializer import CaptchaResponseSer
-
-with open("tests/files/captcha_example.jpeg", "rb") as img_file:
-    img_data = img_file.read()
 
 
 class TestImageToTextBase(BaseTest):
@@ -16,13 +11,12 @@ class TestImageToTextBase(BaseTest):
 
 
 class TestImageToText(BaseTest):
-    image_body = base64.b64encode(img_data).decode("utf-8")
     """
     Success tests
     """
 
     def test_solve_image(self):
-        resp = ImageToText(api_key=self.API_KEY).captcha_handler(task_payload=dict(body=self.image_body))
+        resp = ImageToText(api_key=self.API_KEY).captcha_handler(task_payload=dict(body=self.read_image_as_str()))
         assert isinstance(resp, dict)
         assert CaptchaResponseSer(**resp)
         assert resp["status"] == ResponseStatusEnm.Ready.value
@@ -32,7 +26,9 @@ class TestImageToText(BaseTest):
         assert isinstance(resp["solution"], dict)
 
     async def test_aio_solve_image(self):
-        resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(task_payload=dict(body=self.image_body))
+        resp = await ImageToText(api_key=self.API_KEY).aio_captcha_handler(
+            task_payload=dict(body=self.read_image_as_str())
+        )
         assert isinstance(resp, dict)
         assert CaptchaResponseSer(**resp)
         assert resp["status"] == ResponseStatusEnm.Ready.value
@@ -47,7 +43,7 @@ class TestImageToText(BaseTest):
 
     def test_captcha_handler_api_key_err(self):
         result = ImageToText(api_key=self.get_random_string(36)).captcha_handler(
-            task_payload=dict(body=self.image_body)
+            task_payload=dict(body=self.read_image_as_str())
         )
         assert result["errorId"] == 1
         assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"
@@ -55,7 +51,7 @@ class TestImageToText(BaseTest):
 
     async def test_aio_captcha_handler_api_key_err(self):
         result = await ImageToText(api_key=self.get_random_string(36)).aio_captcha_handler(
-            task_payload=dict(body=self.image_body)
+            task_payload=dict(body=self.read_image_as_str())
         )
         assert result["errorId"] == 1
         assert result["errorCode"] == "ERROR_KEY_DENIED_ACCESS"
