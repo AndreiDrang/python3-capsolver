@@ -32,18 +32,6 @@ class CaptchaTypeEnm(str, MyEnum):
     ImageToTextTask = "ImageToTextTask"
     VisionEngine = "VisionEngine"
 
-    HCaptchaTask = "HCaptchaTask"
-    HCaptchaTaskProxyless = "HCaptchaTaskProxyless"
-    HCaptchaEnterpriseTask = "HCaptchaEnterpriseTask"
-    HCaptchaEnterpriseTaskProxyLess = "HCaptchaEnterpriseTaskProxyLess"
-    HCaptchaTurboTask = "HCaptchaTurboTask"
-    HCaptchaClassification = "HCaptchaClassification"
-
-    FunCaptchaTask = "FunCaptchaTask"
-    FunCaptchaTaskProxyLess = "FunCaptchaTaskProxyLess"
-
-    FunCaptchaClassification = "FunCaptchaClassification"
-
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
     # re-captcha
@@ -73,16 +61,6 @@ class CaptchaTypeEnm(str, MyEnum):
     AntiAwsWafTask = "AntiAwsWafTask"
     AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
     AwsWafClassification = "AwsWafClassification"
-
-    AntiCyberSiAraTask = "AntiCyberSiAraTask"
-    AntiCyberSiAraTaskProxyLess = "AntiCyberSiAraTaskProxyLess"
-
-    AntiAkamaiBMPTask = "AntiAkamaiBMPTask"
-    AntiAkamaiWebTask = "AntiAkamaiWebTask"
-
-    AntiImpervaTask = "AntiImpervaTask"
-
-    BinanceCaptchaTask = "BinanceCaptchaTask"
 
 
 class ResponseStatusEnm(str, MyEnum):
