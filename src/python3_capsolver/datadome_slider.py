@@ -39,6 +39,28 @@ class DatadomeSlider(CaptchaParams):
            }
         }
 
+        >>> import asyncio
+        >>> from python3_capsolver.datadome_slider import DatadomeSlider
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> asyncio.run(DatadomeSlider(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.DatadomeSliderTask)
+        ...         .aio_captcha_handler(task_payload={
+        ...                 "captchaUrl": "https://geo.captchaxxxxxx",
+        ...                 "userAgent": "Mozilla/5.0 xxxx",
+        ...                 "proxy": "0.0.0.0:334:user:pass"
+        ...         }))
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+                "userAgent": "Mozilla/5.0 xxxx",
+                "cookie": "datadome=yzj_BK..xxxx"
+           }
+        }
+
     Notes:
         https://docs.capsolver.com/en/guide/captcha/datadome/
     """

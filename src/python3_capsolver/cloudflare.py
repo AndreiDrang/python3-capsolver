@@ -79,6 +79,42 @@ class Cloudflare(CaptchaParams):
             }
         }
 
+        >>> import asyncio
+        >>> from python3_capsolver.cloudflare import Cloudflare
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> asyncio.run(Cloudflare(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.AntiCloudflareTask)
+        ...         .aio_captcha_handler(task_payload={
+        ...                     "websiteURL": "https://www.yourwebsite.com",
+        ...                     "proxy": "ip:port:user:pass",
+        ...         }))
+        {
+            "errorId":0,
+            "errorCode":"None",
+            "errorDescription":"None",
+            "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+            "status":"ready",
+            "solution":{
+                "cookies": "cf_clearance=_VPxxxx",
+                "headers": {
+                    "sec-ch-ua": "\"Chromium\";v=\"130\", \"Google Chrome\";v=\"130\", \"Not?A_Brand\";v=\"99\"",
+                    "sec-ch-ua-platform": "\"Windows\"",
+                    "accept": "text/html,axxxx",
+                    "User-Agent": "Mozilla/5.0xxxx",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-fetch-user": "?1",
+                    "referer": "https://www.yourwebsite.com",
+                    "Sec-Fetch-Dest": "document",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-Site": "same-origin",
+                    "accept-language": "en",
+                },
+                "page_url": "https://www.yourwebsite.com",
+                "proxy": "your proxyxxxx",
+                "token": "_VPCTZXP5bhinxxxx"
+            }
+        }
+
     Notes:
         https://docs.capsolver.com/en/guide/captcha/cloudflare_turnstile/
 

@@ -38,6 +38,23 @@ class MtCaptcha(CaptchaParams):
            }
         }
 
+        >>> import asyncio
+        >>> from python3_capsolver.mt_captcha import MtCaptcha
+        >>> from python3_capsolver.core.enum import CaptchaTypeEnm
+        >>> asyncio.run(MtCaptcha(api_key="CAI-12345....",
+        ...             captcha_type=CaptchaTypeEnm.MtCaptchaTaskProxyLess)
+        ...         .aio_captcha_handler(task_payload={"websiteURL": "some-url"}))
+        {
+           "errorId":0,
+           "errorCode":"None",
+           "errorDescription":"None",
+           "taskId":"db0a3153-621d-4f5e-8554-a1c032597ee7",
+           "status":"ready",
+           "solution":{
+              "token": ""
+           }
+        }
+
     Notes:
         https://docs.capsolver.com/en/guide/captcha/MtCaptcha/
     """
