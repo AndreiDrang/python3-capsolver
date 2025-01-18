@@ -24,8 +24,6 @@ class EndpointPostfixEnm(str, MyEnum):
     GET_BALANCE = "getBalance"
     CREATE_TASK = "createTask"
     GET_TASK_RESULT = "getTaskResult"
-    AKAMAI_BMP_INVOKE = "akamaibmp/invoke"
-    AKAMAI_WEB_INVOKE = "akamaiweb/invoke"
 
 
 class CaptchaTypeEnm(str, MyEnum):
