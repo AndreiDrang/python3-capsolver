@@ -1,5 +1,4 @@
 import pytest
-from requests.exceptions import HTTPError
 
 from tests.conftest import BaseTest
 from python3_capsolver.control import Control
@@ -31,7 +30,7 @@ class TestControl(BaseTest):
     """
 
     def test_get_balance_api_key_err(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             Control(api_key=self.get_random_string(36)).get_balance()
 
     async def test_aio_get_balance_api_key_err(self):
