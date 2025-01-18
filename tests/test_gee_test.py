@@ -3,7 +3,7 @@ from python3_capsolver.gee_test import GeeTest
 from python3_capsolver.core.enum import CaptchaTypeEnm
 
 
-class TestAwsWafBase(BaseTest):
+class TestGeeTest(BaseTest):
 
     def test_captcha_handler_exist(self):
         instance = GeeTest(api_key=self.get_random_string(36), captcha_type=CaptchaTypeEnm.GeeTestTaskProxyLess)
