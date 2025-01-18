@@ -3,6 +3,8 @@ from typing import Dict
 from .core.base import CaptchaParams
 from .core.enum import CaptchaTypeEnm
 
+__all__ = ("ImageToText",)
+
 
 class ImageToText(CaptchaParams):
     """
