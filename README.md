@@ -20,7 +20,6 @@
 
 
 Python 3 library for [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
-
 Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
