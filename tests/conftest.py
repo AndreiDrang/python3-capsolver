@@ -1,5 +1,6 @@
 import os
 import time
+import base64
 import random
 import string
 
@@ -46,3 +47,10 @@ class BaseTest:
         letters = string.ascii_lowercase
         result_str = "".join(random.choice(letters) for _ in range(length))
         return result_str
+
+    def read_image(self) -> bytes:
+        with open(self.image_captcha_path_example, "rb") as img_file:
+            return img_file.read()
+
+    def read_image_as_str(self) -> str:
+        return base64.b64encode(self.read_image()).decode("utf-8")
