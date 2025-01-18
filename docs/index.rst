@@ -30,6 +30,7 @@ Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/bl
    modules/re-captcha/example.rst
    modules/mt-captcha/example.rst
    modules/datadome/example.rst
+   modules/cloudflare/example.rst
 
 .. toctree::
    :maxdepth: 2
