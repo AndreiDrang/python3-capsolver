@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.gee_test.GeeTest
     :members:
+    :inherited-members:

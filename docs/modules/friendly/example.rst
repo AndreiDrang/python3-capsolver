@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.friendly_captcha.FriendlyCaptcha
     :members:
+    :inherited-members:

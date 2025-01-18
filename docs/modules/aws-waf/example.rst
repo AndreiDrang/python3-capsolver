@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.aws_waf.AwsWaf
     :members:
+    :inherited-members:

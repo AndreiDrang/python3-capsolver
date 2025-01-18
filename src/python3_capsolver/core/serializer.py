@@ -10,7 +10,7 @@ __all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponse
 
 
 class MyBaseModel(Struct):
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, Any]:
         result = {}
         for f in self.__struct_fields__:
             if isinstance(getattr(self, f), Enum):
