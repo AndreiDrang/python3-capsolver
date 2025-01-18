@@ -1,5 +1,5 @@
 ImageToText
-=============
+===========
 
 To import this module:
 
@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.image_to_text.ImageToText
     :members:
+    :inherited-members:

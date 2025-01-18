@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Any, Dict
 
 from .core.base import CaptchaParams
 from .core.enum import CaptchaTypeEnm
@@ -69,7 +69,7 @@ class VisionEngine(CaptchaParams):
     def __init__(self, api_key: str, **kwargs):
         super().__init__(api_key=api_key, captcha_type=CaptchaTypeEnm.VisionEngine, **kwargs)
 
-    def captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
+    def captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
         """
         Synchronous method for captcha solving
 
@@ -85,7 +85,7 @@ class VisionEngine(CaptchaParams):
         task_payload.pop("type", None)
         return super().captcha_handler(task_payload=task_payload)
 
-    async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
+    async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
         """
         Asynchronous method for captcha solving
 

@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.yandex.YandexCaptcha
     :members:
+    :inherited-members:

@@ -10,3 +10,4 @@ To import this module:
 
 .. autoclass:: python3_capsolver.mt_captcha.MtCaptcha
     :members:
+    :inherited-members:

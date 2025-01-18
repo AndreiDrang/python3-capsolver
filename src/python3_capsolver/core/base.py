@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Any, Dict
 
 from python3_capsolver.core.enum import CaptchaTypeEnm
 from python3_capsolver.core.serializer import TaskSer
@@ -41,15 +41,15 @@ class CaptchaParams(SIOContextManager, AIOContextManager):
         self._captcha_handling_instrument = CaptchaInstrument()
         self.sleep_time = sleep_time
 
-    def captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
+    def captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
         """
         Synchronous method for captcha solving
 
         Args:
             task_payload: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``proxyLogin``, ``proxyPassword`` and etc. - more info in service docs
-
+                            and will be passed to the payload under ``task`` key.
+                            Like ``websiteURL``, ``image``, ``proxyPassword``, ``websiteKey`` and etc.
+                            more info in service docs
 
         Returns:
             Dict with full server response
@@ -61,14 +61,15 @@ class CaptchaParams(SIOContextManager, AIOContextManager):
         self._captcha_handling_instrument = SIOCaptchaInstrument(captcha_params=self)
         return self._captcha_handling_instrument.processing_captcha()
 
-    async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, str]:
+    async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
         """
         Asynchronous method for captcha solving
 
         Args:
             task_payload: Some additional parameters that will be used in creating the task
-                                and will be passed to the payload under ``task`` key.
-                                Like ``proxyLogin``, ``proxyPassword`` and etc. - more info in service docs
+                            and will be passed to the payload under ``task`` key.
+                            Like ``websiteURL``, ``image``, ``proxyPassword``, ``websiteKey`` and etc.
+                            more info in service docs
 
         Returns:
             Dict with full server response
