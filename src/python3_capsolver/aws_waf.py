@@ -26,7 +26,6 @@ class AwsWaf(CaptchaParams):
     Examples:
         >>> from python3_capsolver.aws_waf import AwsWaf
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
         >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
@@ -58,7 +57,6 @@ class AwsWaf(CaptchaParams):
         >>> import asyncio
         >>> from python3_capsolver.aws_waf import AwsWaf
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
         >>> asyncio.run(AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AwsWafClassification
@@ -88,7 +86,6 @@ class AwsWaf(CaptchaParams):
 
         >>> from python3_capsolver.aws_waf import AwsWaf
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
         >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTaskProxyLess
@@ -110,7 +107,6 @@ class AwsWaf(CaptchaParams):
 
         >>> from python3_capsolver.aws_waf import AwsWaf
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> image = FileInstrument().file_processing(captcha_file="waf_captcha.png")
         >>>  AwsWaf(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.AntiAwsWafTask
