@@ -65,7 +65,7 @@ class CaptchaTypeEnm(str, MyEnum):
 
     DatadomeSliderTask = "DatadomeSliderTask"
 
-    AntiCloudflareTask = "AntiCloudflareTask"
+    AntiTurnstileTaskProxyLess = "AntiTurnstileTaskProxyLess"
 
     AntiAwsWafTask = "AntiAwsWafTask"
     AntiAwsWafTaskProxyLess = "AntiAwsWafTaskProxyLess"
