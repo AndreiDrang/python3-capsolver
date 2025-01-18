@@ -2,9 +2,9 @@
 
 ## Welcome to python3-capsolver
 
-![](../../_static/Capsolver.png)
+[![Capsolver.png](https://s.vyjava.xyz/files/2024/12-December/17/109278aa/Capsolver.png)](https://vyjava.xyz/dashboard/image/109278aa-961a-4503-bed0-0a9c838dcef2)
 
-[![Capsolver](https://user-images.githubusercontent.com/16991365/234852229-6e4b3f3c-f498-4fd5-9a6b-f7f269dd4bfc.gif)](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1)
+<hr>
 
 [![PyPI version](https://badge.fury.io/py/python3-capsolver.svg)](https://badge.fury.io/py/python3-capsolver)
 [![Python versions](https://img.shields.io/pypi/pyversions/python3-capsolver.svg?logo=python&logoColor=FBE072)](https://badge.fury.io/py/python3-capsolver)
@@ -22,7 +22,6 @@
 
 
 Python 3 library for [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
-
 Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
@@ -39,13 +38,6 @@ We recommend using the latest version of Python. `python3-capsolver` supports Py
 
 ```bash
 pip install python3-capsolver
-```
-
-### Source
-```bash
-git clone https://github.com/AndreiDrang/python3-capsolver.git
-cd python3-capsolver
-python setup.py install
 ```
 
 ## How to test?
