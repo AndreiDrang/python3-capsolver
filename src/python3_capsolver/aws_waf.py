@@ -131,9 +131,6 @@ class AwsWaf(CaptchaParams):
             }
         }
 
-    Returns:
-        CaptchaResponseSer model with full server response
-
     Notes:
         https://docs.capsolver.com/en/guide/captcha/awsWaf/
 
