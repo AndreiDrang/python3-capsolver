@@ -22,7 +22,6 @@ class YandexCaptcha(CaptchaParams):
     Examples:
         >>> from python3_capsolver.core.enum import CaptchaTypeEnm
         >>> from python3_capsolver.yandex import YandexCaptcha
-
         >>> YandexCaptcha(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.YandexCaptchaTaskProxyLess,
         ...         ).captcha_handler(task_payload={
