@@ -23,3 +23,7 @@ To import this module:
 .. autoclass:: python3_capsolver.core.enum.CaptchaTypeEnm
     :members:
     :undoc-members:
+
+.. autoclass:: python3_capsolver.core.enum.SaveFormatsEnm
+    :members:
+    :undoc-members:

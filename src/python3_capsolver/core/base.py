@@ -6,7 +6,7 @@ from python3_capsolver.core.serializer import TaskSer
 from .const import REQUEST_URL
 from .serializer import RequestCreateTaskSer, RequestGetTaskResultSer
 from .context_instr import AIOContextManager, SIOContextManager
-from .captcha_instrument import CaptchaInstrument
+from .captcha_instrument import CaptchaInstrumentBase
 from .aio_captcha_instrument import AIOCaptchaInstrument
 from .sio_captcha_instrument import SIOCaptchaInstrument
 
@@ -38,7 +38,7 @@ class CaptchaParams(SIOContextManager, AIOContextManager):
         # prepare `get task result` payload
         self.get_result_params = RequestGetTaskResultSer(clientKey=api_key)
         self.request_url = request_url
-        self._captcha_handling_instrument = CaptchaInstrument()
+        self._captcha_handling_instrument = CaptchaInstrumentBase()
         self.sleep_time = sleep_time
 
     def captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:

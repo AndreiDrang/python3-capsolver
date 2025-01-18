@@ -21,7 +21,6 @@ class ImageToText(CaptchaParams):
     Examples:
         >>> from python3_capsolver.image_to_text import ImageToText
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ImageToText(api_key="CAI-12345....").captcha_handler(
         ...                     task_payload={"body": body, "module": "common"}
@@ -41,7 +40,6 @@ class ImageToText(CaptchaParams):
         >>> import asyncio
         >>> from python3_capsolver.image_to_text import ImageToText
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> asyncio.run(ImageToText(api_key="CAI-12345....").aio_captcha_handler(
         ...                     task_payload={"body": body, "module": "common"}
@@ -61,7 +59,6 @@ class ImageToText(CaptchaParams):
 
         >>> from python3_capsolver.image_to_text import ImageToText
         >>> from python3_capsolver.core.captcha_instrument import FileInstrument
-
         >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
         >>> ImageToText(api_key="CAI-12345....").captcha_handler(
         ...                     task_payload={"body": body,

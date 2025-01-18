@@ -13,10 +13,26 @@ from .enum import SaveFormatsEnm
 from .const import RETRIES, ASYNC_RETRIES
 from .serializer import CaptchaResponseSer
 
-__all__ = ("CaptchaInstrument", "FileInstrument")
+__all__ = ("CaptchaInstrumentBase", "FileInstrument")
 
 
 class FileInstrument:
+    """
+    This class contains usefull methods for async and async files processing to prepare them for solving
+
+    Examples:
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
+        /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx
+
+        >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+        >>> body = FileInstrument().file_processing(captcha_link="https://some-url/file.jpeg")
+        /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx
+
+    Returns:
+        String with decoded file data
+    """
+
     @staticmethod
     def _local_file_captcha(captcha_file: str):
         """
@@ -80,6 +96,33 @@ class FileInstrument:
         file_extension: str = "png",
         **kwargs,
     ) -> str:
+        """
+        Synchronous method for captcha image processing.
+         - Method can read local file and return it's as base64 string.
+         - Method can read file URL and return it's as base64 string.
+         - Method can decode base64 bytes and return it's as base64 string.
+
+        Args:
+            captcha_link: URL link to file. Instrument will send GET request to it and read content
+            captcha_file: Local file path. Instrument will read it
+            captcha_base64: Readed file base64 data. Instrument will decode it in ``utf-8``
+            save_format: This arg works only with ``captcha_link`` arg.
+                            If ``SaveFormatsEnm.CONST`` is set - file will be loaded and saved locally.
+            img_clearing: This arg works only with ``captcha_link`` arg.
+                            If ``False`` - file wil not be removed downloading and saving locally.
+            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args.
+                        In this param u can set locally path for downloaded file saving.
+            file_extension: This arg works only with ``file_path`` args.
+                        In this param u MUST set file format for saving.
+
+        Examples:
+            >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+            >>> body = FileInstrument().file_processing(captcha_file="captcha_example.jpeg")
+            /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx
+
+        Returns:
+            String with decoded file data
+        """
         # if a local file link is passed
         if captcha_file:
             return base64.b64encode(self._local_file_captcha(captcha_file=captcha_file)).decode("utf-8")
@@ -109,6 +152,35 @@ class FileInstrument:
         file_extension: str = "png",
         **kwargs,
     ) -> str:
+        """
+        Asynchronous method for captcha image processing.
+         - Method can read local file and return it's as base64 string.
+         - Method can read file URL and return it's as base64 string.
+         - Method can decode base64 bytes and return it's as base64 string.
+
+        Args:
+            captcha_link: URL link to file. Instrument will send GET request to it and read content
+            captcha_file: Local file path. Instrument will read it
+            captcha_base64: Readed file base64 data. Instrument will decode it in ``utf-8``
+            save_format: This arg works only with ``captcha_link`` arg.
+                            If ``SaveFormatsEnm.CONST`` is set - file will be loaded and saved locally.
+            img_clearing: This arg works only with ``captcha_link`` arg.
+                            If ``False`` - file wil not be removed downloading and saving locally.
+            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args.
+                        In this param u can set locally path for downloaded file saving.
+            file_extension: This arg works only with ``file_path`` args.
+                        In this param u MUST set file format for saving.
+
+        Examples:
+            >>> import asyncio
+            >>> from python3_capsolver.core.captcha_instrument import FileInstrument
+            >>> body = asyncio.run(FileInstrument()
+            ...                     .aio_file_processing(captcha_file="captcha_example.jpeg"))
+            /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx
+
+        Returns:
+            String with decoded file data
+        """
         # if a local file link is passed
         if captcha_file:
             return base64.b64encode(self._local_file_captcha(captcha_file=captcha_file)).decode("utf-8")
@@ -129,8 +201,9 @@ class FileInstrument:
             raise ValueError("No valid captcha variant is set.")
 
 
-class CaptchaInstrument(FileInstrument):
+class CaptchaInstrumentBase:
     CAPTCHA_UNSOLVABLE = "ERROR_CAPTCHA_UNSOLVABLE"
+    CAPTCHA_UNSOLVABLE_DESCRIPTION = "Captcha not recognized"
     """
     Basic Captcha solving class
 
