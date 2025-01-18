@@ -22,7 +22,6 @@ class FriendlyCaptcha(CaptchaParams):
     Examples:
         >>> from python3_capsolver.core.enum import CaptchaTypeEnm
         >>> from python3_capsolver.friendly_captcha import FriendlyCaptcha
-
         >>> FriendlyCaptcha(api_key="CAP-XXXXX",
         ...         captcha_type=CaptchaTypeEnm.FriendlyCaptchaTaskProxyless,
         ...         ).captcha_handler(task_payload={
