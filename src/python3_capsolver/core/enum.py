@@ -46,7 +46,6 @@ class CaptchaTypeEnm(str, MyEnum):
 
     FunCaptchaClassification = "FunCaptchaClassification"
 
-    GeeTestTask = "GeeTestTask"
     GeeTestTaskProxyLess = "GeeTestTaskProxyLess"
 
     # V2
