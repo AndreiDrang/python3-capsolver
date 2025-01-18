@@ -31,7 +31,6 @@ upload:
 	twine upload dist/*
 
 tests: install
-	coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --pastebin=all  --disable-warnings \
 	tests/ && \
 	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	coverage html --precision=3 --skip-empty -d coverage/html/ && \
