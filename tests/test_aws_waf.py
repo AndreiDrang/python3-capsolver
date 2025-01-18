@@ -4,9 +4,6 @@ from tests.conftest import BaseTest
 from python3_capsolver.aws_waf import AwsWaf
 from python3_capsolver.core.enum import CaptchaTypeEnm
 
-with open("tests/files/captcha_example.jpeg", "rb") as img_file:
-    img_data = img_file.read()
-
 
 class TestAwsWafBase(BaseTest):
     captcha_types = (
