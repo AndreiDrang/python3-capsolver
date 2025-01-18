@@ -103,7 +103,7 @@ class AIOCaptchaInstrument(CaptchaInstrument):
                     if resp.status == 200:
                         return await resp.json()
                     else:
-                        raise ValueError(resp.reason)
+                        raise ValueError(resp.status)
             except Exception as error:
                 logging.exception(error)
                 raise
