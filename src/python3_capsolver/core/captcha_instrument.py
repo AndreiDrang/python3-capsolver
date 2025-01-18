@@ -106,14 +106,14 @@ class FileInstrument:
             captcha_link: URL link to file. Instrument will send GET request to it and read content
             captcha_file: Local file path. Instrument will read it
             captcha_base64: Readed file base64 data. Instrument will decode it in ``utf-8``
-            save_format: This arg works only with ``captcha_link`` arg
+            save_format: This arg works only with ``captcha_link`` arg.
                             If ``SaveFormatsEnm.CONST`` is set - file will be loaded and saved locally.
-            img_clearing: This arg works only with ``captcha_link`` arg
-                            If ``False`` - file wil not be removed downloading and saving locally
-            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args
-                        In this param u can set locally path for downloaded file saving
-            file_extension: This arg works only with ``file_path`` args
-                        In this param u MUST set file format for saving
+            img_clearing: This arg works only with ``captcha_link`` arg.
+                            If ``False`` - file wil not be removed downloading and saving locally.
+            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args.
+                        In this param u can set locally path for downloaded file saving.
+            file_extension: This arg works only with ``file_path`` args.
+                        In this param u MUST set file format for saving.
 
         Examples:
             >>> from python3_capsolver.core.captcha_instrument import FileInstrument
@@ -162,14 +162,14 @@ class FileInstrument:
             captcha_link: URL link to file. Instrument will send GET request to it and read content
             captcha_file: Local file path. Instrument will read it
             captcha_base64: Readed file base64 data. Instrument will decode it in ``utf-8``
-            save_format: This arg works only with ``captcha_link`` arg
+            save_format: This arg works only with ``captcha_link`` arg.
                             If ``SaveFormatsEnm.CONST`` is set - file will be loaded and saved locally.
-            img_clearing: This arg works only with ``captcha_link`` arg
-                            If ``False`` - file wil not be removed downloading and saving locally
-            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args
-                        In this param u can set locally path for downloaded file saving
-            file_extension: This arg works only with ``file_path`` args
-                        In this param u MUST set file format for saving
+            img_clearing: This arg works only with ``captcha_link`` arg.
+                            If ``False`` - file wil not be removed downloading and saving locally.
+            file_path: This arg works only with ``captcha_link`` and ``SaveFormatsEnm.CONST`` args.
+                        In this param u can set locally path for downloaded file saving.
+            file_extension: This arg works only with ``file_path`` args.
+                        In this param u MUST set file format for saving.
 
         Examples:
             >>> import asyncio
