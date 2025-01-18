@@ -5,6 +5,7 @@ from pallets_sphinx_themes import ProjectLink
 
 from python3_capsolver import (
     core,
+    yandex,
     aws_waf,
     control,
     gee_test,
@@ -13,6 +14,7 @@ from python3_capsolver import (
     mt_captcha,
     image_to_text,
     datadome_slider,
+    friendly_captcha,
 )
 from python3_capsolver.__version__ import __version__
 
