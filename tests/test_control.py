@@ -35,5 +35,5 @@ class TestControl(BaseTest):
             Control(api_key=self.get_random_string(36)).get_balance()
 
     async def test_aio_get_balance_api_key_err(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             await Control(api_key=self.get_random_string(36)).aio_get_balance()
