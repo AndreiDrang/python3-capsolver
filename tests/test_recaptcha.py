@@ -5,7 +5,7 @@ from python3_capsolver.core.enum import CaptchaTypeEnm
 from python3_capsolver.recaptcha import ReCaptcha
 
 
-class TestAwsWafBase(BaseTest):
+class TestReCaptcha(BaseTest):
     captcha_types = (
         CaptchaTypeEnm.ReCaptchaV2Classification,
         CaptchaTypeEnm.ReCaptchaV2Task,
