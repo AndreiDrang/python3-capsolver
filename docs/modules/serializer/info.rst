@@ -8,33 +8,16 @@ To import this module:
     from python3_capsolver.core import serializer
 
 
-.. autopydantic_model:: python3_capsolver.core.serializer.CaptchaOptionsSer
+.. autoclass:: python3_capsolver.core.serializer.PostRequestSer
     :members:
     :undoc-members:
 
 
-.. autopydantic_model:: python3_capsolver.core.serializer.WebsiteDataOptionsSer
+.. autoclass:: python3_capsolver.core.serializer.ResponseSer
     :members:
     :undoc-members:
 
 
-.. autopydantic_model:: python3_capsolver.core.serializer.CyberSiAraSer
-    :members:
-    :undoc-members:
-
-
-.. autopydantic_model:: python3_capsolver.core.serializer.AntiAkamaiBMPTaskSer
-    :members:
-    :undoc-members:
-
-.. autopydantic_model:: python3_capsolver.core.serializer.AntiAkamaiWebTaskSer
-    :members:
-    :undoc-members:
-
-.. autopydantic_model:: python3_capsolver.core.serializer.AntiImpervaTaskSer
-    :members:
-    :undoc-members:
-
-.. autopydantic_model:: python3_capsolver.core.serializer.BinanceCaptchaTaskSer
+.. autoclass:: python3_capsolver.core.serializer.CaptchaResponseSer
     :members:
     :undoc-members:
