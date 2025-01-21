@@ -24,6 +24,7 @@ Check our other projects here - `RedPandaDev group <https://red-panda-dev.xyz/bl
    :maxdepth: 3
    :caption: Captcha examples:
 
+   modules/control/example.rst
    modules/image-to-text/example.rst
    modules/gee-test/example.rst
    modules/aws-waf/example.rst

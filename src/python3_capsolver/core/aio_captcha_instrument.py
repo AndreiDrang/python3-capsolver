@@ -6,7 +6,7 @@ from urllib import parse
 import aiohttp
 
 from .enum import ResponseStatusEnm, EndpointPostfixEnm
-from .const import REQUEST_URL, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
+from .const import REQUEST_URL, VALID_STATUS_CODES
 from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrumentBase
@@ -92,14 +92,16 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
         self.result.status = ResponseStatusEnm.Failed
 
     @staticmethod
-    async def send_post_request(payload: Optional[dict] = None, url_postfix: str = GET_BALANCE_POSTFIX) -> dict:
+    async def send_post_request(
+        payload: Optional[dict] = None, url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE
+    ) -> dict:
         """
         Function send ASYNC request to service and wait for result
         """
 
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(parse.urljoin(REQUEST_URL, url_postfix), json=payload) as resp:
+                async with session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload) as resp:
                     if resp.status == 200:
                         return await resp.json()
                     else:

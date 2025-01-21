@@ -7,7 +7,7 @@ import requests
 from requests.adapters import HTTPAdapter
 
 from .enum import ResponseStatusEnm, EndpointPostfixEnm
-from .const import RETRIES, REQUEST_URL, VALID_STATUS_CODES, GET_BALANCE_POSTFIX
+from .const import RETRIES, REQUEST_URL, VALID_STATUS_CODES
 from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrumentBase
@@ -100,13 +100,13 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
     def send_post_request(
         payload: Optional[dict] = None,
         session: requests.Session = requests.Session(),
-        url_postfix: str = GET_BALANCE_POSTFIX,
+        url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE,
     ) -> dict:
         """
         Function send SYNC request to service and wait for result
         """
         try:
-            resp = session.post(parse.urljoin(REQUEST_URL, url_postfix), json=payload)
+            resp = session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload)
             if resp.status_code == 200:
                 return resp.json()
             else:

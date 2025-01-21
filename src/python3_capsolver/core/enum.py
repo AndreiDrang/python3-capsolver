@@ -26,6 +26,8 @@ class EndpointPostfixEnm(MyEnum):
     GET_BALANCE = "getBalance"
     CREATE_TASK = "createTask"
     GET_TASK_RESULT = "getTaskResult"
+    GET_TOKEN = "getToken"
+    FEEDBACK_TASK = "feedbackTask"
 
 
 class CaptchaTypeEnm(MyEnum):
