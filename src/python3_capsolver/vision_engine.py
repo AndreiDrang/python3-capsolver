@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Union
 
 from .core.base import CaptchaParams
 from .core.enum import CaptchaTypeEnm
@@ -12,6 +12,7 @@ class VisionEngine(CaptchaParams):
 
     Args:
         api_key: Capsolver API key
+        captcha_type: Captcha type name, like ``VisionEngine`` and etc.
         kwargs: additional params for client, like captcha waiting time
                     available keys:
                      - sleep_time: int - captcha solution waintig time in sec
@@ -66,37 +67,5 @@ class VisionEngine(CaptchaParams):
         https://docs.capsolver.com/en/guide/recognition/VisionEngine/
     """
 
-    def __init__(self, api_key: str, **kwargs):
-        super().__init__(api_key=api_key, captcha_type=CaptchaTypeEnm.VisionEngine, **kwargs)
-
-    def captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
-        """
-        Synchronous method for captcha solving
-
-        Args:
-            task_payload: Captcha solving `task` payload, include `body`, `module` and other fields.
-
-        Returns:
-            Dict with full server response
-
-        Notes:
-            Check class docstring for more info
-        """
-        task_payload.pop("type", None)
-        return super().captcha_handler(task_payload=task_payload)
-
-    async def aio_captcha_handler(self, task_payload: Dict) -> Dict[str, Any]:
-        """
-        Asynchronous method for captcha solving
-
-        Args:
-            task_payload: Captcha solving `task` payload, include `question`, `image` and other fields.
-
-        Returns:
-            Dict with full server response
-
-        Notes:
-            Check class docstring for more info
-        """
-        task_payload.pop("type", None)
-        return await super().aio_captcha_handler(task_payload=task_payload)
+    def __init__(self, api_key: str, captcha_type: Union[CaptchaTypeEnm, str] = CaptchaTypeEnm.VisionEngine, **kwargs):
+        super().__init__(api_key=api_key, captcha_type=captcha_type, **kwargs)

@@ -6,8 +6,9 @@ from python3_capsolver.core.serializer import CaptchaResponseSer
 
 class TestImageToTextBase(BaseTest):
     def test_captcha_handler_exist(self):
-        assert "captcha_handler" in ImageToText.__dict__.keys()
-        assert "aio_captcha_handler" in ImageToText.__dict__.keys()
+        instance = ImageToText(api_key=self.get_random_string(36))
+        assert "captcha_handler" in instance.__dir__()
+        assert "aio_captcha_handler" in instance.__dir__()
 
 
 class TestImageToText(BaseTest):

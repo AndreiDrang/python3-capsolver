@@ -1,10 +1,8 @@
 from typing import Any, Dict
 
-from python3_capsolver.core.enum import CaptchaTypeEnm
-from python3_capsolver.core.serializer import TaskSer
-
+from .enum import CaptchaTypeEnm
 from .const import REQUEST_URL
-from .serializer import RequestCreateTaskSer, RequestGetTaskResultSer
+from .serializer import TaskSer, RequestCreateTaskSer, RequestGetTaskResultSer
 from .context_instr import AIOContextManager, SIOContextManager
 from .captcha_instrument import CaptchaInstrumentBase
 from .aio_captcha_instrument import AIOCaptchaInstrument
