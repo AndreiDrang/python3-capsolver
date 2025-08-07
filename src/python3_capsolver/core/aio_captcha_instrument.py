@@ -29,9 +29,9 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
         self.created_task_data = CaptchaResponseSer(**await self.__create_task())
 
         # if task created and already ready - return result
-        if self.created_task_data.errorId == 0 and self.created_task_data.status == ResponseStatusEnm.Processing.value:
+        if self.created_task_data.errorId == 0:
             return (await self.__get_result()).to_dict()
-        elif self.created_task_data.errorId != 0:
+        else:
             self.created_task_data.status = ResponseStatusEnm.Failed
 
         return self.created_task_data.to_dict()
