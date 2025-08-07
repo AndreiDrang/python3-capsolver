@@ -36,9 +36,9 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
         self.created_task_data = CaptchaResponseSer(**self.__create_task())
 
         # if task created and ready - return result
-        if self.created_task_data.errorId == 0 and self.created_task_data.status == ResponseStatusEnm.Processing:
+        if self.created_task_data.errorId == 0:
             return self.__get_result().to_dict()
-        elif self.created_task_data.errorId != 0:
+        else:
             self.created_task_data.status = ResponseStatusEnm.Failed
 
         return self.created_task_data.to_dict()
