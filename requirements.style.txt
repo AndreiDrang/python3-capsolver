@@ -1,4 +1,4 @@
 # codestyle
 isort==6.*
-black==25.11.0
+black==25.12.0
 autoflake==2.*
