@@ -83,7 +83,12 @@ class ImageToText(CaptchaParams):
     """
 
     def __init__(
-        self, api_key: str, captcha_type: Union[CaptchaTypeEnm, str] = CaptchaTypeEnm.ImageToTextTask, **kwargs
+        self,
+        api_key: str,
+        captcha_type: Union[CaptchaTypeEnm, str] = CaptchaTypeEnm.ImageToTextTask,
+        **kwargs,
     ):
+        if isinstance(captcha_type, str):
+            captcha_type = CaptchaTypeEnm(captcha_type)
 
         super().__init__(api_key=api_key, captcha_type=captcha_type, **kwargs)
