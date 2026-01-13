@@ -30,13 +30,13 @@ build:
 upload:
 	uv publish
 
-tests:
+tests: install
 	uv run coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --disable-warnings \
 	tests/ && \
 	uv run coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
 	uv run coverage html --precision=3 --skip-empty -d coverage/html/ && \
 	uv run coverage xml -o coverage/coverage.xml
 
-doc:
+doc: install
 	cd docs/ && \
-	uv run make html -e
+	uv run --group docs make html -e
