@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Serializer &#8212; python3-capsolver (1.2.0)</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=7a9665a2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jinja.css?v=85659ec6" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script data-project="python3-capsolver" data-version="" src="../../_static/describe_version.js?v=fa7f30d0"></script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Enum" href="../enum/info.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../enum/info.html" title="Enum"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">python3-capsolver (1.2.0)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Serializer</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="serializer">
+<h1>Serializer<a class="headerlink" href="#serializer" title="Link to this heading">¶</a></h1>
+<p>To import this module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">serializer</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.PostRequestSer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">PostRequestSer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clientKey:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task:</span> <span class="pre">~typing.Dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbackUrl:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python3_capsolver.core.serializer.PostRequestSer" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.PostRequestSer.clientKey">
+<span class="sig-name descname"><span class="pre">clientKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.PostRequestSer.clientKey" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.PostRequestSer.task">
+<span class="sig-name descname"><span class="pre">task</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.PostRequestSer.task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.PostRequestSer.callbackUrl">
+<span class="sig-name descname"><span class="pre">callbackUrl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.PostRequestSer.callbackUrl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.ResponseSer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">ResponseSer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errorId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorCode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorDescription</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python3_capsolver.core.serializer.ResponseSer" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.ResponseSer.errorId">
+<span class="sig-name descname"><span class="pre">errorId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.ResponseSer.errorId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.ResponseSer.errorCode">
+<span class="sig-name descname"><span class="pre">errorCode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.ResponseSer.errorCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.ResponseSer.errorDescription">
+<span class="sig-name descname"><span class="pre">errorDescription</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.ResponseSer.errorDescription" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaResponseSer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.serializer.</span></span><span class="sig-name descname"><span class="pre">CaptchaResponseSer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errorId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorCode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorDescription</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taskId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.ResponseStatusEnm" title="python3_capsolver.core.enum.ResponseStatusEnm"><span class="pre">ResponseStatusEnm</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ResponseStatusEnm.Processing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaResponseSer" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaResponseSer.taskId">
+<span class="sig-name descname"><span class="pre">taskId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaResponseSer.taskId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaResponseSer.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.ResponseStatusEnm" title="python3_capsolver.core.enum.ResponseStatusEnm"><span class="pre">ResponseStatusEnm</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaResponseSer.status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python3_capsolver.core.serializer.CaptchaResponseSer.solution">
+<span class="sig-name descname"><span class="pre">solution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#python3_capsolver.core.serializer.CaptchaResponseSer.solution" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Capsolver.png" alt="Logo of python3-capsolver"/>
+            </a></p>
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">Serializer</a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.PostRequestSer"><code class="docutils literal notranslate"><span class="pre">PostRequestSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.PostRequestSer.clientKey"><code class="docutils literal notranslate"><span class="pre">PostRequestSer.clientKey</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.PostRequestSer.task"><code class="docutils literal notranslate"><span class="pre">PostRequestSer.task</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.PostRequestSer.callbackUrl"><code class="docutils literal notranslate"><span class="pre">PostRequestSer.callbackUrl</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.ResponseSer"><code class="docutils literal notranslate"><span class="pre">ResponseSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.ResponseSer.errorId"><code class="docutils literal notranslate"><span class="pre">ResponseSer.errorId</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.ResponseSer.errorCode"><code class="docutils literal notranslate"><span class="pre">ResponseSer.errorCode</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.ResponseSer.errorDescription"><code class="docutils literal notranslate"><span class="pre">ResponseSer.errorDescription</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaResponseSer"><code class="docutils literal notranslate"><span class="pre">CaptchaResponseSer</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaResponseSer.taskId"><code class="docutils literal notranslate"><span class="pre">CaptchaResponseSer.taskId</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaResponseSer.status"><code class="docutils literal notranslate"><span class="pre">CaptchaResponseSer.status</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.serializer.CaptchaResponseSer.solution"><code class="docutils literal notranslate"><span class="pre">CaptchaResponseSer.solution</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../index.html">Overview</a>
+    <ul>
+          <li>Previous: <a href="../enum/info.html" title="previous chapter">Enum</a>
+          
+    </ul>
+  </li>
+</ul>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, AndreiDrang; Release - 1.2.0; Last update - 2026-01-13.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

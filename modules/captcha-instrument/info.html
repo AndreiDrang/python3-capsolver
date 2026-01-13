@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FileInstrument &#8212; python3-capsolver (1.2.0)</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=7a9665a2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jinja.css?v=85659ec6" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script data-project="python3-capsolver" data-version="" src="../../_static/describe_version.js?v=fa7f30d0"></script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Enum" href="../enum/info.html" />
+    <link rel="prev" title="YandexCaptcha" href="../yandex/example.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../enum/info.html" title="Enum"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../yandex/example.html" title="YandexCaptcha"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">python3-capsolver (1.2.0)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">FileInstrument</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="fileinstrument">
+<h1>FileInstrument<a class="headerlink" href="#fileinstrument" title="Link to this heading">¶</a></h1>
+<p>To import this module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">captcha_instrument</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="python3_capsolver.core.captcha_instrument.FileInstrument">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">python3_capsolver.core.captcha_instrument.</span></span><span class="sig-name descname"><span class="pre">FileInstrument</span></span><a class="headerlink" href="#python3_capsolver.core.captcha_instrument.FileInstrument" title="Link to this definition">¶</a></dt>
+<dd><p>This class contains usefull methods for async and async files processing to prepare them for solving</p>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core.captcha_instrument</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileInstrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">body</span> <span class="o">=</span> <span class="n">FileInstrument</span><span class="p">()</span><span class="o">.</span><span class="n">file_processing</span><span class="p">(</span><span class="n">captcha_file</span><span class="o">=</span><span class="s2">&quot;captcha_example.jpeg&quot;</span><span class="p">)</span>
+<span class="go">/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core.captcha_instrument</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileInstrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">body</span> <span class="o">=</span> <span class="n">FileInstrument</span><span class="p">()</span><span class="o">.</span><span class="n">file_processing</span><span class="p">(</span><span class="n">captcha_link</span><span class="o">=</span><span class="s2">&quot;https://some-url/file.jpeg&quot;</span><span class="p">)</span>
+<span class="go">/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String with decoded file data</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="python3_capsolver.core.captcha_instrument.FileInstrument.file_processing">
+<span class="sig-name descname"><span class="pre">file_processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">captcha_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_base64</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.SaveFormatsEnm" title="python3_capsolver.core.enum.SaveFormatsEnm"><span class="pre">SaveFormatsEnm</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">SaveFormatsEnm.TEMP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_clearing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/tmp/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'png'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python3_capsolver.core.captcha_instrument.FileInstrument.file_processing" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Synchronous method for captcha image processing.</dt><dd><ul class="simple">
+<li><p>Method can read local file and return it’s as base64 string.</p></li>
+<li><p>Method can read file URL and return it’s as base64 string.</p></li>
+<li><p>Method can decode base64 bytes and return it’s as base64 string.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>captcha_link</strong> (<em>str</em><em> | </em><em>None</em>) – URL link to file. Instrument will send GET request to it and read content</p></li>
+<li><p><strong>captcha_file</strong> (<em>str</em><em> | </em><em>None</em>) – Local file path. Instrument will read it</p></li>
+<li><p><strong>captcha_base64</strong> (<em>bytes</em><em> | </em><em>None</em>) – Readed file base64 data. Instrument will decode it in <code class="docutils literal notranslate"><span class="pre">utf-8</span></code></p></li>
+<li><p><strong>save_format</strong> (<a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.SaveFormatsEnm" title="python3_capsolver.core.enum.SaveFormatsEnm"><em>SaveFormatsEnm</em></a>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> arg.
+If <code class="docutils literal notranslate"><span class="pre">SaveFormatsEnm.CONST</span></code> is set - file will be loaded and saved locally.</p></li>
+<li><p><strong>img_clearing</strong> (<em>bool</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> arg.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> - file wil not be removed downloading and saving locally.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> and <code class="docutils literal notranslate"><span class="pre">SaveFormatsEnm.CONST</span></code> args.
+In this param u can set locally path for downloaded file saving.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">file_path</span></code> args.
+In this param u MUST set file format for saving.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core.captcha_instrument</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileInstrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">body</span> <span class="o">=</span> <span class="n">FileInstrument</span><span class="p">()</span><span class="o">.</span><span class="n">file_processing</span><span class="p">(</span><span class="n">captcha_file</span><span class="o">=</span><span class="s2">&quot;captcha_example.jpeg&quot;</span><span class="p">)</span>
+<span class="go">/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String with decoded file data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python3_capsolver.core.captcha_instrument.FileInstrument.aio_file_processing">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aio_file_processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">captcha_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">captcha_base64</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.SaveFormatsEnm" title="python3_capsolver.core.enum.SaveFormatsEnm"><span class="pre">SaveFormatsEnm</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">SaveFormatsEnm.TEMP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_clearing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/tmp/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'png'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python3_capsolver.core.captcha_instrument.FileInstrument.aio_file_processing" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Asynchronous method for captcha image processing.</dt><dd><ul class="simple">
+<li><p>Method can read local file and return it’s as base64 string.</p></li>
+<li><p>Method can read file URL and return it’s as base64 string.</p></li>
+<li><p>Method can decode base64 bytes and return it’s as base64 string.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>captcha_link</strong> (<em>str</em><em> | </em><em>None</em>) – URL link to file. Instrument will send GET request to it and read content</p></li>
+<li><p><strong>captcha_file</strong> (<em>str</em><em> | </em><em>None</em>) – Local file path. Instrument will read it</p></li>
+<li><p><strong>captcha_base64</strong> (<em>bytes</em><em> | </em><em>None</em>) – Readed file base64 data. Instrument will decode it in <code class="docutils literal notranslate"><span class="pre">utf-8</span></code></p></li>
+<li><p><strong>save_format</strong> (<a class="reference internal" href="../enum/info.html#python3_capsolver.core.enum.SaveFormatsEnm" title="python3_capsolver.core.enum.SaveFormatsEnm"><em>SaveFormatsEnm</em></a>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> arg.
+If <code class="docutils literal notranslate"><span class="pre">SaveFormatsEnm.CONST</span></code> is set - file will be loaded and saved locally.</p></li>
+<li><p><strong>img_clearing</strong> (<em>bool</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> arg.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> - file wil not be removed downloading and saving locally.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">captcha_link</span></code> and <code class="docutils literal notranslate"><span class="pre">SaveFormatsEnm.CONST</span></code> args.
+In this param u can set locally path for downloaded file saving.</p></li>
+<li><p><strong>file_extension</strong> (<em>str</em>) – This arg works only with <code class="docutils literal notranslate"><span class="pre">file_path</span></code> args.
+In this param u MUST set file format for saving.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">python3_capsolver.core.captcha_instrument</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileInstrument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">body</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">FileInstrument</span><span class="p">()</span>
+<span class="gp">... </span>                    <span class="o">.</span><span class="n">aio_file_processing</span><span class="p">(</span><span class="n">captcha_file</span><span class="o">=</span><span class="s2">&quot;captcha_example.jpeg&quot;</span><span class="p">))</span>
+<span class="go">/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVxxxxx</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String with decoded file data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+  <span id="sidebar-top"></span>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  
+    
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Capsolver.png" alt="Logo of python3-capsolver"/>
+            </a></p>
+  
+
+  <h3>Contents</h3>
+  <ul>
+<li><a class="reference internal" href="#">FileInstrument</a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.captcha_instrument.FileInstrument"><code class="docutils literal notranslate"><span class="pre">FileInstrument</span></code></a><ul>
+<li><a class="reference internal" href="#python3_capsolver.core.captcha_instrument.FileInstrument.file_processing"><code class="docutils literal notranslate"><span class="pre">FileInstrument.file_processing()</span></code></a></li>
+<li><a class="reference internal" href="#python3_capsolver.core.captcha_instrument.FileInstrument.aio_file_processing"><code class="docutils literal notranslate"><span class="pre">FileInstrument.aio_file_processing()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Navigation</h3>
+<ul>
+  <li><a href="../../index.html">Overview</a>
+    <ul>
+          <li>Previous: <a href="../yandex/example.html" title="previous chapter">YandexCaptcha</a>
+          <li>Next: <a href="../enum/info.html" title="next chapter">Enum</a>
+    </ul>
+  </li>
+</ul>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, AndreiDrang; Release - 1.2.0; Last update - 2026-01-13.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>
