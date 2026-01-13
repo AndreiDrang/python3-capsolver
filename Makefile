@@ -1,3 +1,5 @@
+.PHONY: install remove refactor lint build upload tests doc
+
 install:
 	pip3 install -e .
 
