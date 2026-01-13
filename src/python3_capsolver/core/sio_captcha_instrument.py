@@ -24,6 +24,7 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
         super().__init__()
         self.captcha_params = captcha_params
         self.created_task_data = CaptchaResponseSer
+
         # prepare session
         self.session = requests.Session()
         self.session.mount("http://", HTTPAdapter(max_retries=RETRIES))
@@ -37,6 +38,8 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
 
         # if task created and ready - return result
         if self.created_task_data.errorId == 0:
+            if str(self.created_task_data.status).lower() == ResponseStatusEnm.Ready.value:
+                return self.created_task_data.to_dict()
             return self.__get_result().to_dict()
         else:
             self.created_task_data.status = ResponseStatusEnm.Failed
@@ -78,7 +81,10 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
                 )
                 if resp.status_code in VALID_STATUS_CODES:
                     result_data = CaptchaResponseSer(**resp.json())
-                    if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
+                    if result_data.status in (
+                        ResponseStatusEnm.Ready,
+                        ResponseStatusEnm.Failed,
+                    ):
                         # if captcha ready\failed or have unknown status - return exist data
                         return result_data
                 else:
@@ -89,12 +95,14 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
 
             # if captcha just created or in processing now - wait
             time.sleep(self.captcha_params.sleep_time)
+
         # default response if server is silent
         self.result.errorId = 1
         self.result.errorCode = self.CAPTCHA_UNSOLVABLE
         self.result.errorDescription = self.CAPTCHA_UNSOLVABLE_DESCRIPTION
         self.result.taskId = self.created_task_data.taskId
         self.result.status = ResponseStatusEnm.Failed
+        return self.result
 
     @staticmethod
     def send_post_request(
