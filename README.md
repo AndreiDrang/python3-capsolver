@@ -26,6 +26,7 @@ Tested on UNIX based OS.
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
 ## Features
+- **Modern Tooling**: Uses `uv` for fast, reliable dependency management and environment isolation.
 - **Sync & Async Support**: Full support for both synchronous (`requests`) and asynchronous (`aiohttp`) operations.
 - **Type Safety**: Enums for captcha types and response statuses.
 - **Resilience**: Built-in retries using `tenacity`.
@@ -34,9 +35,21 @@ The library is intended for software developers and is used to work with the [Ca
 
 ## How to install?
 
-We recommend using the latest version of Python. `python3-capsolver` supports Python 3.7+.
+We recommend using the latest version of Python. `python3-capsolver` supports Python 3.8+.
 
-### pip
+### Development (using uv)
+
+This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable dependency management.
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install project dependencies
+uv sync --all-groups
+```
+
+### Production (pip)
 
 ```bash
 pip install python3-capsolver
@@ -115,13 +128,28 @@ if __name__ == "__main__":
 
 ## How to test?
 
-1. You need set ``API_KEY`` in your environment(get this value from you account).
-2. Run command ``make tests``, from root directory.
+The project uses `uv` for testing and development tasks.
+
+```bash
+# 1. Set API_KEY in your environment (get this value from your account)
+export API_KEY="your_api_key_here"
+
+# 2. Run tests (uses uv internally)
+make tests
+
+# Other useful make targets:
+# make install     # Install dependencies with uv sync
+# make lint        # Run linting checks
+# make build       # Build the package
+# make doc         # Generate documentation
+```
+
+All `make` commands automatically use `uv` to run commands in the isolated environment.
 
 
 ### Changelog
 
-Check [releases page](https://github.com/AndreiDrang/python3-capsolver/releases).
+See [CHANGELOG.md](https://github.com/AndreiDrang/python3-capsolver/blob/main/CHANGELOG.md) for version history and detailed changes.
 
 ### How to get API Key to work with the library
 1. On the page - https://dashboard.capsolver.com/overview/user-center
