@@ -6,7 +6,7 @@ install:
 remove:
 	pip uninstall python3_capsolver -y
 
-refactor:
+refactor: install
 	uv run black docs/
 	uv run isort docs/
 
@@ -19,7 +19,7 @@ refactor:
 	uv run black src/ tests/
 	uv run isort src/ tests/
 
-lint:
+lint: install
 	uv run autoflake --in-place --recursive src/ --check
 	uv run black src/ --check
 	uv run isort src/ --check-only
