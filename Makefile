@@ -1,44 +1,42 @@
 .PHONY: install remove refactor lint build upload tests doc
 
 install:
-	pip3 install -e .
+	uv sync --all-groups
 
 remove:
 	pip uninstall python3_capsolver -y
 
-refactor:
-	black docs/
-	isort docs/
+refactor: install
+	uv run black docs/
+	uv run isort docs/
 
-	autoflake --in-place \
+	uv run autoflake --in-place \
 				--recursive \
 				--remove-unused-variables \
 				--remove-duplicate-keys \
 				--remove-all-unused-imports \
 				src/ tests/
-	black src/ tests/
-	isort src/ tests/
+	uv run black src/ tests/
+	uv run isort src/ tests/
 
-lint:
-	autoflake --in-place --recursive src/ --check
-	black src/ --check
-	isort src/ --check-only
+lint: install
+	uv run autoflake --in-place --recursive src/ --check
+	uv run black src/ --check
+	uv run isort src/ --check-only
 
 build:
-	pip3 install --upgrade build setuptools
-	python3 -m build
+	uv build
 
 upload:
-	pip3 install twine wheel setuptools build
-	twine upload dist/*
+	uv publish
 
 tests: install
-	coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --disable-warnings \
+	uv run coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --disable-warnings \
 	tests/ && \
-	coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
-	coverage html --precision=3 --skip-empty -d coverage/html/ && \
-	coverage xml -o coverage/coverage.xml
+	uv run coverage report --precision=3 --sort=cover --skip-empty --show-missing && \
+	uv run coverage html --precision=3 --skip-empty -d coverage/html/ && \
+	uv run coverage xml -o coverage/coverage.xml
 
 doc: install
 	cd docs/ && \
-	make html -e
+	uv run --group docs make html -e

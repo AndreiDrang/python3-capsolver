@@ -7,12 +7,16 @@ on:
       - '.github/workflows/build.yml'
       - 'src/**'
       - 'Makefile'
+      - 'pyproject.toml'
+      - 'uv.lock'
   pull_request:
     branches: [ "main", "release"]
     paths:
       - '.github/workflows/build.yml'
       - 'src/**'
       - 'Makefile'
+      - 'pyproject.toml'
+      - 'uv.lock'
 
 jobs:
   test_build:
@@ -24,10 +28,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        enable-cache: true
+    - name: Set up Python ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
 
     - name: Local build checking
       run: make build

@@ -25,6 +25,13 @@ Tested on UNIX based OS.
 
 The library is intended for software developers and is used to work with the [Capsolver](https://dashboard.capsolver.com/passport/register?inviteCode=kQTn-tG07Jb1) service API.
 
+## Features
+- **Sync & Async Support**: Full support for both synchronous (`requests`) and asynchronous (`aiohttp`) operations.
+- **Type Safety**: Enums for captcha types and response statuses.
+- **Resilience**: Built-in retries using `tenacity`.
+- **Performance**: High-speed JSON serialization with `msgspec`.
+- **Coverage**: Supports ReCaptcha (V2/V3), Cloudflare, DataDome, GeeTest, MtCaptcha, AWS WAF, Yandex, and ImageToText.
+
 ## How to install?
 
 We recommend using the latest version of Python. `python3-capsolver` supports Python 3.7+.
@@ -37,8 +44,74 @@ pip install python3-capsolver
 
 ## How to use?
 
-Is described in the [documentation-website](https://andreidrang.github.io/python3-capsolver/).
+Detailed documentation is available on the [website](https://andreidrang.github.io/python3-capsolver/).
 
+### Quick Start
+
+#### Synchronous Example (ImageToText)
+```python
+from python3_capsolver.image_to_text import ImageToText
+
+# 1. Initialize with API Key
+solver = ImageToText(api_key="YOUR_API_KEY")
+
+# 2. Solve
+result = solver.captcha_handler(
+    task_payload={
+        "body": "base64_encoded_image_string"
+    }
+)
+
+# 3. Check result
+if result["errorId"] == 0:
+    print("Solution:", result["solution"])
+else:
+    print("Error:", result["errorCode"])
+```
+
+#### Asynchronous Example (ReCaptcha)
+```python
+import asyncio
+from python3_capsolver.recaptcha import ReCaptcha
+from python3_capsolver.core.enum import CaptchaTypeEnm
+
+async def main():
+    # 1. Initialize
+    solver = ReCaptcha(
+        api_key="YOUR_API_KEY", 
+        captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess
+    )
+
+    # 2. Solve
+    result = await solver.aio_captcha_handler(
+        task_payload={
+            "websiteURL": "https://example.com",
+            "websiteKey": "SITE_KEY"
+        }
+    )
+    
+    print(result)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Supported Captcha Types
+- **ReCaptcha**: V2 (Task/Enterprise), V3 (Task/Enterprise)
+- **HCaptcha**: Task, Enterprise
+- **Cloudflare**: Turnstile
+- **GeeTest**: V3, V4
+- **DataDome**: Slider
+- **MtCaptcha**
+- **AWS WAF**
+- **Yandex SmartCaptcha**
+- **ImageToText**: General image CAPTCHAs
+
+## Documentation & Context (For LLMs)
+- **Project Structure**: See `AGENTS.md` in root and subdirectories for internal architecture.
+- **Entry Points**: `src/python3_capsolver/*.py` contains service-specific classes (e.g., `ReCaptcha`, `HCaptcha`).
+- **Core Logic**: `src/python3_capsolver/core/base.py` handles the API communication loop.
+- **Enums**: Use `python3_capsolver.core.enum` for type-safe parameters.
 
 ## How to test?
 

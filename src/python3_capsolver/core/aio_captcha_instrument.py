@@ -30,6 +30,8 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
 
         # if task created and already ready - return result
         if self.created_task_data.errorId == 0:
+            if str(self.created_task_data.status).lower() == ResponseStatusEnm.Ready.value:
+                return self.created_task_data.to_dict()
             return (await self.__get_result()).to_dict()
         else:
             self.created_task_data.status = ResponseStatusEnm.Failed
@@ -72,7 +74,10 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
                     ) as resp:
                         if resp.status in VALID_STATUS_CODES:
                             result_data = CaptchaResponseSer(**await resp.json())
-                            if result_data.status in (ResponseStatusEnm.Ready, ResponseStatusEnm.Failed):
+                            if result_data.status in (
+                                ResponseStatusEnm.Ready,
+                                ResponseStatusEnm.Failed,
+                            ):
                                 # if captcha ready\failed or have unknown status - return exist data
                                 return result_data
                         else:
@@ -90,10 +95,12 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
         self.result.errorDescription = self.CAPTCHA_UNSOLVABLE_DESCRIPTION
         self.result.taskId = self.created_task_data.taskId
         self.result.status = ResponseStatusEnm.Failed
+        return self.result
 
     @staticmethod
     async def send_post_request(
-        payload: Optional[dict] = None, url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE
+        payload: Optional[dict] = None,
+        url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE,
     ) -> dict:
         """
         Function send ASYNC request to service and wait for result

@@ -8,14 +8,16 @@ on:
       - 'src/**'
       - 'tests/**'
       - 'Makefile'
-      - 'requirements.test.txt'
+      - 'pyproject.toml'
+      - 'uv.lock'
   pull_request:
     branches: [ "main", "release"]
     paths:
       - '.github/workflows/test.yml'
       - 'src/**'
       - 'Makefile'
-      - 'requirements.test.txt'
+      - 'pyproject.toml'
+      - 'uv.lock'
   schedule:
     - cron: "5 0 * * 1"
 
@@ -31,15 +33,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -U -r requirements.test.txt
+          enable-cache: true
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Test
         run: make tests

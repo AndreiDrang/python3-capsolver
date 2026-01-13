@@ -1,12 +1,18 @@
 from enum import Enum
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Dict, Union, Optional
 
 from msgspec import Struct
 
 from .enum import ResponseStatusEnm
 from .const import APP_ID
 
-__all__ = ("PostRequestSer", "TaskSer", "RequestCreateTaskSer", "CaptchaResponseSer", "RequestGetTaskResultSer")
+__all__ = (
+    "PostRequestSer",
+    "TaskSer",
+    "RequestCreateTaskSer",
+    "CaptchaResponseSer",
+    "RequestGetTaskResultSer",
+)
 
 
 class MyBaseModel(Struct):
@@ -36,7 +42,7 @@ class TaskSer(MyBaseModel):
 
 
 class RequestCreateTaskSer(PostRequestSer):
-    appId: Literal[APP_ID] = APP_ID
+    appId: str = APP_ID
 
 
 class RequestGetTaskResultSer(MyBaseModel):
@@ -58,5 +64,5 @@ class ResponseSer(MyBaseModel):
 
 class CaptchaResponseSer(ResponseSer):
     taskId: Optional[str] = None
-    status: ResponseStatusEnm = ResponseStatusEnm.Processing
+    status: Union[ResponseStatusEnm, str] = ResponseStatusEnm.Processing
     solution: Optional[Dict[str, Any]] = None
