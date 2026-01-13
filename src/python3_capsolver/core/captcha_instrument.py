@@ -83,7 +83,10 @@ class FileInstrument:
             async for attempt in ASYNC_RETRIES:
                 with attempt:
                     async with session.get(url=url, **kwargs) as resp:
-                        return await resp.content.read()
+                        if resp.status == 200:
+                            return await resp.content.read()
+                        return b""
+        return b""
 
     def file_processing(
         self,
