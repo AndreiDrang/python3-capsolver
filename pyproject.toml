@@ -103,3 +103,18 @@ Documentation = "https://andreidrang.github.io/python3-capsolver/"
 Repository = "https://github.com/AndreiDrang/python3-capsolver"
 Issues = "https://github.com/AndreiDrang/python3-capsolver/issues"
 Changelog = "https://github.com/AndreiDrang/python3-capsolver/releases"
+
+[dependency-groups]
+dev = [
+    "autoflake>=2.3.1",
+    "black>=24.8.0",
+    "coverage>=7.6.1",
+    "isort>=5.13.2",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.24.0",
+]
+docs = [
+    "myst-parser>=3.0.1",
+    "pallets-sphinx-themes>=2.3.0",
+    "sphinx>=7.1.2",
+]
