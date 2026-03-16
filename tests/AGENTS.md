@@ -1,5 +1,8 @@
 # TESTS SUITE
 
+**Generated:** 2026-03-15
+**Commit:** b797332
+
 ## OVERVIEW
 Pytest-based test suite validating API integration, dual-mode (sync/async) operations, and error handling for all captcha services.
 
@@ -8,7 +11,7 @@ Pytest-based test suite validating API integration, dual-mode (sync/async) opera
 tests/
 ├── conftest.py              # BaseTest class, fixtures, test utilities
 ├── test_*.py                # Test modules (match source structure)
-└── files/                   # Test assets (e.g., captcha_example.jpeg)
+└── files/                   # Test assets (captcha_example.jpeg)
 ```
 
 ## WHERE TO LOOK
@@ -29,3 +32,21 @@ tests/
 - **Context Managers**: Test both `with` and `async with` patterns for resource cleanup.
 - **Rate Limiting**: Default delays (1s function, 2s class) to avoid API throttling.
 - **Error Testing**: Verify `errorId`, `errorCode`, and `solution=None` for invalid keys.
+
+## COMMANDS
+```bash
+# Run all tests
+uv run pytest tests/
+
+# Run with coverage
+make tests    # Runs coverage + HTML + XML reports
+
+# Coverage reports
+coverage/html/     # HTML report
+coverage/coverage.xml  # XML for CI
+```
+
+## NOTES
+- **API Key**: Requires `API_KEY` environment variable
+- **Test Files**: 15 test modules, ~1.5k lines total
+- **Rate Limiting**: Built-in delays prevent API throttling during test runs
