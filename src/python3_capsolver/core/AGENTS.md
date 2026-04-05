@@ -1,46 +1,37 @@
-# CORE MODULE
+# AGENTS.md
 
-**Generated:** 2026-03-15
-**Commit:** b797332
+## Scope
 
-## OVERVIEW
-Core module provides foundational classes for synchronous (`requests`) and asynchronous (`aiohttp`) captcha solving operations.
+Core infrastructure shared by all captcha services: base classes, HTTP instruments, serialization, enums, and constants.
 
-Base classes establish patterns for Sync/Async instruments, enabling dual concurrency support across the library. Serialization leverages `msgspec` for high-performance JSON handling.
+## What lives here
 
-## STRUCTURE
-```
-src/python3_capsolver/core/
-├── base.py                    # CaptchaParams entry class (Sync/Async handlers)
-├── captcha_instrument.py      # CaptchaInstrumentBase, FileInstrument (9.3k lines)
-├── aio_captcha_instrument.py  # AIOCaptchaInstrument (async implementation)
-├── sio_captcha_instrument.py  # SIOCaptchaInstrument (sync implementation)
-├── serializer.py              # Request/Response msgspec Struct classes
-├── enum.py                    # EndpointPostfixEnm, CaptchaTypeEnm, ResponseStatusEnm
-├── const.py                   # API URLs, retry configurations
-├── utils.py                   # Utility functions (attempts_generator)
-├── context_instr.py           # Context manager instrumentation
-└── __init__.py                # Empty (anti-pattern)
+```text
+core/
+├── base.py                    # CaptchaParams: merges payloads, delegates to instruments
+├── captcha_instrument.py      # CaptchaInstrumentBase + FileInstrument (~9.3k lines)
+├── sio_captcha_instrument.py  # SIOCaptchaInstrument: sync HTTP via requests
+├── aio_captcha_instrument.py  # AIOCaptchaInstrument: async HTTP via aiohttp + tenacity
+├── serializer.py              # msgspec.Struct classes for API payloads/responses
+├── enum.py                    # CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
+├── const.py                   # REQUEST_URL, RETRIES, sleep intervals, status codes
+├── context_instr.py           # SIOContextManager, AIOContextManager mixins
+├── utils.py                   # attempts_generator and helpers
+└── __init__.py                # Empty — import via full path
 ```
 
-## WHERE TO LOOK
-| Task | File | Notes |
-|------|------|-------|
-| **Entry Point** | `base.py` | `CaptchaParams` class with `captcha_handler()` and `aio_captcha_handler()` |
-| **Base Classes** | `captcha_instrument.py` | `CaptchaInstrumentBase` for instruments, `FileInstrument` for file processing |
-| **Sync Instrument** | `sio_captcha_instrument.py` | `SIOCaptchaInstrument` - requests-based implementation |
-| **Async Instrument** | `aio_captcha_instrument.py` | `AIOCaptchaInstrument` - aiohttp-based implementation |
-| **Serialization** | `serializer.py` | `PostRequestSer`, `CaptchaResponseSer`, `MyBaseModel.to_dict()` |
-| **Enums** | `enum.py` | `CaptchaTypeEnm`, `ResponseStatusEnm`, `EndpointPostfixEnm` |
-| **Configuration** | `const.py` | `REQUEST_URL`, `RETRIES`, `VALID_STATUS_CODES` |
+## Local boundaries and invariants
 
-## CONVENTIONS
-- **Base Classes**: All instruments inherit from `CaptchaInstrumentBase`
-- **Dual Support**: Every captcha operation provides both sync and async methods
-- **Serialization**: `msgspec.Struct` classes with `to_dict()` method for API payloads
-- **Retries**: `tenacity` for async, `requests.Retry` for sync (5 attempts, exponential backoff)
-- **File Processing**: `FileInstrument` handles local files, URLs, and base64 in both sync/async contexts
-- **Session Management**: Instruments maintain their own HTTP sessions with retry adapters
+- `captcha_instrument.py` is the largest file (~9.3k lines) and contains both `CaptchaInstrumentBase` (abstract) and `FileInstrument` (file/URL/base64 processing) — edits here affect every service
+- Instruments are the only place `requests` and `aiohttp` are imported — service layer must never touch HTTP libraries
+- All serialization uses `msgspec.Struct` with `to_dict()` — never use the `json` module directly
+- Enums in `enum.py` are the single source of truth for captcha types, response statuses, and endpoint names
+- `base.py:CaptchaParams` is the single entry point; service classes inherit it and add only type-specific `__init__` params
 
-## ANTI-PATTERNS (THIS MODULE)
-- **Empty `__init__.py`**: Does NOT re-export base classes. Users must import via full path `from python3_capsolver.core.base import CaptchaParams`
+## Safe change rules
+
+- Adding a new captcha type requires updating `CaptchaTypeEnm` in `enum.py` and optionally adding structs to `serializer.py`
+- Changes to `captcha_instrument.py` are high-impact: it is shared by all services and both sync/async paths
+- Retry configuration lives in `const.py` (`RETRIES`, `ASYNC_RETRIES`) — do not hardcode retry counts in instruments
+- `context_instr.py` provides `__enter__`/`__exit__` and `__aenter__`/`__aexit__` — all services depend on these mixins
+- `__init__.py` is intentionally empty; do not add re-exports

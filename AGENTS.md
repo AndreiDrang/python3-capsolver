@@ -1,72 +1,69 @@
-# PROJECT KNOWLEDGE BASE
+# AGENTS.md
 
-**Generated:** 2026-03-15
-**Commit:** b797332
-**Branch:** main
+## Repository overview
 
-## OVERVIEW
-Python 3.8+ library for Capsolver service API. Dual sync (`requests`) / async (`aiohttp`) support. `msgspec` for serialization, `tenacity` for retries.
+Python 3.8+ client library for the Capsolver captcha-solving API. Single-package `src/` layout, dual sync (`requests`) / async (`aiohttp`) execution, `msgspec` for serialization, `tenacity` for async retries.
 
-## STRUCTURE
-```
+## Where to work
+
+```text
 ./
-├── src/python3_capsolver/    # Main library (service implementations)
-│   ├── core/                 # Base classes, instruments, serializers
-│   └── *.py                  # Service-specific (ReCaptcha, Cloudflare, etc.)
-├── tests/                    # Pytest suite (matches source structure)
-├── docs/                     # Sphinx documentation
-├── ARCHITECTURE.md           # System architecture (matklad-style)
-└── pyproject.toml            # Build, uv, pytest, black/isort config
+├── src/python3_capsolver/        # Main library
+│   ├── core/                     # Base classes, instruments, serializers, enums
+│   ├── control.py                # Raw API: get_balance, create_task, get_task_result
+│   ├── recaptcha.py              # ReCaptcha V2/V3/Enterprise
+│   ├── cloudflare.py             # Cloudflare Turnstile/Challenge
+│   └── *.py                      # Other captcha services (see package AGENTS.md)
+├── tests/                        # Pytest suite mirroring source structure
+│   ├── conftest.py               # BaseTest class, fixtures, rate-limiting delays
+│   └── test_*.py                 # One file per service + test_core.py + test_instrument.py
+├── docs/                         # Sphinx documentation (make html)
+├── ARCHITECTURE.md               # Layered architecture, data flow, invariants
+├── pyproject.toml                # Build, deps, black/isort/pytest config
+└── Makefile                      # make tests, make refactor, make build, make doc
 ```
 
-## WHERE TO LOOK
-| Task | Location | Notes |
-|------|----------|-------|
-| **Architecture** | `ARCHITECTURE.md` | Layered design, invariants, life of a request |
-| **Base Logic** | `src/python3_capsolver/core/` | `base.py`, `serializer.py`, `enum.py`, instruments |
-| **Service Implementations** | `src/python3_capsolver/*.py` | `recaptcha.py`, `cloudflare.py`, `control.py` |
-| **Tests** | `tests/` | `conftest.py` (BaseTest, fixtures), per-service tests |
-| **Configuration** | `pyproject.toml` | uv, black (120), isort, pytest (asyncio auto) |
-| **Commands** | `Makefile` | `make tests`, `make build`, `make upload` |
+## Architecture and boundaries
 
-## CONVENTIONS
-- **Toolchain**: `uv` for package management (`uv sync`, `uv run`, `uv build`, `uv publish`)
-- **Formatter**: `black` (line-length 120), `isort` (profile "black")
-- **Cleanup**: `autoflake` (remove unused imports/variables)
-- **Serialization**: `msgspec` (not `json`) for performance
-- **Concurrency**: Dual sync/async required for all instruments
-- **Retries**: `tenacity` (async), `requests.Retry` (sync) — 5 attempts, exponential backoff
-- **Testing**: pytest 7.0+, `pytest-asyncio` (auto mode), rate-limiting fixtures (1s func, 2s class)
+Four layers with strict dependency direction (top → bottom only):
 
-## ANTI-PATTERNS (THIS PROJECT)
-- **Empty `__init__.py` files**: `src/python3_capsolver/__init__.py` only exports `__version__`; `core/__init__.py` is completely empty. Users must import via full paths (`from python3_capsolver.recaptcha import ReCaptcha`)
-- **AGENTS.md in package dirs**: Will ship with distribution unless excluded in `pyproject.toml`
-- **No CLI entry points**: Library-only, no console_scripts defined
+1. **Service layer** (`src/python3_capsolver/*.py`) — thin wrappers inheriting `CaptchaParams`, zero HTTP logic
+2. **Base layer** (`core/base.py`) — `CaptchaParams` merges payloads, delegates to instruments
+3. **Instrument layer** (`core/*_instrument.py`) — `SIOCaptchaInstrument` (sync) and `AIOCaptchaInstrument` (async) handle all HTTP, retries, and polling
+4. **Support layer** (`core/serializer.py`, `core/enum.py`, `core/const.py`) — `msgspec.Struct` classes, enums, constants
 
-## UNIQUE STYLES
-- **Service Pattern**: Each captcha service inherits from `CaptchaParams` with `captcha_handler()` (sync) + `aio_captcha_handler()` (async)
-- **Task Payload**: Dict merged with internal params, passed to `create_task()` API
-- **Context Managers**: All services support `with` / `async with` for session cleanup
-- **Test Duplication**: Every sync test (`def test_*`) has async counterpart (`async def test_aio_*`)
+**Forbidden**: service files importing `requests`/`aiohttp` directly; support layer depending on upper layers.
 
-## COMMANDS
+## Change rules
+
+- Every new captcha service must inherit `CaptchaParams`, provide `captcha_handler()` + `aio_captcha_handler()`, and register its type in `CaptchaTypeEnm`
+- All serialization must use `msgspec.Struct` — never raw `json` module
+- Dual sync/async is mandatory for any new instrument or service
+- Service classes are thin: only `__init__` with captcha-type-specific params; all HTTP goes through instruments
+- Context manager support (`with` / `async with`) is required on all service classes
+
+## Validation
+
 ```bash
-# Development
-uv sync --all-groups           # Install all dependencies
-uv run pytest tests/           # Run tests
-uv run black src/ tests/       # Format
-uv run isort src/ tests/       # Sort imports
-
-# Build & Publish
-uv build                       # Build wheel/sdist
-uv publish                     # Upload to PyPI
-
-# Documentation
-cd docs/ && uv run --group docs make html -e
+make tests                       # pytest + coverage (HTML + XML)
+make refactor                    # autoflake + black + isort on src/ and tests/
+make lint                        # autoflake --check, black --check, isort --check-only
+uv run pytest tests/ -k <name>   # run specific tests
 ```
 
-## NOTES
-- **API Key**: Tests require `API_KEY` environment variable
-- **Coverage**: HTML reports in `coverage/html/`, XML in `coverage/coverage.xml`
-- **Python Support**: 3.8–3.12 (tested via `target-version = ['py310']`)
-- **Dependencies**: `requests>=2.21.0`, `aiohttp>=3.9.2`, `msgspec>=0.18,<=0.21`, `tenacity>=8,<10`
+Tests require the `API_KEY` environment variable. Rate-limiting fixtures (`delay_func` 1s, `delay_class` 2s) prevent API throttling.
+
+## Key docs
+
+- `ARCHITECTURE.md` — full system map, data flow, invariants
+- `src/python3_capsolver/AGENTS.md` — service-level conventions
+- `src/python3_capsolver/core/AGENTS.md` — core module internals
+- `tests/AGENTS.md` — test patterns and fixtures
+
+## Repository-specific gotchas
+
+- **Empty `__init__.py` files**: users import via full path (`from python3_capsolver.recaptcha import ReCaptcha`), never from top-level package
+- **`AGENTS.md` in package dirs**: these ship with the wheel unless excluded in `pyproject.toml` — do not add more inside `src/`
+- **`control.py` is the largest file** (~431 lines) and provides direct API access without the captcha-handling abstraction
+- **Toolchain is `uv`**: use `uv run`, `uv sync`, `uv build` — not bare `pip` or `pytest`
+- **`captcha_instrument.py` is ~9.3k lines**: contains both `CaptchaInstrumentBase` and `FileInstrument`; edits here affect all services
