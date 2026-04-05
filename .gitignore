@@ -430,3 +430,4 @@ env/
 /.coverage
 /src/python3_capsolver.egg-info/
 /docs/_build/
+.osgrep
