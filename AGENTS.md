@@ -17,7 +17,7 @@ Python 3.8+ client library for the Capsolver captcha-solving API. Single-package
 ├── tests/                        # Pytest suite mirroring source structure
 │   ├── conftest.py               # BaseTest class, fixtures, rate-limiting delays
 │   └── test_*.py                 # One file per service + test_core.py + test_instrument.py
-├── docs/                         # Sphinx documentation (make html)
+├── docs/                         # Sphinx documentation (make doc)
 ├── ARCHITECTURE.md               # Layered architecture, data flow, invariants
 ├── pyproject.toml                # Build, deps, black/isort/pytest config
 └── Makefile                      # make tests, make refactor, make build, make doc
@@ -66,4 +66,4 @@ Tests require the `API_KEY` environment variable. Rate-limiting fixtures (`delay
 - **`AGENTS.md` in package dirs**: these ship with the wheel unless excluded in `pyproject.toml` — do not add more inside `src/`
 - **`control.py` is the largest file** (~431 lines) and provides direct API access without the captcha-handling abstraction
 - **Toolchain is `uv`**: use `uv run`, `uv sync`, `uv build` — not bare `pip` or `pytest`
-- **`captcha_instrument.py` is ~9.3k lines**: contains both `CaptchaInstrumentBase` and `FileInstrument`; edits here affect all services
+- **`captcha_instrument.py` is ~221 lines**: contains both `CaptchaInstrumentBase` and `FileInstrument`; edits here affect all services
