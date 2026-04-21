@@ -14,7 +14,14 @@ tests/
 ├── test_control.py           # Control: get_balance, create_task, get_task_result
 ├── test_recaptcha.py         # ReCaptcha V2/V3/Enterprise
 ├── test_cloudflare.py        # Cloudflare Turnstile/Challenge
-├── test_*.py                 # One file per captcha service
+├── test_gee_test.py          # GeeTest V3/V4
+├── test_datadome.py          # DataDome slider
+├── test_mt_captcha.py        # MtCaptcha
+├── test_aws_waf.py           # AWS WAF bypass
+├── test_friendly.py          # FriendlyCaptcha
+├── test_yandex.py            # Yandex SmartCaptcha
+├── test_image_to_text.py     # OCR text extraction
+├── test_vision_engine.py     # AI-based image recognition
 └── files/                    # Test assets (captcha_example.jpeg)
 ```
 
