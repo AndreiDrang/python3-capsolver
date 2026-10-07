@@ -1,20 +1,22 @@
 # AGENTS.md
 
-## Scope
+## Scope and inheritance
 
-Core infrastructure shared by all captcha services: base classes, HTTP instruments, serialization, enums, and constants.
+Applies to: `src/python3_capsolver/core/` — core infrastructure shared by all captcha services.
+
+Inherits repository-wide guidance from `../../AGENTS.md` and service-layer guidance from `../AGENTS.md`. This file defines only local differences for this subtree. No local overrides.
 
 ## What lives here
 
 ```text
 core/
 ├── base.py                    # CaptchaParams: merges payloads, delegates to instruments
-├── captcha_instrument.py      # CaptchaInstrumentBase + FileInstrument (~221 lines)
+├── captcha_instrument.py      # CaptchaInstrumentBase + FileInstrument (221 lines)
 ├── sio_captcha_instrument.py  # SIOCaptchaInstrument: sync HTTP via requests
 ├── aio_captcha_instrument.py  # AIOCaptchaInstrument: async HTTP via aiohttp + tenacity
 ├── serializer.py              # msgspec.Struct classes for API payloads/responses
 ├── enum.py                    # CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
-├── const.py                   # REQUEST_URL, RETRIES, sleep intervals, status codes
+├── const.py                   # REQUEST_URL, RETRIES, ASYNC_RETRIES, status codes
 ├── context_instr.py           # SIOContextManager, AIOContextManager mixins
 ├── utils.py                   # attempts_generator and helpers
 └── __init__.py                # Empty — import via full path
@@ -23,7 +25,7 @@ core/
 ## Local boundaries and invariants
 
 - `captcha_instrument.py` contains both `CaptchaInstrumentBase` (abstract) and `FileInstrument` (file/URL/base64 processing) — edits here affect every service
-- Instruments are the only place `requests` and `aiohttp` are imported — service layer must never touch HTTP libraries
+- Instruments are the only place `requests` and `aiohttp` are imported — the service layer must never touch HTTP libraries
 - All serialization uses `msgspec.Struct` with `to_dict()` — never use the `json` module directly
 - Enums in `enum.py` are the single source of truth for captcha types, response statuses, and endpoint names
 - `base.py:CaptchaParams` is the single entry point; service classes inherit it and add only type-specific `__init__` params
@@ -35,3 +37,7 @@ core/
 - Retry configuration lives in `const.py` (`RETRIES`, `ASYNC_RETRIES`) — do not hardcode retry counts in instruments
 - `context_instr.py` provides `__enter__`/`__exit__` and `__aenter__`/`__aexit__` — all services depend on these mixins
 - `__init__.py` is intentionally empty; do not add re-exports
+
+## Nearby docs
+
+- `../../../ARCHITECTURE.md` — read before cross-module changes (layer map, request/data flow, invariants)

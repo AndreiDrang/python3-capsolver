@@ -1,8 +1,10 @@
 # AGENTS.md
 
-## Scope
+## Scope and inheritance
 
-Pytest integration test suite. Tests call the live Capsolver API and require `API_KEY` in the environment.
+Applies to: `tests/` — pytest integration suite calling the live Capsolver API.
+
+Inherits repository-wide guidance from `../AGENTS.md`. This file defines only local differences for this subtree. No local overrides.
 
 ## What lives here
 
@@ -24,7 +26,7 @@ tests/
 ├── test_yandex.py            # Yandex SmartCaptcha
 ├── test_image_to_text.py     # OCR text extraction
 ├── test_vision_engine.py     # AI-based image recognition
-└── files/                    # Test assets (captcha_example.jpeg)
+└── files/                    # Test images (captcha_example.jpeg, ...)
 ```
 
 ## Local boundaries and invariants
@@ -32,7 +34,7 @@ tests/
 - All test classes inherit `BaseTest` from `conftest.py` — provides `API_KEY`, `sleep_time`, `get_random_string()`, `read_image()`
 - Every sync test (`def test_*`) has a corresponding async test (`async def test_aio_*`)
 - Rate-limiting fixtures are mandatory: `delay_func` (1s, function scope) and `delay_class` (2s, class scope) prevent API throttling
-- Tests are integration tests against the live API — they will fail without a valid `API_KEY` env var
+- Tests are integration tests against the live API — they fail without a valid `API_KEY` env var
 - `pytest-asyncio` runs in `auto` mode (configured in `pyproject.toml`)
 
 ## Safe change rules

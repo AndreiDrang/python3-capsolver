@@ -16,8 +16,9 @@ Python 3.8+ client library for the Capsolver captcha-solving API. Single-package
 │   └── *.py                      # Other captcha services (see package AGENTS.md)
 ├── tests/                        # Pytest suite mirroring source structure
 │   ├── conftest.py               # BaseTest class, fixtures, rate-limiting delays
-│   └── test_*.py                 # One file per service + test_core.py + test_instrument.py
-├── docs/                         # Sphinx documentation (make doc)
+│   └── test_*.py                 # Per-service tests + core/instrument/control tests
+├── docs/                         # Sphinx documentation (make doc); module pages in docs/modules/
+├── files/                        # Images used by README and docs
 ├── ARCHITECTURE.md               # Layered architecture, data flow, invariants
 ├── pyproject.toml                # Build, deps, black/isort/pytest config
 └── Makefile                      # make tests, make refactor, make build, make doc
@@ -34,6 +35,16 @@ Four layers with strict dependency direction (top → bottom only):
 
 **Forbidden**: service files importing `requests`/`aiohttp` directly; support layer depending on upper layers.
 
+## Context routing
+
+Read only when relevant:
+
+- Architectural or cross-module changes → `ARCHITECTURE.md` (full system map, request/data flow, invariants)
+- Editing service classes or adding a captcha type → `src/python3_capsolver/AGENTS.md`
+- Editing instruments, serializers, enums, or constants → `src/python3_capsolver/core/AGENTS.md`
+- Adding or modifying tests → `tests/AGENTS.md`
+- Sphinx docs changes → `docs/` (built with `make doc`; one page per module under `docs/modules/`)
+
 ## Change rules
 
 - Every new captcha service must inherit `CaptchaParams`, provide `captcha_handler()` + `aio_captcha_handler()`, and register its type in `CaptchaTypeEnm`
@@ -41,29 +52,23 @@ Four layers with strict dependency direction (top → bottom only):
 - Dual sync/async is mandatory for any new instrument or service
 - Service classes are thin: only `__init__` with captcha-type-specific params; all HTTP goes through instruments
 - Context manager support (`with` / `async with`) is required on all service classes
+- Keep syntax Python 3.8-compatible — CI runs a 3.8–3.14 matrix (`.github/workflows/build.yml`)
 
 ## Validation
 
 ```bash
-make tests                       # pytest + coverage (HTML + XML)
+make tests                       # pytest + coverage (HTML + XML) — same as CI (test.yml)
+make lint                        # autoflake --check, black --check, isort --check-only — same as CI (lint.yml)
 make refactor                    # autoflake + black + isort on src/ and tests/
-make lint                        # autoflake --check, black --check, isort --check-only
 uv run pytest tests/ -k <name>   # run specific tests
 ```
 
-Tests require the `API_KEY` environment variable. Rate-limiting fixtures (`delay_func` 1s, `delay_class` 2s) prevent API throttling.
-
-## Key docs
-
-- `ARCHITECTURE.md` — full system map, data flow, invariants
-- `src/python3_capsolver/AGENTS.md` — service-level conventions
-- `src/python3_capsolver/core/AGENTS.md` — core module internals
-- `tests/AGENTS.md` — test patterns and fixtures
+Tests require the `API_KEY` environment variable and call the live Capsolver API. Rate-limiting fixtures (`delay_func` 1s, `delay_class` 2s) prevent API throttling.
 
 ## Repository-specific gotchas
 
 - **Empty `__init__.py` files**: users import via full path (`from python3_capsolver.recaptcha import ReCaptcha`), never from top-level package
-- **`AGENTS.md` in package dirs**: these ship with the wheel unless excluded in `pyproject.toml` — do not add more inside `src/`
-- **`control.py` is the largest file** (~431 lines) and provides direct API access without the captcha-handling abstraction
+- **`AGENTS.md` files are repo-only**: they do not ship in the wheel — `MANIFEST.in` includes only `README.md` + `LICENSE` (verified against built wheels in `dist/`). Keep the tree at exactly two files inside `src/` (package root and `core/`); do not add deeper ones or packaging rules that would include them
+- **`control.py` is the largest file** (431 lines) and provides direct API access without the captcha-handling abstraction
 - **Toolchain is `uv`**: use `uv run`, `uv sync`, `uv build` — not bare `pip` or `pytest`
-- **`captcha_instrument.py` is ~221 lines**: contains both `CaptchaInstrumentBase` and `FileInstrument`; edits here affect all services
+- **`captcha_instrument.py` is 221 lines**: contains both `CaptchaInstrumentBase` and `FileInstrument`; edits here affect all services
