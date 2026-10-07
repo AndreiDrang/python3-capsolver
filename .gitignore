@@ -6,6 +6,7 @@ instance/*
 !instance/.gitignore
 .webassets-cache
 .env
+.pypi-token
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
@@ -430,3 +431,4 @@ env/
 /.coverage
 /src/python3_capsolver.egg-info/
 /docs/_build/
+.osgrep
