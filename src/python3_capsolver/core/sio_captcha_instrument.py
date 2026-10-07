@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import time
 import logging
-from typing import Optional
+from typing import TYPE_CHECKING
 from urllib import parse
 
 import requests
@@ -12,6 +14,9 @@ from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrumentBase
 
+if TYPE_CHECKING:
+    from .base import CaptchaParams
+
 __all__ = ("SIOCaptchaInstrument",)
 
 
@@ -20,7 +25,7 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
     Instrument for working with sync captcha
     """
 
-    def __init__(self, captcha_params: "CaptchaParams"):
+    def __init__(self, captcha_params: CaptchaParams):
         super().__init__()
         self.captcha_params = captcha_params
         self.created_task_data = CaptchaResponseSer
@@ -106,7 +111,7 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
 
     @staticmethod
     def send_post_request(
-        payload: Optional[dict] = None,
+        payload: dict | None = None,
         session: requests.Session = requests.Session(),
         url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE,
     ) -> dict:
