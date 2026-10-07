@@ -2,195 +2,187 @@
 
 ## 1. High-Level Overview
 
-python3-capsolver is a Python 3.8+ client library for the [Capsolver](https://capsolver.com) captcha-solving API (`Observed`: `pyproject.toml` lines 38–43, `src/python3_capsolver/core/const.py` line 18). It provides a unified interface for submitting captcha tasks to Capsolver's cloud service and polling for results, covering ReCaptcha, Cloudflare Turnstile, GeeTest, DataDome, AWS WAF, MtCaptcha, FriendlyCaptcha, Yandex SmartCaptcha, image-to-text OCR, and AI vision tasks (`Observed`: `src/python3_capsolver/core/enum.py` `CaptchaTypeEnm`, service files in `src/python3_capsolver/`).
+python3-capsolver is a Python 3.8+ client library (SDK) for the Capsolver cloud captcha-solving API. It ships one package, `python3_capsolver`, distributed on PyPI, with a dual execution model: every capability exists twice — synchronous via `requests`, asynchronous via `aiohttp` (`src/python3_capsolver/core/sio_captcha_instrument.py`, `src/python3_capsolver/core/aio_captcha_instrument.py`, dependency list in `pyproject.toml`). The API base URL is a constant (`REQUEST_URL` in `src/python3_capsolver/core/const.py`); the library keeps no state beyond per-instance request payloads.
 
-The library is a single-package SDK distributed via PyPI as `python3-capsolver`. It exposes a dual sync/async API — synchronous calls use `requests`, asynchronous calls use `aiohttp` — so consumers can integrate it into either threading or `asyncio` applications without switching libraries (`Observed`: `pyproject.toml` lines 86–91, `core/sio_captcha_instrument.py` imports `requests`, `core/aio_captcha_instrument.py` imports `aiohttp`).
+Each supported captcha family is one thin service module (ReCaptcha, Cloudflare, GeeTest, DataDome, MtCaptcha, FriendlyCaptcha, Yandex SmartCaptcha, AWS WAF, image-to-text OCR, AI vision) plus a raw-API escape hatch, `control.py`; all types are registered in `CaptchaTypeEnm` (`src/python3_capsolver/core/enum.py`).
 
-Architecturally the codebase is a layered library: thin per-captcha-type service classes at the top, a shared base class that merges payloads and delegates to HTTP instruments, and a support layer of serializers, enums, and constants at the bottom. There is no server, no CLI, and no database — the library is a pure API client.
+The architecture is a four-layer library with one-way dependencies: thin service classes → shared base class → HTTP instruments → support layer (schemas, enums, constants). There is no server, CLI, database, or background worker. The test suite is a live integration suite against the real Capsolver API, gated on the `API_KEY` secret (`tests/conftest.py`, `.github/workflows/test.yml`). The toolchain is `uv` (`uv.lock`, `Makefile`).
 
-Evidence anchors: `pyproject.toml`, `src/python3_capsolver/core/base.py`, `src/python3_capsolver/core/enum.py`, `src/python3_capsolver/core/const.py`, `src/python3_capsolver/recaptcha.py`, `src/python3_capsolver/core/serializer.py`.
+Evidence anchors: `pyproject.toml`, `src/python3_capsolver/core/base.py`, `src/python3_capsolver/core/const.py`, `src/python3_capsolver/core/enum.py`, `src/python3_capsolver/control.py`, `tests/conftest.py`.
+
+No material unknowns: the entire runtime surface is plain importable source with no generated or vendored code.
 
 ## 2. System Architecture (Logical)
 
-Four layers with strict top-to-bottom dependency direction:
-
 ```
-┌─────────────────────────────────────────────┐
-│  Service layer                               │
-│  (recaptcha.py, cloudflare.py, control.py,   │
-│   gee_test.py, aws_waf.py, ...)              │
-│  Thin wrappers: __init__ only, zero HTTP      │
-└──────────────────┬──────────────────────────┘
-                   │ inherits CaptchaParams
-                   ▼
-┌─────────────────────────────────────────────┐
-│  Base layer                                  │
-│  (core/base.py: CaptchaParams)               │
-│  Merges task payloads, delegates to           │
-│  sync/async instruments                       │
-└──────────────────┬──────────────────────────┘
-                   │ creates instrument instances
-                   ▼
-┌─────────────────────────────────────────────┐
-│  Instrument layer                            │
-│  (core/sio_captcha_instrument.py — sync,     │
-│   core/aio_captcha_instrument.py — async,    │
-│   core/captcha_instrument.py — base + files)  │
-│  All HTTP, retries, and result-polling        │
-└──────────────────┬──────────────────────────┘
-                   │ uses
-                   ▼
-┌─────────────────────────────────────────────┐
-│  Support layer                               │
-│  (core/serializer.py — msgspec.Struct,       │
-│   core/enum.py — CaptchaTypeEnm etc.,        │
-│   core/const.py — URLs, retry config,        │
-│   core/context_instr.py — context managers,   │
-│   core/utils.py — attempt generator)          │
-└─────────────────────────────────────────────┘
+Service     (recaptcha.py, cloudflare.py, control.py, ...)
+   │  inherits CaptchaParams   (control.py also calls instruments directly)
+   ▼
+Base        (core/base.py — CaptchaParams)
+   │  instantiates per-call instruments
+   ▼
+Instrument  (core/sio_captcha_instrument.py, core/aio_captcha_instrument.py,
+   │         core/captcha_instrument.py)
+   ▼
+Support     (core/serializer.py, core/enum.py, core/const.py,
+             core/utils.py, core/context_instr.py)
 ```
 
-**Dependency direction:** Service → Base → Instrument → Support. Never upward (`Observed`: import graph in all source files follows this direction; no lower layer imports from an upper layer).
+### Service layer (captcha facades)
 
-**What each layer does NOT depend on:**
+- Responsibility: define per-captcha-type constructor parameters; expose solving entry points to users.
+- Code locations: `src/python3_capsolver/*.py` — one module per captcha family.
+- Entry points: public classes such as `ReCaptcha` (`src/python3_capsolver/recaptcha.py`) and `Control` (`src/python3_capsolver/control.py`); the solving methods `captcha_handler()` / `aio_captcha_handler()` are inherited from the base, not redefined per service.
+- Depends on: base layer (`core/base.py`) and support enums (`core/enum.py`); `control.py` additionally imports both instruments directly.
+- Must not depend on: `requests`, `aiohttp`, or any HTTP library.
+- Owns: captcha-type-specific task parameter names only.
+- State and external boundaries: none — pure parameter holders.
+- Evidence: import blocks of all `src/python3_capsolver/*.py` (none import an HTTP library; only `control.py` imports instruments).
 
-- **Service layer** never imports `requests`, `aiohttp`, or any HTTP library directly (`Observed`: all service files import only from `core.base` and `core.enum`).
-- **Base layer** never performs HTTP calls itself — it delegates to instrument instances (`Observed`: `core/base.py` has no HTTP imports).
-- **Support layer** never depends on service, base, or instrument layers (`Observed`: `serializer.py`, `enum.py`, `const.py`, `utils.py`, `context_instr.py` import only stdlib and `msgspec`/`tenacity`).
+### Base layer (CaptchaParams)
 
-**Key boundary:** `control.py` is architecturally distinct from the other service files. It bypasses the create-then-poll abstraction and calls instrument methods directly (`get_balance`, `create_task`, `get_task_result`) (`Observed`: `control.py` imports `AIOCaptchaInstrument` and `SIOCaptchaInstrument` directly, unlike other services which rely solely on `CaptchaParams.captcha_handler()` / `aio_captcha_handler()`).
+- Responsibility: merge service constructor arguments with per-call `task_payload`; dispatch to the sync or async instrument; provide `with` / `async with` support.
+- Code locations: `src/python3_capsolver/core/base.py`.
+- Entry points: `CaptchaParams.captcha_handler()`, `CaptchaParams.aio_captcha_handler()`.
+- Depends on: instrument layer and support layer (`serializer.py`, `enum.py`, `const.py`, `context_instr.py`, `captcha_instrument.py`).
+- Must not depend on: any service module — nothing in `core/` imports from the package root.
+- Owns: the mutable request payloads (`create_task_payload`, `get_result_params`, `task_params`) that instruments read.
+- State and external boundaries: holds user credentials (`clientKey`) in memory; performs no I/O of its own.
+- Evidence: `core/base.py` imports; `class CaptchaParams(SIOContextManager, AIOContextManager)`.
+
+### Instrument layer (HTTP execution)
+
+- Responsibility: all network I/O — build requests from msgspec structs, mount retry adapters, run the create-then-poll cycle; prepare image files (base64-encode local files, download from URLs).
+- Code locations: `src/python3_capsolver/core/sio_captcha_instrument.py` (sync, `requests`), `src/python3_capsolver/core/aio_captcha_instrument.py` (async, `aiohttp`), `src/python3_capsolver/core/captcha_instrument.py` (`CaptchaInstrumentBase` plus `FileInstrument`).
+- Entry points: `SIOCaptchaInstrument.processing_captcha()`, `AIOCaptchaInstrument.processing_captcha()`, static `send_post_request()` (the path `control.py` uses), `FileInstrument.file_processing()` / `aio_file_processing()` (called directly by consumers, per docstring examples).
+- Depends on: support layer only (`serializer.py`, `enum.py`, `const.py`, `utils.py`).
+- Must not depend on: base or service modules — instruments receive a `captcha_params` instance per call but import nothing from above their layer.
+- Owns: HTTP sessions, retry-adapter wiring, the polling loop and its attempt budget.
+- State and external boundaries: the only code that talks to `https://api.capsolver.com`; may read local files and fetch image URLs for file-based tasks.
+- Evidence: import blocks of the three instrument files; `RETRIES` mounted on `requests.Session` in `sio_captcha_instrument.py`.
+
+### Support layer (contracts and constants)
+
+- Responsibility: API request/response schemas, enums, constants, retry-policy objects, context-manager mixins, attempt generator.
+- Code locations: `src/python3_capsolver/core/serializer.py`, `core/enum.py`, `core/const.py`, `core/utils.py`, `core/context_instr.py`.
+- Entry points: not applicable — consumed by upper layers.
+- Depends on: stdlib plus `msgspec`, `tenacity`, `requests.adapters` (retry-policy objects only).
+- Must not depend on: base, instrument, or service layers.
+- Owns: `msgspec.Struct` request/response models with `to_dict()`; `CaptchaTypeEnm`; `REQUEST_URL`, `RETRIES`, `ASYNC_RETRIES`, `VALID_STATUS_CODES`.
+- State and external boundaries: none; disables urllib3 warnings at import time (`const.py`).
+- Evidence: import blocks of the five support modules — all comply.
 
 ## 3. Code Map (Physical)
 
 ```
 .
-├── src/python3_capsolver/          # Library source (setuptools package root)
-│   ├── core/                       # Shared infrastructure
-│   │   ├── base.py                 # CaptchaParams — base class all services inherit
-│   │   ├── captcha_instrument.py   # CaptchaInstrumentBase (abstract) + FileInstrument
-│   │   ├── sio_captcha_instrument.py  # Sync instrument: requests-based HTTP + polling
-│   │   ├── aio_captcha_instrument.py  # Async instrument: aiohttp-based HTTP + polling
-│   │   ├── serializer.py           # msgspec.Struct request/response models
-│   │   ├── enum.py                 # CaptchaTypeEnm, ResponseStatusEnm, EndpointPostfixEnm
-│   │   ├── const.py                # REQUEST_URL, RETRIES, ASYNC_RETRIES, APP_ID
-│   │   ├── context_instr.py        # SIOContextManager, AIOContextManager mixins
-│   │   └── utils.py                # attempts_generator (retry loop control)
-│   ├── control.py                  # Raw API access (balance, create_task, get_task_result)
-│   ├── recaptcha.py                # ReCaptcha V2/V3/Enterprise solver
-│   ├── cloudflare.py               # Cloudflare Turnstile/Challenge solver
-│   ├── gee_test.py                 # GeeTest V3/V4 solver
-│   ├── datadome_slider.py          # DataDome slider solver
-│   ├── mt_captcha.py               # MtCaptcha solver
-│   ├── aws_waf.py                  # AWS WAF bypass solver
-│   ├── friendly_captcha.py         # FriendlyCaptcha solver
-│   ├── yandex.py                   # Yandex SmartCaptcha solver
-│   ├── image_to_text.py            # OCR image-to-text solver
-│   ├── vision_engine.py            # AI vision engine solver
-│   ├── __init__.py                 # Exports __version__ only — no re-exports
-│   └── __version__.py              # Version string
-│
-├── tests/                          # Pytest integration test suite (mirrors src/ layout)
-│   ├── conftest.py                 # BaseTest class, rate-limiting fixtures
-│   ├── files/                      # Test assets (captcha images)
-│   └── test_*.py                   # One test file per service + test_core + test_instrument
-│
-├── docs/                           # Sphinx documentation source
-├── pyproject.toml                  # Build config, dependencies, tool settings
-├── Makefile                        # make tests, refactor, lint, build, doc
-└── .coveragerc                     # Coverage: measures python3_capsolver/ only
+├── src/python3_capsolver/            # the shipped package (setuptools src layout)
+│   ├── core/                         # base + instruments + support (see §2)
+│   │   ├── base.py                   # CaptchaParams — shared dispatcher
+│   │   ├── captcha_instrument.py     # CaptchaInstrumentBase + FileInstrument
+│   │   ├── sio_captcha_instrument.py # sync HTTP + create-then-poll loop
+│   │   ├── aio_captcha_instrument.py # async HTTP + create-then-poll loop
+│   │   └── serializer.py, enum.py, const.py, utils.py, context_instr.py
+│   ├── control.py                    # raw API access: get_balance, create_task, get_task_result
+│   ├── recaptcha.py, cloudflare.py, gee_test.py, datadome_slider.py,
+│   │   mt_captcha.py, friendly_captcha.py, yandex.py, aws_waf.py,
+│   │   image_to_text.py, vision_engine.py      # one facade per captcha family
+│   └── __init__.py                   # exports __version__ only; full-path imports by design
+├── tests/                            # live integration suite, one file per service
+│   ├── conftest.py                   # BaseTest (reads API_KEY env), delay fixtures
+│   └── files/                        # captcha images for file-based tests
+├── docs/                             # Sphinx sources; per-module pages in docs/modules/
+├── files/                            # images referenced by README and docs
+├── pyproject.toml, uv.lock           # build, dependencies, tool config (uv toolchain)
+├── Makefile                          # tests, lint, refactor, build, upload, doc
+└── .coveragerc                       # coverage scoped to python3_capsolver/, tests omitted
 ```
 
-**Where is X?**
+Where is X?
 
-- A new captcha type → create a file in `src/python3_capsolver/`, inherit `CaptchaParams`, register the type in `core/enum.py` `CaptchaTypeEnm`.
-- HTTP retry configuration → `core/const.py` (`RETRIES`, `ASYNC_RETRIES`).
-- API payload schemas → `core/serializer.py` (`msgspec.Struct` classes).
-- The create-task → poll-result loop → `core/sio_captcha_instrument.py` (sync) and `core/aio_captcha_instrument.py` (async).
-- File/image preprocessing (base64 encoding, URL download) → `core/captcha_instrument.py` `FileInstrument`.
+- Adding a captcha type → new module in `src/python3_capsolver/` inheriting `CaptchaParams`, plus a value in `CaptchaTypeEnm` (`core/enum.py`).
+- HTTP retry and polling tuning → `core/const.py` (`RETRIES`, `ASYNC_RETRIES`) and the `attempts_generator` default in `core/utils.py`.
+- API payload/response schemas → `core/serializer.py`.
+- The create-then-poll loop → `__create_task` / `__get_result` in both instrument modules.
+- Image/file preprocessing (base64, URL fetch) → `FileInstrument` in `core/captcha_instrument.py`, invoked at the consumer call site before results enter `task_payload`.
 
 ## 4. Life of a Request / Primary Data Flow
 
-This is a library (SDK), so the primary flow is the user calling a solver class. Typical path for a captcha-solving call:
+### Flow 1 — captcha solving (primary; sync shown, async mirrors it)
 
-```
-1. User instantiates a service class
-   from python3_capsolver.recaptcha import ReCaptcha
-   solver = ReCaptcha(api_key="CAI-...", captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess)
+1. Trigger: consumer instantiates a facade, e.g. `ReCaptcha(api_key=..., captcha_type=CaptchaTypeEnm.ReCaptchaV2TaskProxyLess)`, then calls `captcha_handler(task_payload={...})` (or `aio_captcha_handler()`).
+2. Entry point: `CaptchaParams.captcha_handler()` in `src/python3_capsolver/core/base.py`.
+3. Coordination: `CaptchaParams` merges `task_payload` into `self.task_params` and instantiates `SIOCaptchaInstrument(self)` (`AIOCaptchaInstrument` for async).
+4. Core or domain processing: `processing_captcha()` builds a `RequestCreateTaskSer` struct and POSTs to `/createTask`; if the task is not immediately ready, it sleeps `sleep_time` and polls `/getTaskResult` up to 15 times (`attempts_generator()` yields 1..15), returning on status `ready` or `failed`, or a synthesized failure response on exhaustion.
+5. Persistence or external interaction: the only external system is the Capsolver API at `REQUEST_URL` (`core/const.py`); there is no local persistence.
+6. Output or side effect: a `dict` with the full API response, including the solution.
 
-2. User calls captcha_handler() or aio_captcha_handler() with task-specific params
-   result = solver.captcha_handler(task_payload={"websiteURL": "...", "websiteKey": "..."})
+Architectural boundaries crossed:
+- Service → Base → Instrument → Support; the result crosses back up as plain dicts.
 
-3. CaptchaParams.captcha_handler() (core/base.py)
-   → merges task_payload into self.task_params
-   → creates SIOCaptchaInstrument(self)   [or AIOCaptchaInstrument for async]
+Evidence:
+- `src/python3_capsolver/core/base.py`
+- `src/python3_capsolver/core/sio_captcha_instrument.py`
+- `src/python3_capsolver/core/aio_captcha_instrument.py`
+- `src/python3_capsolver/core/utils.py`
 
-4. SIOCaptchaInstrument.processing_captcha() (core/sio_captcha_instrument.py)
-   → builds RequestCreateTaskSer payload via msgspec Struct.to_dict()
-   → POSTs to https://api.capsolver.com/createTask
-   → if task is immediately ready: returns response
-   → otherwise: enters polling loop
-       → sleeps sleep_time seconds
-       → POSTs to https://api.capsolver.com/getTaskResult
-       → repeats up to 15 attempts (attempts_generator default)
-       → returns on status "ready" or "failed"
+### Flow 2 — raw API call via Control (sanctioned bypass)
 
-5. Returns dict with full API response including solution
-```
+1. Trigger: consumer calls e.g. `Control(api_key=...).get_balance()` or `aio_get_balance()`.
+2. Entry point: `Control` methods in `src/python3_capsolver/control.py`.
+3. Coordination: none — `Control` skips the payload-merge and polling abstraction and invokes instruments directly.
+4. Core or domain processing: one-shot `SIOCaptchaInstrument.send_post_request()` / `AIOCaptchaInstrument.send_post_request()` targeting an `EndpointPostfixEnm` endpoint; `create_task()` / `get_task_result()` accept hand-built task payloads without the solving-loop "sugar".
+5. Persistence or external interaction: same single Capsolver API boundary.
+6. Output or side effect: raw API response `dict`.
 
-`control.py` follows a different, shorter path — it calls `SIOCaptchaInstrument.send_post_request()` or `AIOCaptchaInstrument.send_post_request()` directly for one-shot API calls like `get_balance`, bypassing the create-then-poll cycle (`Observed`: `control.py` lines 34–54, 49–54).
+Architectural boundaries crossed:
+- Service → Instrument directly — the one sanctioned exception to "services never touch instruments".
+
+Evidence:
+- `src/python3_capsolver/control.py`
 
 ## 5. Architectural Invariants & Constraints
 
-- **Rule:** Service files must never import `requests` or `aiohttp` directly.
-  - **Rationale:** All HTTP is encapsulated in the instrument layer; services are pure parameter holders.
-  - **Enforcement / Signals (Observed):** No service file (e.g. `recaptcha.py`, `cloudflare.py`) contains an HTTP library import. Violation would be visible on review.
-
-- **Rule:** All serialization must use `msgspec.Struct` with `to_dict()`, never the `json` module directly.
-  - **Rationale:** Consistent serialization and type safety across the library.
-  - **Enforcement / Signals (Observed):** `core/serializer.py` defines `MyBaseModel(Struct)` with `to_dict()`. All instruments call `.to_dict()` on structs.
-
-- **Rule:** Every captcha service must support both sync (`captcha_handler`) and async (`aio_captcha_handler`) execution.
-  - **Rationale:** The library's core value proposition is dual-mode operation.
-  - **Enforcement / Signals (Observed):** Both methods are defined in `CaptchaParams` (`core/base.py`) and inherited by all service classes. Test suite includes paired sync/async tests.
-
-- **Rule:** Every service class must support context manager protocols (`with` / `async with`).
-  - **Rationale:** Resource cleanup pattern for library consumers.
-  - **Enforcement / Signals (Observed):** `CaptchaParams` inherits both `SIOContextManager` and `AIOContextManager` mixins from `core/context_instr.py`.
-
-- **Rule:** New captcha types must be registered in `CaptchaTypeEnm` (`core/enum.py`).
-  - **Rationale:** Single source of truth for type dispatch; the base class uses enum values to build API payloads.
-  - **Enforcement / Signals (Observed):** `core/base.py` constructs `TaskSer(type=captcha_type.value)` from the enum.
-
-- **Rule:** Retry configuration is centralized in `core/const.py`, not hardcoded in instruments.
-  - **Rationale:** Single point of change for retry behavior across sync and async paths.
-  - **Enforcement / Signals (Observed):** `RETRIES` and `ASYNC_RETRIES` are defined in `const.py` and imported by both instruments and `FileInstrument`.
-
-- **Rule:** Dependency direction is strictly top-down: Service → Base → Instrument → Support.
-  - **Rationale:** Prevents circular dependencies and keeps the support layer reusable.
-  - **Enforcement / Signals (Observed):** Import statements in all files respect this direction. No file in `core/` imports from a service file.
-
-- **Rule:** `__init__.py` files are intentionally empty (or export only `__version__`); users import via full path.
-  - **Rationale:** Explicit imports avoid namespace pollution and circular re-exports.
-  - **Enforcement / Signals (Observed):** `src/python3_capsolver/__init__.py` exports `__version__` only; `core/__init__.py` is empty. Docstrings show full-path imports.
-
-- **Rule:** Tests require `API_KEY` environment variable and include rate-limiting delays.
-  - **Rationale:** Integration tests hit the live Capsolver API; delays prevent throttling.
-  - **Enforcement / Signals (Observed):** `tests/conftest.py` reads `os.environ["API_KEY"]` and defines `delay_func` (1s) and `delay_class` (2s) fixtures.
+- Rule: dependency direction is one-way — Service → Base → Instrument → Support.
+  - Rationale: keeps HTTP details out of facades and keeps the support layer reusable without cycles.
+  - Enforcement / Signals: convention, verified by import inspection; no import-linter or architecture test exists. CI lint (`.github/workflows/lint.yml`, `make lint`) checks formatting only (autoflake, black, isort).
+- Rule: service modules must not import `requests` or `aiohttp`.
+  - Rationale: all HTTP lives in the instrument layer.
+  - Enforcement / Signals: convention plus review; the import block of every service module complies today.
+- Rule: every capability ships in both sync and async form.
+  - Rationale: dual-mode operation is the library's core offering (`Framework :: AsyncIO` classifier in `pyproject.toml`).
+  - Enforcement / Signals: paired classes and methods (`SIOCaptchaInstrument` / `AIOCaptchaInstrument`, `file_processing` / `aio_file_processing`, `SIOContextManager` / `AIOContextManager`) and paired tests (`tests/test_sio_captcha_instrument.py`, `tests/test_aio_captcha_instrument.py`).
+- Rule: all API serialization uses `msgspec.Struct` subclasses with `to_dict()`; the `json` module is never imported in `src/`.
+  - Rationale: a single typed serialization path for all API contracts.
+  - Enforcement / Signals: `core/serializer.py` is the only schema home; no `json` import exists anywhere in `src/`.
+- Rule: new captcha types must be registered in `CaptchaTypeEnm`.
+  - Rationale: `CaptchaParams.__init__` builds `TaskSer(type=captcha_type.value)` from the enum, so dispatch depends on it.
+  - Enforcement / Signals: runtime failure for unregistered types; `core/base.py` constructor; change rules in `src/python3_capsolver/AGENTS.md`.
+- Rule: retry and polling budgets are centralized in `core/const.py` and `core/utils.py`, not per-instrument literals.
+  - Rationale: a single point of change covering both execution modes.
+  - Enforcement / Signals: `RETRIES`, `ASYNC_RETRIES`, `VALID_STATUS_CODES` in `const.py`; consumed by `sio_captcha_instrument.py` and `captcha_instrument.py`; `attempts_generator` in `utils.py` drives the poll loop.
+- Rule: package `__init__.py` files stay minimal (root exports only `__version__`); users import via full module paths.
+  - Rationale: explicit imports with no facade namespace or re-export cycles.
+  - Enforcement / Signals: `src/python3_capsolver/__init__.py` and `core/__init__.py` contents; all docstring examples use full-path imports.
+- Rule: source must remain Python 3.8-compatible.
+  - Rationale: the declared support floor.
+  - Enforcement / Signals: `requires-python = ">=3.8"` and 3.8–3.14 classifiers in `pyproject.toml`; 3.8–3.14 matrix in `.github/workflows/build.yml` and `install.yml`.
+- Rule: tests are live integration tests gated on `API_KEY`, with rate-limiting delays.
+  - Rationale: the suite exercises the real Capsolver API; delays prevent throttling.
+  - Enforcement / Signals: `tests/conftest.py` (`BaseTest.API_KEY = os.environ["API_KEY"]`, `delay_func` 1 s per function, `delay_class` 2 s per class); `.github/workflows/test.yml` injects the secret and runs `make tests` on Python 3.12.
+- Rule: repo-only instruction documents must not ship in the wheel.
+  - Rationale: `AGENTS.md` files are contributor tooling, not user documentation.
+  - Enforcement / Signals: `MANIFEST.in` includes only `README.md` and `LICENSE`.
 
 ## 6. Documentation Strategy
 
-`ARCHITECTURE.md` (this file) is the global map of the repository: layers, dependency direction, invariants, and the code map. It answers "where is X?" and "what depends on what?".
+`ARCHITECTURE.md` (this file) owns the global architecture map: layers, dependency direction, code map, representative flows, and invariants.
 
-Module-level detail lives in `AGENTS.md` files co-located with the code:
-- `src/python3_capsolver/AGENTS.md` — service-layer conventions, file listing, and per-service change rules.
-- `src/python3_capsolver/core/AGENTS.md` — core module internals: instrument responsibilities, serialization patterns, and safe-change guidance.
+- `AGENTS.md` (root) — repository-wide operating rules, validation commands, and context routing to the child files below.
+- `src/python3_capsolver/AGENTS.md` — service-layer conventions and per-service change rules.
+- `src/python3_capsolver/core/AGENTS.md` — core module internals and safe-change guidance.
 - `tests/AGENTS.md` — test patterns, fixtures, and how to add tests for new services.
+- `README.md` (and `README.es-ES.md`) — user-facing usage and installation.
+- `docs/` — Sphinx API reference built with `make doc` (CI: `.github/workflows/build_sphinx.yml`); one page per module under `docs/modules/`.
 
-API documentation is generated by Sphinx from `docs/` (`Observed`: `docs/conf.py`, `docs/Makefile`). Build with `make doc`.
-
-Build, test, and lint commands are documented in the root `Makefile` and in `AGENTS.md` at repository root. The root `AGENTS.md` also contains a condensed version of the architecture summary and validation commands.
-
-What belongs where:
-- **Global architecture** (this file): layers, boundaries, invariants, physical layout, primary data flow.
-- **Module `AGENTS.md`**: local file listing, local boundaries, and specific change rules for that module.
-- **Sphinx `docs/`**: public API reference, usage examples, and user-facing guides.
+No ADRs, runbooks, or `DESIGN.md` exist in the repository; for a single-package library of this size their absence does not limit architectural understanding.
