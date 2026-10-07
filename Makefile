@@ -27,8 +27,11 @@ lint: install
 build:
 	uv build
 
+# PyPI upload token: create one at https://pypi.org/manage/account/token/
+# and save it to the gitignored .pypi-token file:  echo pypi-xxxx > .pypi-token
 upload:
-	uv publish
+	@test -f .pypi-token || { echo "missing .pypi-token (see Makefile comment)"; exit 1; }
+	@ UV_PUBLISH_TOKEN=`cat .pypi-token` uv publish
 
 tests: install
 	uv run coverage run --rcfile=.coveragerc -m pytest --verbose --showlocals --disable-warnings \
