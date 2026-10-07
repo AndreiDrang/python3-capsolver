@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import asyncio
 import logging
-from typing import Optional
+from typing import TYPE_CHECKING
 from urllib import parse
 
 import aiohttp
@@ -11,6 +13,9 @@ from .utils import attempts_generator
 from .serializer import CaptchaResponseSer
 from .captcha_instrument import CaptchaInstrumentBase
 
+if TYPE_CHECKING:
+    from .base import CaptchaParams
+
 __all__ = ("AIOCaptchaInstrument",)
 
 
@@ -19,7 +24,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
     Instrument for working with async captcha
     """
 
-    def __init__(self, captcha_params: "CaptchaParams"):
+    def __init__(self, captcha_params: CaptchaParams):
         super().__init__()
         self.captcha_params = captcha_params
         self.created_task_data = CaptchaResponseSer
@@ -99,7 +104,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
 
     @staticmethod
     async def send_post_request(
-        payload: Optional[dict] = None,
+        payload: dict | None = None,
         url_postfix: EndpointPostfixEnm = EndpointPostfixEnm.GET_BALANCE,
     ) -> dict:
         """

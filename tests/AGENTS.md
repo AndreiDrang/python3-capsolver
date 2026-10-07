@@ -11,6 +11,8 @@ tests/
 ├── conftest.py               # BaseTest class, rate-limiting fixtures
 ├── test_core.py              # CaptchaParams, enums, context managers
 ├── test_instrument.py        # FileInstrument, CaptchaInstrumentBase
+├── test_sio_captcha_instrument.py  # SIOCaptchaInstrument: mocked sync task processing/polling
+├── test_aio_captcha_instrument.py  # AIOCaptchaInstrument: mocked async task processing/polling
 ├── test_control.py           # Control: get_balance, create_task, get_task_result
 ├── test_recaptcha.py         # ReCaptcha V2/V3/Enterprise
 ├── test_cloudflare.py        # Cloudflare Turnstile/Challenge
