@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
 
 from tests.conftest import BaseTest
@@ -11,8 +13,8 @@ class TestFileInstrument(BaseTest):
     """
 
     def test_file_processing_exist(self):
-        assert "file_processing" in FileInstrument.__dict__.keys()
-        assert "aio_file_processing" in FileInstrument.__dict__.keys()
+        assert "file_processing" in FileInstrument.__dict__
+        assert "aio_file_processing" in FileInstrument.__dict__
 
     def test_captcha_base64(self):
         assert self.read_image_as_str() == FileInstrument().file_processing(captcha_base64=self.read_image())
@@ -55,3 +57,15 @@ class TestFileInstrument(BaseTest):
     async def test_aio_file_processing_err(self):
         with pytest.raises(ValueError):
             await FileInstrument().aio_file_processing()
+
+    @patch("python3_capsolver.core.captcha_instrument.aiohttp.ClientSession.get")
+    async def test_aio_captcha_link_download_err(self, mock_get):
+        mock_response = MagicMock()
+        mock_response.status = 404
+        mock_response.__aenter__.return_value = mock_response
+        mock_get.return_value = mock_response
+
+        result = await FileInstrument().aio_file_processing(captcha_link=self.image_captcha_url_example)
+
+        # unreachable link returns empty content instead of raising
+        assert result == ""
